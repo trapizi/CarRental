@@ -1,0 +1,81 @@
+import java.util.Calendar;
+import java.util.ArrayList;
+
+public class Payment {
+    
+    /* not sure if this goes in here */ private arrayList<Payment> paymentList; 
+    private double amount;
+    private Calendar date;
+    private String id;
+    private String paymentAccount;
+    private String paymentType;
+    private Calendar accountExpiry;
+    private String accountOwnerName;
+    private String paymentMedia;
+    
+    public double getAmount(){
+        return amount;
+    }
+    
+    public void setAmount(double amount){
+        this.amount = amount;
+    }
+    
+    public Calendar getDate(){
+        return date;
+    }
+    
+    public void setDate(Calendar date){
+        this.date = date;
+    }
+        
+    public String getId(){
+        return id;
+    }
+    
+    public void setId(String id){
+        this.id = id;
+    }
+    
+    public String getPaymentAccount(){
+        return paymentAccount;
+    }
+    
+    public void setPaymentAccount(String paymentAccount){
+        this.paymentAccount = paymentAccount;
+    }
+    
+    public String getPaymentType(){
+        return paymentType;
+    }
+    
+    public void setPaymentType(String paymentType){
+        this.paymentType = paymentType;
+    }
+    
+    public Calendar getAccountExpiry(){
+        return accountExpiry;
+    }        
+    
+    public void setAccountExpiry(Calendar accountExpiry){
+        this.accountExpiry = accountExpiry;
+    }
+                        
+    public String getAccountOwnerName(){
+        return accountOwnerName;
+    }                  
+    
+    public void setAccountOwnerName(String accountOwnerName){
+        this.accountOwnerName = accountOwnerName;
+    }
+                            
+    public String getPaymentMedia(){
+        return paymentMedia;
+    }                        
+    
+    public void setPaymentMedia(String paymentMedia){
+        this.paymentMedia = paymentMedia;
+    }
+    
+    
+}
