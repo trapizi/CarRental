@@ -1,0 +1,61 @@
+import java.util.Calendar;
+
+public class userOption {
+    protected long toPin, fromPin, pUpFrom, pUpTo;
+    protected String uniqueNo;
+    protected Calendar date, createDay;
+    
+    public long getToPin(){
+        return toPin;
+    }
+    
+    public void setGetToPin (long toPin){
+        this.toPin = toPin;
+    }    
+    public long getFromPin (){
+        return fromPin;
+    }
+    
+    public void setFromPin (long fromPin){
+        this.fromPin = fromPin;
+    }        
+    public long getPUpFrom (){
+        return pUpFrom;
+    }
+    
+    public void setPUpFrom (long pUpFrom){
+        this.pUpFrom = pUpFrom;
+    }        
+    
+    public long getPUpTo (){
+        return pUpTo;
+    }
+    
+    public void setPUpTO (long pUpTo){
+        this.pUpTo = pUpTo;
+    }        
+    
+    public String getUniqueNo(){
+        return uniqueNo;
+    }
+    
+    public void setUniqueNo(String uniqueNo){
+        this.uniqueNo = uniqueNo;
+    }
+    
+    public Calendar getDate(){
+        return date;
+    }
+    
+    public void setDate(Calendar Date){
+        this.date = date;
+    }
+    
+    public Calendar getCreateDay(){
+        return createDay;
+    }
+    
+    public void setCreateDay(){
+        this.createDay = createDay;
+    }
+}
