@@ -1,0 +1,33 @@
+public class CorporateMember extends Corporate {
+    private String corpMemberName, corpMemberID;
+
+    /**
+     * @return the corpMemberName
+     */
+    public String getCorpMemberName() {
+        return corpMemberName;
+    }
+
+    /**
+     * @param corpMemberName the corpMemberName to set
+     */
+    public void setCorpMemberName(String corpMemberName) {
+        this.corpMemberName = corpMemberName;
+    }
+
+    /**
+     * @return the corpMemberID
+     */
+    public String getCorpMemberID() {
+        return corpMemberID;
+    }
+
+    /**
+     * @param corpMemberID the corpMemberID to set
+     */
+    public void setCorpMemberID(String corpMemberID) {
+        this.corpMemberID = corpMemberID;
+    }
+    
+    
+}
