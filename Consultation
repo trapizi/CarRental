@@ -1,0 +1,68 @@
+import java.util.Calendar;
+
+/**
+ *
+ * @author elizabeth
+ */
+public class Consultation {
+    private int consultationNum;
+    private float consultationPrice;
+    private Calendar Date;
+    private Calendar createdDate;
+
+    /**
+     * @return the consultationNum
+     */
+    public int getConsultationNum() {
+        return consultationNum;
+    }
+
+    /**
+     * @param consultationNum the consultationNum to set
+     */
+    public void setConsultationNum(int consultationNum) {
+        this.consultationNum = consultationNum;
+    }
+
+    /**
+     * @return the consultationPrice
+     */
+    public float getConsultationPrice() {
+        return consultationPrice;
+    }
+
+    /**
+     * @param consultationPrice the consultationPrice to set
+     */
+    public void setConsultationPrice(float consultationPrice) {
+        this.consultationPrice = consultationPrice;
+    }
+
+    /**
+     * @return the Date
+     */
+    public Calendar getDate() {
+        return Date;
+    }
+
+    /**
+     * @param Date the Date to set
+     */
+    public void setDate(Calendar Date) {
+        this.Date = Date;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public Calendar getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(Calendar createdDate) {
+        this.createdDate = createdDate;
+    }
+}
