@@ -8,7 +8,7 @@ public class carShareOffice {
     }
     
     public void setUserID(int userID){
-        this.userID = userID;
+        this.userID = userID; 
     }
     
     public int getSeekID(){
