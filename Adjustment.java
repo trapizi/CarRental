@@ -1,6 +1,6 @@
 public class Adjustment {
-	//private Member seeker;
-	//private Member offerer;
+	private Member seeker;
+	private Member offerer;
 	private String status;
 	private String payAmt;
 	private String agreeDate;
