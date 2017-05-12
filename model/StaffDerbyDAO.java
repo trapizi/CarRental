@@ -1,11 +1,11 @@
-package project.model;
+package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import project.util.*;
+import util.*;
 
 public class StaffDerbyDAO implements StaffDAO {
     public ObservableList<Staff> findAll() throws SQLException {    			

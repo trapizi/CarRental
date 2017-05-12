@@ -1,4 +1,4 @@
-package project.model;
+package model;
 import java.sql.SQLException;
 
 import javafx.collections.ObservableList;

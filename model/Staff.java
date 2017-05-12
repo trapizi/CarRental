@@ -1,4 +1,4 @@
-package project.model;
+package model;
 
 public class Staff extends User {
 	private int staff_id;

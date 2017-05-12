@@ -1,4 +1,4 @@
-package project.model;
+package model;
 
 /*
  * User is abstract as we never instantiate this class

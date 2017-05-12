@@ -1,4 +1,4 @@
-package project.model;
+package model;
 
 public class Corporate {
     protected String corporateID, companyName, companyAddr;
