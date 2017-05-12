@@ -3,6 +3,7 @@ package util;
 import com.sun.rowset.CachedRowSetImpl;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by ONUR BASKIRT on 22.02.2016.
@@ -118,7 +119,7 @@ public class DBUtil {
     }
     
     /*
-     * Initialises a single table in the database
+     * Initialises a single table in the database with a SQL create statement
      */
     private static void dbInitTable(String sqlStmt) throws SQLException, ClassNotFoundException {
     	ResultSet rs;
@@ -163,21 +164,33 @@ public class DBUtil {
      * Initiliases all tables in the database
      */
     public static void dbInitAllTables() throws SQLException, ClassNotFoundException {
-    	String sqlStmt;
     	
-    	try {
-    		sqlStmt = SQLBuilder.createTableSQL("staff.txt");    		
-    		dbInitTable(sqlStmt);
-    	} catch (SQLException e) {
-    		System.out.println("Could not initialise all tables");
-    		e.printStackTrace();
-    		throw e;
+    	ArrayList<String> fileNames = new ArrayList<String>();
+    	
+    	/* add your files that contain your CREATE TABLE statements here */
+    	fileNames.add("staff.txt");
+    	
+    	/* */
+    	
+    	/* construct tables using the files given in ArrayList<String> fileNames */
+    	for (String file: fileNames) {
+    		String sqlStmt;
+	    	try {
+	    		sqlStmt = SQLBuilder.createTableSQL(file);    		    		
+	    		dbInitTable(sqlStmt);	
+	    	} catch (SQLException e) {
+	    		System.out.println("Could not initilise " + file + " table...");
+	    		e.printStackTrace();
+	    		throw e;
+	    	}
     	}
     }
     
     /*
      * Removes all rows inside a given table
      * Restarts numbering of primary keys at 0
+     * 
+     * Note: Use this if you want to clear all records inside of a table
      */
     public static void clearTable(String tableName) throws SQLException, ClassNotFoundException {
     	try {    		

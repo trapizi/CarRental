@@ -13,10 +13,16 @@ import java.sql.SQLException;
 
 public class Main {
 	public static void main(String[] args) {
+		System.out.println("Put your CREATE TABLE .txt files in this folder --> " + System.getProperty("user.dir"));
+		
 		// initialise tables for db
 		try {
+			/* Note: You need to add your file containing your CREATE TABLE statement in the function below.
+			 *       More information given in the function. 
+			 */
 			DBUtil.dbInitAllTables();
 			
+			/* Initialise your DAO objects to test your tables here */
 			StaffDerbyDAO staffDAO = new StaffDerbyDAO();
 			
 			staffDAO.insertStaffName("One", "Two");
@@ -33,7 +39,11 @@ public class Main {
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
 			DBUtil.clearTable("STAFF");
 			DBUtil.dropTable("STAFF");
+			
+			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
 			DBUtil.dbShutdown();
+			/* DO NOT DELETE THIS LINE ABOVE */
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}		
