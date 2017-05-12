@@ -1,8 +1,16 @@
 package model;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Member extends User {
+public class Member {
+	private Calendar lastMatchDate;
+	private Calendar accountExpiry;
+	private float commisionRate;
+	private String creditCard;
+	private String accountOwnerName;
+	private String paymentMedia;
+	private String password;
+	
 	/*
 	 * TODO: uncomment when other classes made
 	 */
@@ -10,69 +18,48 @@ public class Member extends User {
 	//private ArrayList<CarOffer> offerList;
 	//private ArrayList<CarSeek> seekList;
 	//private ArrayList<Agreement> agreementList;
-	//private ArrayList<Payment> paymentList;
-	
-	private double commissionRate;
-	private Calendar lastMatchDate;
-	private Calendar accountExpiry;
-	private String creditCard;
-	private String paymentMedia;
-	private String vehicle;
-	private String homeAddress;
-	
-	public double getCommissionRate() {
-		return commissionRate;
-	}
-	
-	public void setCommissionRate(double commissionRate) {
-		this.commissionRate = commissionRate;
-	}
+	//private CorporateMember corporateMem;
 	
 	public Calendar getLastMatchDate() {
 		return lastMatchDate;
 	}
-	
 	public void setLastMatchDate(Calendar lastMatchDate) {
 		this.lastMatchDate = lastMatchDate;
 	}
-	
 	public Calendar getAccountExpiry() {
 		return accountExpiry;
 	}
-	
 	public void setAccountExpiry(Calendar accountExpiry) {
 		this.accountExpiry = accountExpiry;
 	}
-	
+	public float getCommisionRate() {
+		return commisionRate;
+	}
+	public void setCommisionRate(float commisionRate) {
+		this.commisionRate = commisionRate;
+	}
 	public String getCreditCard() {
 		return creditCard;
 	}
-	
 	public void setCreditCard(String creditCard) {
 		this.creditCard = creditCard;
 	}
-	
+	public String getAccountOwnerName() {
+		return accountOwnerName;
+	}
+	public void setAccountOwnerName(String accountOwnerName) {
+		this.accountOwnerName = accountOwnerName;
+	}
 	public String getPaymentMedia() {
 		return paymentMedia;
 	}
-	
 	public void setPaymentMedia(String paymentMedia) {
 		this.paymentMedia = paymentMedia;
 	}
-	
-	public String getVehicle() {
-		return vehicle;
+	public String getPassword() {
+		return password;
 	}
-	
-	public void setVehicle(String vehicle) {
-		this.vehicle = vehicle;
-	}
-	
-	public String getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(String homeAddress) {
-		this.homeAddress = homeAddress;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

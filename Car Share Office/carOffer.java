@@ -1,5 +1,5 @@
 //carOffer could be a subclass of offerList?
-public class carOffer //extends offerList{
+public class carOffer {//extends offerList{
     private int quota;
     private String price;
 
