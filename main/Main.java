@@ -19,8 +19,8 @@ public class Main {
 			
 			StaffDerbyDAO staffDAO = new StaffDerbyDAO();
 			
-			staffDAO.insertStaffName("Top", "Kek");
-			staffDAO.insertStaffName("Ayy", "Lmao");
+			staffDAO.insertStaffName("One", "Two");
+			staffDAO.insertStaffName("Three", "Four");
 			
 			ObservableList<Staff> list = staffDAO.findAll();
 			
