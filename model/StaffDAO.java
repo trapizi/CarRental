@@ -11,7 +11,7 @@ public class StaffDAO implements TableDAO<Staff> {
 	/*
 	 * Returns a list of all staff in the staff table
 	 */
-    public ObservableList<Staff> findAll() throws SQLException {    			
+    public ObservableList<Staff> findAll() throws SQLException, ClassNotFoundException {    			
         try {
         	/* Query database for staff */
         	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "STAFF", ""));
@@ -29,10 +29,9 @@ public class StaffDAO implements TableDAO<Staff> {
     
     /*
      * Pre-condition: staff_id is unique
-     * Post-condition: st
      * @param staff_id the staff_id of the staff member you are trying to find
      */
-    public Staff findById(int staff_id) throws SQLException {
+    public Staff findById(int staff_id) throws SQLException, ClassNotFoundException {
     	try {
         	/* Query database for staff */
         	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "STAFF", "STAFF_ID=" + staff_id));
@@ -78,7 +77,7 @@ public class StaffDAO implements TableDAO<Staff> {
     }
     
     /*
-     * Updates the details of a staff member in the database
+     * Updates the details of a staff member in the database using a given staff object
      * 
      * Note: Will be able to update anything but username and staff_i
      */
@@ -119,28 +118,7 @@ public class StaffDAO implements TableDAO<Staff> {
     /*
      * Extra and helper functions below
      */
-    
-    /*
-     * Finds a list of staff by their first and last names
-     */
-    public ObservableList<Staff> findByName(String first_name, String last_name) throws SQLException {
-    	try {
-        	/* Query database for staff */
-        	ResultSet rs = DBUtil.dbExecuteQuery(
-        			SQLBuilder.selectTable("*", "STAFF", "FIRST_NAME=" + first_name + " AND LAST_NAME=" + last_name));
-            
-            ObservableList<Staff> list = this.getStaffList(rs);
-            
-            return list;
-        } catch (SQLException | ClassNotFoundException e) {
-            //throw e;
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-        	e.printStackTrace();
-        }
-    	
-    	return null;
-    }
-    
+        
     /*
      * Helper function
      * Converts staff records from database into staff objects for java to play with

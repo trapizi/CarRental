@@ -169,6 +169,7 @@ public class DBUtil {
     	
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("staff.txt");
+    	fileNames.add("member.txt");
     	
     	/* */
     	

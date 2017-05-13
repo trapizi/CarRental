@@ -25,6 +25,7 @@ public class Main {
 			
 			/* add test functions for your tables here */
 			Main.testStaffTable();
+			Main.testMemberTable();
 			
 			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
 			DBUtil.dbShutdown();
@@ -51,8 +52,8 @@ public class Main {
 			staffDAO.insert(staff1);
 			staffDAO.insert(staff2);
 				
-			Staff s = staffDAO.findById(1);
-			System.out.println(s.toString());
+			//Staff s = staffDAO.findById(1);
+			//System.out.println(s.toString());
 			
 			/* print the staff table out */			
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
@@ -62,6 +63,18 @@ public class Main {
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
 			DBUtil.clearTable("STAFF");
 			DBUtil.dropTable("STAFF");
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void testMemberTable() {
+		try {
+		    final String url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
+
+			DBUtil.clearTable("MEMBER");
+			DBUtil.dropTable("MEMBER");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
