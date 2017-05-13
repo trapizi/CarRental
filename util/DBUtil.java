@@ -170,7 +170,9 @@ public class DBUtil {
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("staff.txt");
     	fileNames.add("member.txt");
-    	
+    	fileNames.add("corporate.txt");
+    	fileNames.add("corporateMember.txt");
+
     	/* */
     	
     	/* construct tables using the files given in ArrayList<String> fileNames */

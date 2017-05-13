@@ -136,7 +136,7 @@ public class StaffDAO implements TableDAO<Staff> {
 	    		staff.setFirstName(rs.getString("FIRST_NAME"));
 	    		staff.setLastName(rs.getString("LAST_NAME"));
 	    		staff.setEmail(rs.getString("EMAIL"));
-	    		staff.setPhoneNo(rs.getString("PHONE"));
+	    		staff.setPhoneNo(rs.getLong("PHONE"));
 	    		staff.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
 	    		staff.setSalary(rs.getDouble("SALARY"));
 	    		

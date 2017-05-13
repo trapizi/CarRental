@@ -120,7 +120,7 @@ public class MemberDAO implements TableDAO<Member> {
 	    		member.setFirstName(rs.getString("FIRST_NAME"));
 	    		member.setLastName(rs.getString("LAST_NAME"));
 	    		member.setEmail(rs.getString("EMAIL"));
-	    		member.setPhoneNo(rs.getString("PHONE"));
+	    		member.setPhoneNo(rs.getLong("PHONE"));
 	    		member.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
 	    		member.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
 	    		member.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));

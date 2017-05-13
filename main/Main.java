@@ -25,8 +25,8 @@ public class Main {
 			
 			/* add test functions for your tables here */
 			Main.testStaffTable();
-			Main.testMemberTable();
-			
+			Main.testCorporateMemberTable();
+
 			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
 			DBUtil.dbShutdown();
 			/* DO NOT DELETE THIS LINE ABOVE */
@@ -51,10 +51,7 @@ public class Main {
 		try {
 			staffDAO.insert(staff1);
 			staffDAO.insert(staff2);
-				
-			//Staff s = staffDAO.findById(1);
-			//System.out.println(s.toString());
-			
+							
 			/* print the staff table out */			
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
 
@@ -67,14 +64,28 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void testMemberTable() {
+		
+	public static void testCorporateMemberTable() {
 		try {
-		    final String url = "jdbc:derby:DBforDEMO;create=true";
+			String url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE_MEMBER");
+		
+			url = "jdbc:derby:DBforDEMO;create=true";
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
 
+		    url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
+			
+			/* does not work on CORPORATE_MEMBER table due to the naming conventions of the fields in there */
+			//DBUtil.clearTable("CORPORATE_MEMBER");
+			DBUtil.dropTable("CORPORATE_MEMBER");
+			
 			DBUtil.clearTable("MEMBER");
 			DBUtil.dropTable("MEMBER");
+			
+			DBUtil.clearTable("CORPORATE");
+			DBUtil.dropTable("CORPORATE");
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

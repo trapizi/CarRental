@@ -9,7 +9,7 @@ public abstract class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String phoneNo;
+	private long phoneNo;
 	private String homeAddress;
 	
 	public String getUserName() {
@@ -52,11 +52,11 @@ public abstract class User {
 		this.email = email;
 	}
 	
-	public String getPhoneNo() {
+	public long getPhoneNo() {
 		return phoneNo;
 	}
 	
-	public void setPhoneNo(String phoneNo) {
+	public void setPhoneNo(long phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	
