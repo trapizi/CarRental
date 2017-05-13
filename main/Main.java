@@ -24,20 +24,20 @@ public class Main {
 			DBUtil.dbInitAllTables();
 			
 			/* Initialise your DAO objects to test your tables here */
-			StaffDerbyDAO staffDAO = new StaffDerbyDAO();
+			StaffDAO staffDAO = new StaffDAO();
 			
-			staffDAO.insertStaffName("One", "Two");
-			staffDAO.insertStaffName("Three", "Four");
+			Staff staff1 = new Staff();
+			staff1.setUserName("alice");
+			staff1.setPassword("xd");
 			
-			/*
-			ObservableList<Staff> list = staffDAO.findAll();
+			Staff staff2 = new Staff();
+			staff2.setUserName("bob");
+			staff2.setPassword("lul");
 			
-			System.out.println(list.size());
-			
-			for (Staff s: list) {
-				System.out.println(s.getFirstName() + " " + s.getLastName() + " " + s.getEmail());
-			}
-			*/
+			staffDAO.insertStaff(staff1);
+			staffDAO.insertStaff(staff2);
+						
+			/* print the staff table out */			
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
 
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
