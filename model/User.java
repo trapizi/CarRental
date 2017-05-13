@@ -1,5 +1,7 @@
 package model;
 
+import java.lang.reflect.Field;
+
 /*
  * User is abstract as we never instantiate this class
  */
@@ -11,7 +13,7 @@ public abstract class User {
 	private String email;
 	private String phoneNo;
 	private String homeAddress;
-
+	
 	public String getUserName() {
 		return userName;
 	}

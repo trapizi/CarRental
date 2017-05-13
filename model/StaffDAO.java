@@ -7,14 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import util.*;
 
-/*
- * Ensure these four operations are implemented for the table
- * -Search
- * -Insert
- * -Update
- * -Delete
- */
-public class StaffDAO {
+public class StaffDAO implements TableDAO<Staff> {
 	/*
 	 * Returns a list of all staff in the staff table
 	 */
@@ -60,34 +53,36 @@ public class StaffDAO {
     	
     	return null;
     }
-    
-    /*
-     * Finds a list of staff by their first and last names
-     */
-    public ObservableList<Staff> findByName(String first_name, String last_name) throws SQLException {
-    	try {
-        	/* Query database for staff */
-        	ResultSet rs = DBUtil.dbExecuteQuery(
-        			SQLBuilder.selectTable("*", "STAFF", "FIRST_NAME=" + first_name + " AND LAST_NAME=" + last_name));
-            
-            ObservableList<Staff> list = this.getStaffList(rs);
-            
-            return list;
-        } catch (SQLException | ClassNotFoundException e) {
-            //throw e;
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-        	e.printStackTrace();
-        }
-    	
-    	return null;
-    }
       
+    /*
+     * Inserts a staff member into the database
+     */
+    public void insert(Staff staff) throws SQLException, ClassNotFoundException {
+    	String sqlStmt = new InsertSQLBuilder("STAFF")
+    			.addFieldValue("USERNAME", staff.getUserName())
+    			.addFieldValue("PASSWORD", staff.getPassword())
+    			.addFieldValue("FIRST_NAME", staff.getFirstName())
+    			.addFieldValue("LAST_NAME", staff.getLastName())
+    			.addFieldValue("EMAIL", staff.getEmail())
+    			.addFieldValue("PHONE", staff.getPhoneNo())
+    			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
+    			.addFieldValue("SALARY", staff.getSalary())
+    			.toString();
+    			
+    	try {
+        	DBUtil.dbExecuteUpdate(sqlStmt);
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		throw e;
+    	}   
+    }
+    
     /*
      * Updates the details of a staff member in the database
      * 
      * Note: Will be able to update anything but username and staff_i
      */
-    public void updateStaff(Staff staff) throws SQLException, ClassNotFoundException {
+    public void update(Staff staff) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder("STAFF")
     			.addFieldValue("PASSWORD", staff.getPassword())
     			.addFieldValue("FIRST_NAME", staff.getFirstName())
@@ -112,7 +107,7 @@ public class StaffDAO {
      * 
      * Note: Ensure that your condition is formatted correctly for SQL
      */
-    public void deleteStaff(String condition) throws SQLException, ClassNotFoundException {
+    public void delete(String condition) throws SQLException, ClassNotFoundException {
     	try {
     		DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("STAFF", condition));
     	} catch (SQLException | ClassNotFoundException e) {
@@ -122,28 +117,30 @@ public class StaffDAO {
     }
     
     /*
-     * Inserts a staff member into the database
+     * Extra and helper functions below
      */
-    public void insertStaff(Staff staff) throws SQLException, ClassNotFoundException {
-    	String sqlStmt = new InsertSQLBuilder("STAFF")
-    			.addFieldValue("USERNAME", staff.getUserName())
-    			.addFieldValue("PASSWORD", staff.getPassword())
-    			.addFieldValue("FIRST_NAME", staff.getFirstName())
-    			.addFieldValue("LAST_NAME", staff.getLastName())
-    			.addFieldValue("EMAIL", staff.getEmail())
-    			.addFieldValue("PHONE", staff.getPhoneNo())
-    			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
-    			.addFieldValue("SALARY", staff.getSalary())
-    			.toString();
-    			
+    
+    /*
+     * Finds a list of staff by their first and last names
+     */
+    public ObservableList<Staff> findByName(String first_name, String last_name) throws SQLException {
     	try {
-        	DBUtil.dbExecuteUpdate(sqlStmt);
+        	/* Query database for staff */
+        	ResultSet rs = DBUtil.dbExecuteQuery(
+        			SQLBuilder.selectTable("*", "STAFF", "FIRST_NAME=" + first_name + " AND LAST_NAME=" + last_name));
+            
+            ObservableList<Staff> list = this.getStaffList(rs);
+            
+            return list;
         } catch (SQLException | ClassNotFoundException e) {
+            //throw e;
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		throw e;
-    	}   
+        	e.printStackTrace();
+        }
+    	
+    	return null;
     }
-
+    
     /*
      * Helper function
      * Converts staff records from database into staff objects for java to play with

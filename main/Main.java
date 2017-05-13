@@ -34,8 +34,8 @@ public class Main {
 			staff2.setUserName("bob");
 			staff2.setPassword("lul");
 			
-			staffDAO.insertStaff(staff1);
-			staffDAO.insertStaff(staff2);
+			staffDAO.insert(staff1);
+			staffDAO.insert(staff2);
 						
 			/* print the staff table out */			
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
