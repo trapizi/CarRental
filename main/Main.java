@@ -8,6 +8,7 @@ import util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,6 +29,7 @@ public class Main {
 			staffDAO.insertStaffName("One", "Two");
 			staffDAO.insertStaffName("Three", "Four");
 			
+			/*
 			ObservableList<Staff> list = staffDAO.findAll();
 			
 			System.out.println(list.size());
@@ -35,6 +37,10 @@ public class Main {
 			for (Staff s: list) {
 				System.out.println(s.getFirstName() + " " + s.getLastName() + " " + s.getEmail());
 			}
+			*/
+		    final String url = "jdbc:derby:DBforDEMO;create=true";
+
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
 			
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
 			DBUtil.clearTable("STAFF");
