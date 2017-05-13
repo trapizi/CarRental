@@ -32,7 +32,7 @@ public class StaffDAO implements TableDAO<Staff> {
      * Post-condition: st
      * @param staff_id the staff_id of the staff member you are trying to find
      */
-    public Staff findById(String staff_id) throws SQLException {
+    public Staff findById(int staff_id) throws SQLException {
     	try {
         	/* Query database for staff */
         	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "STAFF", "STAFF_ID=" + staff_id));

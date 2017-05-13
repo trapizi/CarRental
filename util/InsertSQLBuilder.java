@@ -1,7 +1,5 @@
 package util;
 
-import java.util.ArrayList;
-
 public class InsertSQLBuilder extends Builder {
 	public InsertSQLBuilder(String tableName) {
 		super(tableName);

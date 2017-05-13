@@ -23,28 +23,8 @@ public class Main {
 			 */
 			DBUtil.dbInitAllTables();
 			
-			/* Initialise your DAO objects to test your tables here */
-			StaffDAO staffDAO = new StaffDAO();
-			
-			Staff staff1 = new Staff();
-			staff1.setUserName("alice");
-			staff1.setPassword("xd");
-			
-			Staff staff2 = new Staff();
-			staff2.setUserName("bob");
-			staff2.setPassword("lul");
-			
-			staffDAO.insert(staff1);
-			staffDAO.insert(staff2);
-						
-			/* print the staff table out */			
-		    final String url = "jdbc:derby:DBforDEMO;create=true";
-
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
-			
-			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
-			DBUtil.clearTable("STAFF");
-			DBUtil.dropTable("STAFF");
+			/* add test functions for your tables here */
+			Main.testStaffTable();
 			
 			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
 			DBUtil.dbShutdown();
@@ -53,5 +33,37 @@ public class Main {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	public static void testStaffTable() {
+		/* Initialise your DAO objects to test your tables here */
+		StaffDAO staffDAO = new StaffDAO();
+		
+		Staff staff1 = new Staff();
+		staff1.setUserName("alice");
+		staff1.setPassword("xd");
+		
+		Staff staff2 = new Staff();
+		staff2.setUserName("bob");
+		staff2.setPassword("lul");
+		
+		try {
+			staffDAO.insert(staff1);
+			staffDAO.insert(staff2);
+				
+			Staff s = staffDAO.findById(1);
+			System.out.println(s.toString());
+			
+			/* print the staff table out */			
+		    final String url = "jdbc:derby:DBforDEMO;create=true";
+
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
+			
+			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
+			DBUtil.clearTable("STAFF");
+			DBUtil.dropTable("STAFF");
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

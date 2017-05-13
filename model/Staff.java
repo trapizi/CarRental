@@ -4,6 +4,10 @@ public class Staff extends User {
 	private int staff_id;
 	private double salary;
 
+	public String toString() {
+		return "first_name: " + this.getFirstName() + " last_name: " + this.getLastName() + " username: " + this.getUserName();
+	}
+	
 	public int getStaff_id() {
 		return staff_id;
 	}
