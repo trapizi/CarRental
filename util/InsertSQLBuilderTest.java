@@ -9,7 +9,7 @@ public class InsertSQLBuilderTest {
 	@Test
 	public void test() {
 		/* Spell your table names and field names correctly or you'll get SQLexceptions */
-		InsertSQLBuilder i = new InsertSQLBuilder("staff")
+		Builder i = new InsertSQLBuilder("staff")
 			.addFieldValue("staff_id", 1)
 			.addFieldValue("salary", 10000)
 			.addFieldValue("first_name", "kek");

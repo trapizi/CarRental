@@ -2,15 +2,9 @@ package util;
 
 import java.util.ArrayList;
 
-public class InsertSQLBuilder {
-	private ArrayList<String> fields;
-	private ArrayList<Object> values;
-	private String tableName;
-	
+public class InsertSQLBuilder extends Builder {
 	public InsertSQLBuilder(String tableName) {
-		this.tableName = tableName;
-		this.fields = new ArrayList<String>();
-		this.values = new ArrayList<Object>();
+		super(tableName);
 	}
 	
 	/*
@@ -19,6 +13,7 @@ public class InsertSQLBuilder {
 	 * @param field - the field you want to insert in
 	 * @param value - the value you want to insert into the field
 	 */
+	@Override
 	public InsertSQLBuilder addFieldValue(String field, Object value) {
 		this.fields.add(field);
 		this.values.add(value);
@@ -48,7 +43,11 @@ public class InsertSQLBuilder {
 		// Append values into a query		
 		for (int i = 0; i < values.size(); i++) {
 			
-			valueText.append("'" + values.get(i) + "'");
+			if (values.get(i) instanceof String) {
+				valueText.append("'" + values.get(i) + "'");
+			} else {
+				valueText.append(values.get(i));
+			}
 
 			if (i != lastIndex) {
 				valueText.append(",");
