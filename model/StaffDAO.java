@@ -83,6 +83,7 @@ public class StaffDAO implements TableDAO<Staff> {
      */
     public void update(Staff staff) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder("STAFF")
+				.addFieldValue("USERNAME", staff.getUserName())
     			.addFieldValue("PASSWORD", staff.getPassword())
     			.addFieldValue("FIRST_NAME", staff.getFirstName())
     			.addFieldValue("LAST_NAME", staff.getLastName())

@@ -72,7 +72,8 @@ public class MemberDAO implements TableDAO<Member> {
 	
 	public void update(Member member) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new UpdateSQLBuilder("MEMBER")
-    			.addFieldValue("PASSWORD", member.getPassword())
+				.addFieldValue("USERNAME", member.getUserName())
+				.addFieldValue("PASSWORD", member.getPassword())
     			.addFieldValue("FIRST_NAME", member.getFirstName())
     			.addFieldValue("LAST_NAME", member.getLastName())
     			.addFieldValue("EMAIL", member.getEmail())
