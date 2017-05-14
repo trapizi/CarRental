@@ -121,7 +121,7 @@ public class DBUtil {
     /*
      * Initialises a single table in the database with a SQL create statement
      */
-    private static void dbInitTable(String sqlStmt) throws SQLException, ClassNotFoundException {
+    public static void dbInitTable(String sqlStmt) throws SQLException, ClassNotFoundException {
     	ResultSet rs;
     	
     	if (sqlStmt == null) {

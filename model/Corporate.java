@@ -5,7 +5,7 @@ public class Corporate {
     protected String companyName, companyAddr;
     private long companyPhoneNumber, companyPCode;
     private int customerType;
-    
+     
 	public int getCorporateID() {
 		return corporateID;
 	}

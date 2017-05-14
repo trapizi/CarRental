@@ -1,13 +1,13 @@
 package model;
 
 public class CorporateMember extends Member {
-	private int corporate_id;
+	private int corporateID;
 
-	public int getCorporate_id() {
-		return corporate_id;
+	public int getCorporateID() {
+		return corporateID;
 	}
 
-	public void setCorporate_id(int corporate_id) {
-		this.corporate_id = corporate_id;
-	}
+	public void setCorporateID(int corporateID) {
+		this.corporateID = corporateID;
+	}	
 }

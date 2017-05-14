@@ -57,7 +57,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 		String sqlStmt = new InsertSQLBuilder()
 				.addTable("CORPORATE_MEMBER")
 				.addFieldValue("MEMBER_ID", corporateMember.getMemberID())
-				.addFieldValue("CORPORATE_ID", corporateMember.getCorporate_id())
+				.addFieldValue("CORPORATE_ID", corporateMember.getCorporateID())
 				.toString();		
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
@@ -68,14 +68,35 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 	}
 	
 	/*
+	 * Overloaded insert() that takes in member and corporation
+	 */
+	public void insert(Member member, Corporate corporation) throws SQLException, ClassNotFoundException {
+		String sqlStmt = new InsertSQLBuilder()
+				.addTable("CORPORATE_MEMBER")
+				.addFieldValue("MEMBER_ID", member.getMemberID())
+				.addFieldValue("CORPORATE_ID", corporation.getCorporateID())
+				.toString();
+		
+		
+		System.out.println("memberID = " + member.getMemberID() + " corporateID = " + corporation.getCorporateID());
+		
+    	try {
+        	DBUtil.dbExecuteUpdate(sqlStmt);
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		throw e;
+    	} 
+	}
+	
+	/*
 	 * Let memberDAO update the member fields by calling memberDAO.update()
 	 * Handle the changes in corporateID in this function
 	 */
 	public void update(CorporateMember corporateMember) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new UpdateSQLBuilder()
 				.addTable("CORPORATE_MEMBER")
-				.addFieldValue("CORPORATE_ID", corporateMember.getCorporate_id())
-				.where("CORPORATE_ID=" + corporateMember.getCorporate_id())
+				.addFieldValue("CORPORATE_ID", corporateMember.getCorporateID())
+				.where("CORPORATE_ID=" + corporateMember.getCorporateID())
 				.and("MEMBER_ID=" + corporateMember.getMemberID())
 				.toString();
 		
@@ -107,7 +128,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
     	while (rs.next()) {
     		try {
 	    		CorporateMember corporateMember = new CorporateMember();  
-	    		corporateMember.setCorporate_id(rs.getInt("CORPORATE_ID"));
+	    		corporateMember.setCorporateID(rs.getInt("CORPORATE_ID"));
 	    		corporateMember.setMemberID(rs.getInt("MEMBER_ID"));
 	    		corporateMember.setUserName(rs.getString("USERNAME"));
 	    		corporateMember.setPassword(rs.getString("PASSWORD"));

@@ -133,5 +133,4 @@ public class MemberDAOTest {
 			e.printStackTrace();
 		}	
 	}
-
 }
