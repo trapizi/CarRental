@@ -86,7 +86,7 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("COMMISSION_RATE", member.getCommissionRate())
     			.addFieldValue("CREDIT_CARD", member.getCreditCard())
     			.addFieldValue("PAYMENT_MEDIA", member.getPaymentMedia())
-    			.where("MEMBER_ID=" + member.getMember_id())
+    			.where("MEMBER_ID=" + member.getMemberID())
     			.toString();
     			
     	try {
@@ -116,7 +116,7 @@ public class MemberDAO implements TableDAO<Member> {
     	while (rs.next()) {
     		try {
 	    		Member member = new Member();    		
-	    		member.setMember_id(rs.getInt("MEMBER_ID"));
+	    		member.setMemberID(rs.getInt("MEMBER_ID"));
 	    		member.setUserName(rs.getString("USERNAME"));
 	    		member.setPassword(rs.getString("PASSWORD"));
 	    		member.setFirstName(rs.getString("FIRST_NAME"));

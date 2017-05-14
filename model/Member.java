@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Member extends User {
-	private int member_id;
+	private int memberID;
 	private Date lastMatchDate;
 	private Date accountExpiry;
 	private float commissionRate;
@@ -19,14 +19,14 @@ public class Member extends User {
 	//private ArrayList<Agreement> agreementList;
 	//private CorporateMember corporateMem;
 
-	public int getMember_id() {
-		return member_id;
+	public int getMemberID() {
+		return memberID;
 	}
 
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+	public void setMemberID(int memberID) {
+		this.memberID = memberID;
 	}
-	
+
 	public Date getLastMatchDate() {
 		return lastMatchDate;
 	}

@@ -56,7 +56,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 	public void insert(CorporateMember corporateMember) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new InsertSQLBuilder()
 				.addTable("CORPORATE_MEMBER")
-				.addFieldValue("MEMBER_ID", corporateMember.getMember_id())
+				.addFieldValue("MEMBER_ID", corporateMember.getMemberID())
 				.addFieldValue("CORPORATE_ID", corporateMember.getCorporate_id())
 				.toString();		
     	try {
@@ -76,7 +76,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 				.addTable("CORPORATE_MEMBER")
 				.addFieldValue("CORPORATE_ID", corporateMember.getCorporate_id())
 				.where("CORPORATE_ID=" + corporateMember.getCorporate_id())
-				.and("MEMBER_ID=" + corporateMember.getMember_id())
+				.and("MEMBER_ID=" + corporateMember.getMemberID())
 				.toString();
 		
 		try {
@@ -108,7 +108,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
     		try {
 	    		CorporateMember corporateMember = new CorporateMember();  
 	    		corporateMember.setCorporate_id(rs.getInt("CORPORATE_ID"));
-	    		corporateMember.setMember_id(rs.getInt("MEMBER_ID"));
+	    		corporateMember.setMemberID(rs.getInt("MEMBER_ID"));
 	    		corporateMember.setUserName(rs.getString("USERNAME"));
 	    		corporateMember.setPassword(rs.getString("PASSWORD"));
 	    		corporateMember.setFirstName(rs.getString("FIRST_NAME"));
