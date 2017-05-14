@@ -14,6 +14,9 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		// initialise tables for db
+                
+                System.out.println(System.getProperty("user.dir"));
+                
 		try {
 			DBUtil.dbInitAllTables();
 			

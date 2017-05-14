@@ -1,16 +1,31 @@
-import java.util.ArrayList;
+package model;
 
 public class Payment {
     
-    /* not sure if this goes in here */ private arrayList<Payment> paymentList; 
+    //PAYMENT table columns
     private double amount;
     private String date;
     private String id;
     private String paymentAccount;
     private String paymentType;
-    private Calendar accountExpiry;
+    private String accountExpiry;
     private String accountOwnerName;
     private String paymentMedia;
+
+    //PAYMENT constructor
+    /*public Payment() {
+        this.amount = new amount();
+        this.first_name = new SimpleStringProperty();
+        this.last_name = new SimpleStringProperty();
+        this.email = new SimpleStringProperty();
+        this.phone_number = new SimpleStringProperty();
+        this.hire_date = new SimpleObjectProperty<>();
+        this.job_id = new SimpleStringProperty();
+        this.salary = new SimpleIntegerProperty();
+        this.commission_pct = new SimpleDoubleProperty();
+        this.manager_id = new SimpleIntegerProperty();
+        this.department_id = new SimpleIntegerProperty();
+    } */
     
     public double getAmount(){
         return amount;
@@ -20,7 +35,7 @@ public class Payment {
         this.amount = amount;
     }
     
-    public Calendar getDate(){
+    public String getDate(){
         return date;
     }
     
@@ -52,29 +67,27 @@ public class Payment {
         this.paymentType = paymentType;
     }
     
-    public Calendar getAccountExpiry(){
+    public String getAccountExpiry(){
         return accountExpiry;
-    }        
+    }
     
-    public void setAccountExpiry(Calendar accountExpiry){
+    public void setAccountExpiry(String accountExpiry){
         this.accountExpiry = accountExpiry;
     }
-                        
+    
     public String getAccountOwnerName(){
         return accountOwnerName;
-    }                  
+    }
     
     public void setAccountOwnerName(String accountOwnerName){
         this.accountOwnerName = accountOwnerName;
     }
-                            
+    
     public String getPaymentMedia(){
         return paymentMedia;
-    }                        
+    }
     
     public void setPaymentMedia(String paymentMedia){
         this.paymentMedia = paymentMedia;
     }
-    
-    
 }
