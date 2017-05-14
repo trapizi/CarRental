@@ -47,7 +47,8 @@ public class MemberDAO implements TableDAO<Member> {
 	}
 	
 	public void insert(Member member) throws SQLException, ClassNotFoundException {
-		String sqlStmt = new InsertSQLBuilder("MEMBER")
+		String sqlStmt = new InsertSQLBuilder()
+				.addTable("MEMBER")
     			.addFieldValue("USERNAME", member.getUserName())
     			.addFieldValue("PASSWORD", member.getPassword())
     			.addFieldValue("FIRST_NAME", member.getFirstName())
@@ -71,7 +72,8 @@ public class MemberDAO implements TableDAO<Member> {
 	}
 	
 	public void update(Member member) throws SQLException, ClassNotFoundException {
-		String sqlStmt = new UpdateSQLBuilder("MEMBER")
+		String sqlStmt = new UpdateSQLBuilder()
+				.addTable("MEMBER")
 				.addFieldValue("USERNAME", member.getUserName())
 				.addFieldValue("PASSWORD", member.getPassword())
     			.addFieldValue("FIRST_NAME", member.getFirstName())

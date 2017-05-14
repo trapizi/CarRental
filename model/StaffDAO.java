@@ -57,7 +57,8 @@ public class StaffDAO implements TableDAO<Staff> {
      * Inserts a staff member into the database
      */
     public void insert(Staff staff) throws SQLException, ClassNotFoundException {
-    	String sqlStmt = new InsertSQLBuilder("STAFF")
+    	String sqlStmt = new InsertSQLBuilder()
+    			.addTable("STAFF")
     			.addFieldValue("USERNAME", staff.getUserName())
     			.addFieldValue("PASSWORD", staff.getPassword())
     			.addFieldValue("FIRST_NAME", staff.getFirstName())
@@ -82,7 +83,8 @@ public class StaffDAO implements TableDAO<Staff> {
      * Note: Will be able to update anything but username and staff_i
      */
     public void update(Staff staff) throws SQLException, ClassNotFoundException {
-    	String sqlStmt = new UpdateSQLBuilder("STAFF")
+    	String sqlStmt = new UpdateSQLBuilder()
+    			.addTable("STAFF")
 				.addFieldValue("USERNAME", staff.getUserName())
     			.addFieldValue("PASSWORD", staff.getPassword())
     			.addFieldValue("FIRST_NAME", staff.getFirstName())

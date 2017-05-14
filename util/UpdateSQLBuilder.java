@@ -1,31 +1,29 @@
 package util;
 
 /* Look in UpdateSQLBuilderTest.java to see how it's used */
-public class UpdateSQLBuilder extends Builder {	
-	private StringBuilder condition;
-	
-	public UpdateSQLBuilder(String tableName) {
-		super(tableName);
-		this.condition = new StringBuilder();
+public class UpdateSQLBuilder extends Builder {		
+	public UpdateSQLBuilder() {
+		super();
 	}
 		
 	@Override
-	public UpdateSQLBuilder addFieldValue(String field, Object value) {
-		this.fields.add(field);
-		this.values.add(value);
-		return this;
-	}	
-	
-	public UpdateSQLBuilder where(String condition) {
-		this.condition.append(" WHERE " + condition);
-		
-		return this;
+	public UpdateSQLBuilder addTable(String tableName) {
+		return (UpdateSQLBuilder) (super.addTable(tableName));
 	}
 	
-	public UpdateSQLBuilder and(String condition) {
-		this.condition.append(" AND " + condition);
-		
-		return this;
+	@Override
+	public UpdateSQLBuilder addFieldValue(String field, Object value) {
+		return (UpdateSQLBuilder) (super.addFieldValue(field, value));
+	}	
+	
+	@Override
+	public UpdateSQLBuilder where(String condition) {
+		return (UpdateSQLBuilder) (super.where(condition));		
+	}
+	
+	@Override
+	public UpdateSQLBuilder and(String condition) {		
+		return (UpdateSQLBuilder) (super.and(condition));
 	}
 	
 	/*
@@ -35,6 +33,7 @@ public class UpdateSQLBuilder extends Builder {
 	public String toString() {
 		StringBuilder SQLStmt = new StringBuilder();
 		StringBuilder updateText = new StringBuilder();
+		StringBuilder conditionText = new StringBuilder();
 				
 		// Append fields and values into a query
 		int lastIndex = fields.size() - 1;
@@ -53,7 +52,11 @@ public class UpdateSQLBuilder extends Builder {
 			}
 		}
 		
-		SQLStmt.append("UPDATE " + this.tableName + " SET " + updateText + " " + this.condition);
+		for (int i = 0; i < conditions.size(); i++) {
+			conditionText.append(conditions.get(i));
+		}
+		
+		SQLStmt.append("UPDATE " + this.tables.get(0) + " SET " + updateText + " " + conditionText);
 		
 		return SQLStmt.toString();
 	}
