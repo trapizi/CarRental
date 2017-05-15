@@ -173,8 +173,7 @@ public class DBUtil {
     	fileNames.add("member.txt");
     	fileNames.add("corporate.txt");
     	fileNames.add("corporateMember.txt");
-    	
-    	
+    
     	fileNames.add("offer.txt");
     	fileNames.add("seek.txt");
     	

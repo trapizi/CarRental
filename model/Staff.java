@@ -1,9 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
+import com.sun.corba.se.impl.io.TypeMismatchException;
+
 public class Staff extends User {
 	private int staff_id;
 	private double salary;
-
+	
 	public String toString() {
 		return "first_name: " + this.getFirstName() + " last_name: " + this.getLastName() + " username: " + this.getUserName();
 	}
