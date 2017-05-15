@@ -1,5 +1,3 @@
-package main;
-
 import java.sql.SQLException;
 
 import model.*;
