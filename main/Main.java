@@ -17,51 +17,43 @@ public class Main {
 		System.out.println("Put your CREATE TABLE .txt files in this folder --> " + System.getProperty("user.dir"));
 		
 		// initialise tables for db
-		try {
-			/* Note: You need to add your file containing your CREATE TABLE statement in the function below.
-			 *       More information given in the function. 
-			 */
+		try {			 
 			DBUtil.dbInitAllTables();
 			
-			/* add test functions for your tables here */
-			Main.testStaffTable();
+			Main.testAgreementTable();
 			
-			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
-			DBUtil.dbShutdown();
-			/* DO NOT DELETE THIS LINE ABOVE */
-			
+			DBUtil.dbShutdown();	
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 	
-	public static void testStaffTable() {
-		/* Initialise your DAO objects to test your tables here */
-		StaffDAO staffDAO = new StaffDAO();
+	public static void testAgreementTable() {
+		 //Initialise your DAO objects to test your tables here 
+		AgreementDAO agmtDAO = new AgreementDAO();
 		
-		Staff staff1 = new Staff();
-		staff1.setUserName("alice");
-		staff1.setPassword("xd");
+		Agreement agmt1 = new Agreement();
+		agmt1.setStatus("pending");
+		agmt1.setPayAmt("50");
 		
-		Staff staff2 = new Staff();
-		staff2.setUserName("bob");
-		staff2.setPassword("lul");
+		Agreement agmt2 = new Agreement();
+		agmt2.setStatus("accepted");
+		agmt2.setPayAmt("100");
 		
 		try {
-			staffDAO.insert(staff1);
-			staffDAO.insert(staff2);
+			agmtDAO.insert(agmt1);
+			agmtDAO.insert(agmt2);
 				
-			Staff s = staffDAO.findById(1);
-			System.out.println(s.toString());
-			
-			/* print the staff table out */			
+			Agreement a = agmtDAO.findById(1);
+			System.out.println(a.toString());
+						
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
 
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
 			
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
-			DBUtil.clearTable("STAFF");
-			DBUtil.dropTable("STAFF");
+			DBUtil.clearTable("AGREEMENT");
+			DBUtil.dropTable("AGREEMENT");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
