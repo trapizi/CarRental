@@ -1,6 +1,7 @@
 import java.sql.SQLException;
 
 import model.*;
+import test.BingTest;
 import util.*;
 
 import javafx.collections.FXCollections;
@@ -41,9 +42,22 @@ public class Main extends Application {
         showStaffView();
     }
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		/* add stuff to this function if you want to test tables */
-		//Main.testTables();
+		Main.testTables();
+		
+		/*
+		try {
+			BingTest.initMyTables();
+			BingTest.testStaffTable();
+			BingTest.testCorporateMemberTable();
+			DBUtil.dbShutdown();
+			
+		} catch (Exception e) {
+			DBUtil.dbShutdown();
+			throw e;
+		}
+		*/
 		
 		/* add stuff to start() if you want to test UI */
         launch(args);		
@@ -55,84 +69,7 @@ public class Main extends Application {
 		// initialise tables for db        
         System.out.println(System.getProperty("user.dir"));
 	} 
-	
-	public static void testStaffTable() {
-		/* Initialise your DAO objects to test your tables here */
-		StaffDAO staffDAO = new StaffDAO();
-		
-		Staff staff1 = new Staff();
-		staff1.setUserName("alice");
-		staff1.setPassword("xd");
-		
-		Staff staff2 = new Staff();
-		staff2.setUserName("bob");
-		staff2.setPassword("lul");
-		
-		try {
-			staffDAO.insert(staff1);
-			staffDAO.insert(staff2);
-							
-			/* print the staff table out */			
-		    final String url = "jdbc:derby:DBforDEMO;create=true";
 
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
-			
-			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
-			DBUtil.clearTable("STAFF");
-			DBUtil.dropTable("STAFF");
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-	}
-		
-	public static void testCorporateMemberTable() {
-		try {
-			MemberDAO mDAO = new MemberDAO();
-			mDAO.insert(new Member());
-			
-			CorporateDAO cDAO = new CorporateDAO();
-			cDAO.insert(new Corporate());
-			
-			CorporateMemberDAO cmDAO = new CorporateMemberDAO();
-			
-			Member m = mDAO.findById(1);
-			m.setFirstName("test");
-			
-			Corporate c = cDAO.findById(1);
-			cmDAO.insert(m, c);
-			
-			cDAO.insert(new Corporate());
-			c = cDAO.findById(2);
-			cmDAO.insert(m, c);
-			
-			String url = "jdbc:derby:DBforDEMO;create=true";
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE_MEMBER");
-		
-			url = "jdbc:derby:DBforDEMO;create=true";
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
-
-		    url = "jdbc:derby:DBforDEMO;create=true";
-			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
-			
-			ObservableList<CorporateMember> list = cmDAO.findAll();
-			for (CorporateMember cm: list) {
-				System.out.println(cm.toString());
-			}
-			
-			/* does not work on CORPORATE_MEMBER table due to the naming conventions of the fields in there */
-			//DBUtil.clearTable("CORPORATE_MEMBER");
-			DBUtil.dropTable("CORPORATE_MEMBER");
-			
-			DBUtil.clearTable("MEMBER");
-			DBUtil.dropTable("MEMBER");
-			
-			DBUtil.clearTable("CORPORATE");
-			DBUtil.dropTable("CORPORATE");
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public void initRootLayout() {
         try {

@@ -1,12 +1,16 @@
 package controller;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Staff;
 import model.StaffDAO;
 
@@ -29,54 +33,108 @@ public class StaffController {
     private TextField salaryText;    
     @FXML
     private TextArea resultArea;
+    
+    @FXML
+    private TableView<Staff> staffTable;
+    @FXML
+    private TableColumn<Staff, Integer>  IDColumn;
+    @FXML
+    private TableColumn<Staff, String>  userNameColumn;
+    @FXML
+    private TableColumn<Staff, String>  firstNameColumn;
+    @FXML
+    private TableColumn<Staff, String> lastNameColumn;
+    @FXML
+    private TableColumn<Staff, String> emailColumn;
+    @FXML
+    private TableColumn<Staff, Long> phoneNumberColumn;
+    @FXML
+    private TableColumn<Staff, String> addressColumn;
+    @FXML
+    private TableColumn<Staff, Double> salaryColumn;
 
     @FXML
-    private void initialize () {
-    	/* TODO: initialise if needed */
+    private void initialize () {    	
+    	IDColumn.setCellValueFactory(cellData -> cellData.getValue().staff_idProperty().asObject());
+    	userNameColumn.setCellValueFactory(cellData -> cellData.getValue().userNameProperty());
+    	firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+    	lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+    	emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+    	phoneNumberColumn.setCellValueFactory(cellData -> cellData.getValue().phoneNoProperty().asObject());
+    	addressColumn.setCellValueFactory(cellData -> cellData.getValue().homeAddressProperty());
+    	salaryColumn.setCellValueFactory(cellData -> cellData.getValue().salaryProperty().asObject());
     }
     
-    //Insert a staff member to the DB
     @FXML
-    private void insertStaff(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-    	System.out.println("Calling insertStaff()");
-    	
+    private void searchAll() {
+    	try {
+    		StaffDAO staffDAO = new StaffDAO();
+    		ObservableList<Staff> list = staffDAO.findAll();
+    		
+    		staffTable.setItems(list);
+    		
+    	} catch (SQLException | ClassNotFoundException e) {
+    		resultArea.setText("Problem searching all employees\n");
+    	}
+    }
+    
+    
+    @FXML
+    private void insertStaff(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {    	
     	/* construct staff object for insertion */
     	StaffDAO staffDAO = new StaffDAO();
-    	Staff staff = new Staff();
     	boolean invalidInput = false;
     	
-		staff.setFirstName(firstNameText.getText());
-		staff.setPassword(passwordText.getText());
-		staff.setLastName(lastNameText.getText());
-		staff.setEmail(emailText.getText());
-		staff.setHomeAddress(homeAddressText.getText());
-		
 		/* clear text area for errors */
 		resultArea.clear();
 		
-		/* check valid numbers for phone number and salary are entered */
-    	try {
-    		staff.setPhoneNo(Long.parseLong(phoneNoText.getText()));
-    	} catch (NumberFormatException e) {
+		/* check valid numbers for phone number and salary are entered */    	
+    	if (!isValidPhoneNo(phoneNoText.getText())) {
     		invalidInput = true;
-    		resultArea.appendText("Invalid phone number entered!\n");
+    	} else if (!isValidSalary(salaryText.getText())) {
+    		invalidInput = true;
     	}
     	
-    	try {
-    		staff.setSalary(Double.parseDouble(salaryText.getText()));
-    	} catch (NumberFormatException e) {
-    		invalidInput = true;
-    		resultArea.appendText("Invalid salary entered!\n");
-    	}
-    	
+    	/* construct staff object and try insert if valid data */
     	if (!invalidInput) {
+    		
+        	Staff staff = new Staff();
+    		staff.setFirstName(firstNameText.getText());
+    		staff.setPassword(passwordText.getText());
+    		staff.setLastName(lastNameText.getText());
+    		staff.setEmail(emailText.getText());
+    		staff.setHomeAddress(homeAddressText.getText());
+    		staff.setPhoneNo(Long.parseLong(phoneNoText.getText()));
+    		staff.setSalary(Double.parseDouble(salaryText.getText()));
+    		
 	        try {	   	
 	            staffDAO.insert(staff);
 	            resultArea.setText("Employee inserted! \n");
-	        } catch (SQLException e) {
+	        } catch (SQLException | ClassNotFoundException e) {
 	            resultArea.setText("Problem occurred while inserting employee " + e);
 	            throw e;
 	        }
     	}
+    }
+    
+    private boolean isValidPhoneNo(String phoneNoText) {    	
+    	try {
+    		Long.parseLong(phoneNoText);
+    	} catch (NumberFormatException e) {
+    		resultArea.appendText("Invalid phone number entered!\n");
+    		return false;
+    	}
+    	    	
+    	return true;
+    }
+    
+    private boolean isValidSalary(String salaryText) {
+    	try {
+    		Double.parseDouble(salaryText);
+    	} catch (NumberFormatException e) {
+    		resultArea.appendText("Invalid salary entered!\n");
+    		return false;
+    	}
+    	return true;
     }
 }
