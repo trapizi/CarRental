@@ -5,7 +5,7 @@ public class Payment {
     //PAYMENT table columns
     private double amount;
     private String date;
-    private String id;
+    private String paymentID;
     private String paymentAccount;
     private String paymentType;
     private String accountExpiry;
@@ -28,12 +28,12 @@ public class Payment {
         this.date = date;
     }
         
-    public String getId(){
-        return id;
+    public String getPaymentID(){
+        return paymentID;
     }
     
-    public void setId(String id){
-        this.id = id;
+    public void setPaymentID(String PaymentID){
+        this.paymentID = paymentID;
     }
     
     public String getPaymentAccount(){
