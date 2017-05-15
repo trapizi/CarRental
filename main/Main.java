@@ -1,8 +1,10 @@
+package main;
+
 import java.sql.SQLException;
 
 import model.*;
 import util.*;
-import javafx.application.Application;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.application.Application;
 import javafx.beans.property.*;
 
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -54,25 +56,7 @@ public class Main extends Application {
 
 		// initialise tables for db        
         System.out.println(System.getProperty("user.dir"));
-                
-		try {
-			/* Note: You need to add your file containing your CREATE TABLE statement in the function below.
-			 *       More information given in the function. 
-			 */
-			DBUtil.dbInitAllTables();
-			
-			/* add test functions for your tables here */
-			Main.testStaffTable();
-			Main.testCorporateMemberTable();
-
-			/* DO NOT DELETE THIS LINE BELOW OR IT'LL FUCK UP YOUR PRIMARY KEY NUMBERING */
-			DBUtil.dbShutdown();
-			/* DO NOT DELETE THIS LINE ABOVE */
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}	
-	}
+	} 
 	
 	public static void testStaffTable() {
 		/* Initialise your DAO objects to test your tables here */

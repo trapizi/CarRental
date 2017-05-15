@@ -166,27 +166,24 @@ public class DBUtil {
     public static void dbInitAllTables() throws SQLException, ClassNotFoundException {
     	
     	ArrayList<String> fileNames = new ArrayList<String>();
-    	final String directory = "src/table/";
     	
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("staff.txt");
     	fileNames.add("member.txt");
     	fileNames.add("corporate.txt");
     	fileNames.add("corporateMember.txt");
-    
+    	
     	fileNames.add("offer.txt");
     	fileNames.add("seek.txt");
-    	
-    	/* TODO: FIX THE CONTENTS OF THIS FILE
     	fileNames.add("carShareOffice.txt");
-    	*/
+
     	/* */
     	
     	/* construct tables using the files given in ArrayList<String> fileNames */
     	for (String file: fileNames) {
     		String sqlStmt;
 	    	try {
-	    		sqlStmt = SQLBuilder.createTableSQL(directory + file);    		    		
+	    		sqlStmt = SQLBuilder.createTableSQL(file);    		    		
 	    		dbInitTable(sqlStmt);	
 	    	} catch (SQLException e) {
 	    		System.out.println("Could not initilise " + file + " table...");
