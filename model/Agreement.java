@@ -151,4 +151,9 @@ public class Agreement {
 	public void setAdjustList(ArrayList<Adjustment> adjustList) {
 		this.adjustList = adjustList;
 	}
+	
+	@Override
+	public String toString() {
+		return this.status;
+	}
 }
