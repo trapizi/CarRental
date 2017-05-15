@@ -13,8 +13,7 @@ import util.UpdateSQLBuilder;
 public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 	public ObservableList<CorporateMember> findAll() throws SQLException, ClassNotFoundException {
         try {
-        	/* TODO: change to display member details for a list of corporate members */
-        	String sqlStmt = "SELECT CORPORATE.CORPORATE_ID, MEMBER.*"
+        	String sqlStmt = "SELECT CORPORATE.*, MEMBER.*"
         				+ " FROM CORPORATE_MEMBER, MEMBER, CORPORATE"
         				+ " WHERE CORPORATE_MEMBER.MEMBER_ID = MEMBER.MEMBER_ID"
         				+ " AND CORPORATE_MEMBER.CORPORATE_ID = CORPORATE.CORPORATE_ID";
@@ -57,7 +56,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 		String sqlStmt = new InsertSQLBuilder()
 				.addTable("CORPORATE_MEMBER")
 				.addFieldValue("MEMBER_ID", corporateMember.getMemberID())
-				.addFieldValue("CORPORATE_ID", corporateMember.getCorporateID())
+				.addFieldValue("CORPORATE_ID", corporateMember.getCorporation().getCorporateID())
 				.toString();		
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
@@ -95,8 +94,8 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 	public void update(CorporateMember corporateMember) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new UpdateSQLBuilder()
 				.addTable("CORPORATE_MEMBER")
-				.addFieldValue("CORPORATE_ID", corporateMember.getCorporateID())
-				.where("CORPORATE_ID=" + corporateMember.getCorporateID())
+				.addFieldValue("CORPORATE_ID", corporateMember.getCorporation().getCorporateID())
+				.where("CORPORATE_ID=" + corporateMember.getCorporation().getCorporateID())
 				.and("MEMBER_ID=" + corporateMember.getMemberID())
 				.toString();
 		
@@ -122,13 +121,23 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
     	}
 	}
 	
-	private ObservableList<CorporateMember> getCorporateMemberList (ResultSet rs) throws SQLException {
+	public ObservableList<CorporateMember> getCorporateMemberList (ResultSet rs) throws SQLException {
     	ObservableList<CorporateMember> list = FXCollections.observableArrayList();
+
+		/* Grab information about corporations from the resultSet */
+		CorporateDAO corporateDAO = new CorporateDAO();
+		ObservableList<Corporate> corporateList = FXCollections.observableArrayList();
+		corporateList = corporateDAO.getCorporateList(rs);
     	
+		/* Reset resultSet cursor to construct CorporateMembers */
+		rs.beforeFirst();
+		
+		int corporateListIndex = 0;
+		
     	while (rs.next()) {
-    		try {
-	    		CorporateMember corporateMember = new CorporateMember();  
-	    		corporateMember.setCorporateID(rs.getInt("CORPORATE_ID"));
+    		try {    			
+    			CorporateMember corporateMember = new CorporateMember();  
+    			corporateMember.setCorporation(corporateList.get(corporateListIndex++));
 	    		corporateMember.setMemberID(rs.getInt("MEMBER_ID"));
 	    		corporateMember.setUserName(rs.getString("USERNAME"));
 	    		corporateMember.setPassword(rs.getString("PASSWORD"));

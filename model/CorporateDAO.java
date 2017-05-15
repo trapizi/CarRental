@@ -91,7 +91,7 @@ public class CorporateDAO implements TableDAO<Corporate> {
     	}
 	}
 	
-	private ObservableList<Corporate> getCorporateList (ResultSet rs) throws SQLException {
+	public ObservableList<Corporate> getCorporateList (ResultSet rs) throws SQLException {
     	ObservableList<Corporate> list = FXCollections.observableArrayList();
     	
     	while (rs.next()) {

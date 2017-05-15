@@ -1,13 +1,18 @@
 package model;
 
 public class CorporateMember extends Member {
-	private int corporateID;
+	private Corporate corporation;
 
-	public int getCorporateID() {
-		return corporateID;
+	@Override
+	public String toString() {
+		return "CorporateID: " + this.corporation.getCorporateID() + " | " + super.toString();
+	}
+	
+	public Corporate getCorporation() {
+		return corporation;
 	}
 
-	public void setCorporateID(int corporateID) {
-		this.corporateID = corporateID;
+	public void setCorporation(Corporate corporation) {
+		this.corporation = corporation;
 	}	
 }
