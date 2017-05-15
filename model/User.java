@@ -11,6 +11,11 @@ public abstract class User {
 	private String email;
 	private long phoneNo;
 	private String homeAddress;
+		
+	@Override
+	public String toString() {
+		return "Name: " + this.getFirstName() + " " + this.getLastName() + " | Username: " + this.getUserName();
+	}
 	
 	public String getUserName() {
 		return userName;
