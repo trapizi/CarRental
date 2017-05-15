@@ -7,13 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.beans.property.*;
 
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -29,13 +32,13 @@ public class Main extends Application {
         this.primaryStage.setTitle("Demo for tutorial 8");
 
         // init table
-        //DBUtil.dbInitTable();
+        DBUtil.dbInitAllTables();
 
         //2) Initialize RootLayout
         initRootLayout();
 
         //3) Display the EmployeeOperations View
-        //showEmployeeView();
+        showStaffView();
     }
 	
 	public static void main(String[] args) {
@@ -47,8 +50,8 @@ public class Main extends Application {
 	}
 	
 	public static void testTables() {
-		System.out.println("Put your CREATE TABLE .txt files in this folder --> " + System.getProperty("user.dir"));
-		
+		System.out.println("Put your CREATE TABLE .txt files in this folder --> " + System.getProperty("user.dir") + "\\src\\table");
+
 		// initialise tables for db        
         System.out.println(System.getProperty("user.dir"));
                 
@@ -102,6 +105,24 @@ public class Main extends Application {
 		
 	public static void testCorporateMemberTable() {
 		try {
+			MemberDAO mDAO = new MemberDAO();
+			mDAO.insert(new Member());
+			
+			CorporateDAO cDAO = new CorporateDAO();
+			cDAO.insert(new Corporate());
+			
+			CorporateMemberDAO cmDAO = new CorporateMemberDAO();
+			
+			Member m = mDAO.findById(1);
+			m.setFirstName("test");
+			
+			Corporate c = cDAO.findById(1);
+			cmDAO.insert(m, c);
+			
+			cDAO.insert(new Corporate());
+			c = cDAO.findById(2);
+			cmDAO.insert(m, c);
+			
 			String url = "jdbc:derby:DBforDEMO;create=true";
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE_MEMBER");
 		
@@ -110,6 +131,11 @@ public class Main extends Application {
 
 		    url = "jdbc:derby:DBforDEMO;create=true";
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
+			
+			ObservableList<CorporateMember> list = cmDAO.findAll();
+			for (CorporateMember cm: list) {
+				System.out.println(cm.toString());
+			}
 			
 			/* does not work on CORPORATE_MEMBER table due to the naming conventions of the fields in there */
 			//DBUtil.clearTable("CORPORATE_MEMBER");
@@ -137,6 +163,9 @@ public class Main extends Application {
             Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
             primaryStage.setScene(scene); //Set the scene in primary stage.
 
+            rootLayout.minWidthProperty().bind(scene.widthProperty());
+            rootLayout.minHeightProperty().bind(scene.heightProperty());
+            
             /*//Give the controller access to the main.
             RootLayoutController controller = loader.getController();
             controller.setMain(this);*/
@@ -145,6 +174,29 @@ public class Main extends Application {
             primaryStage.show(); //Display the primary stage
         } catch (IOException e) {
         	System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+	
+    //Shows the employee operations view inside the root layout.
+    public void showStaffView() {
+        try {
+            //First, load EmployeeView from EmployeeView.fxml
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/StaffView.fxml"));
+            AnchorPane staffOperationsView = (AnchorPane) loader.load();
+            
+            /*
+            staffOperationsView.minWidthProperty().bind(rootLayout.minWidthProperty());
+            staffOperationsView.minHeightProperty().bind(rootLayout.minHeightProperty());
+            */
+            
+            //staffOperationsView.minWidthProperty().bind(rootLayout.minWidthProperty());
+            //staffOperationsView.minHeightProperty().bind(rootLayout.minHeightProperty().multiply(0.95));
+
+            // Set Employee Operations view into the center of root layout.
+            rootLayout.setCenter(staffOperationsView);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
