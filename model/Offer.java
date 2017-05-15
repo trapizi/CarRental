@@ -1,12 +1,12 @@
 package model;
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
-	private int carID, seats;
+	private int offerID, seats;
     private String carType, brand, model, transmission, fuelType;
     private double price;
 
     public Offer(int carID, int seats, double price, String carType, String brand, String model, String transmission, String fuelType) {
-        this.carID = carID;
+        this.offerID = carID;
         this.seats = seats;
         this.carType = carType;
         this.brand = brand;
@@ -18,11 +18,11 @@ public class Offer {//extends offerList{
     
     
     public int getCarID() {
-        return carID;
+        return offerID;
     }
 
     public void setCarID(int carID) {
-        this.carID = carID;
+        this.offerID = offerID;
     }
 
     public int getSeats() {
