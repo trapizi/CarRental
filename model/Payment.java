@@ -3,14 +3,22 @@ package model;
 public class Payment {
     
     //PAYMENT table columns
+    private String paymentID;
     private double amount;
     private String date;
-    private String paymentID;
     private String paymentAccount;
     private String paymentType;
     private String accountExpiry;
     private String accountOwnerName;
     private String paymentMedia;
+
+    public String getPaymentID(){
+        return paymentID;
+    }
+    
+    public void setPaymentID(String PaymentID){
+        this.paymentID = paymentID;
+    }
 
     public double getAmount(){
         return amount;
@@ -26,15 +34,7 @@ public class Payment {
     
     public void setDate(String date){
         this.date = date;
-    }
-        
-    public String getPaymentID(){
-        return paymentID;
-    }
-    
-    public void setPaymentID(String PaymentID){
-        this.paymentID = paymentID;
-    }
+    }      
     
     public String getPaymentAccount(){
         return paymentAccount;

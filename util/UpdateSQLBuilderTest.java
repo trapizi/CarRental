@@ -1,12 +1,7 @@
 package util;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 public class UpdateSQLBuilderTest {
 
-	@Test
 	public void test() {
 		UpdateSQLBuilder b = new UpdateSQLBuilder()
 				.addTable("staff")
