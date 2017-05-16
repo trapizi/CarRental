@@ -26,13 +26,12 @@ public class Member extends User {
 	//private ArrayList<CarSeek> seekList;
 	//private ArrayList<Agreement> agreementList;
 	//private CorporateMember corporateMem;
-<<<<<<< HEAD
 	
 	@Override
 	public String toString() {
 		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
-=======
-
+	}
+		
 	public Member() {
 		super();
 		this.memberID = new SimpleIntegerProperty();
@@ -41,7 +40,6 @@ public class Member extends User {
 		this.commissionRate = new SimpleFloatProperty(); 
 		this.creditCard = new SimpleStringProperty(); 
 		this.paymentMedia = new SimpleStringProperty();
->>>>>>> fcbeb30bb80e045ee2add7652dab01f6f14882e3
 	}
 	
 	public int getMemberID() {

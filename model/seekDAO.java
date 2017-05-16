@@ -18,12 +18,77 @@ import javafx.collections.ObservableList;
 import model.Seek;
 import util.*;
 
-/**
- *
- * @author z5076470
- */
-public class seekDAO {
+
+public class SeekDAO {
+    public ObservableList<Seek> findAll() throws SQLException, ClassNotFoundException {
+        try {
+                ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "SEEK", ""));
+        
+                ObservableList<Seek> list = this.getSeekList(rs);
+                
+                return list;
+    } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() +" failed.");
+            e.printStackTrace();
+    	}
+        return null;
+    }
     
+    public Seek findById(int seekID) throws SQLException, ClassNotFoundException {
+    	try {
+    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "SEEK", "OFFER_ID=" + seekID  ));
+    		
+    		ObservableList<Seek> list = this.getSeekList(rs);
+    	
+    	} catch (SQLException | ClassNotFoundException e) {
+    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		e.printStackTrace();
+    	}
+    	return null;
+    }
+    
+    public void insert(Seek seek) throws SQLException, ClassNotFoundException {
+    	String sqlStmt = new InsertSQLBuilder()
+    			.addTable("SEEK")
+    			.addFieldValue("USERNAME", seek.getUsername())
+    			.addFieldValue("BOOK_DAY", seek.getBookDay())
+    			.addFieldValue("BOOK_TIME", seek.getBookTime())
+    			.where("SEEK_ID=" + seek.getSeekID())    			
+    			.toString();
+    	
+    	try {
+    		DBUtil.dbExecuteUpdate(sqlStmt);
+    	} catch (SQLException | ClassNotFoundException e) {
+    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		throw e;    		
+    	}
+    }
+    
+    public void update(Seek seek) throws SQLException, ClassNotFoundException {
+    	String sqlStmt = new UpdateSQLBuilder()
+    			.addTable("SEEK")
+    			.addFieldValue("USERNAME", seek.getUsername())
+    			.addFieldValue("BOOK_DAY", seek.getBookDay())
+    			.addFieldValue("BOOK_TIME", seek.getBookTime())
+    			.where("SEEK_ID=" + seek.getSeekID())
+    			.toString();
+    	
+    	try {
+    		DBUtil.dbExecuteUpdate(sqlStmt);
+    	} catch (SQLException | ClassNotFoundException e) {
+    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		throw e;    		
+    	}    	
+    }
+    
+    public void delete(String condition) throws SQLException, ClassNotFoundException {
+		try {
+    		DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("SEEK", condition));
+    	} catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+    		throw e;
+    	}    	
+    } 
     
     
     private ObservableList<Seek> getSeekList (ResultSet rs) throws SQLException {
