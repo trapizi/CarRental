@@ -88,19 +88,4 @@ public class Consultation {
     public void setCorporateID(String corporateID) {
         this.corporateID = corporateID;
     }
-
-    /**
-     * @return the staff_ID
-     */
-    public String getStaff_ID() {
-        return staff_ID;
-    }
-
-    /**
-     * @param staff_ID the staff_ID to set
-     */
-    public void setStaff_ID(String staff_ID) {
-        this.staff_ID = staff_ID;
-    }
-    
 }
