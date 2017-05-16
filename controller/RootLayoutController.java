@@ -1,7 +1,6 @@
 package controller;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-
 public class RootLayoutController {
 
     /*//Reference to the main application

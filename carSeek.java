@@ -1,11 +1,12 @@
 
 import model.Member;
 import java.util.Date;
+import java.sql.Timestamp;
 
 public class carSeek {
 	private int seekID;
     private Member username;
-    private Date bookDay, bookTime;
+    private Timestamp bookDay, bookTime;
 
 	public int getSeekID() {
 		return seekID;
@@ -27,15 +28,15 @@ public class carSeek {
 		return bookDay;
 	}
 
-	public void setBookDay(Date bookDay) {
+	public void setBookDay(Timestamp bookDay) {
 		this.bookDay = bookDay;
 	}
 
-	public Date getBookTime() {
+	public Timestamp getBookTime() {
 		return bookTime;
 	}
 
-	public void setBookTime(Date bookTime) {
+	public void setBookTime(Timestamp bookTime) {
 		this.bookTime = bookTime;
 	}
 }
