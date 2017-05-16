@@ -1,13 +1,16 @@
 package model;
 
-public class AgreementPayment extends Payment{
-    	private int agreementPaymentID;
+import javafx.beans.property.IntegerProperty;
 
-	public int getAgreementPaymentID() {
+public class AgreementPayment extends Payment{
+    	
+    private IntegerProperty agreementPaymentID;
+
+	public IntegerProperty getAgreementPaymentID() {
 		return agreementPaymentID;
 	}
 
-	public void setAgreementPaymentID(int agreementPaymentID) {
+	public void setAgreementPaymentID(IntegerProperty agreementPaymentID) {
 		this.agreementPaymentID = agreementPaymentID;
 	}
     
