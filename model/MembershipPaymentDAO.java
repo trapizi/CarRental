@@ -54,11 +54,11 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     
     
     //insert membershipPayment_id and payment_id into membershipPaymentshipPayment table
-    public void insert(MembershipPayment membershipPaymentshipPayment) throws SQLException, ClassNotFoundException {
+    public void insert(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBER_ID", membershipPaymentshipPayment.getMembershipPaymentID())
-            .addFieldValue("PAYMENT_ID", membershipPaymentshipPayment.getPaymentID())
+            .addFieldValue("MEMBER_ID", membershipPayment.getMembershipPaymentID())
+            .addFieldValue("PAYMENT_ID", membershipPayment.getPaymentID())
 		.toString();		
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
@@ -71,18 +71,18 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     
     //update()
     //MemberDAO update membershipPayment fields by calling membershipPaymentDAO.update()
-    public void update(MembershipPayment membershipPaymentshipPayment) throws SQLException, ClassNotFoundException {
+    public void update(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new UpdateSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBER_ID", membershipPaymentshipPayment.getMembershipPaymentID())
-            .where("MEMBER_ID=" + membershipPaymentshipPayment.getMembershipPaymentID())
-            .and("PAYMENT_ID=" + membershipPaymentshipPayment.getPaymentID())
+            .addFieldValue("MEMBER_ID", membershipPayment.getMembershipPaymentID())
+            .where("MEMBER_ID=" + membershipPayment.getMembershipPaymentID())
+            .and("PAYMENT_ID=" + membershipPayment.getPaymentID())
 		.toString();
 		
 	try {
             // update payment-related information for the membershipPaymentshipPayment
             PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.update(membershipPaymentshipPayment);
+            paymentDAO.update(membershipPayment);
 			
             // update agreement-related information
             DBUtil.dbExecuteUpdate(sqlStmt);
