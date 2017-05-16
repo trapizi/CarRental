@@ -29,13 +29,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
      * Inserts an agreement into the database
      */
     public void insert(Agreement agmt) throws SQLException, ClassNotFoundException {
-    	String sqlStmt = new InsertSQLBuilder("AGREEMENT")
+    	String sqlStmt = new InsertSQLBuilder().addTable("AGREEMENT")
     			//.addFieldValue("SEEKER", agmt.getSeeker())
     			//.addFieldValue("OFFERER", agmt.getOfferer())
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
-    			.addFieldValue("UNIQUENO", agmt.getUniqueNo())
+    			//.addFieldValue("UNIQUENO", agmt.getUniqueNo())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
@@ -44,7 +44,7 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("FROMPIN", agmt.getFromPin())
     			.addFieldValue("PUPFROM", agmt.getpUpFrom())
     			.addFieldValue("PUPTO", agmt.getpUpTo())
-    			.addFieldValue("DAY", agmt.getDay())
+    			//.addFieldValue("DAY", agmt.getDay())
     			.toString();
     			
     	try {
@@ -61,13 +61,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
      * Note: Will be able to update anything but username and staff_id
      */
     public void update(Agreement agmt) throws SQLException, ClassNotFoundException {
-    	String sqlStmt = new UpdateSQLBuilder("AGREEMENT")
+    	String sqlStmt = new UpdateSQLBuilder().addTable("AGREEMENT")
     			//.addFieldValue("SEEKER", agmt.getSeeker())
     			//.addFieldValue("OFFERER", agmt.getOfferer())
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
-    			.addFieldValue("UNIQUENO", agmt.getUniqueNo())
+    			//.addFieldValue("UNIQUENO", agmt.getUniqueNo())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
@@ -76,9 +76,11 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("FROMPIN", agmt.getFromPin())
     			.addFieldValue("PUPFROM", agmt.getpUpFrom())
     			.addFieldValue("PUPTO", agmt.getpUpTo())
-    			.addFieldValue("DAY", agmt.getDay())
+    			//.addFieldValue("DAY", agmt.getDay())
+    			.where("AGREEMENT_ID=" + agmt.getAgreement_id())
     			.toString();
-    	
+    		
+    			System.out.println(sqlStmt);
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
@@ -111,13 +113,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
     	while (rs.next()) {
     		try {
 	    		Agreement agmt = new Agreement();    		
-	    		
+	    		agmt.setAgreement_id(rs.getInt("AGREEMENT_ID"));
 	    		//agmt.setSeeker(rs.getInt("SEEKER"));
 	    		//agmt.setOfferer(rs.getInt("OFFERER"));
 	    		agmt.setStatus(rs.getString("STATUS"));
 	    		agmt.setPayAmt(rs.getString("PAYAMT"));
 	    		agmt.setAgreeDate(rs.getString("AGREEDATE"));
-	    		agmt.setUniqueNo(rs.getString("UNIQUENO"));
+	    		//agmt.setUniqueNo(rs.getString("UNIQUENO"));
 	    		agmt.setCreateDay(rs.getString("CREATEDAY"));
 	    		agmt.setInitiateBy(rs.getString("INITIATEBY"));
 	    		//agmt.setOffer??
@@ -126,7 +128,7 @@ public class AgreementDAO implements TableDAO<Agreement> {
 	    		agmt.setFromPin(rs.getLong("FROMPIN"));
 	    		agmt.setpUpFrom(rs.getLong("PUPFROM"));
 	    		agmt.setpUpTo(rs.getLong("PUPTO"));
-	    		agmt.setDay(rs.getString("DAY"));
+	    		//agmt.setDay(rs.getString("DAY"));
 	    	
 	    		list.add(agmt);
     		} catch (SQLException e) {

@@ -1,16 +1,15 @@
 package model;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
-public class Member {
-	private Calendar lastMatchDate;
-	private Calendar accountExpiry;
-	private float commisionRate;
+public class Member extends User {
+	private int memberID;
+	private Date lastMatchDate;
+	private Date accountExpiry;
+	private float commissionRate;
 	private String creditCard;
-	private String accountOwnerName;
 	private String paymentMedia;
-	private String password;
-	
+		
 	/*
 	 * TODO: uncomment when other classes made
 	 */
@@ -20,46 +19,56 @@ public class Member {
 	//private ArrayList<Agreement> agreementList;
 	//private CorporateMember corporateMem;
 	
-	public Calendar getLastMatchDate() {
+	@Override
+	public String toString() {
+		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
+	}
+	
+	public int getMemberID() {
+		return memberID;
+	}
+
+	public void setMemberID(int memberID) {
+		this.memberID = memberID;
+	}
+
+	public Date getLastMatchDate() {
 		return lastMatchDate;
 	}
-	public void setLastMatchDate(Calendar lastMatchDate) {
+	
+	public void setLastMatchDate(Date lastMatchDate) {
 		this.lastMatchDate = lastMatchDate;
 	}
-	public Calendar getAccountExpiry() {
+	
+	public Date getAccountExpiry() {
 		return accountExpiry;
 	}
-	public void setAccountExpiry(Calendar accountExpiry) {
+	
+	public void setAccountExpiry(Date accountExpiry) {
 		this.accountExpiry = accountExpiry;
 	}
-	public float getCommisionRate() {
-		return commisionRate;
+	
+	public float getCommissionRate() {
+		return commissionRate;
 	}
-	public void setCommisionRate(float commisionRate) {
-		this.commisionRate = commisionRate;
+	
+	public void setCommissionRate(float commissionRate) {
+		this.commissionRate = commissionRate;
 	}
+	
 	public String getCreditCard() {
 		return creditCard;
 	}
+	
 	public void setCreditCard(String creditCard) {
 		this.creditCard = creditCard;
 	}
-	public String getAccountOwnerName() {
-		return accountOwnerName;
-	}
-	public void setAccountOwnerName(String accountOwnerName) {
-		this.accountOwnerName = accountOwnerName;
-	}
+	
 	public String getPaymentMedia() {
 		return paymentMedia;
 	}
+	
 	public void setPaymentMedia(String paymentMedia) {
 		this.paymentMedia = paymentMedia;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }

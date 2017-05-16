@@ -1,8 +1,12 @@
 package util;
 
 public class InsertSQLBuilder extends Builder {
-	public InsertSQLBuilder(String tableName) {
-		super(tableName);
+	public InsertSQLBuilder() {
+		super();
+	}
+	
+	public InsertSQLBuilder addTable(String tableName) {
+		return (InsertSQLBuilder) (super.addTable(tableName));
 	}
 	
 	/*
@@ -13,11 +17,9 @@ public class InsertSQLBuilder extends Builder {
 	 */
 	@Override
 	public InsertSQLBuilder addFieldValue(String field, Object value) {
-		this.fields.add(field);
-		this.values.add(value);
-		return this;
+		return (InsertSQLBuilder) (super.addFieldValue(field, value));
 	}
-	
+		
 	/*
 	 * Use this to get a string of the SQL insert statement
 	 */
@@ -38,7 +40,8 @@ public class InsertSQLBuilder extends Builder {
 			}
 		}
 
-		// Append values into a query		
+		// Append values into a query
+		lastIndex = values.size() - 1;
 		for (int i = 0; i < values.size(); i++) {
 			
 			if (values.get(i) instanceof String) {
@@ -52,7 +55,7 @@ public class InsertSQLBuilder extends Builder {
 			}
 		}
 		
-		SQLStmt.append("INSERT INTO " + this.tableName + " (" + fieldText + ") VALUES (" + valueText + ")");
+		SQLStmt.append("INSERT INTO " + this.tables.get(0) + " (" + fieldText + ") VALUES (" + valueText + ")");
 		
 		return SQLStmt.toString();
 	}

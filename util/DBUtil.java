@@ -121,7 +121,7 @@ public class DBUtil {
     /*
      * Initialises a single table in the database with a SQL create statement
      */
-    private static void dbInitTable(String sqlStmt) throws SQLException, ClassNotFoundException {
+    public static void dbInitTable(String sqlStmt) throws SQLException, ClassNotFoundException {
     	ResultSet rs;
     	
     	if (sqlStmt == null) {
@@ -165,18 +165,30 @@ public class DBUtil {
     public static void dbInitAllTables() throws SQLException, ClassNotFoundException {
     	
     	ArrayList<String> fileNames = new ArrayList<String>();
+    	final String directory = "src/table/";
     	
     	
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("agreement.txt");
+    	fileNames.add("staff.txt");
+    	fileNames.add("member.txt");
+    	fileNames.add("corporate.txt");
+    	fileNames.add("corporateMember.txt");
     	
+    	
+    	fileNames.add("offer.txt");
+    	fileNames.add("seek.txt");
+    	
+    	/* TODO: FIX THE CONTENTS OF THIS FILE
+    	fileNames.add("carShareOffice.txt");
+    	*/
     	/* */
     	
     	/* construct tables using the files given in ArrayList<String> fileNames */
     	for (String file: fileNames) {
     		String sqlStmt;
 	    	try {
-	    		sqlStmt = SQLBuilder.createTableSQL(file);    		    		
+	    		sqlStmt = SQLBuilder.createTableSQL(directory + file);    		    		
 	    		dbInitTable(sqlStmt);	
 	    	} catch (SQLException e) {
 	    		System.out.println("Could not initialise " + file + " table...");
