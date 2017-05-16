@@ -1,4 +1,8 @@
+import java.sql.DriverManager;
+
 import java.sql.SQLException;
+
+import controller.StaffController;
 import test.BingTest;
 import util.*;
 
@@ -34,24 +38,22 @@ public class Main extends Application {
     }
 	
 	public static void main(String[] args) throws Exception {
-		/* add stuff to this function if you want to test tables */
-		Main.testTables();
-
-		/*
-		try {
-			BingTest.initMyTables();
-			BingTest.testStaffTable();
-			//BingTest.testCorporateMemberTable();
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			DBUtil.dbShutdown();
-		}
-		*/
+    	System.out.println("java version: "+System.getProperty("java.version"));
+    	System.out.println("javafx.version: " + System.getProperty("javafx.version"));
 		
-		/* add stuff to start() if you want to test UI */
-        launch(args);		
+		// add stuff to this function if you want to test tables 
+		Main.testTables();
+		
+		// add stuff to start() if you want to test UI 
+        try {
+			BingTest.initMyTables();
+            launch(args);	
+        } catch (Exception e) {
+        	System.out.println(e.getStackTrace());
+		} finally {
+			BingTest.clearTables();
+        	DBUtil.dbShutdown();
+        }
 	}
 	
 	public static void testTables() {
@@ -106,6 +108,9 @@ public class Main extends Application {
 
             // Set Employee Operations view into the center of root layout.
             rootLayout.setCenter(staffOperationsView);
+                        
+            //StaffController controller = loader.getController();
+            //controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
