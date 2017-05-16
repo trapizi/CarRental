@@ -109,4 +109,21 @@ public class BingTest {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void clearTables() throws Exception {
+		try { 
+			DBUtil.clearTable("STAFF");
+			DBUtil.dropTable("STAFF");
+			
+			DBUtil.dropTable("CORPORATE_MEMBER");
+			
+			DBUtil.clearTable("MEMBER");
+			DBUtil.dropTable("MEMBER");
+			
+			DBUtil.clearTable("CORPORATE");
+			DBUtil.dropTable("CORPORATE");
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

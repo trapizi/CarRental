@@ -16,7 +16,7 @@ public class Staff extends User {
 	}
 	
 	public String toString() {
-		return "first_name: " + this.getFirstName() + " last_name: " + this.getLastName() + " username: " + this.getUserName();
+		return "id: " + this.getStaff_id() + " first_name: " + this.getFirstName() + " last_name: " + this.getLastName() + " username: " + this.getUserName();
 	}
 	
 	public int getStaff_id() {
