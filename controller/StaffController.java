@@ -1,21 +1,5 @@
 package controller;
 
-import java.sql.SQLException;
-
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import mainApp.SUber;
-import model.Staff;
-import model.StaffDAO;
-
 public class StaffController {
     @FXML
     private TextField userNameText;
@@ -188,32 +172,4 @@ public class StaffController {
 
     		alert.showAndWait();
     	}
-
-        staffTable.getItems().remove(selectedIndex);  
-    }
-    
-    public void setMainApp(SUber mainApp) {
-        this.mainApp = mainApp;
-    }
-    
-    private boolean isValidPhoneNo(String phoneNoText) {    	
-    	try {
-    		Long.parseLong(phoneNoText);
-    	} catch (NumberFormatException e) {
-    		resultArea.appendText("Invalid phone number entered!\n");
-    		return false;
-    	}
-    	    	
-    	return true;
-    }
-    
-    private boolean isValidSalary(String salaryText) {
-    	try {
-    		Double.parseDouble(salaryText);
-    	} catch (NumberFormatException e) {
-    		resultArea.appendText("Invalid salary entered!\n");
-    		return false;
-    	}
-    	return true;
-    }
 }

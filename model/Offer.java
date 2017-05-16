@@ -1,84 +1,128 @@
 package model;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
-	private int offerID, seats;
-    private String carType, brand, model, transmission, fuelType;
-    private double price;
+	private IntegerProperty offerID, seats;
+    private StringProperty carType, brand, model, transmission, fuelType;
+    private FloatProperty price;
 
-    public Offer(int carID, int seats, double price, String carType, String brand, String model, String transmission, String fuelType) {
-        this.offerID = carID;
-        this.seats = seats;
-        this.carType = carType;
-        this.brand = brand;
-        this.model = model;
-        this.transmission = transmission;
-        this.fuelType = fuelType;
-        this.price = price;
+    public Offer() {
+        this.offerID = new SimpleIntegerProperty();
+        this.seats = new SimpleIntegerProperty();
+        this.carType = new SimpleStringProperty();
+        this.brand = new SimpleStringProperty();
+        this.model = new SimpleStringProperty();
+        this.transmission = new SimpleStringProperty();
+        this.fuelType = new SimpleStringProperty();
+        this.price = new SimpleFloatProperty();
+    }
+
+
+    
+    
+    public int getOfferID() {
+        return offerID.get();
+    }
+
+    public void setOfferID(int offerID) {
+        this.offerID.set(offerID);
     }
     
-    
-    public int getCarID() {
+    public IntegerProperty offerIDProperty(){
         return offerID;
     }
 
-    public void setCarID(int carID) {
-        this.offerID = offerID;
-    }
-
     public int getSeats() {
-        return seats;
+        return seats.get();
     }
 
     public void setSeats(int seats) {
-        this.seats = seats;
+        this.seats.set(seats);
+    }
+    
+    public IntegerProperty seatsProperty(){
+        return seats;
     }
 
     public String getCarType() {
-        return carType;
+        return carType.get();
     }
 
     public void setCarType(String carType) {
-        this.carType = carType;
+        this.carType.set(carType);
     }
 
+    public StringProperty carTypeProperty(){
+        return carType;
+    }
+    
     public String getBrand() {
-        return brand;
+        return brand.get();
     }
 
     public void setBrand(String brand) {
-        this.brand = brand;
+        this.brand.set(brand);
+    }
+    
+    public StringProperty brandProperty(){
+        return brand;
     }
     
     public String getModel(){
-    	return model;
+    	return model.get();
     }
     
     public void setModel(String model){
-    	this.model = model;
+    	this.model.set(model);
     }
 
+    public StringProperty modelProperty(){
+    return model;
+    }
+    
     public String getTransmission() {
-        return transmission;
+        return transmission.get();
     }
 
     public void setTransmission(String transmission) {
-        this.transmission = transmission;
+        this.transmission.set(transmission);
     }
 
+    public StringProperty transmissionProperty(){
+        return transmission;
+    }
+    
     public String getFuelType() {
-        return fuelType;
+        return fuelType.get();
     }
 
     public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
+        this.fuelType.set(fuelType);
     }  
     
-    public double getPrice(){
-    	return price;
+    public StringProperty fuelTypeProperty(){
+        return fuelType;
     }
     
-    public void setPrice(double price){
-    	this.price = price;
+    public double getPrice(){
+    	return price.get();
+    }
+    
+    public void setPrice(float price){
+    	this.price.set(price);
+    }
+    
+    public FloatProperty priceProperty(){
+        return price;
     }
     
 }

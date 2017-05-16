@@ -11,6 +11,7 @@ public class Agreement {
 	private String status;
 	private String payAmt;
 	private String agreeDate;
+	private String uniqueNo;
 	private String createDay;
 	private String initiateBy;
 	//private CarOffer offer;
@@ -19,7 +20,7 @@ public class Agreement {
 	private long fromPin;
 	private long pUpFrom;
 	private long pUpTo;	
-	//private String day;
+	private String day;
 	
 	private ArrayList<Adjustment> adjustList;
 	
@@ -70,7 +71,15 @@ public class Agreement {
 	public void setAgreeDate(String agreeDate) {
 		this.agreeDate = agreeDate;
 	}
-	
+
+	public String getUniqueNo() {
+		return uniqueNo;
+	}
+
+	public void setUniqueNo(String uniqueNo) {
+		this.uniqueNo = uniqueNo;
+	}
+
 	public String getCreateDay() {
 		return createDay;
 	}
@@ -127,24 +136,19 @@ public class Agreement {
 		this.pUpTo = pUpTo;
 	}
 
-/*	public String getDay() {
+	public String getDay() {
 		return day;
 	}
 
 	public void setDay(String day) {
 		this.day = day;
 	}
-*/
+
 	public ArrayList<Adjustment> getAdjustList() {
 		return adjustList;
 	}
 
 	public void setAdjustList(ArrayList<Adjustment> adjustList) {
 		this.adjustList = adjustList;
-	}
-	
-	@Override
-	public String toString() {
-		return this.status;
 	}
 }

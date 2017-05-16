@@ -3,23 +3,30 @@ package model;
 public class Payment {
     
     //PAYMENT table columns
-    private String paymentID;
     private double amount;
     private String date;
+    private String id;
     private String paymentAccount;
     private String paymentType;
     private String accountExpiry;
     private String accountOwnerName;
     private String paymentMedia;
 
-    public String getPaymentID(){
-        return paymentID;
-    }
+    //PAYMENT constructor
+    /*public Payment() {
+        this.amount = new amount();
+        this.first_name = new SimpleStringProperty();
+        this.last_name = new SimpleStringProperty();
+        this.email = new SimpleStringProperty();
+        this.phone_number = new SimpleStringProperty();
+        this.hire_date = new SimpleObjectProperty<>();
+        this.job_id = new SimpleStringProperty();
+        this.salary = new SimpleIntegerProperty();
+        this.commission_pct = new SimpleDoubleProperty();
+        this.manager_id = new SimpleIntegerProperty();
+        this.department_id = new SimpleIntegerProperty();
+    } */
     
-    public void setPaymentID(String PaymentID){
-        this.paymentID = paymentID;
-    }
-
     public double getAmount(){
         return amount;
     }
@@ -34,7 +41,15 @@ public class Payment {
     
     public void setDate(String date){
         this.date = date;
-    }      
+    }
+        
+    public String getId(){
+        return id;
+    }
+    
+    public void setId(String id){
+        this.id = id;
+    }
     
     public String getPaymentAccount(){
         return paymentAccount;

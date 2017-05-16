@@ -1,31 +1,16 @@
 package model;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /*
  * User is abstract as we never instantiate this class
  */
-public abstract class User {	
-	private StringProperty userName;
-	private StringProperty password;
-	private StringProperty firstName;
-	private StringProperty lastName;
-	private StringProperty email;
-	private LongProperty phoneNo;
-	private StringProperty homeAddress;
-	
-	public User() {
-		this.userName = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
-		this.firstName= new SimpleStringProperty();
-		this.lastName = new SimpleStringProperty();
-		this.email = new SimpleStringProperty();
-		this.phoneNo = new SimpleLongProperty();
-		this.homeAddress = new SimpleStringProperty();
-	}
+public abstract class User {
+	private String userName;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private long phoneNo;
+	private String homeAddress;
 	
 	@Override
 	public String toString() {
@@ -33,86 +18,58 @@ public abstract class User {
 	}
 	
 	public String getUserName() {
-		return userName.get();
-	}
-
-	public void setUserName(String userName) {
-		this.userName.set(userName);
-	}
-	
-	public StringProperty userNameProperty() {
 		return userName;
 	}
 
-	public String getLastName() {
-		return lastName.get();
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName.set(lastName);
-	}
-	
-	public StringProperty lastNameProperty() {
+	public String getLastName() {
 		return lastName;
 	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getPassword() {
-		return password.get();
-	}
-	
-	public void setPassword(String password) {
-		this.password.set(password);
-	}
-	
-	public StringProperty passwordProperty() {
 		return password;
 	}
 	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getFirstName() {
-		return firstName.get();
-	}
-	
-	public void setFirstName(String firstName) {
-		this.firstName.set(firstName);
-	}
-	
-	public StringProperty firstNameProperty() {
 		return firstName;
 	}
 	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
 	public String getEmail() {
-		return email.get();
-	}
-	
-	public void setEmail(String email) {
-		this.email.set(email);
-	}
-	
-	public StringProperty emailProperty() {
 		return email;
 	}
 	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public long getPhoneNo() {
-		return phoneNo.get();
-	}
-	
-	public void setPhoneNo(long phoneNo) {
-		this.phoneNo.set(phoneNo);
-	}
-	
-	public LongProperty phoneNoProperty() {
 		return phoneNo;
 	}
 	
+	public void setPhoneNo(long phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	
 	public String getHomeAddress() {
-		return homeAddress.get();
+		return homeAddress;
 	}
 	
 	public void setHomeAddress(String homeAddress) {
-		this.homeAddress.set(homeAddress);
-	}
-	
-	public StringProperty homeAddressProperty() {
-		return homeAddress;
+		this.homeAddress = homeAddress;
 	}
 }
