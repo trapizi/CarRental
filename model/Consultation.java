@@ -18,7 +18,6 @@ public class Consultation {
     private Time consultationTime;
     private Calendar consultationDate;
     private String corporateID;
-    private String staff_ID;
 
     /**
      * @return the consultationNum
