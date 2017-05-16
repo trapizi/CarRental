@@ -39,6 +39,10 @@ public abstract class User {
 	public void setUserName(String userName) {
 		this.userName.set(userName);
 	}
+	
+	public StringProperty userNameProperty() {
+		return userName;
+	}
 
 	public String getLastName() {
 		return lastName.get();
@@ -46,6 +50,10 @@ public abstract class User {
 
 	public void setLastName(String lastName) {
 		this.lastName.set(lastName);
+	}
+	
+	public StringProperty lastNameProperty() {
+		return lastName;
 	}
 
 	public String getPassword() {
@@ -56,12 +64,20 @@ public abstract class User {
 		this.password.set(password);
 	}
 	
+	public StringProperty passwordProperty() {
+		return password;
+	}
+	
 	public String getFirstName() {
 		return firstName.get();
 	}
 	
 	public void setFirstName(String firstName) {
 		this.firstName.set(firstName);
+	}
+	
+	public StringProperty firstNameProperty() {
+		return firstName;
 	}
 	
 	public String getEmail() {
@@ -72,6 +88,10 @@ public abstract class User {
 		this.email.set(email);
 	}
 	
+	public StringProperty emailProperty() {
+		return email;
+	}
+	
 	public long getPhoneNo() {
 		return phoneNo.get();
 	}
@@ -80,11 +100,19 @@ public abstract class User {
 		this.phoneNo.set(phoneNo);
 	}
 	
+	public LongProperty phoneNoProperty() {
+		return phoneNo;
+	}
+	
 	public String getHomeAddress() {
 		return homeAddress.get();
 	}
 	
 	public void setHomeAddress(String homeAddress) {
 		this.homeAddress.set(homeAddress);
+	}
+	
+	public StringProperty homeAddressProperty() {
+		return homeAddress;
 	}
 }
