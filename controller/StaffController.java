@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 import javafx.collections.ObservableList;
@@ -10,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.Staff;
 import model.StaffDAO;
 
@@ -78,7 +76,6 @@ public class StaffController {
     	}
     }
     
-    
     @FXML
     private void insertStaff(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {    	
     	/* construct staff object for insertion */
@@ -100,6 +97,7 @@ public class StaffController {
     		
         	Staff staff = new Staff();
     		staff.setFirstName(firstNameText.getText());
+    		staff.setUserName(userNameText.getText());
     		staff.setPassword(passwordText.getText());
     		staff.setLastName(lastNameText.getText());
     		staff.setEmail(emailText.getText());

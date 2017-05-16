@@ -46,6 +46,13 @@ public class BingTest {
 
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
 			
+			Staff s1 = staffDAO.findById(1);
+			s1.setFirstName("topkek");
+			
+			staffDAO.update(s1);
+
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "STAFF");
+			
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
 			DBUtil.clearTable("STAFF");
 			DBUtil.dropTable("STAFF");

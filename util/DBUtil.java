@@ -153,7 +153,6 @@ public class DBUtil {
     		} else {
     			dbDisconnect();
     		}
-    		
     	} catch (SQLException e) {
     		System.out.print("Error occured during getTables()");
     		throw e;
@@ -168,7 +167,9 @@ public class DBUtil {
     	ArrayList<String> fileNames = new ArrayList<String>();
     	final String dir = "src\\table\\";
     	
+    	
     	/* add your files that contain your CREATE TABLE statements here */
+    	fileNames.add("agreement.txt");
     	fileNames.add("staff.txt");
     	fileNames.add("member.txt");
     	fileNames.add("corporate.txt");

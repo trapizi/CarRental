@@ -35,7 +35,7 @@ public class StaffDAO implements TableDAO<Staff> {
     	try {
         	/* Query database for staff */
         	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "STAFF", "STAFF_ID=" + staff_id));
-            
+                    	
             ObservableList<Staff> list = this.getStaffList(rs);
             
             /* only try to return if list is not empty to prevent out of bounds exception */
@@ -44,7 +44,6 @@ public class StaffDAO implements TableDAO<Staff> {
             }
 
             return null;
-            
         } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
         	e.printStackTrace();
@@ -95,6 +94,8 @@ public class StaffDAO implements TableDAO<Staff> {
     			.addFieldValue("SALARY", staff.getSalary())
     			.where("STAFF_ID=" + staff.getStaff_id())
     			.toString();
+    	
+    	System.out.println(sqlStmt);
     	
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);

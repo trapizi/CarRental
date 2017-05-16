@@ -1,23 +1,16 @@
-import java.sql.SQLException;
 
-import model.*;
+
+import java.sql.SQLException;
 import test.BingTest;
 import util.*;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.application.Application;
-import javafx.beans.property.*;
-
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -45,17 +38,17 @@ public class Main extends Application {
 	public static void main(String[] args) throws Exception {
 		/* add stuff to this function if you want to test tables */
 		Main.testTables();
-		
+
 		/*
 		try {
 			BingTest.initMyTables();
 			BingTest.testStaffTable();
-			BingTest.testCorporateMemberTable();
-			DBUtil.dbShutdown();
+			//BingTest.testCorporateMemberTable();
 			
 		} catch (Exception e) {
-			DBUtil.dbShutdown();
 			throw e;
+		} finally {
+			DBUtil.dbShutdown();
 		}
 		*/
 		
