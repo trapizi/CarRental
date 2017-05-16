@@ -78,21 +78,18 @@ public class StaffController {
     }
     
     @FXML
-    private void searchAll() {
+    private void searchAll() throws SQLException, ClassNotFoundException {
     	try {
     		StaffDAO staffDAO = new StaffDAO();
     		ObservableList<Staff> list = staffDAO.findAll();
     		
     		resultArea.setText(Integer.toString(list.size()));
-    		
-    		for (Staff s : list) {
-    			System.out.println(s.toString());
-    		}
-    		
+    	
     		staffTable.setItems(list);
     		
     	} catch (SQLException | ClassNotFoundException e) {
     		resultArea.setText("Problem searching all employees\n");
+    		throw e;
     	}
     }
     
