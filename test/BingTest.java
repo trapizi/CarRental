@@ -2,6 +2,7 @@ package test;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Date;
 
 import javafx.collections.ObservableList;
 import model.Corporate;
@@ -65,6 +66,7 @@ public class BingTest {
 		try {
 			MemberDAO mDAO = new MemberDAO();
 			mDAO.insert(new Member());
+
 			
 			CorporateDAO cDAO = new CorporateDAO();
 			cDAO.insert(new Corporate());
@@ -73,6 +75,8 @@ public class BingTest {
 			
 			Member m = mDAO.findById(1);
 			m.setFirstName("test");
+			m.setLastMatchDate(new Date(10,10,10));
+			mDAO.update(m);
 			
 			Corporate c = cDAO.findById(1);
 			cmDAO.insert(m, c);
@@ -92,10 +96,11 @@ public class BingTest {
 			
 			ObservableList<CorporateMember> list = cmDAO.findAll();
 			for (CorporateMember cm: list) {
-				System.out.println(cm.toString());
+				System.out.println(cm.getFirstName());
 			}
 			
 			/* does not work on CORPORATE_MEMBER table due to the naming conventions of the fields in there */
+			/*
 			//DBUtil.clearTable("CORPORATE_MEMBER");
 			DBUtil.dropTable("CORPORATE_MEMBER");
 			
@@ -104,7 +109,7 @@ public class BingTest {
 			
 			DBUtil.clearTable("CORPORATE");
 			DBUtil.dropTable("CORPORATE");
-			
+			*/
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
