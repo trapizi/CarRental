@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.SQLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -71,7 +73,7 @@ public class StaffEditController {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk() throws InvalidInputException {
+    private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException {
     	// check for valid input here
     	try {
     		Staff.validateInput(
@@ -88,7 +90,16 @@ public class StaffEditController {
             
             // throw exception as well for debugging purposes
             throw e;
-    	}
+    	} catch (SQLException | ClassNotFoundException e) {
+    		
+    		// Create and display alert for database related exceptions
+    		Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
+            
+            alert.showAndWait();
+            
+            throw e;
+    	} 
 
     	// set staff fields if valid input entered
 		staff.setFirstName(this.firstNameTextField.getText());
