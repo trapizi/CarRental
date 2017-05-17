@@ -1,5 +1,9 @@
 package util;
 
+/**
+ * Class for building simple insert SQL statements
+ * @author Bing Wen (z3463269)
+ */
 public class InsertSQLBuilder extends Builder {
 	public InsertSQLBuilder() {
 		super();
@@ -9,7 +13,7 @@ public class InsertSQLBuilder extends Builder {
 		return (InsertSQLBuilder) (super.addTable(tableName));
 	}
 	
-	/*
+	/**
 	 * Add a field and a value for that field to the insert statement
 	 * 
 	 * @param field - the field you want to insert in

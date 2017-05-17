@@ -1,11 +1,11 @@
 package model;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/*
+/**
  * User is abstract as we never instantiate this class
  */
 public abstract class User {	
@@ -14,17 +14,26 @@ public abstract class User {
 	private StringProperty firstName;
 	private StringProperty lastName;
 	private StringProperty email;
-	private LongProperty phoneNo;
-	private StringProperty homeAddress;
+	private IntegerProperty phoneNo;
 	
-	public User() {
+	public User() {		
 		this.userName = new SimpleStringProperty();
 		this.password = new SimpleStringProperty();
-		this.firstName= new SimpleStringProperty();
+		this.firstName = new SimpleStringProperty();
 		this.lastName = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
-		this.phoneNo = new SimpleLongProperty();
-		this.homeAddress = new SimpleStringProperty();
+		this.phoneNo = new SimpleIntegerProperty();
+		
+		assert(this.password.get() != null);
+	}
+	
+	public User(String userName, String password, String firstName, String lastName, String email, Integer phoneNo) {		
+		this.userName.set(userName);
+		this.password.set(password);
+		this.firstName.set(firstName);
+		this.lastName.set(lastName);
+		this.email.set(email);
+		this.phoneNo.set(phoneNo);
 	}
 	
 	@Override
@@ -92,27 +101,15 @@ public abstract class User {
 		return email;
 	}
 	
-	public long getPhoneNo() {
+	public int getPhoneNo() {
 		return phoneNo.get();
 	}
 	
-	public void setPhoneNo(long phoneNo) {
+	public void setPhoneNo(int phoneNo) {
 		this.phoneNo.set(phoneNo);
 	}
 	
-	public LongProperty phoneNoProperty() {
+	public IntegerProperty phoneNoProperty() {
 		return phoneNo;
-	}
-	
-	public String getHomeAddress() {
-		return homeAddress.get();
-	}
-	
-	public void setHomeAddress(String homeAddress) {
-		this.homeAddress.set(homeAddress);
-	}
-	
-	public StringProperty homeAddressProperty() {
-		return homeAddress;
 	}
 }

@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import util.*;
 
 public class StaffDAO implements TableDAO<Staff> {
-	/*
+	/**
 	 * Returns a list of all staff in the staff table
 	 */
     public ObservableList<Staff> findAll() throws SQLException, ClassNotFoundException {    			
@@ -27,7 +27,7 @@ public class StaffDAO implements TableDAO<Staff> {
     	return null;
     }
     
-    /*
+    /**
      * Pre-condition: staff_id is unique
      * @param staff_id the staff_id of the staff member you are trying to find
      */
@@ -53,8 +53,9 @@ public class StaffDAO implements TableDAO<Staff> {
     	return null;
     }
       
-    /*
+    /**
      * Inserts a staff member into the database
+     * @param staff the staff member to insert
      */
     public void insert(Staff staff) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
@@ -65,8 +66,6 @@ public class StaffDAO implements TableDAO<Staff> {
     			.addFieldValue("LAST_NAME", staff.getLastName())
     			.addFieldValue("EMAIL", staff.getEmail())
     			.addFieldValue("PHONE", staff.getPhoneNo())
-    			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
-    			.addFieldValue("SALARY", staff.getSalary())
     			.toString();
     			
     	try {
@@ -77,10 +76,8 @@ public class StaffDAO implements TableDAO<Staff> {
     	}   
     }
     
-    /*
+    /**
      * Updates the details of a staff member in the database using a given staff object
-     * 
-     * Note: Will be able to update anything but username and staff_i
      */
     public void update(Staff staff) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder()
@@ -91,8 +88,6 @@ public class StaffDAO implements TableDAO<Staff> {
     			.addFieldValue("LAST_NAME", staff.getLastName())
     			.addFieldValue("EMAIL", staff.getEmail())
     			.addFieldValue("PHONE", staff.getPhoneNo())
-    			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
-    			.addFieldValue("SALARY", staff.getSalary())
     			.where("STAFF_ID=" + staff.getStaff_id())
     			.toString();
     	
@@ -104,7 +99,7 @@ public class StaffDAO implements TableDAO<Staff> {
     	}   
     }
     
-    /*
+    /**
      * Deletes a staff member from the database given a condition
      * 
      * Note: Ensure that your condition is formatted correctly for SQL
@@ -117,12 +112,8 @@ public class StaffDAO implements TableDAO<Staff> {
     		throw e;
     	}    	
     }
-    
-    /*
-     * Extra and helper functions below
-     */
-        
-    /*
+          
+    /**
      * Helper function
      * Converts staff records from database into staff objects for java to play with
      */
@@ -138,9 +129,7 @@ public class StaffDAO implements TableDAO<Staff> {
 	    		staff.setFirstName(rs.getString("FIRST_NAME"));
 	    		staff.setLastName(rs.getString("LAST_NAME"));
 	    		staff.setEmail(rs.getString("EMAIL"));
-	    		staff.setPhoneNo(rs.getLong("PHONE"));
-	    		staff.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
-	    		staff.setSalary(rs.getDouble("SALARY"));
+	    		staff.setPhoneNo(rs.getInt("PHONE"));
 	    		
 	    		list.add(staff);
     		} catch (SQLException e) {

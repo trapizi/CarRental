@@ -87,8 +87,7 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("CREDIT_CARD", member.getCreditCard())
     			.addFieldValue("PAYMENT_MEDIA", member.getPaymentMedia())
     			.where("MEMBER_ID=" + member.getMemberID())
-    			.toString();
-    			
+    			.toString();			
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
@@ -122,7 +121,7 @@ public class MemberDAO implements TableDAO<Member> {
 	    		member.setFirstName(rs.getString("FIRST_NAME"));
 	    		member.setLastName(rs.getString("LAST_NAME"));
 	    		member.setEmail(rs.getString("EMAIL"));
-	    		member.setPhoneNo(rs.getLong("PHONE"));
+	    		member.setPhoneNo(rs.getInt("PHONE"));
 	    		member.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
 	    		member.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
 	    		member.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));

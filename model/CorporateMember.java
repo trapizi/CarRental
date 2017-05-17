@@ -3,6 +3,9 @@ package model;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ * @author Bing Wen (z3463269)
+ */
 public class CorporateMember extends Member {
 	private Corporate corporation;
 	private IntegerProperty corporateID;
