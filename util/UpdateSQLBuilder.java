@@ -1,5 +1,8 @@
 package util;
 
+import java.sql.Time;
+import java.util.Date;
+
 /* Look in UpdateSQLBuilderTest.java to see how it's used */
 public class UpdateSQLBuilder extends Builder {		
 	public UpdateSQLBuilder() {
@@ -41,12 +44,14 @@ public class UpdateSQLBuilder extends Builder {
 			
 			updateText.append(fields.get(i) + "=");
 
-			if (values.get(i) instanceof String) {
+			if (values.get(i) instanceof String || values.get(i) instanceof Time) {
+				updateText.append("'" + values.get(i) + "'");
+			} else if (values.get(i) instanceof Date) {
 				updateText.append("'" + values.get(i) + "'");
 			} else {
 				updateText.append(values.get(i));
 			}
-			
+		
 			if (i != lastIndex) {
 				updateText.append(",");
 			}

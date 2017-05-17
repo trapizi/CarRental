@@ -49,7 +49,8 @@ public class SUber extends Application {
 		/* add stuff to start() if you want to test UI */
 		try {
 			BingTest.initMyTables();
-			launch(args);	
+			BingTest.testCorporateMemberTable();
+			//launch(args);	
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		} finally {

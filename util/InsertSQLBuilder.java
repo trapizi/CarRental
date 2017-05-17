@@ -1,5 +1,8 @@
 package util;
 
+import java.sql.Time;
+import java.util.Date;
+
 /**
  * Class for building simple insert SQL statements
  * @author Bing Wen (z3463269)
@@ -48,7 +51,9 @@ public class InsertSQLBuilder extends Builder {
 		lastIndex = values.size() - 1;
 		for (int i = 0; i < values.size(); i++) {
 			
-			if (values.get(i) instanceof String) {
+			if (values.get(i) instanceof String || values.get(i) instanceof Time) {
+				valueText.append("'" + values.get(i) + "'");
+			} else if (values.get(i) instanceof Date) {
 				valueText.append("'" + values.get(i) + "'");
 			} else {
 				valueText.append(values.get(i));
