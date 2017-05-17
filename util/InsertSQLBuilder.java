@@ -51,9 +51,7 @@ public class InsertSQLBuilder extends Builder {
 		lastIndex = values.size() - 1;
 		for (int i = 0; i < values.size(); i++) {
 			
-			if (values.get(i) instanceof String || values.get(i) instanceof Time) {
-				valueText.append("'" + values.get(i) + "'");
-			} else if (values.get(i) instanceof Date) {
+			if (values.get(i) instanceof String || values.get(i) instanceof Time || values.get(i) instanceof Date) {
 				valueText.append("'" + values.get(i) + "'");
 			} else {
 				valueText.append(values.get(i));
