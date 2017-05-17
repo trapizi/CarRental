@@ -1,93 +1,139 @@
 package model;
 
+import java.util.Date;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Payment {
     
     //PAYMENT table columns
-    private double amount;
-    private String date;
-    private String id;
-    private String paymentAccount;
-    private String paymentType;
-    private String accountExpiry;
-    private String accountOwnerName;
-    private String paymentMedia;
+    private DoubleProperty paymentAmount;
+    private SimpleObjectProperty<Date> date;
+    private StringProperty payment_id;
+    private StringProperty paymentAccount;
+    private StringProperty paymentType;
+    private StringProperty accountExpiry;
+    private StringProperty accountOwnerName;
+    private StringProperty paymentMedia;
 
     //PAYMENT constructor
-    /*public Payment() {
-        this.amount = new amount();
-        this.first_name = new SimpleStringProperty();
-        this.last_name = new SimpleStringProperty();
-        this.email = new SimpleStringProperty();
-        this.phone_number = new SimpleStringProperty();
-        this.hire_date = new SimpleObjectProperty<>();
-        this.job_id = new SimpleStringProperty();
-        this.salary = new SimpleIntegerProperty();
-        this.commission_pct = new SimpleDoubleProperty();
-        this.manager_id = new SimpleIntegerProperty();
-        this.department_id = new SimpleIntegerProperty();
-    } */
-    
-    public double getAmount(){
-        return amount;
+    public Payment() {
+        this.payment_id = new SimpleStringProperty();
+        this.paymentAmount = new SimpleDoubleProperty();
+        this.date = new SimpleObjectProperty<>();  
+        this.paymentAccount = new SimpleStringProperty();
+        this.paymentType = new SimpleStringProperty();
+        this.accountExpiry = new SimpleStringProperty();
+        this.accountOwnerName = new SimpleStringProperty();
+        this.paymentMedia = new SimpleStringProperty();
+  
     }
     
-    public void setAmount(double amount){
-        this.amount = amount;
+    //paymentID   
+    public String getId(){
+        return payment_id.get();
     }
     
-    public String getDate(){
+    public void setId(String payment_id){
+        this.payment_id.set(payment_id);
+    }
+    
+    public StringProperty payment_idProperty(){
+        return payment_id;
+    }
+    
+    //paymentAmount
+    public double getPaymentAmount(){
+        return paymentAmount.get();
+    }
+    
+    public void setPaymentAmount(double paymentAmount){
+        this.paymentAmount.set(paymentAmount);
+    }
+    
+    public DoubleProperty paymentAmountProperty(){
+        return paymentAmount;
+    }
+    
+    //date
+    public Date getDate(){
+        return date.get();
+    }
+    
+    public void setDate(Date date){
+        this.date.set(date);
+    }
+    
+    public SimpleObjectProperty<Date> hireDateProperty(){
         return date;
     }
-    
-    public void setDate(String date){
-        this.date = date;
-    }
-        
-    public String getId(){
-        return id;
-    }
-    
-    public void setId(String id){
-        this.id = id;
-    }
-    
+
+    //paymentAccount  
     public String getPaymentAccount(){
+        return paymentAccount.get();
+    }
+    
+    public void setPaymentAcccount(String paymentAccount){
+        this.payment_id.set(paymentAccount);
+    }
+    
+    public StringProperty paymentAccountProperty(){
         return paymentAccount;
     }
     
-    public void setPaymentAccount(String paymentAccount){
-        this.paymentAccount = paymentAccount;
-    }
-    
+    //paymentType  
     public String getPaymentType(){
-        return paymentType;
+        return paymentType.get();
     }
     
     public void setPaymentType(String paymentType){
-        this.paymentType = paymentType;
+        this.paymentType.set(paymentType);
     }
     
+    public StringProperty paymentTypeProperty(){
+        return paymentType;
+    }
+    
+    //accountExpiry  
     public String getAccountExpiry(){
-        return accountExpiry;
+        return accountExpiry.get();
     }
     
     public void setAccountExpiry(String accountExpiry){
-        this.accountExpiry = accountExpiry;
+        this.accountExpiry.set(accountExpiry);
     }
     
+    public StringProperty accountExpiryProperty(){
+        return accountExpiry;
+    }
+    
+    //accountOwnerName
     public String getAccountOwnerName(){
-        return accountOwnerName;
+        return accountOwnerName.get();
     }
     
     public void setAccountOwnerName(String accountOwnerName){
-        this.accountOwnerName = accountOwnerName;
+        this.accountOwnerName.set(accountOwnerName);
     }
     
+    public StringProperty accountOwnerNameProperty(){
+        return accountOwnerName;
+    }
+    
+    //paymentMedia
     public String getPaymentMedia(){
-        return paymentMedia;
+        return paymentMedia.get();
     }
     
     public void setPaymentMedia(String paymentMedia){
-        this.paymentMedia = paymentMedia;
+        this.paymentMedia.set(paymentMedia);
     }
+    
+    public StringProperty paymentMediaProperty(){
+        return paymentMedia;
+    }
+
 }
