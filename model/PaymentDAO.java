@@ -12,7 +12,7 @@ import util.UpdateSQLBuilder;
 
 public class PaymentDAO implements TableDAO<Payment> {
     
-    //findAll() return list of all Payments in Payment table
+    //findAll() 
     public ObservableList<Payment> findAll() throws SQLException, ClassNotFoundException {    			
         try {
             //SELECT query for Payment
@@ -31,64 +31,67 @@ public class PaymentDAO implements TableDAO<Payment> {
     
     
     //findById()
-    public Payment findById(int paymentID) throws SQLException, ClassNotFoundException {
+    public Payment findById(int payment_id) throws SQLException, ClassNotFoundException {
 	try {
-            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "PAYMENT", "PAYMENT_ID=" + paymentID));
+            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "PAYMENT", "PAYMENT_ID=" + payment_id));
             
             ObservableList<Payment> list = this.getPaymentList(rs);
 
             if (list.size() > 0) {
             	return list.get(0);
             }
+            
+            return null;
+            
         } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
         	e.printStackTrace();
         }
 		
 		return null;
-	}
+    }
     
     
     //insert()
     public void insert(Payment payment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("PAYMENT")
-            .addFieldValue("AMOUNT", payment.getAmount())
-            .addFieldValue("DATE", payment.getDate())
+            .addFieldValue("PAYMENT_AMOUNT", payment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", payment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", payment.getPaymentAccount())
             .addFieldValue("PAYMENT_TYPE", payment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", payment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", payment.getAccountOwnerName())
             .addFieldValue("PAYMENT_MEDIA", payment.getPaymentMedia())
-		.toString();
+            .toString();
 
     	try {
-        	DBUtil.dbExecuteUpdate(sqlStmt);
+            DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		throw e;
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            throw e;
     	}  
-	}
+    }
     
     //update()
     public void update(Payment payment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new UpdateSQLBuilder()
             .addTable("PAYMENT")
-            .addFieldValue("AMOUNT", payment.getAmount())
-            .addFieldValue("DATE", payment.getDate())
+            .addFieldValue("PAYMENT_AMOUNT", payment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", payment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", payment.getPaymentAccount())
             .addFieldValue("PAYMENT_TYPE", payment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", payment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", payment.getAccountOwnerName())
             .addFieldValue("PAYMENT_MEDIA", payment.getPaymentMedia())
-            .where("PAYMENT_ID=" + payment.getPaymentID())
-		.toString();
+            .where("PAYMENT_ID=" + payment.getPayment_id())
+            .toString();
 
     	try {
-        	DBUtil.dbExecuteUpdate(sqlStmt);
+            DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		throw e;
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            throw e;
     	}
     }
 
@@ -110,9 +113,9 @@ public class PaymentDAO implements TableDAO<Payment> {
         while (rs.next()) {
             try {
 	    	Payment payment = new Payment();    		
-	    	payment.setAmount(rs.getDouble("AMOUNT"));
-	    	payment.setDate(rs.getString("DATE"));
-	    	payment.setPaymentID(rs.getString("PAYMENT_ID"));
+	    	payment.setPayment_id(rs.getString("PAYMENT_ID"));
+                payment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	payment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	payment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	payment.setPaymentType(rs.getString("PAYMENT_TYPE"));
 	    	payment.setAccountExpiry(rs.getString("ACCOUNT_EXPIRY"));
@@ -126,5 +129,5 @@ public class PaymentDAO implements TableDAO<Payment> {
             }
     	}
     	return list;
-    }
+    } 
 }

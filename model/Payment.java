@@ -10,9 +10,9 @@ import javafx.beans.property.StringProperty;
 public class Payment {
     
     //PAYMENT table columns
-    private DoubleProperty paymentAmount;
-    private SimpleObjectProperty<Date> date;
     private StringProperty payment_id;
+    private DoubleProperty paymentAmount;
+    private SimpleObjectProperty<Date> paymentDate;    
     private StringProperty paymentAccount;
     private StringProperty paymentType;
     private StringProperty accountExpiry;
@@ -23,7 +23,7 @@ public class Payment {
     public Payment() {
         this.payment_id = new SimpleStringProperty();
         this.paymentAmount = new SimpleDoubleProperty();
-        this.date = new SimpleObjectProperty<>();  
+        this.paymentDate = new SimpleObjectProperty<>();  
         this.paymentAccount = new SimpleStringProperty();
         this.paymentType = new SimpleStringProperty();
         this.accountExpiry = new SimpleStringProperty();
@@ -33,11 +33,11 @@ public class Payment {
     }
     
     //paymentID   
-    public String getId(){
+    public String getPayment_id(){
         return payment_id.get();
     }
     
-    public void setId(String payment_id){
+    public void setPayment_id(String payment_id){
         this.payment_id.set(payment_id);
     }
     
@@ -59,16 +59,16 @@ public class Payment {
     }
     
     //date
-    public Date getDate(){
-        return date.get();
+    public Date getPaymentDate(){
+        return paymentDate.get();
     }
     
-    public void setDate(Date date){
-        this.date.set(date);
+    public void setPaymentDate(Date paymentDate){
+        this.paymentDate.set(paymentDate);
     }
     
     public SimpleObjectProperty<Date> hireDateProperty(){
-        return date;
+        return paymentDate;
     }
 
     //paymentAccount  
@@ -76,7 +76,7 @@ public class Payment {
         return paymentAccount.get();
     }
     
-    public void setPaymentAcccount(String paymentAccount){
+    public void setPaymentAccount(String paymentAccount){
         this.payment_id.set(paymentAccount);
     }
     
