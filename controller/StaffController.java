@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,32 +11,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import mainApp.SUber;
 import model.Staff;
 import model.StaffDAO;
+import util.AlertBuilder;
 
+/**
+ * @author Bing Wen (z3463269)
+ * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
+ */
 public class StaffController {
     @FXML
-    private TextField userNameText;
-    @FXML
-    private TextField passwordText;
-    @FXML
-    private TextField firstNameText;
-    @FXML
-    private TextField lastNameText;
-    @FXML
-    private TextField emailText;
-    @FXML
-    private TextField phoneNoText;
-    @FXML
-    private TextField homeAddressText;   
-    @FXML
-    private TextArea resultArea;
-    
+    private TextArea resultArea;	// used to display success/failure messages for functions    
     @FXML
     private TableView<Staff> staffTable;
-
     @FXML
     private TableColumn<Staff, String>  firstNameColumn;
     @FXML
@@ -55,10 +42,8 @@ public class StaffController {
     private Label emailLabel;    
     @FXML
     private Label phoneNoLabel;
-    @FXML
-    private Label homeAddressLabel;
-    
-    // list of staff members
+
+    // list to display onto the UI's table
     private ObservableList<Staff> staffList;
     private StaffDAO staffDAO;
     
@@ -73,7 +58,7 @@ public class StaffController {
     	// clear labels on right side of UI
     	showStaffDetails(null);
     	
-    	// listen to which row is being selected
+    	// check which row is being selected
         this.staffTable.getSelectionModel().selectedItemProperty().addListener(
         		(observable, oldValue, newValue) -> showStaffDetails(newValue));
         
@@ -91,41 +76,15 @@ public class StaffController {
     		staffTable.setItems(staffList);
     		
     		resultArea.setText("Search complete!\n");
-    		
-    	} catch (SQLException | ClassNotFoundException e) {
-    		resultArea.setText("Problem searching all employees\n");
+    	} catch (SQLException | ClassNotFoundException e) {            
+            // Create and display alert for the database exception
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+            		"Database could not complete search!", e.getMessage()); 
+            
+            alert.showAndWait();
+            
     		throw e;
-    	}
-    }
-    
-    @FXML
-    private void insertStaff(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {    	
-    	boolean invalidInput = false;
-    	
-		// clear text area for errors 
-		resultArea.clear();
-		
-		// TODO: add another check to validate input here or delete function
-		
-    	/* construct staff object and try insert if valid data */
-    	if (!invalidInput) {
-    		
-        	Staff staff = new Staff();
-    		staff.setFirstName(firstNameText.getText());
-    		staff.setUserName(userNameText.getText());
-    		staff.setPassword(passwordText.getText());
-    		staff.setLastName(lastNameText.getText());
-    		staff.setEmail(emailText.getText());
-    		staff.setHomeAddress(homeAddressText.getText());
-    		staff.setPhoneNo(Integer.parseInt(phoneNoText.getText()));
-    		
-	        try {	   	
-	            staffDAO.insert(staff);
-	            resultArea.setText("Employee inserted! \n");
-	        } catch (SQLException | ClassNotFoundException e) {
-	            resultArea.setText("Problem occurred while inserting employee " + e);
-	            throw e;
-	        }
     	}
     }
     
@@ -140,7 +99,6 @@ public class StaffController {
             lastNameLabel.setText(staff.getLastName());
             userNameLabel.setText(staff.getUserName());
             emailLabel.setText(staff.getEmail());
-            homeAddressLabel.setText(staff.getHomeAddress());
             phoneNoLabel.setText(Double.toString(staff.getPhoneNo()));
         } else {
         	staffIDLabel.setText("");
@@ -148,7 +106,6 @@ public class StaffController {
             lastNameLabel.setText("");
             userNameLabel.setText("");
             emailLabel.setText("");
-            homeAddressLabel.setText("");
             phoneNoLabel.setText("");
         }
     }
@@ -166,7 +123,7 @@ public class StaffController {
     		try {
     			StaffDAO staffDAO = new StaffDAO();
 
-    			/* remove the staff member selected by user from the database */
+    			// remove the staff member selected by user from the database
     			staffDAO.delete("STAFF_ID=" + staffTable.getItems().get(selectedIndex).getStaff_id());
 
         		resultArea.setText("Delete complete!\n");
@@ -176,14 +133,11 @@ public class StaffController {
     			throw e;
     		}
     	} else {
-    		// Nothing selected.
-    		Alert alert = new Alert(AlertType.WARNING);
-    		alert.initOwner(mainApp.getPrimaryStage());
-    		alert.setTitle("No Selection");
-    		alert.setHeaderText("No Person Selected");
-    		alert.setContentText("Please select a person in the table.");
-
-    		alert.showAndWait();
+    		// Create and display alert when no staff is selected
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
+            
+            alert.showAndWait();    		
     	}
         staffTable.getItems().remove(selectedIndex);  
     }
@@ -201,14 +155,18 @@ public class StaffController {
 	        try {	   	
 	        	// add new staff member to the list
 	        	staffDAO.insert(tempStaff);
-	        	//tempStaff = staffDAO.find
+
+	        	// TODO: ensure that staffID gets updated on the staff details section after insert
 	        	staffList.add(tempStaff);
 
 	            resultArea.setText("Employee inserted! \n");
-	        } catch (SQLException | ClassNotFoundException e) {
-	        	// revert the addition to staffList if failed to insert into database
-	        	staffList.remove(tempStaff);
-	            resultArea.setText("Problem occurred while inserting employee " + e);
+	        } catch (SQLException | ClassNotFoundException e) {	        	
+	            // Create and display alert for the database exception
+	            Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+	            		"Database could not complete search!", e.getMessage()); 
+	            
+	            alert.showAndWait();	        	
 	            throw e;
 	        }
         }
@@ -236,15 +194,11 @@ public class StaffController {
                 }
                 
             }
-
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Staff Selected");
-            alert.setContentText("Please select a staff member in the table.");
-
+        } else {            
+        	// Create and display alert when no staff is selected
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
+            
             alert.showAndWait();
         }
     }

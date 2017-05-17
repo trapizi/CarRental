@@ -4,6 +4,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import util.InvalidInputException;
 
+/**
+ * @author Bing Wen (z3463269)
+ */
 public class Staff extends User {	
 	private IntegerProperty staff_id;
 	
@@ -12,16 +15,13 @@ public class Staff extends User {
 		this.staff_id = new SimpleIntegerProperty();
 	}
 	
-	public Staff(String userName, String password, String firstName, String lastName, String email, 
-			Integer phoneNo, String homeAddress) {
-		
+	public Staff(String userName, String password, String firstName, String lastName, String email, Integer phoneNo) {
 		// call user constructor
-    	super(userName, password, firstName, lastName, email, phoneNo, homeAddress);
+    	super(userName, password, firstName, lastName, email, phoneNo);
     	this.staff_id = new SimpleIntegerProperty();
 	}
 	
-	public static void validateInput(String userName, String password, String firstName, String lastName, String email, 
-			String phoneNoText, String homeAddress) 
+	public static void validateInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText) 
 			throws InvalidInputException {
 		
     	try {

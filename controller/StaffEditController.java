@@ -6,8 +6,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Staff;
+import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * 
+ * @author Bing Wen (z3463269)
+ * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
+ */
 public class StaffEditController {
     @FXML
     private TextField userNameTextField;    
@@ -21,12 +27,11 @@ public class StaffEditController {
     private TextField emailTextField;    
     @FXML
     private TextField phoneNoTextField;
-    @FXML
-    private TextField homeAddressTextField;
-    @FXML
-    private TextField salaryTextField;
-    
+
+    // the edit page opens in another window which requires another stage
     private Stage dialogStage;
+    
+    // holds the staff member being created / edited
     private Staff staff;
     private boolean okClicked = false;
     
@@ -50,7 +55,6 @@ public class StaffEditController {
     	this.userNameTextField.setText(staff.getUserName());
     	this.passwordTextField.setText(staff.getPassword());
     	this.emailTextField.setText(staff.getEmail());
-    	this.homeAddressTextField.setText(staff.getHomeAddress());    
 		this.phoneNoTextField.setText(Integer.toString(staff.getPhoneNo()));
     } 
     
@@ -72,30 +76,29 @@ public class StaffEditController {
     	try {
     		Staff.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
-    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(), 
-    				this.homeAddressTextField.getText());
-    	} catch (InvalidInputException e) {    		
-    		// Display alert for incorrect input
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid input entered!");
-            alert.setHeaderText("Invalid input entered!");
-            alert.setContentText(e.getMessage());
+    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText());
+    		
+    	} catch (InvalidInputException e) {  
+    		
+    		// Create and display alert for incorrect input
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, dialogStage, "Invalid Input", "Invalid input entered!", e.getMessage()); 
             
             alert.showAndWait();
             
-            // TODO: what do we want to do with this exception?
+            // throw exception as well for debugging purposes
             throw e;
     	}
 
-    	// TODO: create function within staff to do call setters below
+    	// set staff fields if valid input entered
 		staff.setFirstName(this.firstNameTextField.getText());
 		staff.setUserName(this.userNameTextField.getText());
 		staff.setPassword(this.passwordTextField.getText());
 		staff.setLastName(this.lastNameTextField.getText());
 		staff.setEmail(this.emailTextField.getText());
-		staff.setHomeAddress(this.homeAddressTextField.getText());
 		staff.setPhoneNo(Integer.parseInt(this.phoneNoTextField.getText()));
+		
+		// close edit window
         okClicked = true;
         dialogStage.close();
     }

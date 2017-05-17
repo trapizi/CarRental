@@ -1,13 +1,11 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/*
+/**
  * User is abstract as we never instantiate this class
  */
 public abstract class User {	
@@ -17,7 +15,6 @@ public abstract class User {
 	private StringProperty lastName;
 	private StringProperty email;
 	private IntegerProperty phoneNo;
-	private StringProperty homeAddress;
 	
 	public User() {		
 		this.userName = new SimpleStringProperty();
@@ -26,20 +23,17 @@ public abstract class User {
 		this.lastName = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
 		this.phoneNo = new SimpleIntegerProperty();
-		this.homeAddress = new SimpleStringProperty();
 		
 		assert(this.password.get() != null);
 	}
 	
-	public User(String userName, String password, String firstName, String lastName, String email, 
-				Integer phoneNo, String homeAddress) {		
+	public User(String userName, String password, String firstName, String lastName, String email, Integer phoneNo) {		
 		this.userName.set(userName);
 		this.password.set(password);
 		this.firstName.set(firstName);
 		this.lastName.set(lastName);
 		this.email.set(email);
 		this.phoneNo.set(phoneNo);
-		this.homeAddress.set(homeAddress);
 	}
 	
 	@Override
@@ -117,17 +111,5 @@ public abstract class User {
 	
 	public IntegerProperty phoneNoProperty() {
 		return phoneNo;
-	}
-	
-	public String getHomeAddress() {
-		return homeAddress.get();
-	}
-	
-	public void setHomeAddress(String homeAddress) {
-		this.homeAddress.set(homeAddress);
-	}
-	
-	public StringProperty homeAddressProperty() {
-		return homeAddress;
 	}
 }

@@ -17,6 +17,7 @@ public class Member extends User {
 	private FloatProperty commissionRate;
 	private StringProperty creditCard;
 	private StringProperty paymentMedia;
+	private StringProperty homeAddress;
 		
 	/*
 	 * TODO: uncomment when other classes made
@@ -28,10 +29,16 @@ public class Member extends User {
 	//private CorporateMember corporateMem;
 	
 	@Override
+	/**
+	 * @return a string containing the member's ID and user details
+	 */
 	public String toString() {
 		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
 	}
 		
+	/**
+	 * Default constructor for member
+	 */
 	public Member() {
 		super();
 		this.memberID = new SimpleIntegerProperty();
@@ -40,6 +47,7 @@ public class Member extends User {
 		this.commissionRate = new SimpleFloatProperty(); 
 		this.creditCard = new SimpleStringProperty(); 
 		this.paymentMedia = new SimpleStringProperty();
+		this.homeAddress = new SimpleStringProperty();
 	}
 	
 	public int getMemberID() {
@@ -112,5 +120,17 @@ public class Member extends User {
 	
 	public StringProperty paymentMediaProperty() {
 		return paymentMedia;
+	}
+	
+	public String getHomeAddress() {
+		return homeAddress.get();
+	}
+	
+	public void setHomeAddress(String homeAddress) {
+		this.homeAddress.set(homeAddress);
+	}
+	
+	public StringProperty homeAddressProperty() {
+		return homeAddress;
 	}
 }

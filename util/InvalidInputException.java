@@ -1,9 +1,10 @@
 package util;
 
+/**
+ * Custom exception for invalid input 
+ * @author Bing Wen (z3463269)
+ */
 public class InvalidInputException extends Exception {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public InvalidInputException() {
