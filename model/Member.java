@@ -26,7 +26,12 @@ public class Member extends User {
 	//private ArrayList<CarSeek> seekList;
 	//private ArrayList<Agreement> agreementList;
 	//private CorporateMember corporateMem;
-
+	
+	@Override
+	public String toString() {
+		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
+	}
+		
 	public Member() {
 		super();
 		this.memberID = new SimpleIntegerProperty();

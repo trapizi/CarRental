@@ -1,6 +1,23 @@
 package test;
 
+import model.AgreementDAO;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import model.Agreement;
+import util.DBTablePrinter;
+import util.DBUtil;;
+
 public class SarinaTest {
+	
+	public static void initMyTables() throws Exception {
+		try {
+			DBUtil.dbInitAllTables();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 	public static void testAgreementTable() {
 		//Initialise your DAO objects to test your tables here 
 		AgreementDAO agmtDAO = new AgreementDAO();
@@ -26,7 +43,7 @@ public class SarinaTest {
 			//a.setAgreement_id(a.getAgreement_id());
 			a.setPayAmt("20");
 			a.setStatus("test_status");
-			agmtDAO.update(a);
+			agmtDAO.update(a);	
 
 			//agmtDAO.delete("AGREEMENT_ID = 1");
 

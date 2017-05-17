@@ -11,19 +11,18 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgreementController">
    <children>
       <SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="-3.0" prefHeight="398.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="agreementTable" layoutX="-3.0" layoutY="39.0" prefHeight="359.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Member" />
-                      <TableColumn prefWidth="75.0" text="Date" />
-                        <TableColumn prefWidth="75.0" text="Postcode" />
-                        <TableColumn prefWidth="75.0" text="Price" />
+                      <TableColumn fx:id="memberColumn" prefWidth="75.0" text="Member" />
+                      <TableColumn fx:id="dateColumn" prefWidth="75.0" resizable="false" text="Date" />
+                        <TableColumn fx:id="postcodeColumn" prefWidth="75.0" text="Postcode" />
+                        <TableColumn fx:id="priceColumn" minWidth="50.0" prefWidth="75.0" text="Price" />
                     </columns>
                   </TableView>
                </children>
@@ -85,7 +84,6 @@
                   </GridPane>
                   <ButtonBar layoutX="97.0" layoutY="336.0" prefHeight="40.0" prefWidth="173.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Edit.." />
                         <Button minWidth="71.0" mnemonicParsing="false" prefHeight="17.0" text="Delete" />
                     </buttons>
                   </ButtonBar>
