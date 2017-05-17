@@ -37,7 +37,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) throws Exception {
 		/* add stuff to this function if you want to test tables */
-		Main.testTables();
+		//Main.testTables();
 
 		/*
 		try {
@@ -53,8 +53,13 @@ public class Main extends Application {
 		*/
 		
 		/* add stuff to start() if you want to test UI */
-        launch(args);		
-	}
+        //launch(args);	
+      //  try { 
+       //     Main.testTables();
+        //        DBUtil.dbInitAllTables();
+        //} catch (Exception e) {
+	//} 
+        }
 	
 	public static void testTables() {
 		System.out.println("Put your CREATE TABLE .txt files in this folder --> " + System.getProperty("user.dir") + "\\src\\table");

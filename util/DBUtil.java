@@ -166,7 +166,7 @@ public class DBUtil {
     	
     	ArrayList<String> fileNames = new ArrayList<String>();
     	final String dir = "src\\table\\";
-    	
+
     	
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("agreement.txt");
@@ -174,6 +174,7 @@ public class DBUtil {
     	fileNames.add("member.txt");
     	fileNames.add("corporate.txt");
     	fileNames.add("corporateMember.txt");
+        fileNames.add("consultation.txt");
     	/*
     	fileNames.add("offer.txt");
     	fileNames.add("seek.txt");
