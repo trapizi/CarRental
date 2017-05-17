@@ -15,12 +15,11 @@ public class Agreement {
 	private LongProperty postcode;
 	private StringProperty initiateBy;
 	
-	
 	private long toPin;
 	private long fromPin;
 	private long pUpFrom;
 	private long pUpTo;	
-	//private String day;
+	private String day;
 	
 	public Agreement() {
 		this.agreement_id = new SimpleIntegerProperty();
@@ -110,7 +109,6 @@ public class Agreement {
 	public SimpleObjectProperty<Date> agreeDateProperty() {
 		return agreeDate;
 	}
-
 	
 	public Object getCreateDay() {
 		return createDay.get();
@@ -180,13 +178,12 @@ public class Agreement {
 		return postcode;
 	}
 
-/*	public String getDay() {
+	public String getDay() {
 		return day;
 	}
 
 	public void setDay(String day) {
 		this.day = day;
 	}
-*/
 
 }

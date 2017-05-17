@@ -1,7 +1,12 @@
 package util;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 public class SelectSQLBuilderTest {
 
+	@Test
 	public void test() {
 		SelectSQLBuilder sql = new SelectSQLBuilder()
 				.addField("CORPORATE.CORPORATE_ID")

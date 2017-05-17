@@ -174,11 +174,17 @@ public class DBUtil {
     	fileNames.add("member.txt");
     	fileNames.add("corporate.txt");
     	fileNames.add("corporateMember.txt");
+
     	/*
+>>>>>>> fcbeb30bb80e045ee2add7652dab01f6f14882e3
     	fileNames.add("offer.txt");
     	fileNames.add("seek.txt");
+    	
+    	/* TODO: FIX THE CONTENTS OF THIS FILE
     	fileNames.add("carShareOffice.txt");
-		*/
+<<<<<<< HEAD
+    	*/
+
     	/* */
     	
     	/* construct tables using the files given in ArrayList<String> fileNames */

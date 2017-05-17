@@ -4,11 +4,25 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class CorporateMember extends Member {
+	private Corporate corporation;
 	private IntegerProperty corporateID;
 
+	@Override
+	public String toString() {
+		return "CorporateID: " + this.corporation.getCorporateID() + " | " + super.toString();
+	}
+	
 	public CorporateMember() {
 		super();
 		this.corporateID = new SimpleIntegerProperty();
+	}
+	
+	public Corporate getCorporation() {
+		return corporation;
+	}
+	
+	public void setCorporation(Corporate corporation) {
+		this.corporation = corporation;
 	}
 	
 	public int getCorporateID() {
