@@ -35,16 +35,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
-    			//.addFieldValue("UNIQUENO", agmt.getUniqueNo())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
-    			.addFieldValue("OFFERRECEIVABLE", agmt.getOfferReceivable())
     			.addFieldValue("TOPIN", agmt.getToPin())
     			.addFieldValue("FROMPIN", agmt.getFromPin())
     			.addFieldValue("PUPFROM", agmt.getpUpFrom())
     			.addFieldValue("PUPTO", agmt.getpUpTo())
-    			//.addFieldValue("DAY", agmt.getDay())
     			.toString();
     			
     	try {
@@ -67,11 +64,9 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
-    			//.addFieldValue("UNIQUENO", agmt.getUniqueNo())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
-    			.addFieldValue("OFFERRECEIVABLE", agmt.getOfferReceivable())
     			.addFieldValue("TOPIN", agmt.getToPin())
     			.addFieldValue("FROMPIN", agmt.getFromPin())
     			.addFieldValue("PUPFROM", agmt.getpUpFrom())
@@ -118,12 +113,10 @@ public class AgreementDAO implements TableDAO<Agreement> {
 	    		//agmt.setOfferer(rs.getInt("OFFERER"));
 	    		agmt.setStatus(rs.getString("STATUS"));
 	    		agmt.setPayAmt(rs.getString("PAYAMT"));
-	    		agmt.setAgreeDate(rs.getString("AGREEDATE"));
+	    		agmt.setAgreeDate(rs.getDate("AGREEDATE"));
 	    		//agmt.setUniqueNo(rs.getString("UNIQUENO"));
-	    		agmt.setCreateDay(rs.getString("CREATEDAY"));
-	    		agmt.setInitiateBy(rs.getString("INITIATEBY"));
+	    		agmt.setCreateDay(rs.getDate("CREATEDAY"));
 	    		//agmt.setOffer??
-	    		agmt.setOfferReceivable(rs.getDouble("OFFERRECEIVABLE"));
 	    		agmt.setToPin(rs.getLong("TOPIN"));
 	    		agmt.setFromPin(rs.getLong("FROMPIN"));
 	    		agmt.setpUpFrom(rs.getLong("PUPFROM"));

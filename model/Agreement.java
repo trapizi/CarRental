@@ -1,100 +1,141 @@
 package model;
 import java.util.ArrayList;
-
-import javafx.beans.property.IntegerProperty;
+import java.util.Date;
+import javafx.beans.property.*;
 
 public class Agreement {
 	
-	private int agreement_id;
-	private Member seeker;
-	private Member offerer;
-	private String status;
-	private String payAmt;
-	private String agreeDate;
-	private String createDay;
-	private String initiateBy;
-	//private CarOffer offer;
-	private double offerReceivable;
+	private IntegerProperty agreement_id;
+	private IntegerProperty seeker_id;
+	private IntegerProperty offerer_id;
+	private StringProperty status;
+	private StringProperty payAmt;
+	private SimpleObjectProperty<Date> agreeDate;
+	private SimpleObjectProperty<Date> createDay;
+	private LongProperty postcode;
+	private StringProperty initiateBy;
+	
+	
 	private long toPin;
 	private long fromPin;
 	private long pUpFrom;
 	private long pUpTo;	
 	//private String day;
 	
-	private ArrayList<Adjustment> adjustList;
+	public Agreement() {
+		this.agreement_id = new SimpleIntegerProperty();
+		this.seeker_id = new SimpleIntegerProperty();
+		this.offerer_id = new SimpleIntegerProperty();
+		this.status = new SimpleStringProperty(); 
+		this.payAmt = new SimpleStringProperty(); 
+		this.agreeDate = new SimpleObjectProperty<Date>();
+		this.createDay = new SimpleObjectProperty<Date>();
+		this.postcode = new SimpleLongProperty();
+		this.initiateBy = new SimpleStringProperty();
+	}
+	
+	@Override
+	public String toString() {
+		return this.status.get();
+	}
 	
 	public int getAgreement_id() {
-		return agreement_id;
+		return agreement_id.get();
 	}
 
 	public void setAgreement_id(int agreement_id) {
-		this.agreement_id = agreement_id;
+		this.agreement_id.set(agreement_id);;
+	}
+	
+	public IntegerProperty agreementIDProperty() {
+		return agreement_id;
 	}
 
-	public Member getSeeker() {
-		return seeker;
+	public int getSeeker() {
+		return seeker_id.get();
 	}
 
-	public void setSeeker(Member seeker) {
-		this.seeker = seeker;
+	public void setSeeker(int seeker_id) {
+		this.seeker_id.set(seeker_id);;
+	}
+	
+	public IntegerProperty seekerIDProperty() {
+		return seeker_id;
 	}
 
-	public Member getOfferer() {
-		return offerer;
+	public int getOfferer() {
+		return offerer_id.get();
 	}
 
-	public void setOfferer(Member offerer) {
-		this.offerer = offerer;
+	public void setOfferer(int offerer_id) {
+		this.offerer_id.set(offerer_id);
+	}
+	
+	public IntegerProperty offererIDProperty() {
+		return offerer_id;
 	}
 	
 	public String getStatus() {
-		return status;
+		return status.get();
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		this.status.set(status);;
 	}
 
+	public StringProperty statusProperty() {
+		return status;
+	}
+	
 	public String getPayAmt() {
-		return payAmt;
+		return payAmt.get();
 	}
 
 	public void setPayAmt(String payAmt) {
-		this.payAmt = payAmt;
+		this.payAmt.set(payAmt);
+	}
+	
+	public StringProperty payAmtProperty() {
+		return payAmt;
 	}
 
-	public String getAgreeDate() {
+	public Object getAgreeDate() {
+		return agreeDate.get();
+	}
+
+	public void setAgreeDate(Date agreeDate) {
+		this.agreeDate.set(agreeDate);
+	}
+	
+	public SimpleObjectProperty<Date> agreeDateProperty() {
 		return agreeDate;
 	}
 
-	public void setAgreeDate(String agreeDate) {
-		this.agreeDate = agreeDate;
+	
+	public Object getCreateDay() {
+		return createDay.get();
+	}
+
+	public void setCreateDay(Date createDay) {
+		this.createDay.set(createDay);
 	}
 	
-	public String getCreateDay() {
+	public SimpleObjectProperty<Date> createDayProperty() {
 		return createDay;
 	}
 
-	public void setCreateDay(String createDay) {
-		this.createDay = createDay;
-	}
-
 	public String getInitiateBy() {
-		return initiateBy;
+		return initiateBy.get();
 	}
 
 	public void setInitiateBy(String initiateBy) {
-		this.initiateBy = initiateBy;
+		this.initiateBy.set(initiateBy);
 	}
-
-	public double getOfferReceivable() {
-		return offerReceivable;
+	
+	public StringProperty initiateByProperty() {
+		return initiateBy;
 	}
-
-	public void setOfferReceivable(double offerReceivable) {
-		this.offerReceivable = offerReceivable;
-	}
-
+	
 	public long getToPin() {
 		return toPin;
 	}
@@ -126,6 +167,18 @@ public class Agreement {
 	public void setpUpTo(long pUpTo) {
 		this.pUpTo = pUpTo;
 	}
+	
+	public Long getPostcode() {
+		return postcode.get();
+	}
+
+	public void setPostcode(Long postcode) {
+		this.postcode.set(postcode);
+	}
+	
+	public LongProperty postcodeProperty() {
+		return postcode;
+	}
 
 /*	public String getDay() {
 		return day;
@@ -135,16 +188,5 @@ public class Agreement {
 		this.day = day;
 	}
 */
-	public ArrayList<Adjustment> getAdjustList() {
-		return adjustList;
-	}
 
-	public void setAdjustList(ArrayList<Adjustment> adjustList) {
-		this.adjustList = adjustList;
-	}
-	
-	@Override
-	public String toString() {
-		return this.status;
-	}
 }
