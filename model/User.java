@@ -1,6 +1,8 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,17 +16,30 @@ public abstract class User {
 	private StringProperty firstName;
 	private StringProperty lastName;
 	private StringProperty email;
-	private LongProperty phoneNo;
+	private IntegerProperty phoneNo;
 	private StringProperty homeAddress;
 	
-	public User() {
+	public User() {		
 		this.userName = new SimpleStringProperty();
 		this.password = new SimpleStringProperty();
-		this.firstName= new SimpleStringProperty();
+		this.firstName = new SimpleStringProperty();
 		this.lastName = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
-		this.phoneNo = new SimpleLongProperty();
+		this.phoneNo = new SimpleIntegerProperty();
 		this.homeAddress = new SimpleStringProperty();
+		
+		assert(this.password.get() != null);
+	}
+	
+	public User(String userName, String password, String firstName, String lastName, String email, 
+				Integer phoneNo, String homeAddress) {		
+		this.userName.set(userName);
+		this.password.set(password);
+		this.firstName.set(firstName);
+		this.lastName.set(lastName);
+		this.email.set(email);
+		this.phoneNo.set(phoneNo);
+		this.homeAddress.set(homeAddress);
 	}
 	
 	@Override
@@ -92,15 +107,15 @@ public abstract class User {
 		return email;
 	}
 	
-	public long getPhoneNo() {
+	public int getPhoneNo() {
 		return phoneNo.get();
 	}
 	
-	public void setPhoneNo(long phoneNo) {
+	public void setPhoneNo(int phoneNo) {
 		this.phoneNo.set(phoneNo);
 	}
 	
-	public LongProperty phoneNoProperty() {
+	public IntegerProperty phoneNoProperty() {
 		return phoneNo;
 	}
 	

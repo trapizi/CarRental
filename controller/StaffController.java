@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +31,7 @@ public class StaffController {
     @FXML
     private TextField phoneNoText;
     @FXML
-    private TextField homeAddressText;
-    @FXML
-    private TextField salaryText;    
+    private TextField homeAddressText;   
     @FXML
     private TextArea resultArea;
     
@@ -58,34 +57,40 @@ public class StaffController {
     private Label phoneNoLabel;
     @FXML
     private Label homeAddressLabel;
-    @FXML
-    private Label salaryLabel;
+    
+    // list of staff members
+    private ObservableList<Staff> staffList;
+    private StaffDAO staffDAO;
     
     // reference to mainApp for alerts
     private SUber mainApp;
     
     @FXML
     private void initialize () {    	
-    	firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-    	lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+    	this.firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+    	this.lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
     	
     	// clear labels on right side of UI
     	showStaffDetails(null);
     	
     	// listen to which row is being selected
-        staffTable.getSelectionModel().selectedItemProperty().addListener(
+        this.staffTable.getSelectionModel().selectedItemProperty().addListener(
         		(observable, oldValue, newValue) -> showStaffDetails(newValue));
+        
+        this.staffList = FXCollections.observableArrayList();
+        
+        this.staffDAO = new StaffDAO();
     }
     
     @FXML
     private void searchAll() throws SQLException, ClassNotFoundException {
     	try {
-    		StaffDAO staffDAO = new StaffDAO();
-    		ObservableList<Staff> list = staffDAO.findAll();
+    		staffList = this.staffDAO.findAll();
     		
-    		resultArea.setText(Integer.toString(list.size()));
-    	
-    		staffTable.setItems(list);
+    		// display results in the table
+    		staffTable.setItems(staffList);
+    		
+    		resultArea.setText("Search complete!\n");
     		
     	} catch (SQLException | ClassNotFoundException e) {
     		resultArea.setText("Problem searching all employees\n");
@@ -95,20 +100,13 @@ public class StaffController {
     
     @FXML
     private void insertStaff(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {    	
-    	/* construct staff object for insertion */
-    	StaffDAO staffDAO = new StaffDAO();
     	boolean invalidInput = false;
     	
-		/* clear text area for errors */
+		// clear text area for errors 
 		resultArea.clear();
 		
-		/* check valid numbers for phone number and salary are entered */    	
-    	if (!isValidPhoneNo(phoneNoText.getText())) {
-    		invalidInput = true;
-    	} else if (!isValidSalary(salaryText.getText())) {
-    		invalidInput = true;
-    	}
-    	
+		// TODO: add another check to validate input here or delete function
+		
     	/* construct staff object and try insert if valid data */
     	if (!invalidInput) {
     		
@@ -119,8 +117,7 @@ public class StaffController {
     		staff.setLastName(lastNameText.getText());
     		staff.setEmail(emailText.getText());
     		staff.setHomeAddress(homeAddressText.getText());
-    		staff.setPhoneNo(Long.parseLong(phoneNoText.getText()));
-    		staff.setSalary(Double.parseDouble(salaryText.getText()));
+    		staff.setPhoneNo(Integer.parseInt(phoneNoText.getText()));
     		
 	        try {	   	
 	            staffDAO.insert(staff);
@@ -145,7 +142,6 @@ public class StaffController {
             emailLabel.setText(staff.getEmail());
             homeAddressLabel.setText(staff.getHomeAddress());
             phoneNoLabel.setText(Double.toString(staff.getPhoneNo()));
-            salaryLabel.setText(Double.toString(staff.getSalary()));
         } else {
         	staffIDLabel.setText("");
             firstNameLabel.setText("");
@@ -154,7 +150,6 @@ public class StaffController {
             emailLabel.setText("");
             homeAddressLabel.setText("");
             phoneNoLabel.setText("");
-            salaryLabel.setText("");
         }
     }
     
@@ -174,6 +169,8 @@ public class StaffController {
     			/* remove the staff member selected by user from the database */
     			staffDAO.delete("STAFF_ID=" + staffTable.getItems().get(selectedIndex).getStaff_id());
 
+        		resultArea.setText("Delete complete!\n");
+    			
     		} catch (SQLException | ClassNotFoundException e) {
     			resultArea.setText("Problem deleting selected staff from database!\n");
     			throw e;
@@ -188,32 +185,71 @@ public class StaffController {
 
     		alert.showAndWait();
     	}
-
         staffTable.getItems().remove(selectedIndex);  
+    }
+    
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new person.
+     */
+    @FXML
+    private void handleNewStaff() throws SQLException, ClassNotFoundException {    	
+        Staff tempStaff = new Staff();
+        boolean okClicked = mainApp.showPersonEditDialog(tempStaff);
+        if (okClicked) {
+            //mainApp.getPersonData().add(tempStaff);
+	        try {	   	
+	        	// add new staff member to the list
+	        	staffDAO.insert(tempStaff);
+	        	//tempStaff = staffDAO.find
+	        	staffList.add(tempStaff);
+
+	            resultArea.setText("Employee inserted! \n");
+	        } catch (SQLException | ClassNotFoundException e) {
+	        	// revert the addition to staffList if failed to insert into database
+	        	staffList.remove(tempStaff);
+	            resultArea.setText("Problem occurred while inserting employee " + e);
+	            throw e;
+	        }
+        }
+    }
+    
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleEditStaff() {
+        resultArea.setText("Edit called!\n");
+
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+        if (selectedStaff != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedStaff);
+            if (okClicked) {
+                showStaffDetails(selectedStaff);
+                
+                try {
+                	staffDAO.update(selectedStaff);
+                    resultArea.setText("Edit successful!\n");
+                } catch (Exception e) {
+                    resultArea.setText("Update to database failed!\n");
+                }
+                
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Staff Selected");
+            alert.setContentText("Please select a staff member in the table.");
+
+            alert.showAndWait();
+        }
     }
     
     public void setMainApp(SUber mainApp) {
         this.mainApp = mainApp;
-    }
-    
-    private boolean isValidPhoneNo(String phoneNoText) {    	
-    	try {
-    		Long.parseLong(phoneNoText);
-    	} catch (NumberFormatException e) {
-    		resultArea.appendText("Invalid phone number entered!\n");
-    		return false;
-    	}
-    	    	
-    	return true;
-    }
-    
-    private boolean isValidSalary(String salaryText) {
-    	try {
-    		Double.parseDouble(salaryText);
-    	} catch (NumberFormatException e) {
-    		resultArea.appendText("Invalid salary entered!\n");
-    		return false;
-    	}
-    	return true;
     }
 }

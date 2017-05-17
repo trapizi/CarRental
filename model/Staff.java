@@ -1,20 +1,36 @@
 package model;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import util.InvalidInputException;
 
 public class Staff extends User {	
 	private IntegerProperty staff_id;
-	private DoubleProperty salary;
 	
 	public Staff() {
 		super();
 		this.staff_id = new SimpleIntegerProperty();
-		this.salary = new SimpleDoubleProperty();
 	}
 	
+	public Staff(String userName, String password, String firstName, String lastName, String email, 
+			Integer phoneNo, String homeAddress) {
+		
+		// call user constructor
+    	super(userName, password, firstName, lastName, email, phoneNo, homeAddress);
+    	this.staff_id = new SimpleIntegerProperty();
+	}
+	
+	public static void validateInput(String userName, String password, String firstName, String lastName, String email, 
+			String phoneNoText, String homeAddress) 
+			throws InvalidInputException {
+		
+    	try {
+    		Integer.parseInt(phoneNoText);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid phone entered. Ensure phone number only contains digits.");
+    	}
+	}
+		
 	public String toString() {
 		return "id: " + this.getStaff_id() + " first_name: " + this.getFirstName() + " last_name: " + this.getLastName() + " username: " + this.getUserName();
 	}
@@ -29,17 +45,5 @@ public class Staff extends User {
 	
 	public IntegerProperty staff_idProperty() {
 		return staff_id;
-	}
-	
-	public double getSalary() {
-		return salary.get();
-	}
-	
-	public void setSalary(double salary) {
-		this.salary.set(salary);
-	}
-	
-	public DoubleProperty salaryProperty() {
-		return salary;
 	}
 }

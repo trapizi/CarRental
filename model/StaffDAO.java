@@ -66,7 +66,6 @@ public class StaffDAO implements TableDAO<Staff> {
     			.addFieldValue("EMAIL", staff.getEmail())
     			.addFieldValue("PHONE", staff.getPhoneNo())
     			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
-    			.addFieldValue("SALARY", staff.getSalary())
     			.toString();
     			
     	try {
@@ -92,7 +91,6 @@ public class StaffDAO implements TableDAO<Staff> {
     			.addFieldValue("EMAIL", staff.getEmail())
     			.addFieldValue("PHONE", staff.getPhoneNo())
     			.addFieldValue("HOME_ADDRESS", staff.getHomeAddress())
-    			.addFieldValue("SALARY", staff.getSalary())
     			.where("STAFF_ID=" + staff.getStaff_id())
     			.toString();
     	
@@ -138,9 +136,8 @@ public class StaffDAO implements TableDAO<Staff> {
 	    		staff.setFirstName(rs.getString("FIRST_NAME"));
 	    		staff.setLastName(rs.getString("LAST_NAME"));
 	    		staff.setEmail(rs.getString("EMAIL"));
-	    		staff.setPhoneNo(rs.getLong("PHONE"));
+	    		staff.setPhoneNo(rs.getInt("PHONE"));
 	    		staff.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
-	    		staff.setSalary(rs.getDouble("SALARY"));
 	    		
 	    		list.add(staff);
     		} catch (SQLException e) {
