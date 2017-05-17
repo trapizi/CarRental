@@ -15,7 +15,7 @@ public class Payment {
     private SimpleObjectProperty<Date> paymentDate;    
     private StringProperty paymentAccount;
     private StringProperty paymentType;
-    private StringProperty accountExpiry;
+    private SimpleObjectProperty<Date> accountExpiry;
     private StringProperty accountOwnerName;
     private StringProperty paymentMedia;
 
@@ -26,7 +26,7 @@ public class Payment {
         this.paymentDate = new SimpleObjectProperty<>();  
         this.paymentAccount = new SimpleStringProperty();
         this.paymentType = new SimpleStringProperty();
-        this.accountExpiry = new SimpleStringProperty();
+        this.accountExpiry = new SimpleObjectProperty<>();
         this.accountOwnerName = new SimpleStringProperty();
         this.paymentMedia = new SimpleStringProperty();
   
@@ -98,17 +98,18 @@ public class Payment {
     }
     
     //accountExpiry  
-    public String getAccountExpiry(){
+    public Date getAccountExpiry(){
         return accountExpiry.get();
     }
     
-    public void setAccountExpiry(String accountExpiry){
+    public void setAccountExpiry(Date accountExpiry){
         this.accountExpiry.set(accountExpiry);
     }
     
-    public StringProperty accountExpiryProperty(){
+    public SimpleObjectProperty<Date> accountExpiryProperty(){
         return accountExpiry;
     }
+
     
     //accountOwnerName
     public String getAccountOwnerName(){

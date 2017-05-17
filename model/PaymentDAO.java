@@ -118,7 +118,7 @@ public class PaymentDAO implements TableDAO<Payment> {
 	    	payment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	payment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	payment.setPaymentType(rs.getString("PAYMENT_TYPE"));
-	    	payment.setAccountExpiry(rs.getString("ACCOUNT_EXPIRY"));
+	    	payment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	payment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
 	    	payment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));    		
 	    	
