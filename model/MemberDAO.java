@@ -60,8 +60,9 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
     			.addFieldValue("COMMISSION_RATE", member.getCommissionRate())
     			.addFieldValue("CREDIT_CARD", member.getCreditCard())
-    			.addFieldValue("PAYMENT_MEDIA", member.getPaymentMedia())
     			.toString();
+		
+		System.out.println(sqlStmt);
     			
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
@@ -85,7 +86,6 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
     			.addFieldValue("COMMISSION_RATE", member.getCommissionRate())
     			.addFieldValue("CREDIT_CARD", member.getCreditCard())
-    			.addFieldValue("PAYMENT_MEDIA", member.getPaymentMedia())
     			.where("MEMBER_ID=" + member.getMemberID())
     			.toString();			
     	try {
@@ -127,7 +127,6 @@ public class MemberDAO implements TableDAO<Member> {
 	    		member.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    		member.setCommissionRate(rs.getFloat("COMMISSION_RATE"));
 	    		member.setCreditCard(rs.getString("CREDIT_CARD"));
-	    		member.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));
 	    	
 	    		list.add(member);
     		} catch (SQLException e) {

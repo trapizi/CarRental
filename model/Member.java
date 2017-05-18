@@ -16,7 +16,6 @@ public class Member extends User {
 	private SimpleObjectProperty<Date> accountExpiry;
 	private FloatProperty commissionRate;
 	private StringProperty creditCard;
-	private StringProperty paymentMedia;
 	private StringProperty homeAddress;
 		
 	/*
@@ -46,7 +45,6 @@ public class Member extends User {
 		this.accountExpiry = new SimpleObjectProperty<Date>(); 
 		this.commissionRate = new SimpleFloatProperty(); 
 		this.creditCard = new SimpleStringProperty(); 
-		this.paymentMedia = new SimpleStringProperty();
 		this.homeAddress = new SimpleStringProperty();
 	}
 	
@@ -108,18 +106,6 @@ public class Member extends User {
 	
 	public StringProperty creditCardProperty() {
 		return creditCard;
-	}
-	
-	public String getPaymentMedia() {
-		return paymentMedia.get();
-	}
-	
-	public void setPaymentMedia(String paymentMedia) {
-		this.paymentMedia.set(paymentMedia);
-	}
-	
-	public StringProperty paymentMediaProperty() {
-		return paymentMedia;
 	}
 	
 	public String getHomeAddress() {

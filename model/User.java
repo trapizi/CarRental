@@ -22,9 +22,7 @@ public abstract class User {
 		this.firstName = new SimpleStringProperty();
 		this.lastName = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
-		this.phoneNo = new SimpleIntegerProperty();
-		
-		assert(this.password.get() != null);
+		this.phoneNo = new SimpleIntegerProperty();	
 	}
 	
 	public User(String userName, String password, String firstName, String lastName, String email, Integer phoneNo) {		
