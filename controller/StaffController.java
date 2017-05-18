@@ -20,7 +20,7 @@ import util.AlertBuilder;
  * @author Bing Wen (z3463269)
  * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
  */
-public class StaffController {
+public class StaffController extends ControllerBase {
     @FXML
     private Label resultText;	// used to display success/failure messages for functions    
     @FXML
@@ -46,10 +46,7 @@ public class StaffController {
     // list to display onto the UI's table
     private ObservableList<Staff> staffList;
     private StaffDAO staffDAO;
-    
-    // reference to mainApp for alerts
-    private SUber mainApp;
-    
+        
     @FXML
     private void initialize () {    	
     	this.firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
@@ -155,7 +152,8 @@ public class StaffController {
     @FXML
     private void handleNewStaff() throws SQLException, ClassNotFoundException {    	
         Staff tempStaff = new Staff();
-        boolean okClicked = mainApp.showPersonEditDialog(tempStaff);
+        boolean okClicked = mainApp.showStaffEditDialog(tempStaff);
+        
         if (okClicked) {
             //mainApp.getPersonData().add(tempStaff);
 	        try {	   	
@@ -188,7 +186,7 @@ public class StaffController {
         
         try {
             Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
-            boolean okClicked = mainApp.showPersonEditDialog(selectedStaff);
+            boolean okClicked = mainApp.showStaffEditDialog(selectedStaff);
             
             if (okClicked) {
             	
@@ -212,9 +210,5 @@ public class StaffController {
             
             System.out.println("COULD NOT EDIT -- NOTHING SELECTED");
         }
-    }
-    
-    public void setMainApp(SUber mainApp) {
-        this.mainApp = mainApp;
     }
 }
