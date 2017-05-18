@@ -9,16 +9,13 @@ public class Agreement {
 	private IntegerProperty seeker_id;
 	private IntegerProperty offerer_id;
 	private StringProperty status;
-	private StringProperty payAmt;
+	private FloatProperty payAmt;
 	private SimpleObjectProperty<Date> agreeDate;
 	private SimpleObjectProperty<Date> createDay;
-	private LongProperty postcode;
 	private StringProperty initiateBy;
-	
-	private long toPin;
-	private long fromPin;
-	private long pUpFrom;
-	private long pUpTo;	
+	private LongProperty toPostcode;
+	private LongProperty fromPostcode;
+
 	private String day;
 	
 	public Agreement() {
@@ -26,16 +23,20 @@ public class Agreement {
 		this.seeker_id = new SimpleIntegerProperty();
 		this.offerer_id = new SimpleIntegerProperty();
 		this.status = new SimpleStringProperty(); 
-		this.payAmt = new SimpleStringProperty(); 
+		this.payAmt = new SimpleFloatProperty(); 
 		this.agreeDate = new SimpleObjectProperty<Date>();
 		this.createDay = new SimpleObjectProperty<Date>();
-		this.postcode = new SimpleLongProperty();
 		this.initiateBy = new SimpleStringProperty();
+		this.toPostcode = new SimpleLongProperty();
+		this.fromPostcode = new SimpleLongProperty();
 	}
 	
 	@Override
 	public String toString() {
-		return this.status.get();
+		return "id: " + this.getAgreement_id() + " status: " + this.getStatus() + " price: " + 
+				this.getPayAmt() + " date: " + this.getAgreeDate() + "date created: " + this.getCreateDay() +
+					"initiated by: " + this.getInitiateBy() + "postcode from: " + this.getFromPostcode() +
+						"postcode to: " + this.getToPostcode();
 	}
 	
 	public int getAgreement_id() {
@@ -86,15 +87,15 @@ public class Agreement {
 		return status;
 	}
 	
-	public String getPayAmt() {
+	public float getPayAmt() {
 		return payAmt.get();
 	}
 
-	public void setPayAmt(String payAmt) {
+	public void setPayAmt(float payAmt) {
 		this.payAmt.set(payAmt);
 	}
 	
-	public StringProperty payAmtProperty() {
+	public FloatProperty payAmtProperty() {
 		return payAmt;
 	}
 
@@ -134,50 +135,31 @@ public class Agreement {
 		return initiateBy;
 	}
 	
-	public long getToPin() {
-		return toPin;
+	public Long getToPostcode() {
+		return toPostcode.get();
 	}
 
-	public void setToPin(long toPin) {
-		this.toPin = toPin;
-	}
-
-	public long getFromPin() {
-		return fromPin;
-	}
-
-	public void setFromPin(long fromPin) {
-		this.fromPin = fromPin;
-	}
-
-	public long getpUpFrom() {
-		return pUpFrom;
-	}
-
-	public void setpUpFrom(long pUpFrom) {
-		this.pUpFrom = pUpFrom;
-	}
-
-	public long getpUpTo() {
-		return pUpTo;
-	}
-
-	public void setpUpTo(long pUpTo) {
-		this.pUpTo = pUpTo;
+	public void setToPostcode(Long toPostcode) {
+		this.toPostcode.set(toPostcode);
 	}
 	
-	public Long getPostcode() {
-		return postcode.get();
+	public LongProperty toPostcodeProperty() {
+		return toPostcode;
 	}
 
-	public void setPostcode(Long postcode) {
-		this.postcode.set(postcode);
+	public Long getFromPostcode() {
+		return fromPostcode.get();
+	}
+
+	public void setFromPostcode(Long fromPostcode) {
+		this.fromPostcode.set(fromPostcode);
 	}
 	
-	public LongProperty postcodeProperty() {
-		return postcode;
+	public LongProperty fromPostcodeProperty() {
+		return fromPostcode;
 	}
-
+	
+	
 	public String getDay() {
 		return day;
 	}

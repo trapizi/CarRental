@@ -15,6 +15,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import model.Agreement;
 import model.AgreementDAO;
+import model.Staff;
+import model.StaffDAO;
+import util.AlertBuilder;
 
 public class AgreementController {
 	
@@ -25,30 +28,47 @@ public class AgreementController {
 	@FXML
 	private TableColumn<Agreement, Date> dateColumn;
 	@FXML
-	private TableColumn<Agreement, Long> postcodeColumn;
+	private TableColumn<Agreement, Long> postcodeToColumn;
 	@FXML
-	private TableColumn<Agreement, String> priceColumn;
+	private TableColumn<Agreement, Long> postcodeFromColumn;
+	@FXML
+	private TableColumn<Agreement, Float> priceColumn;
+	
+	 // list to display onto the UI's table
+    private ObservableList<Agreement> agmtList;
+    private AgreementDAO agmtDAO;
 	
 	@FXML
 	private void initialize () {
 		memberColumn.setCellValueFactory(cellData -> cellData.getValue().offererIDProperty().asObject());
-		this.dateColumn.setCellValueFactory(cellData -> cellData.getValue().agreeDateProperty());
-		postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
-		priceColumn.setCellValueFactory(cellData -> cellData.getValue().payAmtProperty());       
-    }
+		dateColumn.setCellValueFactory(cellData -> cellData.getValue().agreeDateProperty());
+		postcodeToColumn.setCellValueFactory(cellData -> cellData.getValue().toPostcodeProperty().asObject());
+		postcodeFromColumn.setCellValueFactory(cellData -> cellData.getValue().fromPostcodeProperty().asObject());
+		priceColumn.setCellValueFactory(cellData -> cellData.getValue().payAmtProperty().asObject());       
+   
+		this.agmtList = FXCollections.observableArrayList();
+        this.agmtDAO = new AgreementDAO();
+	}
 	
-	//Search an employee
-    @FXML
-    private void viewAgreements (ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
-    	Agreement agmt1 = new Agreement();
-    	/*  try {
-            //Get Employee information
-            //Employee emp = EmployeeDAO.searchEmployee(empIdText.getText());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        }*/
+	 @FXML
+    private void search() throws SQLException, ClassNotFoundException {
+    	try {
+    		agmtList = this.agmtDAO.findAll();
+    		
+    		// display results in the table
+    		agreementTable.setItems(agmtList);
+    		
+    	} catch (SQLException e) {            
+            // Create and display alert for the database exception
+         /*   Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+            		"Database could not complete search!", e.getMessage()); 
+            
+            alert.showAndWait();
+          */
+    		e.printStackTrace();
+    		throw e;
+    	}
     }
     
     /*private void fillEmployeeTable(ActionEvent event) throws SQLException, ClassNotFoundException {
