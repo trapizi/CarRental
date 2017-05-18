@@ -7,7 +7,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Payment {
+//PAYMENT is abstract as we never instantiate this class
+public abstract class Payment { 
     
     //PAYMENT table columns
     private StringProperty payment_id;
