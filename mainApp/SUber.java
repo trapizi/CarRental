@@ -3,6 +3,7 @@ package mainApp;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import controller.RootLayoutController;
 import controller.StaffController;
 import controller.StaffEditController;
 import test.BingTest;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Staff;
@@ -24,19 +26,23 @@ public class SUber extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException{
-		this.primaryStage = primaryStage;
-
-		//Optional: Set a title for primary stage
-		this.primaryStage.setTitle("Demo for tutorial 8");
-
-		// init table
-		DBUtil.dbInitAllTables();
-
-		//2) Initialize RootLayout
-		initRootLayout();
-
-		//3) Display the EmployeeOperations View
-		showStaffView();
+		try {
+			this.primaryStage = primaryStage;
+	
+			//Optional: Set a title for primary stage
+			this.primaryStage.setTitle("Demo for tutorial 8");
+	
+			// init table
+			DBUtil.dbInitAllTables();
+	
+			//2) Initialize RootLayout
+			initRootLayout();
+	
+			//3) Display the EmployeeOperations View
+			showStaffView();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -49,8 +55,9 @@ public class SUber extends Application {
 		/* add stuff to start() if you want to test UI */
 		try {
 			BingTest.initMyTables();
-			BingTest.testCorporateMemberTable();
-			//launch(args);	
+			//BingTest.testCorporateMemberTable();
+			
+			launch(args);	
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		} finally {
@@ -66,7 +73,6 @@ public class SUber extends Application {
 		System.out.println(System.getProperty("user.dir"));
 	} 
 
-
 	public void initRootLayout() {
 		try {
 			//First, load root layout from RootLayout.fxml
@@ -78,12 +84,9 @@ public class SUber extends Application {
 			Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
 			primaryStage.setScene(scene); //Set the scene in primary stage.
 
-			rootLayout.minWidthProperty().bind(scene.widthProperty());
-			rootLayout.minHeightProperty().bind(scene.heightProperty());
-
-			/*//Give the controller access to the main.
-		            RootLayoutController controller = loader.getController();
-		            controller.setMain(this);*/
+			//Give the controller access to the main.
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
 
 			//Third, show the primary stage
 			primaryStage.show(); //Display the primary stage

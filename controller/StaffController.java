@@ -22,7 +22,7 @@ import util.AlertBuilder;
  */
 public class StaffController {
     @FXML
-    private TextArea resultArea;	// used to display success/failure messages for functions    
+    private Label resultText;	// used to display success/failure messages for functions    
     @FXML
     private TableView<Staff> staffTable;
     @FXML
@@ -75,7 +75,7 @@ public class StaffController {
     		// display results in the table
     		staffTable.setItems(staffList);
     		
-    		resultArea.setText("Search complete!\n");
+    		resultText.setText("Search complete!\n");
     	} catch (SQLException | ClassNotFoundException e) {            
             // Create and display alert for the database exception
             Alert alert = AlertBuilder.createAlert(
@@ -117,29 +117,35 @@ public class StaffController {
      */
     @FXML
     private void deleteStaff() throws SQLException, ClassNotFoundException {
-    	int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
     	
-    	if (selectedIndex >= 0) {
+    	try {
+        	int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
+
     		try {
     			StaffDAO staffDAO = new StaffDAO();
 
+        		// triggers exception if nothing selected
     			// remove the staff member selected by user from the database
     			staffDAO.delete("STAFF_ID=" + staffTable.getItems().get(selectedIndex).getStaff_id());
 
-        		resultArea.setText("Delete complete!\n");
+        		resultText.setText("Delete complete!\n");
     			
     		} catch (SQLException | ClassNotFoundException e) {
-    			resultArea.setText("Problem deleting selected staff from database!\n");
+    			resultText.setText("Problem deleting selected staff from database!\n");
     			throw e;
     		}
-    	} else {
+    		
+            staffTable.getItems().remove(selectedIndex); 
+    		
+    	} catch (ArrayIndexOutOfBoundsException e) {
+    		
     		// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
             
-            alert.showAndWait();    		
+            alert.showAndWait(); 
+            
     	}
-        staffTable.getItems().remove(selectedIndex);  
     }
     
     /**
@@ -159,7 +165,7 @@ public class StaffController {
 	        	// TODO: ensure that staffID gets updated on the staff details section after insert
 	        	staffList.add(tempStaff);
 
-	            resultArea.setText("Employee inserted! \n");
+	            resultText.setText("Employee inserted! \n");
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -178,28 +184,33 @@ public class StaffController {
      */
     @FXML
     private void handleEditStaff() {
-        resultArea.setText("Edit called!\n");
-
-        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
-        if (selectedStaff != null) {
+        resultText.setText("Edit called!\n");
+        
+        try {
+            Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
             boolean okClicked = mainApp.showPersonEditDialog(selectedStaff);
+            
             if (okClicked) {
+            	
+            	// triggers null pointer exception from setters if nothing is selected
                 showStaffDetails(selectedStaff);
                 
                 try {
                 	staffDAO.update(selectedStaff);
-                    resultArea.setText("Edit successful!\n");
+                    resultText.setText("Edit successful!\n");
                 } catch (Exception e) {
-                    resultArea.setText("Update to database failed!\n");
+                    resultText.setText("Update to database failed!\n");
                 }
                 
             }
-        } else {            
+        } catch (NullPointerException e) {
         	// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
             
             alert.showAndWait();
+            
+            System.out.println("COULD NOT EDIT -- NOTHING SELECTED");
         }
     }
     
