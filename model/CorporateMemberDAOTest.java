@@ -216,6 +216,7 @@ public class CorporateMemberDAOTest {
 			
 			Member m1 = createMemberRecord();
 			memberDAO.insert(m1);
+			m1.setUserName("lol");
 			memberDAO.insert(m1);
 
 			// edit the details of the 2nd record in the table
@@ -232,7 +233,7 @@ public class CorporateMemberDAOTest {
 			s2Copy.setCustomerType(1);
 			
 			// member
-			m2Copy.setUserName("member1");
+			m2Copy.setUserName("member000");
 			m2Copy.setPassword("pass2");
 			m2Copy.setFirstName("first3");
 			m2Copy.setLastName("last4");
@@ -259,7 +260,7 @@ public class CorporateMemberDAOTest {
 			// print "before"
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
 			
-			// update the record in membere table
+			// update the record in member table
 			memberDAO.update(m2Copy);
 			
 			// print "after" -- compare the two tables printed to see if update worked
