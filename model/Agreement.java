@@ -16,7 +16,7 @@ public class Agreement {
 	private LongProperty toPostcode;
 	private LongProperty fromPostcode;
 
-	private String day;
+//	private String day;
 	
 	public Agreement() {
 		this.agreement_id = new SimpleIntegerProperty();
@@ -135,14 +135,14 @@ public class Agreement {
 		return initiateBy;
 	}
 	
-	public Long getToPostcode() {
+	public long getToPostcode() {
 		return toPostcode.get();
 	}
 
-	public void setToPostcode(Long toPostcode) {
+	public void setToPostcode(long toPostcode) {
 		this.toPostcode.set(toPostcode);
 	}
-	
+
 	public LongProperty toPostcodeProperty() {
 		return toPostcode;
 	}
@@ -160,12 +160,12 @@ public class Agreement {
 	}
 	
 	
-	public String getDay() {
+/*	public String getDay() {
 		return day;
 	}
 
 	public void setDay(String day) {
 		this.day = day;
 	}
-
+*/
 }
