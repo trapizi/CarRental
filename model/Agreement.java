@@ -9,16 +9,13 @@ public class Agreement {
 	private IntegerProperty seeker_id;
 	private IntegerProperty offerer_id;
 	private StringProperty status;
-	private StringProperty payAmt;
+	private FloatProperty payAmt;
 	private SimpleObjectProperty<Date> agreeDate;
 	private SimpleObjectProperty<Date> createDay;
-	private LongProperty postcode;
 	private StringProperty initiateBy;
+	private LongProperty toPostcode;
+	private LongProperty fromPostcode;
 	
-	private long toPin;
-	private long fromPin;
-	private long pUpFrom;
-	private long pUpTo;	
 	private String day;
 	
 	public Agreement() {
@@ -26,11 +23,12 @@ public class Agreement {
 		this.seeker_id = new SimpleIntegerProperty();
 		this.offerer_id = new SimpleIntegerProperty();
 		this.status = new SimpleStringProperty(); 
-		this.payAmt = new SimpleStringProperty(); 
+		this.payAmt = new SimpleFloatProperty(); 
 		this.agreeDate = new SimpleObjectProperty<Date>();
 		this.createDay = new SimpleObjectProperty<Date>();
-		this.postcode = new SimpleLongProperty();
 		this.initiateBy = new SimpleStringProperty();
+		this.toPostcode = new SimpleLongProperty();
+		this.fromPostcode = new SimpleLongProperty();
 	}
 	
 	@Override
@@ -86,15 +84,15 @@ public class Agreement {
 		return status;
 	}
 	
-	public String getPayAmt() {
+	public float getPayAmt() {
 		return payAmt.get();
 	}
 
-	public void setPayAmt(String payAmt) {
+	public void setPayAmt(float payAmt) {
 		this.payAmt.set(payAmt);
 	}
 	
-	public StringProperty payAmtProperty() {
+	public FloatProperty payAmtProperty() {
 		return payAmt;
 	}
 
@@ -134,12 +132,12 @@ public class Agreement {
 		return initiateBy;
 	}
 	
-	public long getToPin() {
-		return toPin;
+	public long getToPostcode() {
+		return toPostcode.get();
 	}
 
-	public void setToPin(long toPin) {
-		this.toPin = toPin;
+	public void setToPostcode(long toPostcode) {
+		this.toPostcode.set(toPostcode);
 	}
 
 	public long getFromPin() {
