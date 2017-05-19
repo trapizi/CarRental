@@ -38,10 +38,8 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
-    			.addFieldValue("TOPIN", agmt.getToPin())
-    			.addFieldValue("FROMPIN", agmt.getFromPin())
-    			.addFieldValue("PUPFROM", agmt.getpUpFrom())
-    			.addFieldValue("PUPTO", agmt.getpUpTo())
+    			.addFieldValue("TOPOSTCODE", agmt.getToPostcode())
+    			.addFieldValue("FROMPOSTCODE", agmt.getFromPostcode())
     			.toString();
     			
     	try {
@@ -67,10 +65,8 @@ public class AgreementDAO implements TableDAO<Agreement> {
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
     			//.addFieldValue("OFFER", agmt)
-    			.addFieldValue("TOPIN", agmt.getToPin())
-    			.addFieldValue("FROMPIN", agmt.getFromPin())
-    			.addFieldValue("PUPFROM", agmt.getpUpFrom())
-    			.addFieldValue("PUPTO", agmt.getpUpTo())
+    			.addFieldValue("TOPOSTCODE", agmt.getToPostcode())
+    			.addFieldValue("FROMPOSTCODE", agmt.getFromPostcode())
     			//.addFieldValue("DAY", agmt.getDay())
     			.where("AGREEMENT_ID=" + agmt.getAgreement_id())
     			.toString();
@@ -112,15 +108,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
 	    		//agmt.setSeeker(rs.getInt("SEEKER"));
 	    		//agmt.setOfferer(rs.getInt("OFFERER"));
 	    		agmt.setStatus(rs.getString("STATUS"));
-	    		agmt.setPayAmt(rs.getString("PAYAMT"));
+	    		agmt.setPayAmt(rs.getFloat("PAYAMT"));
 	    		agmt.setAgreeDate(rs.getDate("AGREEDATE"));
-	    		//agmt.setUniqueNo(rs.getString("UNIQUENO"));
 	    		agmt.setCreateDay(rs.getDate("CREATEDAY"));
+	    		agmt.setInitiateBy(rs.getString("INITIATEBY"));
 	    		//agmt.setOffer??
-	    		agmt.setToPin(rs.getLong("TOPIN"));
-	    		agmt.setFromPin(rs.getLong("FROMPIN"));
-	    		agmt.setpUpFrom(rs.getLong("PUPFROM"));
-	    		agmt.setpUpTo(rs.getLong("PUPTO"));
+	    		agmt.setToPostcode(rs.getLong("TOPOSTCODE"));
+	    		agmt.setFromPostcode(rs.getLong("FROMPOSTCODE"));
 	    		//agmt.setDay(rs.getString("DAY"));
 	    	
 	    		list.add(agmt);

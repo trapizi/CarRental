@@ -1,9 +1,18 @@
 package test;
 
 import model.AgreementDAO;
+import model.Corporate;
+
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import model.Agreement;
 import util.DBTablePrinter;
 import util.DBUtil;;
@@ -24,12 +33,17 @@ public class SarinaTest {
 
 		Agreement agmt1 = new Agreement();
 		agmt1.setStatus("pending");
-		agmt1.setPayAmt("50");
+		agmt1.setPayAmt(50.0f);
 
 		Agreement agmt2 = new Agreement();
 		agmt2.setStatus("accepted");
-		agmt2.setPayAmt("100");
-
+		agmt2.setPayAmt(100.0f);
+		agmt2.setAgreeDate(new Date(1000,1,1));
+		agmt2.setCreateDay(new Date(1000,1,1));
+		agmt2.setInitiateBy("seeker");
+		agmt2.setToPostcode(2234L);
+		agmt2.setFromPostcode(2220L);
+	
 		try {
 			agmtDAO.insert(agmt1);
 			agmtDAO.insert(agmt2);
@@ -38,25 +52,24 @@ public class SarinaTest {
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
 
 
-			//	agmt1.setPayAmt("20");
 			Agreement a = agmtDAO.findById(1);
-			//a.setAgreement_id(a.getAgreement_id());
-			a.setPayAmt("20");
-			a.setStatus("test_status");
+			a.setPayAmt(20.0f);
+			a.setStatus("completed");
 			agmtDAO.update(a);	
 
-			//agmtDAO.delete("AGREEMENT_ID = 1");
+			//System.out.println(a.toString());
 
-			System.out.println(a.toString());
+			Agreement aCopy2 = agmtDAO.findById(2);
+			aCopy2.setAgreeDate(new Date(1000,1,1));
+			aCopy2.setFromPostcode(12345L);
+			agmtDAO.update(aCopy2);
 
-			Agreement aCopy = agmtDAO.findById(1);
-			System.out.println("aCopy payamt: " + aCopy.getPayAmt());
-
+			//agmtDAO.delete("AGREEMENT_ID=2");
+			
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
 
 			// RESTART NUMBERING AFTER DELETING ROWS FROM TABLE
-			DBUtil.clearTable("AGREEMENT");
-			DBUtil.dropTable("AGREEMENT");
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

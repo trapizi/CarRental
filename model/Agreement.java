@@ -1,7 +1,11 @@
 package model;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.beans.property.*;
+import util.DBUtil;
+import util.InvalidInputException;
 
 public class Agreement {
 	
@@ -15,8 +19,8 @@ public class Agreement {
 	private StringProperty initiateBy;
 	private LongProperty toPostcode;
 	private LongProperty fromPostcode;
-	
-	private String day;
+
+//	private String day;
 	
 	public Agreement() {
 		this.agreement_id = new SimpleIntegerProperty();
@@ -33,7 +37,10 @@ public class Agreement {
 	
 	@Override
 	public String toString() {
-		return this.status.get();
+		return "id: " + this.getAgreement_id() + " status: " + this.getStatus() + " price: " + 
+				this.getPayAmt() + " date: " + this.getAgreeDate() + "date created: " + this.getCreateDay() +
+					"initiated by: " + this.getInitiateBy() + "postcode from: " + this.getFromPostcode() +
+						"postcode to: " + this.getToPostcode();
 	}
 	
 	public int getAgreement_id() {
@@ -140,48 +147,29 @@ public class Agreement {
 		this.toPostcode.set(toPostcode);
 	}
 
-	public long getFromPin() {
-		return fromPin;
+	public LongProperty toPostcodeProperty() {
+		return toPostcode;
 	}
 
-	public void setFromPin(long fromPin) {
-		this.fromPin = fromPin;
+	public Long getFromPostcode() {
+		return fromPostcode.get();
 	}
 
-	public long getpUpFrom() {
-		return pUpFrom;
-	}
-
-	public void setpUpFrom(long pUpFrom) {
-		this.pUpFrom = pUpFrom;
-	}
-
-	public long getpUpTo() {
-		return pUpTo;
-	}
-
-	public void setpUpTo(long pUpTo) {
-		this.pUpTo = pUpTo;
+	public void setFromPostcode(Long fromPostcode) {
+		this.fromPostcode.set(fromPostcode);
 	}
 	
-	public Long getPostcode() {
-		return postcode.get();
-	}
-
-	public void setPostcode(Long postcode) {
-		this.postcode.set(postcode);
+	public LongProperty fromPostcodeProperty() {
+		return fromPostcode;
 	}
 	
-	public LongProperty postcodeProperty() {
-		return postcode;
-	}
-
-	public String getDay() {
+	
+/*	public String getDay() {
 		return day;
 	}
 
 	public void setDay(String day) {
 		this.day = day;
 	}
-
+*/
 }
