@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -13,10 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import mainApp.SUber;
+import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
-import model.Staff;
-import model.StaffDAO;
 import util.AlertBuilder;
 
 public class AgreementController {
@@ -34,10 +33,27 @@ public class AgreementController {
 	@FXML
 	private TableColumn<Agreement, Float> priceColumn;
 	
+	 @FXML
+	 private Label agmtIDLabel;
+	 @FXML
+	 private Label dateLabel;
+	 @FXML
+	 private Label locationFromLabel;
+	 @FXML
+	 private Label locationToLabel;
+	 @FXML
+	 private Label priceLabel;
+	 @FXML
+	 private Label dayCreatedLabel;
+	
+	
 	 // list to display onto the UI's table
     private ObservableList<Agreement> agmtList;
     private AgreementDAO agmtDAO;
 	
+    // reference to mainApp for alerts
+    private SarinaMain mainApp;
+    
 	@FXML
 	private void initialize () {
 		memberColumn.setCellValueFactory(cellData -> cellData.getValue().offererIDProperty().asObject());
@@ -46,6 +62,13 @@ public class AgreementController {
 		postcodeFromColumn.setCellValueFactory(cellData -> cellData.getValue().fromPostcodeProperty().asObject());
 		priceColumn.setCellValueFactory(cellData -> cellData.getValue().payAmtProperty().asObject());       
    
+		// Clear agreement details
+		showAgreementDetails(null);
+		
+		// Listen for selection changes and show the person details when changed.
+        this.agreementTable.getSelectionModel().selectedItemProperty().addListener(
+        		(observable, oldValue, newValue) -> showAgreementDetails((Agreement) newValue));
+		
 		this.agmtList = FXCollections.observableArrayList();
         this.agmtDAO = new AgreementDAO();
 	}
@@ -70,18 +93,66 @@ public class AgreementController {
     		throw e;
     	}
     }
-    
-    /*private void fillEmployeeTable(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Task<List<Employee>> task = new Task<List<Employee>>(){
-            @Override
-            public ObservableList<Employee> call() throws Exception{
-                return EmployeeDAO.searchEmployees();
-            }
-        };
-
-        task.setOnFailed(e-> task.getException().printStackTrace());
-        task.setOnSucceeded(e-> employeeTable.setItems((ObservableList<Employee>) task.getValue()));
-        exec.execute(task);
-    }*/
 	
+	 /*  * Fills all text fields to show details about the agreement.
+	  	 * If the specified agreement is null, all text fields are cleared.
+	 */
+    private void showAgreementDetails(Agreement agmt) {
+        if (agmt != null) {
+        	agmtIDLabel.setText(Integer.toString(agmt.getAgreement_id()));
+        //	dateLabel.setText(agmt.getAgreeDate().toString());
+        	dateLabel.setText("");
+        	locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
+        	locationToLabel.setText(Long.toString(agmt.getToPostcode()));
+        	priceLabel.setText(Float.toString(agmt.getPayAmt()));
+        //	dayCreatedLabel.setText(agmt.getCreateDay().toString());
+        	dayCreatedLabel.setText("");
+        } else {
+        	agmtIDLabel.setText("");
+        	dateLabel.setText("");
+        	locationFromLabel.setText("");
+        	locationToLabel.setText("");
+        	priceLabel.setText("");
+        	dayCreatedLabel.setText("");
+        }
+    }
+    
+    /**
+     * Called when the user clicks on the delete button.
+     * 
+     * Removes an agreement from the database and the UI.
+     */
+    @FXML
+    private void deleteAgreement() throws SQLException, ClassNotFoundException {
+    	int selectedIndex = agreementTable.getSelectionModel().getSelectedIndex();
+    	
+    	if (selectedIndex >= 0) {
+    		try {
+    			AgreementDAO agmtDAO = new AgreementDAO();
+    			//deletes the selected agreement from the database
+    			agmtDAO.delete("AGREEMENT_ID=" + ((Agreement) agreementTable.getItems().get(selectedIndex)).getAgreement_id());
+    			
+    		} catch (SQLException | ClassNotFoundException e) {
+    			e.printStackTrace();
+    			throw e;
+    		}
+    	} else {
+    		// Create and display alert when no staff is selected
+     /*       Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+            
+            alert.showAndWait();  
+      */  		
+    	}
+    	
+    	//deletes the selected agreement from the UI
+        agreementTable.getItems().remove(selectedIndex);  
+    }
+    
+    
+    public void setMainApp(SarinaMain mainApp) {
+        this.mainApp = mainApp;
+    }
+    
+ 	
 }
