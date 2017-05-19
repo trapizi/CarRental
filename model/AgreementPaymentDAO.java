@@ -15,10 +15,10 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     //findAll()
     public ObservableList<AgreementPayment> findAll() throws SQLException, ClassNotFoundException {
         try {
-            String sqlStmt = "SELECT PAYMENT.PAYMENT_ID, AGREEMENT.*"
-        				+ " FROM AGREEMENT_PAYMENT, AGREEMENT, PAYMENT"
-        				+ " WHERE AGREEMENT_PAYMENT.AGREEMENT_ID = AGREEMENT.AGREEMENT_ID"
-        				+ " AND AGREEMENT_PAYMENT.PAYMENT_ID = PAYMENT.PAYMENT_ID";
+            String sqlStmt = "SELECT AGREEMENT_PAYMENT.AGREEMENT_PAYMENT_ID, AGREEMENT.SEEKER, AGREEMENT.OFFERER, PAYMENT.PAYMENT_AMOUNT, PAYMENT.PAYMENT_DATE, PAYMENT.PAYMENT_ACCOUNT, PAYMENT.ACCOUNT_OWNER_NAME"
+                + " FROM AGREEMENT_PAYMENT, AGREEMENT, PAYMENT"
+        	+ " WHERE AGREEMENT_PAYMENT.AGREEMENT_ID = AGREEMENT.AGREEMENT_ID";
+        	//(don't think i need this)+ " AND AGREEMENT_PAYMENT.PAYMENT_ID = PAYMENT.PAYMENT_ID";
         	
             ResultSet rs = DBUtil.dbExecuteQuery(sqlStmt);
             
@@ -26,16 +26,16 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             
             return list;
         } catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-        	e.printStackTrace();
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            e.printStackTrace();
         }
     	return null;
     }
     
     //findById()
-    public AgreementPayment findById(int agreementID) throws SQLException, ClassNotFoundException {
+    public AgreementPayment findById(int agreementPayment_id) throws SQLException, ClassNotFoundException {
 	try {
-            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "AGREEMENT_PAYMENT", "AGREEMENT_ID=" + agreementID));
+            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "AGREEMENT_PAYMENT", "AGREEMENT_PAYMENT_ID=" + agreementPayment_id));
             
             ObservableList<AgreementPayment> list = this.getAgreementPaymentList(rs);
             
@@ -44,46 +44,55 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             	return list.get(0);
             }
         } catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-        	e.printStackTrace();
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            e.printStackTrace();
         }
 		
-		return null;
+	return null;
     }
     
-    
-    //insert agreement_id and payment_id into agreemenPayment table
+    //insert() 
+    //inserts an agreementPayment into the database
     public void insert(AgreementPayment agreementPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("AGREEMENT_PAYMENT")
-            .addFieldValue("AGREEMENT_ID", agreementPayment.getAgreementPaymentID())
-            .addFieldValue("PAYMENT_ID", agreementPayment.getPaymentID())
-		.toString();		
+            .addFieldValue("AGREEMENT_PAYMENT_ID", agreementPayment.getAgreementPayment_id())
+            .addFieldValue("PAYMENT_AMOUNT", agreementPayment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", agreementPayment.getPaymentDate())
+            .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
+            .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())
+            .addFieldValue("PAYMENT_MEDIA", agreementPayment.getPaymentMedia())   
+            .toString();
+        
+        System.out.println(sqlStmt);
+        
     	try {
-        	DBUtil.dbExecuteUpdate(sqlStmt);
+            DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		throw e;
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            throw e;
     	}  
     }
     
     
-    //update()
+    //update() 
     //PaymentDAO update paymentfields by calling paymentDAO.update()
     public void update(AgreementPayment agreementPayment) throws SQLException, ClassNotFoundException {
-	String sqlStmt = new UpdateSQLBuilder()
-            .addTable("AGREEMENT_PAYMENT")
-            .addFieldValue("AGREEMENT_ID", agreementPayment.getAgreementPaymentID())
-            .where("AGREEMENT_ID=" + agreementPayment.getAgreementPaymentID())
-            .and("PAYMENT_ID=" + agreementPayment.getPaymentID())
-		.toString();
+        String sqlStmt = new UpdateSQLBuilder()
+            .addTable("AGREEMENT_PAYMENT")      
+            .addFieldValue("PAYMENT_AMOUNT", agreementPayment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", agreementPayment.getPaymentDate())
+            .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
+            .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())
+            .addFieldValue("PAYMENT_MEDIA", agreementPayment.getPaymentMedia())   
+            .where("AGREEMENT_PAYMENT_ID" + agreementPayment.getAgreementPayment_id())
+                .toString();
 		
 	try {
-            // update payment-related information for the agreementPayment
-            PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.update(agreementPayment);
-			
-            // update agreement-related information
             DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
@@ -92,34 +101,34 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     }
 	
 
-    //delete()
+    //delete() 
+    //delete a agreementPayment from database given a condition
     public void delete(String condition) throws SQLException, ClassNotFoundException {
-		try {
-    		DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("CORPORATE_MEMBER", condition));
+	try {
+            DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("AGREEMENT_PAYMENT", condition));
     	} catch (SQLException | ClassNotFoundException e) {
-        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		throw e;
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            throw e;
     	}
     }
 	
-    
+    //Helper function (convert records from database into objects for java)
     private ObservableList<AgreementPayment> getAgreementPaymentList (ResultSet rs) throws SQLException {
     	ObservableList<AgreementPayment> list = FXCollections.observableArrayList();
     	
     	while (rs.next()) {
             try {
                 AgreementPayment agreementPayment = new AgreementPayment();
-                //agreementPayment.setAgreementPaymentID(rs.getString("AGREEMENT_PAYMENT_ID"));
-                agreementPayment.setPaymentID(rs.getString("PAYMENT_ID"));
-	    	agreementPayment.setAmount(rs.getDouble("AMOUNT"));
-	    	agreementPayment.setDate(rs.getString("DATE"));
+                agreementPayment.setAgreementPayment_id(rs.getString("AGREEMENT_PAYMENT_ID"));
+	    	agreementPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	agreementPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	agreementPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	agreementPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
-	    	agreementPayment.setAccountExpiry(rs.getString("ACCOUNT_EXPIRY"));
+	    	agreementPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	agreementPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
 	    	agreementPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));  
-	    	
-	    		list.add(agreementPayment);
+
+                list.add(agreementPayment);
     		} catch (SQLException e) {
             	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     			throw e;
