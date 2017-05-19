@@ -12,10 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import mainApp.SUber;
 import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
+import model.Staff;
 import util.AlertBuilder;
 
 public class AgreementController {
@@ -46,7 +48,24 @@ public class AgreementController {
 	 @FXML
 	 private Label dayCreatedLabel;
 	
-	
+	 
+    @FXML
+    private TextField offererField;
+    @FXML
+    private TextField seekerField;
+
+    @FXML
+    private TextField dateField;
+    @FXML
+    private TextField fromField;
+    @FXML
+    private TextField toField;
+    @FXML
+    private TextField priceField;
+    @FXML
+    private TextField createDayField;
+    
+    
 	 // list to display onto the UI's table
     private ObservableList<Agreement> agmtList;
     private AgreementDAO agmtDAO;
@@ -149,6 +168,41 @@ public class AgreementController {
         agreementTable.getItems().remove(selectedIndex);  
     }
     
+    /**
+     * Called when the user clicks the insert button. 
+     * details for a new agreement.
+     */
+    @FXML
+    private void insertAgreement() throws SQLException, ClassNotFoundException {    	
+    	Agreement tempAgreement = new Agreement();
+
+    	tempAgreement.setOfferer(Integer.parseInt(offererField.getText()));
+    	tempAgreement.setSeeker(Integer.parseInt(seekerField.getText()));
+    	//tempAgreement.setAgreeDate(DateUtil.parse(dateField.getText()));
+    	tempAgreement.setFromPostcode(Long.parseLong(fromField.getText()));
+    	tempAgreement.setToPostcode(Long.parseLong(toField.getText()));
+    	tempAgreement.setPayAmt(Float.parseFloat(priceField.getText()));
+    	//tempAgreement.setCreateDay(DateUtil.parse(createDay.getText()));
+    	
+    	try {	   	
+    		// add new agreement to the database
+    		agmtDAO.insert(tempAgreement);
+
+    		// TODO: ensure that agmtID gets updated on the staff details section after insert
+    		agmtList.add(tempAgreement);
+
+    	} catch (SQLException | ClassNotFoundException e) {	        	
+    		// Create and display alert for the database exception
+    		/*    Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+	            		"Database could not complete search!", e.getMessage()); 
+
+	            alert.showAndWait();	
+    		 */
+    		e.printStackTrace();
+    		throw e;
+    	}
+    }
     
     public void setMainApp(SarinaMain mainApp) {
         this.mainApp = mainApp;

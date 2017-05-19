@@ -1,7 +1,11 @@
 package model;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.beans.property.*;
+import util.DBUtil;
+import util.InvalidInputException;
 
 public class Agreement {
 	
