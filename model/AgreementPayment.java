@@ -1,16 +1,16 @@
 package model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class AgreementPayment extends Payment{
 
-    //AGREEMENT table columns
-    private StringProperty agreementPayment_id;
+    //AGREEMENT_PAYMENT table columns
+    private IntegerProperty agreementPayment_id;
     
-    //AGREEMENT constructor
+    //AGREEMENT_PAYMENT default constructor
     public AgreementPayment() {
-        this.agreementPayment_id = new SimpleStringProperty();
+        this.agreementPayment_id = new SimpleIntegerProperty();
     }
 
     //return string containing agreementPaymentID + other payment details
@@ -19,15 +19,15 @@ public class AgreementPayment extends Payment{
     }
     
     //agreementPaymentID
-    public String getAgreementPayment_id() {
+    public Integer getAgreementPayment_id() {
 	return agreementPayment_id.get();
     }
 
-    public void setAgreementPayment_id(String agreementPayment_id) {
+    public void setAgreementPayment_id(Integer agreementPayment_id) {
 	this.agreementPayment_id.set(agreementPayment_id);
     }
     
-    public StringProperty agreementPayment_idProperty(){
+    public IntegerProperty agreementPayment_idProperty(){
         return agreementPayment_id;
     }
 
