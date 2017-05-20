@@ -19,7 +19,7 @@ import model.Seek;
 import util.*;
 
 
-public class SeekDAO {
+public class seekDAO {
     public ObservableList<Seek> findAll() throws SQLException, ClassNotFoundException {
         try {
                 ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "SEEK", ""));

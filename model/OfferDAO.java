@@ -51,6 +51,7 @@ public class OfferDAO{
     			.addFieldValue("MODEL", offer.getModel())
     			.addFieldValue("TRANMISSION", offer.getTransmission())
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
+    			.addFieldValue("LOCATION", offer.getLocation())
     			.addFieldValue("PRICE", offer.getPrice())
     			.toString();
     	
@@ -71,6 +72,7 @@ public class OfferDAO{
     			.addFieldValue("MODEL", offer.getModel())
     			.addFieldValue("TRANMISSION", offer.getTransmission())
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
+    			.addFieldValue("LOCATION", offer.getLocation())    			
     			.addFieldValue("PRICE", offer.getPrice())
     			.where("OFFER_ID=" + offer.getOfferID())
     			.toString();
@@ -106,6 +108,7 @@ public class OfferDAO{
                     offer.setModel(rs.getString("MODEL"));
                     offer.setTransmission(rs.getString("TRANMISSION"));
                     offer.setFuelType(rs.getString("FUEL_TYPE"));
+                    offer.setLocation(rs.getString("LOCATION"));
                     offer.setPrice(rs.getFloat("PRICE"));
                 list.add(offer);
 			} catch (SQLException e) {
