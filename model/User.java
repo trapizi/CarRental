@@ -1,9 +1,13 @@
 package model;
 
+import java.sql.SQLException;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import util.InputValidator;
+import util.InvalidInputException;
 
 /**
  * User is abstract as we never instantiate this class
@@ -32,6 +36,26 @@ public abstract class User {
 		this.lastName.set(lastName);
 		this.email.set(email);
 		this.phoneNo.set(phoneNo);
+	}
+	
+	public static void validateInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
+			String tableName, int ID) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {
+		
+		// validate information entered
+		// do bare minimum checks to ensure that database won't crash upon inserting data
+    	try {
+    		InputValidator.validateUsername(userName, tableName, ID);
+    		InputValidator.validatePassword(password);
+    		InputValidator.validateFirstName(firstName);
+    		InputValidator.validateLastName(lastName);
+    		InputValidator.validateEmail(email);
+    		InputValidator.validatePhoneNo(phoneNoText);
+    	
+    	// Throw exceptions back up to controller to handle
+    	} catch (Exception e) {
+    		throw e;
+    	}
 	}
 	
 	@Override

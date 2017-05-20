@@ -96,7 +96,7 @@ public class StaffController extends ControllerBase {
             lastNameLabel.setText(staff.getLastName());
             userNameLabel.setText(staff.getUserName());
             emailLabel.setText(staff.getEmail());
-            phoneNoLabel.setText(Double.toString(staff.getPhoneNo()));
+            phoneNoLabel.setText(Integer.toString(staff.getPhoneNo()));
         } else {
         	staffIDLabel.setText("");
             firstNameLabel.setText("");
@@ -126,7 +126,6 @@ public class StaffController extends ControllerBase {
     			staffDAO.delete("STAFF_ID=" + staffTable.getItems().get(selectedIndex).getStaff_id());
 
         		resultText.setText("Delete complete!\n");
-    			
     		} catch (SQLException | ClassNotFoundException e) {
     			resultText.setText("Problem deleting selected staff from database!\n");
     			throw e;
@@ -159,11 +158,14 @@ public class StaffController extends ControllerBase {
 	        try {	   	
 	        	// add new staff member to the list
 	        	staffDAO.insert(tempStaff);
+	        	
+	        	// need to retrieve the inserted staff from the database to get the ID assigned to it
+	        	tempStaff = staffDAO.findByUsername(tempStaff.getUserName());
 
 	        	// TODO: ensure that staffID gets updated on the staff details section after insert
 	        	staffList.add(tempStaff);
 
-	            resultText.setText("Employee inserted! \n");
+	            resultText.setText("Insert complete!\n");
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -195,12 +197,13 @@ public class StaffController extends ControllerBase {
                 
                 try {
                 	staffDAO.update(selectedStaff);
-                    resultText.setText("Edit successful!\n");
                 } catch (Exception e) {
                     resultText.setText("Update to database failed!\n");
                 }
                 
             }
+            
+            resultText.setText("Edit complete!\n");
         } catch (NullPointerException e) {
         	// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(

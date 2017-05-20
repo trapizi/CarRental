@@ -12,7 +12,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import mainApp.SUber;
 import model.Member;
 import model.MemberDAO;
 import util.AlertBuilder;
@@ -68,6 +67,7 @@ public class MemberController extends ControllerBase {
     	            if (item == null || empty) {
     	            	this.setText(null);
     	            } else {
+    	            	// TODO: default format is yyyy-MM-dd -- use a date formatter to change if required
     	                this.setText(item.toString());
     	            }
     			}
@@ -115,10 +115,9 @@ public class MemberController extends ControllerBase {
             lastNameLabel.setText(member.getLastName());
             userNameLabel.setText(member.getUserName());
             emailLabel.setText(member.getEmail());
-            phoneNoLabel.setText(Double.toString(member.getPhoneNo()));
+            phoneNoLabel.setText(Integer.toString(member.getPhoneNo()));
             
-            // TODO: use input validation to prevent empty date being inserted
-            // replace try, catch later
+            // string will be null when entering a new member
             try {
             	accountExpiryLabel.setText(member.getAccountExpiry().toString());
             } catch (NullPointerException e) {
@@ -143,7 +142,7 @@ public class MemberController extends ControllerBase {
      * details for a new person.
      */
     @FXML
-    private void handleNewStaff() {    	
+    private void handleNewMember() {    	
         Member tempMember = new Member();
         boolean okClicked = mainApp.showMemberEditDialog(tempMember);
         
@@ -151,12 +150,16 @@ public class MemberController extends ControllerBase {
             //mainApp.getPersonData().add(tempMember);
 	        try {	   	
 	        	// add new member member to the list
+	        	// this member being inserted will not have an ID until it is inserted into the database
 	        	memberDAO.insert(tempMember);
 
+	        	// need to retrieve the inserted member from the database to get the ID assigned to it
+	        	tempMember = memberDAO.findByUserName(tempMember.getUserName());
+	        	
 	        	// TODO: ensure that memberID gets updated on the member details section after insert
 	        	memberList.add(tempMember);
 
-	            resultText.setText("Employee inserted! \n");
+	            resultText.setText("Insert successful!\n");
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -168,15 +171,64 @@ public class MemberController extends ControllerBase {
         }
     }
     
-    // TODO: make this
     @FXML
-    private void handleEditStaff() { 
-    	
+    private void handleEditMember() { 
+        resultText.setText("Editing...\n");
+        
+        try {
+            Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
+            boolean okClicked = mainApp.showMemberEditDialog(selectedMember);
+            
+            if (okClicked) {
+            	
+            	// triggers null pointer exception from setters if nothing is selected
+                showMemberDetails(selectedMember);
+                
+                try {
+                	memberDAO.update(selectedMember);
+                } catch (Exception e) {
+                    resultText.setText("Update to database failed!\n");
+                }
+                
+            }
+            
+            resultText.setText("Edit complete!\n");
+        } catch (NullPointerException e) {
+        	// Create and display alert when no staff is selected
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Member Selected", "Select a member in the table"); 
+            
+            alert.showAndWait();       
+        }
     }
     
-    // TODO: make this
     @FXML
-    private void deleteStaff() {
-    	
+    private void deleteMember() throws SQLException, ClassNotFoundException {   	
+    	try {
+        	int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
+
+    		try {
+    			MemberDAO memberDAO = new MemberDAO();
+
+        		// triggers exception if nothing selected
+    			// remove the member member selected by user from the database
+    			memberDAO.delete("STAFF_ID=" + memberTable.getItems().get(selectedIndex).getMemberID());
+
+        		resultText.setText("Delete complete!\n");
+    		} catch (SQLException | ClassNotFoundException e) {
+    			resultText.setText("Problem deleting selected member from database!\n");
+    			throw e;
+    		}
+    		
+            memberTable.getItems().remove(selectedIndex); 
+    		
+    	} catch (ArrayIndexOutOfBoundsException e) {
+    		
+    		// Create and display alert when no member is selected
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Member Selected", "Select a member in the table"); 
+            
+            alert.showAndWait(); 
+    	}
     }
 }

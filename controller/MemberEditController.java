@@ -1,17 +1,12 @@
 package controller;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Member;
-import model.Staff;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
@@ -90,12 +85,21 @@ public class MemberEditController {
      */
     @FXML
     private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException {
+    	/* TODO: follow these steps for this section
+    	 * 1. check that input entered is valid
+    	 * 2. use setters for the object you're modifying
+    	 * 3. close the edit window and set OkClicked to true
+    	 */
+    	
     	// check for valid input here
-    	/*
     	try {
-    		Staff.validateInput(
+    		
+    		Member.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
-    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText());
+    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
+    				this.accountExpiryTextField.getText(), this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
+    				this.member.getMemberID());
+    		
     	} catch (InvalidInputException e) {  
     		
     		// Create and display alert for incorrect input
@@ -116,7 +120,6 @@ public class MemberEditController {
             
             throw e;
     	} 
-    	*/
 
     	// set member fields if valid input entered    	
     	member.setUserName(this.userNameTextField.getText());
@@ -126,20 +129,8 @@ public class MemberEditController {
     	member.setEmail(this.emailTextField.getText());
 		member.setPhoneNo(Integer.parseInt(this.phoneNoTextField.getText()));
 		
-        
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        	java.util.Date temp = format.parse(this.accountExpiryTextField.getText());
-    		member.setAccountExpiry(new Date(temp.getTime()));
-        } catch (ParseException e) {
-        	// TODO: input validation should catch this and create dialog
-        	// Move code section above to member class later
-        	System.out.println("WRONG DATE FORMAT YOU DICKHEAD");
-        }
-		
-		// TODO: set up date input
-		System.out.println(this.accountExpiryTextField.getText());
-		
+		// TODO: overload setAccountExpiry to accept a string or this will expect a java.sql.Date variable
+		member.setAccountExpiry(this.accountExpiryTextField.getText());		
 		member.setHomeAddress(this.homeAddressTextField.getText());
 		member.setCreditCard(this.creditCardTextField.getText());
 		

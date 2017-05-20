@@ -76,9 +76,9 @@
                         <ButtonBar layoutX="96.0" layoutY="373.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <buttons>
                               <Button mnemonicParsing="false" onAction="#searchAll" text="Search All" />
-                              <Button mnemonicParsing="false" onAction="#handleNewStaff" text="New" />
-                              <Button mnemonicParsing="false" onAction="#handleEditStaff" text="Edit" />
-                              <Button mnemonicParsing="false" onAction="#deleteStaff" text="Delete" />
+                              <Button mnemonicParsing="false" onAction="#handleNewMember" text="New" />
+                              <Button mnemonicParsing="false" onAction="#handleEditMember" text="Edit" />
+                              <Button mnemonicParsing="false" onAction="#deleteMember" text="Delete" />
                            </buttons>
                         </ButtonBar>
                         <Label alignment="CENTER" layoutX="24.0" layoutY="24.0" style="&#10;" text="Member Details" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">

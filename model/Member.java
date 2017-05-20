@@ -8,7 +8,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import util.InputValidator;
+import util.InvalidInputException;
+
 import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Member extends User {		
 	private IntegerProperty memberID;
@@ -27,14 +33,6 @@ public class Member extends User {
 	//private ArrayList<Agreement> agreementList;
 	//private CorporateMember corporateMem;
 	
-	@Override
-	/**
-	 * @return a string containing the member's ID and user details
-	 */
-	public String toString() {
-		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
-	}
-		
 	/**
 	 * Default constructor for member
 	 */
@@ -50,6 +48,31 @@ public class Member extends User {
 		assert(this.accountExpiry != null);
 	}
 	
+	@Override
+	/**
+	 * @return a string containing the member's ID and user details
+	 */
+	public String toString() {
+		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
+	}
+	
+	public static void validateInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
+			String accountExpiryDate, String homeAddress, String creditCard, int ID) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {	
+		
+		try {
+			User.validateInput(userName, password, firstName, lastName, email, phoneNoText, "MEMBER", ID);
+			
+			// TODO: validate accountExpiry, homeAddress and creditCard here
+			InputValidator.validateCreditCard(creditCard);
+			InputValidator.validateHomeAddress(homeAddress);
+			InputValidator.validateDate(accountExpiryDate);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+		
 	public int getMemberID() {
 		return memberID.get();
 	}
@@ -80,6 +103,16 @@ public class Member extends User {
 	
 	public void setAccountExpiry(Date accountExpiry) {
 		this.accountExpiry.set(accountExpiry);
+	}
+	
+	public void setAccountExpiry(String date) {
+	    try {
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	java.util.Date temp = format.parse(date);
+			this.setAccountExpiry(new Date(temp.getTime()));
+	    } catch (ParseException e) {
+	    	// exception should never be triggered as we validated it before
+	    }
 	}
 	
 	public ObjectProperty<Date> accountExpiryProperty() {
