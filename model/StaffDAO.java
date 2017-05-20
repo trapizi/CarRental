@@ -52,6 +52,32 @@ public class StaffDAO implements TableDAO<Staff> {
     	
     	return null;
     }
+    
+    /**
+     * Pre-condition: username is unique
+     * @param staff_id the staff_id of the staff member you are trying to find
+     */
+    public Staff findByUsername(String userName) throws SQLException, ClassNotFoundException {
+    	try {
+        	/* Query database for staff */
+        	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "STAFF", "USERNAME=" + "'" + userName + "'"));
+            
+            ObservableList<Staff> list = this.getStaffList(rs);
+            
+            /* only try to return if list is not empty to prevent out of bounds exception */
+            if (list.size() > 0) {
+            	return list.get(0);
+            }
+
+            return null;
+            
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+        	e.printStackTrace();
+        }
+    	
+    	return null;
+    }
       
     /**
      * Inserts a staff member into the database

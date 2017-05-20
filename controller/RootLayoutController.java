@@ -1,17 +1,9 @@
 package controller;
 import javafx.event.ActionEvent;
-
 import javafx.scene.control.Alert;
 import mainApp.SUber;
 
-public class RootLayoutController {
-    //Reference to the main application
-    private SUber mainApp;
-
-    public void setMainApp (SUber mainApp) {
-        this.mainApp = mainApp;
-    }
-
+public class RootLayoutController extends ControllerBase {
     //Exit the program
     public void handleExit(ActionEvent actionEvent) {
         System.exit(0);
