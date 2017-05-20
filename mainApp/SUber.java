@@ -45,7 +45,8 @@ public class SUber extends Application {
 	
 			//3) Display the EmployeeOperations View
 			//showView("StaffView.fxml");		// equivalent of showStaffView();
-			showView("MemberView.fxml");
+			//showView("MemberView.fxml");
+			showView("Login.fxml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
