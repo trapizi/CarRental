@@ -151,7 +151,7 @@ public class StaffController extends ControllerBase {
     @FXML
     private void handleNewStaff() throws SQLException, ClassNotFoundException {    	
         Staff tempStaff = new Staff();
-        boolean okClicked = mainApp.showStaffEditDialog(tempStaff);
+        boolean okClicked = mainApp.showEditDialog(tempStaff, "StaffEditDialog.fxml");
         
         if (okClicked) {
             //mainApp.getPersonData().add(tempStaff);
@@ -188,7 +188,7 @@ public class StaffController extends ControllerBase {
         
         try {
             Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
-            boolean okClicked = mainApp.showStaffEditDialog(selectedStaff);
+            boolean okClicked = mainApp.showEditDialog(selectedStaff, "StaffEditDialog.fxml");
             
             if (okClicked) {
             	
