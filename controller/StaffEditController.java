@@ -16,7 +16,7 @@ import util.InvalidInputException;
  * @author Bing Wen (z3463269)
  * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
  */
-public class StaffEditController {
+public class StaffEditController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;    
     @FXML
@@ -29,29 +29,16 @@ public class StaffEditController {
     private TextField emailTextField;    
     @FXML
     private TextField phoneNoTextField;
-
-    // the edit page opens in another window which requires another stage
-    private Stage dialogStage;
     
     // holds the staff member being created / edited
     private Staff staff;
-    private boolean okClicked = false;
     
     @FXML
     private void initialize() {
     }
-    
-    /**
-     * Sets the stage of this dialog.
-     * 
-     * @param dialogStage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-    
-    public void setStaff(Staff staff) {
-    	this.staff = staff;
+
+    public void setObject(Object o) {
+    	this.staff = (Staff) o;
     	this.firstNameTextField.setText(staff.getFirstName());
     	this.lastNameTextField.setText(staff.getLastName());
     	this.userNameTextField.setText(staff.getUserName());
@@ -59,16 +46,7 @@ public class StaffEditController {
     	this.emailTextField.setText(staff.getEmail());
 		this.phoneNoTextField.setText(Integer.toString(staff.getPhoneNo()));
     } 
-    
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     * 
-     * @return
-     */
-    public boolean isOkClicked() {
-        return okClicked;
-    }
-    
+        
     /**
      * Called when the user clicks ok.
      */

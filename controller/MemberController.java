@@ -144,7 +144,7 @@ public class MemberController extends ControllerBase {
     @FXML
     private void handleNewMember() {    	
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showMemberEditDialog(tempMember);
+        boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
         
         if (okClicked) {
             //mainApp.getPersonData().add(tempMember);
@@ -177,7 +177,7 @@ public class MemberController extends ControllerBase {
         
         try {
             Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
-            boolean okClicked = mainApp.showMemberEditDialog(selectedMember);
+            boolean okClicked = mainApp.showEditDialog(selectedMember, "MemberEditDialog.fxml");
             
             if (okClicked) {
             	

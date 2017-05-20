@@ -3,10 +3,8 @@ package mainApp;
 import java.sql.SQLException;
 
 import controller.ControllerBase;
-import controller.MemberEditController;
+import controller.EditControllerBase;
 import controller.RootLayoutController;
-import controller.StaffController;
-import controller.StaffEditController;
 import test.BingTest;
 import util.*;
 
@@ -16,8 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Member;
-import model.Staff;
 import model.User;
 import javafx.application.Application;
 import java.io.IOException;
@@ -44,8 +40,9 @@ public class SUber extends Application {
 		try {
 			this.primaryStage = primaryStage;
 	
-			//Optional: Set a title for primary stage
-			this.primaryStage.setTitle("Demo for tutorial 8");
+			this.primaryStage.setTitle("SUber");
+			
+			this.setLoggedInAs(null);
 	
 			// init table
 			DBUtil.dbInitAllTables();
@@ -128,7 +125,7 @@ public class SUber extends Application {
 			
 			AnchorPane view = (AnchorPane) loader.load();
 
-			// Set Employee Operations view into the center of root layout.
+			// Set view into the center of root layout.
 			rootLayout.setCenter(view);
 
 			ControllerBase controller = (ControllerBase) loader.getController();
@@ -138,74 +135,63 @@ public class SUber extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * USE THIS IF YOUR CONTROLLER'S INITIALIZE FUNCTION REQUIRES A REFERENCE TO MAINAPP
+	 * @Pre .fxml file doesn't have a controller attached
+	 * @param viewFileName the view to load
+	 * @param controller the controller to attach to the view
+	 */
+	public void showView(String viewFileName, ControllerBase controller) {
+		try {
+			final String dir = "../view/";
+			
+			// attach reference of mainApp to the controller
+			controller.setMainApp(this);
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(SUber.class.getResource(dir + viewFileName));
+			
+			// set controller here
+			loader.setController(controller);
+			
+			AnchorPane view = (AnchorPane) loader.load();
+			
+			// Set view into the center of root layout.
+			rootLayout.setCenter(view);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
     
     /**
-     * Opens a dialog to edit details for the specified person. If the user
-     * clicks OK, the changes are saved into the provided person object and true
+     * Opens a dialog to edit details for the specified object. If the user
+     * clicks OK, the changes are saved into the provided object and true
      * is returned.
      * 
-     * @param person the person object to be edited
+     * @param object the object to be edited
+     * @param viewFileName the view to display
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showStaffEditDialog(Staff staff) {
+    public boolean showEditDialog(Object object, String viewFileName) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(SUber.class.getResource("../view/StaffEditDialog.fxml"));
+            loader.setLocation(SUber.class.getResource("../view/" + viewFileName));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Staff");
+            dialogStage.setTitle("Edit");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-            StaffEditController controller = loader.getController();
+            EditControllerBase controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setStaff(staff);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    
-    /**
-     * Opens a dialog to edit details for the specified person. If the user
-     * clicks OK, the changes are saved into the provided person object and true
-     * is returned.
-     * 
-     * @param person the person object to be edited
-     * @return true if the user clicked OK, false otherwise.
-     */
-    public boolean showMemberEditDialog(Member member) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            // TODO: make this in scenebuilder
-            loader.setLocation(SUber.class.getResource("../view/MemberEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Member");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            MemberEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setMember(member);
+            controller.setObject(object);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

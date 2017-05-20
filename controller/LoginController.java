@@ -34,13 +34,15 @@ public class LoginController extends ControllerBase {
 	private StaffDAO staffDAO;
 	private MemberDAO memberDAO;
 	
-	private final String memberHomePage = "MemberHomeView.fxml";
+	private final String memberHomePage = "MemberHome.fxml";
 	// private final String staffHomePage = "";
 	
     @FXML
     private void initialize () {      	
     	this.staffDAO = new StaffDAO();
     	this.memberDAO = new MemberDAO();
+    	
+    	assert(this.mainApp != null);
     }
     
     // TODO: do better exception handling
@@ -75,15 +77,16 @@ public class LoginController extends ControllerBase {
     			// remember who logged in
     			mainApp.setLoggedInAs(user);
     			
+    			System.out.println("LOGGED IN AS: " + mainApp.getLoggedInAs().getUserName());
+    			
     			// TODO: remove this after next page implemented
         		this.statusLabel.setText("Login successful.");
 
     			// bring them to the next page
         		// display different pages depending on whether they logged in as user or member
         		if (this.memberRadioButton.isSelected()) {
-        			System.out.println("LOGIN SUCCESSFUL");
 
-        			mainApp.showView(memberHomePage);
+        			mainApp.showView(memberHomePage, new MemberHomeController());
         			//mainApp.showView("MemberView.fxml");
         			
         		} else if (this.staffRadioButton.isSelected()) {
@@ -106,7 +109,7 @@ public class LoginController extends ControllerBase {
     @FXML
     private void handleRegister() {
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showMemberEditDialog(tempMember);
+        boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
         
         if (okClicked) {
 	        try {	   	

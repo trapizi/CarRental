@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="controller.MemberHomeController">
+<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="231.0">
          <children>

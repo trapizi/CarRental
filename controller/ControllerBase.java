@@ -2,7 +2,7 @@ package controller;
 
 import mainApp.SUber;
 
-public class ControllerBase {
+public abstract class ControllerBase {
 	// used to get a reference back to the root layout's primary stage
     protected SUber mainApp;
     
