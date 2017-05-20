@@ -74,11 +74,13 @@ public class StaffEditController {
      */
     @FXML
     private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException {
-    	// check for valid input here
+    	
     	try {
+    		
+        	// check for valid input here
     		Staff.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
-    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText());
+    				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(), this.staff.getStaff_id());
     		
     	} catch (InvalidInputException e) {  
     		
@@ -88,7 +90,7 @@ public class StaffEditController {
             
             alert.showAndWait();
             
-            // throw exception as well for debugging purposes
+            // TODO: throw exception as well for debugging purposes
             throw e;
     	} catch (SQLException | ClassNotFoundException e) {
     		
@@ -98,6 +100,7 @@ public class StaffEditController {
             
             alert.showAndWait();
             
+            // TODO: throw exception for debugging
             throw e;
     	} 
 

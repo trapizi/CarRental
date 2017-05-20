@@ -20,9 +20,9 @@ import util.AlertBuilder;
  * @author Bing Wen (z3463269)
  * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
  */
-public class StaffController {
+public class StaffController extends ControllerBase {
     @FXML
-    private TextArea resultArea;	// used to display success/failure messages for functions    
+    private Label resultText;	// used to display success/failure messages for functions    
     @FXML
     private TableView<Staff> staffTable;
     @FXML
@@ -46,10 +46,7 @@ public class StaffController {
     // list to display onto the UI's table
     private ObservableList<Staff> staffList;
     private StaffDAO staffDAO;
-    
-    // reference to mainApp for alerts
-    private SUber mainApp;
-    
+        
     @FXML
     private void initialize () {    	
     	this.firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
@@ -75,7 +72,7 @@ public class StaffController {
     		// display results in the table
     		staffTable.setItems(staffList);
     		
-    		resultArea.setText("Search complete!\n");
+    		resultText.setText("Search complete!\n");
     	} catch (SQLException | ClassNotFoundException e) {            
             // Create and display alert for the database exception
             Alert alert = AlertBuilder.createAlert(
@@ -99,7 +96,7 @@ public class StaffController {
             lastNameLabel.setText(staff.getLastName());
             userNameLabel.setText(staff.getUserName());
             emailLabel.setText(staff.getEmail());
-            phoneNoLabel.setText(Double.toString(staff.getPhoneNo()));
+            phoneNoLabel.setText(Integer.toString(staff.getPhoneNo()));
         } else {
         	staffIDLabel.setText("");
             firstNameLabel.setText("");
@@ -117,29 +114,34 @@ public class StaffController {
      */
     @FXML
     private void deleteStaff() throws SQLException, ClassNotFoundException {
-    	int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
     	
-    	if (selectedIndex >= 0) {
+    	try {
+        	int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
+
     		try {
     			StaffDAO staffDAO = new StaffDAO();
 
+        		// triggers exception if nothing selected
     			// remove the staff member selected by user from the database
     			staffDAO.delete("STAFF_ID=" + staffTable.getItems().get(selectedIndex).getStaff_id());
 
-        		resultArea.setText("Delete complete!\n");
-    			
+        		resultText.setText("Delete complete!\n");
     		} catch (SQLException | ClassNotFoundException e) {
-    			resultArea.setText("Problem deleting selected staff from database!\n");
+    			resultText.setText("Problem deleting selected staff from database!\n");
     			throw e;
     		}
-    	} else {
+    		
+            staffTable.getItems().remove(selectedIndex); 
+    		
+    	} catch (ArrayIndexOutOfBoundsException e) {
+    		
     		// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
             
-            alert.showAndWait();    		
+            alert.showAndWait(); 
+            
     	}
-        staffTable.getItems().remove(selectedIndex);  
     }
     
     /**
@@ -149,17 +151,21 @@ public class StaffController {
     @FXML
     private void handleNewStaff() throws SQLException, ClassNotFoundException {    	
         Staff tempStaff = new Staff();
-        boolean okClicked = mainApp.showPersonEditDialog(tempStaff);
+        boolean okClicked = mainApp.showStaffEditDialog(tempStaff);
+        
         if (okClicked) {
             //mainApp.getPersonData().add(tempStaff);
 	        try {	   	
 	        	// add new staff member to the list
 	        	staffDAO.insert(tempStaff);
+	        	
+	        	// need to retrieve the inserted staff from the database to get the ID assigned to it
+	        	tempStaff = staffDAO.findByUsername(tempStaff.getUserName());
 
 	        	// TODO: ensure that staffID gets updated on the staff details section after insert
 	        	staffList.add(tempStaff);
 
-	            resultArea.setText("Employee inserted! \n");
+	            resultText.setText("Insert complete!\n");
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -178,32 +184,34 @@ public class StaffController {
      */
     @FXML
     private void handleEditStaff() {
-        resultArea.setText("Edit called!\n");
-
-        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
-        if (selectedStaff != null) {
-            boolean okClicked = mainApp.showPersonEditDialog(selectedStaff);
+        resultText.setText("Edit called!\n");
+        
+        try {
+            Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+            boolean okClicked = mainApp.showStaffEditDialog(selectedStaff);
+            
             if (okClicked) {
+            	
+            	// triggers null pointer exception from setters if nothing is selected
                 showStaffDetails(selectedStaff);
                 
                 try {
                 	staffDAO.update(selectedStaff);
-                    resultArea.setText("Edit successful!\n");
                 } catch (Exception e) {
-                    resultArea.setText("Update to database failed!\n");
+                    resultText.setText("Update to database failed!\n");
                 }
                 
             }
-        } else {            
+            
+            resultText.setText("Edit complete!\n");
+        } catch (NullPointerException e) {
         	// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table"); 
             
             alert.showAndWait();
+            
+            System.out.println("COULD NOT EDIT -- NOTHING SELECTED");
         }
-    }
-    
-    public void setMainApp(SUber mainApp) {
-        this.mainApp = mainApp;
     }
 }
