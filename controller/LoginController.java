@@ -27,12 +27,15 @@ public class LoginController extends ControllerBase {
 	@FXML
 	private RadioButton staffRadioButton;
 	@FXML
-	private RadioButton memberButton;
+	private RadioButton memberRadioButton;
 	@FXML
 	private Label statusLabel;
 	
 	private StaffDAO staffDAO;
 	private MemberDAO memberDAO;
+	
+	private final String memberHomePage = "MemberHomeView.fxml";
+	// private final String staffHomePage = "";
 	
     @FXML
     private void initialize () {      	
@@ -42,12 +45,7 @@ public class LoginController extends ControllerBase {
     
     // TODO: do better exception handling
     @FXML
-    private void handleLogin() throws Exception {
-    	
-    	// READ IN USERNAME AND PASSWORD AND BUTTON SELECTED
-    	// QUERY DATABASE FOR MATCH
-    	// BRING TO STAFF PAGE?
-    	
+    private void handleLogin() throws Exception {    	
     	User user;
     	
     	// grab user from database
@@ -68,16 +66,31 @@ public class LoginController extends ControllerBase {
     	try {
     		boolean validLogin = user.getPassword().equals(this.passwordField.getText());
     		
-    		if (!validLogin) {
-        		this.statusLabel.setText("Incorrect username or password entered.");
+    		System.out.println(user.getPassword() + " " + this.passwordField.getText());
+    		
+    		if (!validLogin) {    			
+        		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
     		} else {
-    			// bring them to the next page
+    			
+    			// remember who logged in
+    			mainApp.setLoggedInAs(user);
+    			
+    			// TODO: remove this after next page implemented
         		this.statusLabel.setText("Login successful.");
-        		
+
+    			// bring them to the next page
         		// display different pages depending on whether they logged in as user or member
-        		if (this.memberButton.isSelected()) {
+        		if (this.memberRadioButton.isSelected()) {
+        			System.out.println("LOGIN SUCCESSFUL");
+
+        			mainApp.showView(memberHomePage);
+        			//mainApp.showView("MemberView.fxml");
         			
         		} else if (this.staffRadioButton.isSelected()) {
+        			System.out.println("LOGIN SUCCESSFUL");
+
+        			// mainApp.showView(staffHomePage);
+        			mainApp.showView("StaffView.fxml");
         			
         		} else {
             		this.statusLabel.setText("SHOULD NEVER REACH THIS POINT -- A RADIO BUTTON SHOULD BE SELECTED!!!.");
@@ -86,7 +99,7 @@ public class LoginController extends ControllerBase {
     		
     	// user doesn't exist
     	} catch (NullPointerException e) {
-    		this.statusLabel.setText("Incorrect username or password entered.");
+    		this.statusLabel.setText("Incorrect username or password entered. No user found");
     	}
     }
     

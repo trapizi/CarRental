@@ -18,15 +18,25 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Member;
 import model.Staff;
+import model.User;
 import javafx.application.Application;
 import java.io.IOException;
 
 public class SUber extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private User loggedInAs;
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+    
+    public void setLoggedInAs(User user) {
+    	this.loggedInAs = user;
+    }
+    
+    public User getLoggedInAs() {
+    	return this.loggedInAs;
     }
 	
 	@Override
@@ -121,7 +131,6 @@ public class SUber extends Application {
 			// Set Employee Operations view into the center of root layout.
 			rootLayout.setCenter(view);
 
-			//StaffController controller = loader.getController();
 			ControllerBase controller = (ControllerBase) loader.getController();
 			controller.setMainApp(this);
 			
