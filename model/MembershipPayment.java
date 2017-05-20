@@ -18,7 +18,7 @@ public class MembershipPayment extends Payment {
     private SimpleObjectProperty<Date> nextExpiry;
     private IntegerProperty durationToExpiry;
     private BooleanProperty refundFlag;
-    	
+    	 
     //return string containing membershipPaymentID + other payment details
     public String toString(){
         return "MembershipPayment_id: " + this.getMembershipPayment_id() + " | " + super.toString();

@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import util.DBUtil;
-import util.InsertSQLBuilder;
+import util.InsertSQLBuilder; 
 import util.SQLBuilder;
 import util.UpdateSQLBuilder;
 
@@ -15,10 +15,9 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     //findAll()
     public ObservableList<AgreementPayment> findAll() throws SQLException, ClassNotFoundException {
         try {
-            String sqlStmt = "SELECT AGREEMENT_PAYMENT.AGREEMENT_PAYMENT_ID, AGREEMENT.SEEKER, AGREEMENT.OFFERER, PAYMENT.PAYMENT_AMOUNT, PAYMENT.PAYMENT_DATE, PAYMENT.PAYMENT_ACCOUNT, PAYMENT.ACCOUNT_OWNER_NAME"
+            String sqlStmt = "SELECT AGREEMENT_PAYMENT.AGREEMENT_PAYMENT_ID, PAYMENT.*, AGREEMENT.SEEKER, AGREEMENT.OFFERER"
                 + " FROM AGREEMENT_PAYMENT, AGREEMENT, PAYMENT"
         	+ " WHERE AGREEMENT_PAYMENT.AGREEMENT_ID = AGREEMENT.AGREEMENT_ID";
-        	//(don't think i need this)+ " AND AGREEMENT_PAYMENT.PAYMENT_ID = PAYMENT.PAYMENT_ID";
         	
             ResultSet rs = DBUtil.dbExecuteQuery(sqlStmt);
             

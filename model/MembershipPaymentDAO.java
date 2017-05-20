@@ -16,10 +16,9 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     //findAll()
     public ObservableList<MembershipPayment> findAll() throws SQLException, ClassNotFoundException {
         try {
-            String sqlStmt = "SELECT PAYMENT.PAYMENT_ID, MEMBER.*"
-        	+ " FROM MEMBERSHIP_PAYMENT, MEMBER, PAYMENT"
-        	+ " WHERE MEMBERSHIP_PAYMENT.MEMBER_ID = MEMBER.MEMBER_ID"
-        	+ " AND MEMBERSHIP_PAYMENT.PAYMENT_ID = PAYMENT.PAYMENT_ID";
+            String sqlStmt = "SELECT MEMBERSHIP_PAYMENT.MEMBERSHIP_PAYMENT_ID, PAYMENT.*, MEMBER.*"
+        	+ " FROM MEMBERSHIP_PAYMENT, PAYMENT, MEMBERSHIP"
+        	+ " WHERE MEMBERSHIP_PAYMENT.MEMBER_ID = MEMBER.MEMBER_ID";
         	
             ResultSet rs = DBUtil.dbExecuteQuery(sqlStmt);
             
@@ -34,9 +33,9 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     }
     
     //findById()
-    public MembershipPayment findById(int membershipPaymentID) throws SQLException, ClassNotFoundException {
+    public MembershipPayment findById(int membershipPayment_id) throws SQLException, ClassNotFoundException {
 	try {
-            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "MEMBERSHIP_PAYMENT", "MEMBER_ID=" + membershipPaymentID));
+            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "MEMBERSHIP_PAYMENT", "MEMBERSHIP_PAYMENT_ID=" + membershipPayment_id));
             
             ObservableList<MembershipPayment> list = this.getMembershipPaymentList(rs);
             
@@ -52,15 +51,29 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
 	return null;
     }
     
-    
-    //insert membershipPayment_id and payment_id into membershipPaymentshipPayment table
+    //insert()
+    //insert membershipPayment_id into the database
     public void insert(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBER_ID", membershipPayment.getMembershipPaymentID())
-            .addFieldValue("PAYMENT_ID", membershipPayment.getPaymentID())
-		.toString();		
-    	try {
+            .addFieldValue("MEMBERSHIP_PAYMENT_ID", membershipPayment.getMembershipPayment_id())
+            .addFieldValue("PAYMENT_AMOUNT", membershipPayment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", membershipPayment.getPaymentDate())
+            .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
+            .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())
+            .addFieldValue("PAYMENT_MEDIA", membershipPayment.getPaymentMedia())   
+            .addFieldValue("STATUS", membershipPayment.getStatus())
+            .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
+            .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
+            .addFieldValue("DURATION_TO_EXPIRY", membershipPayment.getDurationToExpiry())
+            .addFieldValue("REFUND_FLAG", membershipPayment.getRefundFlag())
+            .toString();
+        
+        System.out.println(sqlStmt);
+    	
+        try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
@@ -70,21 +83,26 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     
     
     //update()
-    //MemberDAO update membershipPayment fields by calling membershipPaymentDAO.update()
     public void update(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new UpdateSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBER_ID", membershipPayment.getMembershipPaymentID())
-            .where("MEMBER_ID=" + membershipPayment.getMembershipPaymentID())
-            .and("PAYMENT_ID=" + membershipPayment.getPaymentID())
-		.toString();
+            .addFieldValue("MEMBERSHIP_PAYMENT_ID", membershipPayment.getMembershipPayment_id())
+            .addFieldValue("PAYMENT_AMOUNT", membershipPayment.getPaymentAmount())
+            .addFieldValue("PAYMENT_DATE", membershipPayment.getPaymentDate())
+            .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
+            .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())
+            .addFieldValue("PAYMENT_MEDIA", membershipPayment.getPaymentMedia())   
+            .addFieldValue("STATUS", membershipPayment.getStatus())
+            .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
+            .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
+            .addFieldValue("DURATION_TO_EXPIRY", membershipPayment.getDurationToExpiry())
+            .addFieldValue("REFUND_FLAG", membershipPayment.getRefundFlag())
+            .where("MEMBERSHIP_PAYMENT_ID" + membershipPayment.getMembershipPayment_id())
+                .toString();
 		
 	try {
-            // update payment-related information for the membershipPaymentshipPayment
-            PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.update(membershipPayment);
-			
-            // update agreement-related information
             DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
@@ -103,44 +121,29 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     	}
     }
 	
-    
-    
+    //Helper function (convert records from database into objects for java
     private ObservableList<MembershipPayment> getMembershipPaymentList (ResultSet rs) throws SQLException {
     	ObservableList<MembershipPayment> list = FXCollections.observableArrayList();
     	
     	while (rs.next()) {
             try {
                 MembershipPayment membershipPayment = new MembershipPayment();
-                membershipPayment.setMembershipPaymentID(rs.getString("MEMBERSHIP_PAYMENT_ID"));
-                membershipPayment.setStatus(rs.getString("STATUS"));
-                membershipPayment.setLastMatch(rs.getString("LAST_MATCH"));
-                membershipPayment.setNextExpiry(rs.getString("NEXT_EXPIRY"));
-                membershipPayment.setDurationToExpiry(rs.getInt("DURATION_TO_EXPIRY"));
-                membershipPayment.setRefundFlag(rs.getInt("REFUND_FLAG"));
-                //membershipPayment.setMemberID(rs.getInt("MEMBER_ID"));
-	    	//membershipPayment.setPaymentID(rs.getString("PAYMENT_ID"));
-                //membershipPayment.setUserName(rs.getString("USERNAME"));
-	    	//membershipPayment.setPassword(rs.getString("PASSWORD"));
-	    	//membershipPayment.setFirstName(rs.getString("FIRST_NAME"));
-	    	//membershipPayment.setLastName(rs.getString("LAST_NAME"));
-	    	//membershipPayment.setEmail(rs.getString("EMAIL"));
-	    	//membershipPayment.setPhoneNo(rs.getLong("PHONE"));
-	    	//membershipPayment.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
-	    	//membershipPayment.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
-	    	//membershipPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
-	    	//membershipPayment.setCommissionRate(rs.getFloat("COMMISSION_RATE"));
-	    	//membershipPayment.setCreditCard(rs.getString("CREDIT_CARD"));
-	    	//membershipPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));
-                //membershipPayment.setAmount(rs.getDouble("AMOUNT"));
-	    	//membershipPayment.setDate(rs.getString("DATE"));    	
-	    	//membershipPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
-	    	//membershipPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
-	    	//membershipPayment.setAccountExpiry(rs.getString("ACCOUNT_EXPIRY"));
-	    	//membershipPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
-	    	//membershipPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));    		            
-	    	
+                membershipPayment.setMembershipPayment_id(rs.getInt("MEMBERSHIP_PAYMENT_ID"));
+	    	membershipPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	membershipPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
+	    	membershipPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
+	    	membershipPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
+	    	membershipPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
+	    	membershipPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
+	    	membershipPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));
+                membershipPayment.setStatus(rs.getBoolean("STATUS"));
+                membershipPayment.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
+                membershipPayment.setNextExpiry(rs.getDate("NEXT_EXPIRY"));
+	    	membershipPayment.setDurationToExpiry(rs.getInt("DURATION_TO_EXPIRY"));
+                membershipPayment.setRefundFlag(rs.getBoolean("REFUND_FLAG"));
+
 	    	list.add(membershipPayment);
-    		} catch (SQLException e) {
+            } catch (SQLException e) {
             	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     			throw e;
     		}
