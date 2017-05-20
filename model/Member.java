@@ -1,19 +1,19 @@
 package model;
-import java.util.ArrayList;
-import java.util.Date;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import java.sql.Date;
 
 public class Member extends User {		
 	private IntegerProperty memberID;
-	private SimpleObjectProperty<Date> lastMatchDate;
-	private SimpleObjectProperty<Date> accountExpiry;
+	private ObjectProperty<Date> lastMatchDate;
+	private ObjectProperty<Date> accountExpiry;
 	private FloatProperty commissionRate;
 	private StringProperty creditCard;
 	private StringProperty homeAddress;
@@ -46,6 +46,8 @@ public class Member extends User {
 		this.commissionRate = new SimpleFloatProperty(); 
 		this.creditCard = new SimpleStringProperty(); 
 		this.homeAddress = new SimpleStringProperty();
+		
+		assert(this.accountExpiry != null);
 	}
 	
 	public int getMemberID() {
@@ -68,7 +70,7 @@ public class Member extends User {
 		this.lastMatchDate.set(lastMatchDate);
 	}
 	
-	public SimpleObjectProperty<Date> lastMatchDateProperty() {
+	public ObjectProperty<Date> lastMatchDateProperty() {
 		return lastMatchDate;
 	}
 	
@@ -80,7 +82,7 @@ public class Member extends User {
 		this.accountExpiry.set(accountExpiry);
 	}
 	
-	public SimpleObjectProperty<Date> accountExpiryProperty() {
+	public ObjectProperty<Date> accountExpiryProperty() {
 		return accountExpiry;
 	} 
 	

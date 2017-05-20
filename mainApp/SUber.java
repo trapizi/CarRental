@@ -44,8 +44,8 @@ public class SUber extends Application {
 			initRootLayout();
 	
 			//3) Display the EmployeeOperations View
-			//showStaffView();
-			showView("StaffView.fxml");
+			//showView("StaffView.fxml");		// equivalent of showStaffView();
+			showView("MemberView.fxml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -121,7 +121,7 @@ public class SUber extends Application {
 			rootLayout.setCenter(view);
 
 			//StaffController controller = loader.getController();
-			ControllerBase controller = loader.getController();
+			ControllerBase controller = (ControllerBase) loader.getController();
 			controller.setMainApp(this);
 			
 		} catch (IOException e) {

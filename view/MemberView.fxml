@@ -17,16 +17,15 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MemberController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MemberController">
    <children>
-      <VBox prefHeight="458.0" prefWidth="686.0">
+      <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <SplitPane dividerPositions="0.5" prefHeight="320.0" prefWidth="593.0" VBox.vgrow="ALWAYS">
                <items>
                   <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="ALWAYS">
                      <content>
-                        <TableView fx:id="staffTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="447.0" prefWidth="322.0">
+                        <TableView fx:id="memberTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="447.0" prefWidth="322.0">
                            <columns>
                               <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
                               <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
@@ -62,7 +61,7 @@
                               <Label text="Last Name" GridPane.rowIndex="3" />
                               <Label text="Email" GridPane.rowIndex="4" />
                               <Label text="Phone Number" GridPane.rowIndex="5" />
-                              <Label fx:id="staffIDLabel" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="memberIDLabel" text="Label" GridPane.columnIndex="1" />
                               <Label fx:id="userNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -70,8 +69,8 @@
                               <Label fx:id="phoneNoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Label text="Account Expiry" GridPane.rowIndex="6" />
                               <Label text="Home Address" GridPane.rowIndex="7" />
-                              <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Label layoutX="171.0" layoutY="189.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label fx:id="accountExpiryLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="homeAddressLabel" layoutX="171.0" layoutY="189.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                         <ButtonBar layoutX="96.0" layoutY="373.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
