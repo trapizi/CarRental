@@ -56,6 +56,7 @@ public class PaymentDAO implements TableDAO<Payment> {
     public void insert(Payment payment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("PAYMENT")
+            .addFieldValue("PAYMENT_ID", payment.getPayment_id())
             .addFieldValue("PAYMENT_AMOUNT", payment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", payment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", payment.getPaymentAccount())
@@ -112,8 +113,8 @@ public class PaymentDAO implements TableDAO<Payment> {
     	
         while (rs.next()) {
             try {
-	    	Payment payment = new Payment();    		
-	    	payment.setPayment_id(rs.getString("PAYMENT_ID"));
+	    	Payment payment = new Payment();   		
+	    	payment.setPayment_id(rs.getInt("PAYMENT_ID"));
                 payment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
 	    	payment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	payment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
