@@ -55,15 +55,16 @@ public class ConsultationDAO implements TableDAO<Consultation> {
 
 
     public void insert(Consultation consultation) throws SQLException, ClassNotFoundException {
-        String sqlStmt = new InsertSQLBuilder()
+                    String sqlStmt = new InsertSQLBuilder()
                         .addTable("CONSULTATION")
-                        .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
+ //                       .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
                         .addFieldValue("CONSULTATION_PRICE", consultation.getConsultationPrice())
                         .addFieldValue("CONSULTATION_TIME", consultation.getConsultationTime())
                         .addFieldValue("CONSULTATION_DATE", consultation.getConsultationDate())
                         .addFieldValue("CORPORATE_ID", consultation.getCorporateID())
 
                         .toString();
+        System.out.println(sqlStmt);
         try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
         } catch (SQLException | ClassNotFoundException e) {
@@ -76,7 +77,7 @@ public class ConsultationDAO implements TableDAO<Consultation> {
     public void update(Consultation consultation) throws SQLException, ClassNotFoundException {
        String sqlStmt = new UpdateSQLBuilder()
                         .addTable("CONSULTATION")
-                        .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
+ //                       .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
                         .addFieldValue("CONSULTATION_PRICE", consultation.getConsultationPrice())
                         .addFieldValue("CONSULTATION_TIME", consultation.getConsultationTime())
                         .addFieldValue("CONSULTATION_DATE", consultation.getConsultationDate())
@@ -107,7 +108,7 @@ public class ConsultationDAO implements TableDAO<Consultation> {
     while (rs.next()) {
     		try {   
                     Consultation consultation = new Consultation();
-                    consultation.setConsultationNum(rs.getInt("CONSULTATION_NUM"));
+  //                  consultation.setConsultationNum(rs.getInt("CONSULTATION_NUM"));
                     consultation.setConsultationPrice(rs.getFloat("CONSULTATION_PRICE"));
                     consultation.setConsultationTime(rs.getTime("CONSULTATION_TIME"));
                     consultation.setConsultationDate(rs.getDate("CONSULTATION_DATE"));
