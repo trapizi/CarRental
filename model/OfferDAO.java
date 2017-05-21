@@ -42,6 +42,16 @@ public class OfferDAO{
     	return null;
     }
     
+    public Offer findByPostcode(long postcode) throws SQLException, ClassNotFoundException {
+    	try{
+    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "POSTCODE BETWEEN "+ (postcode-1) +"AND"+ (postcode+1)));
+    	} catch (SQLException | ClassNotFoundException e) {
+    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+    		e.printStackTrace();
+    	}
+    	return null;
+    }
+    
     public void insert(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
     			.addTable("OFFER")
