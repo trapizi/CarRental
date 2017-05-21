@@ -1,17 +1,25 @@
 package controller;
 
+import java.sql.SQLException;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Offer;
 import model.OfferDAO;
 import model.Staff;
+import util.AlertBuilder;
 import mainApp.SUber;
 
 public class OfferViewController {
-	   @FXML
+	
+		@FXML
+		private Label resultText;
+	   	@FXML
 	    private TableView<Offer> offerTable;
 	    @FXML
 	    private TableColumn<Offer, String> availableCarColumn;
@@ -88,6 +96,29 @@ public class OfferViewController {
 	            postcodeLabel.setText("");
 	        }
 	    }	    
+	    
+	    @FXML
+	    private void deleteOffer() throws SQLException, ClassNotFoundException{
+	    	try {
+	    		int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
+	    		
+	    		try {
+	    			OfferDAO offer = new OfferDAO();
+	    			offerDAO.delete("OFFER_ID=" + offerTable.getItems().get(selectedIndex).getOfferID());
+	    			resultText.setText("Delete complete!\n");
+	    		} catch (SQLException | ClassNotFoundException e) {
+	    			resultText.setText("Problem deleting selected offer from database!\n");
+	    			throw e;
+	    		}
+	    		offerTable.getItems().remove(selectedIndex);
+	    	} catch (ArrayIndexOutOfBoundsException e) {
+	    		Alert alert = AlertBuilder.createAlert(
+	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table");
+	    				
+	    		alert.showAndWait();
+	    		throw e;
+	    	}
+	    }
 
 	    /**
 	     * Is called by the main application to give a reference back to itself.

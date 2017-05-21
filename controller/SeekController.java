@@ -49,9 +49,11 @@ public class SeekController {
 	@FXML
 	private void initialize (){
 		seekIDColumn.setCellValueFactory(cellData -> cellData.getValue().seekIDProperty().asObject());
-		bookDayColumn.setCellValueFactory(cellData -> cellData.getValue().getBookDay().asObject());
-		bookTimeColumn.setCellValueFactory(cellData -> cellData.getValue().getBookTime().asObject());
+		bookDayColumn.setCellValueFactory(cellData -> cellData.getValue().bookDayProperty());
+		bookTimeColumn.setCellValueFactory(cellData -> cellData.getValue().bookTimeProperty());
 	}
+	
+	
 	
 	public void setMainApp(SUber mainApp) {
 		this.mainApp = mainApp;
