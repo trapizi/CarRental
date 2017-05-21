@@ -13,7 +13,7 @@ import util.UpdateSQLBuilder;
 
 
 
-public class OfferDAO{
+public class OfferDAO implements TableDAO<Offer>{
     
     public ObservableList<Offer> findAll() throws SQLException, ClassNotFoundException {
         try {
@@ -35,6 +35,9 @@ public class OfferDAO{
     		
     		ObservableList<Offer> list = this.getOfferList(rs);
     	
+    		if (list.size() >0){
+    			return list.get(0);
+    		}
     	} catch (SQLException | ClassNotFoundException e) {
     		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     		e.printStackTrace();
@@ -55,12 +58,11 @@ public class OfferDAO{
     public void insert(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
     			.addTable("OFFER")
-    			.addFieldValue("OFFER_ID", offer.getOfferID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
     			.addFieldValue("MODEL", offer.getModel())
-    			.addFieldValue("TRANMISSION", offer.getTransmission())
+    			.addFieldValue("TRANSMISSION", offer.getTransmission())
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
     			.addFieldValue("PRICE", offer.getPrice())
     			.addFieldValue("POSTCODE", offer.getPostcode())
@@ -78,12 +80,11 @@ public class OfferDAO{
     public void update(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder()
     			.addTable("OFFER")
-    			.addFieldValue("OFFER_ID", offer.getOfferID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
     			.addFieldValue("MODEL", offer.getModel())
-    			.addFieldValue("TRANMISSION", offer.getTransmission())
+    			.addFieldValue("TRANSMISSION", offer.getTransmission())
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
     			.addFieldValue("POSTCODE", offer.getPostcode())    			
     			.addFieldValue("PRICE", offer.getPrice())
@@ -119,7 +120,7 @@ public class OfferDAO{
                     offer.setCarType(rs.getString("CAR_TYPE"));
                     offer.setBrand(rs.getString("BRAND"));
                     offer.setModel(rs.getString("MODEL"));
-                    offer.setTransmission(rs.getString("TRANMISSION"));
+                    offer.setTransmission(rs.getString("TRANSMISSION"));
                     offer.setFuelType(rs.getString("FUEL_TYPE"));
                     offer.setPostcode(rs.getLong("POSTCODE"));
                     offer.setPrice(rs.getFloat("PRICE"));

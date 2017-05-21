@@ -1,16 +1,11 @@
 package model;
 
 
-import model.Member;
-import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Timestamp;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 
 
