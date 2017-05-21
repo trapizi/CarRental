@@ -90,16 +90,16 @@ public class Offer {//extends offerList{
     return model;
     }
     
-    public String getLocation(){
-    	return location.get();
+    public long getPostcode(){
+    	return postcode.get();
     }
     
-    public void setLocation(String location){
-    	this.location.set(location);
+    public void setPostcode(long postcode){
+    	this.postcode.set(postcode);
     }
     
-    public StringProperty locationProperty(){
-    	return location;
+    public LongProperty locationProperty(){
+    	return postcode;
     }
     
     public String getTransmission() {

@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Offer;
 import model.OfferDAO;
+import model.Staff;
 import mainApp.SUber;
 
 public class OfferViewController {
@@ -29,9 +30,11 @@ public class OfferViewController {
 	    @FXML
 	    private Label seatsLabel;
 	    @FXML
-	    private Label tranmissionLabel;
+	    private Label transmissionLabel;
 	    @FXML
 	    private Label fuelTypeLabel;
+	    @FXML
+	    private Label postcodeLabel;
 	    @FXML
 	    private Label priceLabel;
 	    
@@ -59,6 +62,32 @@ public class OfferViewController {
 	    	locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
 	    	rateColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
 	    }
+	    
+	    /**
+	     * Displays staff details on the right hand side of the UI when a row is selected in the table
+	     * @param staff the staff member to display
+	     */
+	    private void showOfferDetails(Offer offer) {
+	        if (offer != null) {
+	        	brandLabel.setText(offer.getBrand());
+	            modelLabel.setText(offer.getModel());
+	            carTypeLabel.setText(offer.getCarType());
+	            seatsLabel.setText(Integer.toString(offer.getSeats()));
+	            transmissionLabel.setText(offer.getTransmission());
+	            fuelTypeLabel.setText(offer.getFuelType());
+	            priceLabel.setText(Double.toString(offer.getPrice()));
+	            postcodeLabel.setText(Long.toString(offer.getPostcode()));
+	        } else {
+	        	brandLabel.setText("");
+	            modelLabel.setText("");
+	            carTypeLabel.setText("");
+	            seatsLabel.setText("");
+	            transmissionLabel.setText("");
+	            fuelTypeLabel.setText("");
+	            priceLabel.setText("");
+	            postcodeLabel.setText("");
+	        }
+	    }	    
 
 	    /**
 	     * Is called by the main application to give a reference back to itself.
