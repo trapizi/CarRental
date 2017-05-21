@@ -24,7 +24,7 @@ public class OfferViewController {
 	    @FXML
 	    private TableColumn<Offer, String> availableCarColumn;
 	    @FXML
-	    private TableColumn<Offer, String> locationColumn;
+	    private TableColumn<Offer, Long> postcodeColumn;
 	    @FXML
 	    private TableColumn<Offer, Float> rateColumn;
 	    
@@ -67,7 +67,7 @@ public class OfferViewController {
 	    private void initialize() {
 	        // Initialize the person table with the two columns.
 	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().modelProperty());
-	    	locationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
+	    	postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
 	    	rateColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
 	    }
 	    

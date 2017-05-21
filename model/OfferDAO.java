@@ -55,15 +55,17 @@ public class OfferDAO{
     public void insert(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
     			.addTable("OFFER")
+    			.addFieldValue("OFFER_ID", offer.getOfferID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
     			.addFieldValue("MODEL", offer.getModel())
     			.addFieldValue("TRANMISSION", offer.getTransmission())
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
-    			.addFieldValue("POSTCODE", offer.getPostcode())
     			.addFieldValue("PRICE", offer.getPrice())
+    			.addFieldValue("POSTCODE", offer.getPostcode())
     			.toString();
+    	
     	
     	try {
     		DBUtil.dbExecuteUpdate(sqlStmt);
@@ -76,6 +78,7 @@ public class OfferDAO{
     public void update(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder()
     			.addTable("OFFER")
+    			.addFieldValue("OFFER_ID", offer.getOfferID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
