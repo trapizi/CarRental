@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Corporate {	
-	private IntegerProperty corporateID;
+	public IntegerProperty corporateID;
     private StringProperty companyName, companyAddr;
     private LongProperty companyPhoneNumber, companyPCode;
     private IntegerProperty customerType;

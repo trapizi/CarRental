@@ -25,8 +25,8 @@ public class Consultation {
     private ObjectProperty consultationTime;
     private ObjectProperty consultationDate;
     private IntegerProperty corporateID;
-    
-    
+    private Corporate corporation;
+
     public Consultation() {
         this.consultationNum = new SimpleIntegerProperty();
         this.consultationPrice = new SimpleFloatProperty();
@@ -34,10 +34,12 @@ public class Consultation {
         this.consultationDate = new SimpleObjectProperty<Date>();
         this.corporateID = new SimpleIntegerProperty();
         
+   
     }
 
+    @Override
     public String toString() {
-        return "Consultation number: " + this.getConsultationNum();
+        return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporation.getCorporateID();
     }
     /**
      * @return the consultationNum
