@@ -12,8 +12,9 @@ import javafx.beans.property.SimpleFloatProperty;
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
 	private IntegerProperty offerID, seats;
-    private StringProperty carType, brand, model, transmission, fuelType, location;
+    private StringProperty carType, brand, model, transmission, fuelType;
     private FloatProperty price;
+    private LongProperty postcode;
 
     public Offer() {
         this.offerID = new SimpleIntegerProperty();
