@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OfferEditController">
    <children>
@@ -35,14 +33,14 @@
             <Label text="Fuel Type" GridPane.rowIndex="5" />
             <Label text="Price" GridPane.rowIndex="7" />
             <Label text="Postcode" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="carTypeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="brandTextField" GridPane.columnIndex="1" />
+            <TextField fx:id="modelTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="postcodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="carTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="seatsTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="transmissionTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fuelTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>

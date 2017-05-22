@@ -65,10 +65,24 @@
                         <Label fx:id="postcodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
-                  <ButtonBar layoutX="214.0" layoutY="402.0" prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" text="Book" />
-                    </buttons>
+                  <ButtonBar layoutX="133.0" layoutY="399.0" prefHeight="43.0" prefWidth="244.0">
+                     <buttons>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                          <buttons>
+                            <Button mnemonicParsing="false" onAction="#handleNewOffer" text="New" />
+                              <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                <buttons>
+                                  <Button mnemonicParsing="false" text="Edit" />
+                                </buttons>
+                              </ButtonBar>
+                              <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                <buttons>
+                                  <Button mnemonicParsing="false" text="Delete" />
+                                </buttons>
+                              </ButtonBar>
+                          </buttons>
+                        </ButtonBar>
+                     </buttons>
                   </ButtonBar>
                </children>
             </AnchorPane>

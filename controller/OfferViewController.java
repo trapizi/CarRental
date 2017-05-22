@@ -26,7 +26,7 @@ public class OfferViewController {
 	    @FXML
 	    private TableColumn<Offer, Long> postcodeColumn;
 	    @FXML
-	    private TableColumn<Offer, Float> rateColumn;
+	    private TableColumn<Offer, Double> rateColumn;
 	    
 
 	    @FXML
@@ -96,6 +96,26 @@ public class OfferViewController {
 	            postcodeLabel.setText("");
 	        }
 	    }	    
+	    
+	    @FXML
+	    private void handleNewOffer(){
+	    	Offer tempOffer = new Offer();
+	    	boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
+	    	
+	    	if (okClicked) {
+	    		try{
+	    			offerDAO.insert(tempOffer);
+	    			
+	    			tempOffer = offerDAO.findById(tempOffer.getOfferID());
+	    			
+	    			offerList.add(tempOffer);
+	    		} catch (SQLException | ClassNotFoundException e) {
+	    			Alert alert = AlertBuilder.createAlert(
+	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", "Database could not complete seasrch!", e.getMessage());
+	    			alert.showAndWait();
+	    		}
+	    	}
+	    }
 	    
 	    @FXML
 	    private void deleteOffer() throws SQLException, ClassNotFoundException{

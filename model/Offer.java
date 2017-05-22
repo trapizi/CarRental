@@ -6,14 +6,19 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
+import util.InvalidInputException;
+import util.InputValidator;
+
+import java.sql.SQLException;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
 	private IntegerProperty offerID, seats;
     private StringProperty carType, brand, model, transmission, fuelType;
-    private FloatProperty price;
+    private DoubleProperty price;
     private LongProperty postcode;
 
     public Offer() {
@@ -24,10 +29,25 @@ public class Offer {//extends offerList{
         this.model = new SimpleStringProperty();
         this.transmission = new SimpleStringProperty();
         this.fuelType = new SimpleStringProperty();
-        this.price = new SimpleFloatProperty();
+        this.postcode = new SimpleLongProperty();
+        this.price = new SimpleDoubleProperty();
     }
 
-
+    @Override
+    public String toString(){
+    	return "offerID: " + this.getOfferID();
+    }
+    
+    public static void validateInput(String brand, String model, String carType, int seats, String transmission,
+    		String fuelType,  long postcode, double price, int offerID )
+    		throws InvalidInputException, SQLException, ClassNotFoundException {
+    	try {
+    		Offer.validateInput(brand, model, carType, seats, transmission, fuelType, postcode, price, offerID);;
+    	
+    	} catch (Exception e) {
+    		throw e;
+    	}
+    }
     
     
     public int getOfferID() {
@@ -130,11 +150,11 @@ public class Offer {//extends offerList{
     	return price.get();
     }
     
-    public void setPrice(float price){
+    public void setPrice(double price){
     	this.price.set(price);
     }
     
-    public FloatProperty priceProperty(){
+    public DoubleProperty priceProperty(){
         return price;
     }
     
