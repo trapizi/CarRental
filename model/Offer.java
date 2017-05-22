@@ -98,7 +98,7 @@ public class Offer {//extends offerList{
     	this.postcode.set(postcode);
     }
     
-    public LongProperty locationProperty(){
+    public LongProperty postcodeProperty(){
     	return postcode;
     }
     
