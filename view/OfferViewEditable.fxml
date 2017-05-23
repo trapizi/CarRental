@@ -20,7 +20,7 @@
                   <TableView fx:id="offerTable" layoutX="-1.0" layoutY="-1.0" prefHeight="456.0" prefWidth="260.0">
                     <columns>
                       <TableColumn fx:id="availableCarColumn" prefWidth="93.0" text="Available Car" />
-                      <TableColumn fx:id="locationColumn" prefWidth="84.0" text="Location" />
+                      <TableColumn fx:id="postcodeColumn" prefWidth="84.0" text="Location" />
                         <TableColumn fx:id="rateColumn" prefWidth="75.0" text="Rate" />
                     </columns>
                      <columnResizePolicy>
@@ -69,7 +69,7 @@
                      <buttons>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0">
                           <buttons>
-                            <Button mnemonicParsing="false" onAction="#handleNewOffer" text="New" />
+                            <Button mnemonicParsing="false" text="New" />
                               <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
                                   <Button mnemonicParsing="false" text="Edit" />

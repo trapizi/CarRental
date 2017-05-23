@@ -58,7 +58,7 @@ public class Seek {
 		this.bookTime.set(bookTime);
 	}
         
-        public SimpleObjectProperty<Date> bookTime(){
+        public SimpleObjectProperty<Date> bookTimeProperty(){
             return bookTime;
         }
 }

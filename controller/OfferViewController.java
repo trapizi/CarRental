@@ -11,9 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.Offer;
 import model.OfferDAO;
-import model.Staff;
 import util.AlertBuilder;
-import mainApp.SUber;
+import mainApp.Stevenmain;
 
 public class OfferViewController {
 	
@@ -50,7 +49,7 @@ public class OfferViewController {
 	    private OfferDAO offerDAO;
 	    
 	    // Reference to the main application.
-	    private SUber mainApp;
+	    private Stevenmain mainApp;
 
 	    /**
 	     * The constructor.
@@ -145,7 +144,7 @@ public class OfferViewController {
 	     * 
 	     * @param mainApp
 	     */
-	    public void setMainApp(SUber mainApp) {
+	    public void setMainApp(Stevenmain mainApp) {
 	        this.mainApp = mainApp;
 
 	        // Add observable list data to the table

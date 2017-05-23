@@ -1,7 +1,8 @@
 package controller;
 
 import model.Seek;
-import model.seekDAO;
+import model.SeekDAO;
+
 import util.AlertBuilder;
 
 import java.sql.SQLException;
@@ -15,8 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import mainApp.SUber;
+import mainApp.Stevenmain;
 
 
 public class SeekController {
@@ -40,22 +40,50 @@ public class SeekController {
 	private Label bookTimeLabel;
 	
 	private ObservableList<Seek> seekList;
-	private seekDAO seekDAO;
+	private SeekDAO seekDAO;
 	
-	private SUber mainApp;
+	private Stevenmain mainApp;
 	
-	private SeekController(){
-	}
+	
 	@FXML
 	private void initialize (){
 		seekIDColumn.setCellValueFactory(cellData -> cellData.getValue().seekIDProperty().asObject());
 		bookDayColumn.setCellValueFactory(cellData -> cellData.getValue().bookDayProperty());
 		bookTimeColumn.setCellValueFactory(cellData -> cellData.getValue().bookTimeProperty());
+		
+		showSeekDetails(null);
 	}
 	
+	private void showSeekDetails(Seek seek) {
+		if (seek != null) {
+			
+			seekIDLabel.setText(Integer.toString(seek.getSeekID()));
+			usernameLabel.setText(seek.getUsername());
+			
+			try{
+				bookDayLabel.setText(seek.getBookDay().toString());
+				
+			} catch (NullPointerException e) {
+				bookDayLabel.setText("");
+				
+			}
+
+			try {
+				bookTimeLabel.setText(seek.getBookTime().toString());
+			} catch (NullPointerException e) {
+				bookTimeLabel.setText("");
+			}
+			
+		} else {
+			seekIDLabel.setText("");
+			usernameLabel.setText("");
+			bookDayLabel.setText("");
+			bookTimeLabel.setText("");
+			
+		}
+	}
 	
-	
-	public void setMainApp(SUber mainApp) {
+	public void setMainApp(Stevenmain mainApp) {
 		this.mainApp = mainApp;
 	}
 }
