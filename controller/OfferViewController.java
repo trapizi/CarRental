@@ -97,21 +97,27 @@ public class OfferViewController {
 	    }	    
 	    
 	    @FXML
-	    private void handleNewOffer(){
+	    private void handleNewOffer() throws SQLException, ClassNotFoundException{
 	    	Offer tempOffer = new Offer();
 	    	boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
 	    	
 	    	if (okClicked) {
 	    		try{
+	    			//add new offer to the list
 	    			offerDAO.insert(tempOffer);
 	    			
+	    			//
 	    			tempOffer = offerDAO.findById(tempOffer.getOfferID());
 	    			
+	    			//ensure offerID gets updated on the offer details section after insert
 	    			offerList.add(tempOffer);
+	    			
+	    			resultText.setText("Insert complete! \n");
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			Alert alert = AlertBuilder.createAlert(
 	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", "Database could not complete seasrch!", e.getMessage());
 	    			alert.showAndWait();
+	    			throw e;
 	    		}
 	    	}
 	    }
@@ -132,10 +138,37 @@ public class OfferViewController {
 	    		offerTable.getItems().remove(selectedIndex);
 	    	} catch (ArrayIndexOutOfBoundsException e) {
 	    		Alert alert = AlertBuilder.createAlert(
-	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Person Selected", "Select a person in the table");
+	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Offer Selected", "Select an Offer in the table");
 	    				
 	    		alert.showAndWait();
 	    		throw e;
+	    	}
+	    }
+	    
+	    @FXML
+	    private void handleEditOffer() {
+	    	resultText.setText("Edit called!\n");
+	    	
+	    	try {
+	    		Offer selectedOffer = offerTable.getSelectionModel().getSelectedItem();
+	    		boolean okClicked = mainApp.showEditDialog(selectedOffer, "OfferEdit.fxml");
+	    		
+	    		if (okClicked) {
+	    			
+	    			try{
+	    				offerDAO.update(selectedOffer);
+	    			} catch (Exception e) {
+	    				resultText.setText("Failed to update offer!\n");
+	    			}
+	    		}
+	    		resultText.setText("Offer udpated!\n");
+	    	} catch (NullPointerException e) {
+	    		Alert alert = AlertBuilder.createAlert(
+	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Offer Selected", "Select an Offer in the table");
+	    				
+	    		alert.showAndWait();
+	    		
+	    		System.out.println("COULD NOT EDIT -- PLEASE SELECT AN OFFER");
 	    	}
 	    }
 
