@@ -110,7 +110,7 @@ public class Stevenmain extends Application {
     }
         
         
-        public boolean showEditDialog(Object object, String viewFileName) {
+  /*      public boolean showEditDialog(Object object, String viewFileName) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -139,4 +139,5 @@ public class Stevenmain extends Application {
             return false;
         }
     }
+    */
 }  
