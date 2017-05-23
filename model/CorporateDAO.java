@@ -45,6 +45,27 @@ public class CorporateDAO implements TableDAO<Corporate> {
 		
 		return null;
 	}
+	
+	public Corporate findByName(String companyName) throws SQLException, ClassNotFoundException {
+		try {
+        	/* Query database for staff */
+        	ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "CORPORATE", "COMPANY_NAME=" + "'" + companyName + "'"));
+            
+            ObservableList<Corporate> list = this.getCorporateList(rs);
+            
+            /* only try to return if list is not empty to prevent out of bounds exception */
+            if (list.size() > 0) {
+            	return list.get(0);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+        	e.printStackTrace();
+        }
+		
+		return null;
+	}
+	
+	
 	public void insert(Corporate corporate) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new InsertSQLBuilder()
 				.addTable("CORPORATE")

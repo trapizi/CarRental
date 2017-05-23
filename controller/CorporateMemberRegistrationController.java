@@ -8,11 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import model.Corporate;
+import model.CorporateDAO;
+import model.CorporateMember;
 import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
-public class RegistrationDialogController extends EditControllerBase {
+public class CorporateMemberRegistrationController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;
     @FXML
@@ -28,26 +31,33 @@ public class RegistrationDialogController extends EditControllerBase {
     @FXML
     private TextField homeAddressTextField;
     @FXML
-    private TextField creditCardTextField;
-    
-    // holds the staff member being created / edited
-    private Member member;
-    
+    private TextField creditCardTextField;	
+	@FXML
+	private TextField companyNameTextField;
+	
+	private CorporateMember corporateMember;
+	
     @FXML
     private void initialize() {
     }
     
     @Override
     public void setObject(Object o) {
-    	this.member = (Member) o;
-    	this.userNameTextField.setText(member.getUserName());
-    	this.passwordTextField.setText(member.getPassword());
-    	this.firstNameTextField.setText(member.getFirstName());
-    	this.lastNameTextField.setText(member.getLastName());
-    	this.emailTextField.setText(member.getEmail());
-		this.phoneNoTextField.setText(Integer.toString(member.getPhoneNo()));		
-		this.homeAddressTextField.setText(member.getHomeAddress());
-		this.creditCardTextField.setText(member.getCreditCard());
+    	this.corporateMember = (CorporateMember) o;
+    	this.userNameTextField.setText(corporateMember.getUserName());
+    	this.passwordTextField.setText(corporateMember.getPassword());
+    	this.firstNameTextField.setText(corporateMember.getFirstName());
+    	this.lastNameTextField.setText(corporateMember.getLastName());
+    	this.emailTextField.setText(corporateMember.getEmail());
+		this.phoneNoTextField.setText(Integer.toString(corporateMember.getPhoneNo()));		
+		this.homeAddressTextField.setText(corporateMember.getHomeAddress());
+		this.creditCardTextField.setText(corporateMember.getCreditCard());
+		
+		if (corporateMember.getCorporation() == null) {
+			this.companyNameTextField.setText("");
+		} else {
+			this.companyNameTextField.setText(corporateMember.getCorporation().getCompanyName());
+		}
     }
     
     /**
@@ -69,7 +79,9 @@ public class RegistrationDialogController extends EditControllerBase {
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
     				this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
-    				this.member.getMemberID());
+    				this.corporateMember.getMemberID());
+    		
+    		CorporateMember.validateCompanyName(this.companyNameTextField.getText());
     		
     	} catch (InvalidInputException e) {  
     		
@@ -95,21 +107,26 @@ public class RegistrationDialogController extends EditControllerBase {
     		// Expect to catch an exception from expiry date being null
     	}
 
-    	// set member fields if valid input entered    	
-    	member.setUserName(this.userNameTextField.getText());
-    	member.setPassword(this.passwordTextField.getText());
-    	member.setFirstName(this.firstNameTextField.getText());
-    	member.setLastName(this.lastNameTextField.getText());
-    	member.setEmail(this.emailTextField.getText());
-		member.setPhoneNo(Integer.parseInt(this.phoneNoTextField.getText()));
+    	// set corporateMember fields if valid input entered    	
+    	corporateMember.setUserName(this.userNameTextField.getText());
+    	corporateMember.setPassword(this.passwordTextField.getText());
+    	corporateMember.setFirstName(this.firstNameTextField.getText());
+    	corporateMember.setLastName(this.lastNameTextField.getText());
+    	corporateMember.setEmail(this.emailTextField.getText());
+		corporateMember.setPhoneNo(Integer.parseInt(this.phoneNoTextField.getText()));
 		
 		// set expiry date to 1 month from today
-		final int membershipLength = 1;
-		Date date = Date.valueOf(LocalDate.now().plusMonths(membershipLength));
+		final int corporateMembershipLength = 1;
+		Date date = Date.valueOf(LocalDate.now().plusMonths(corporateMembershipLength));
 		
-		member.setAccountExpiry(date);
-		member.setHomeAddress(this.homeAddressTextField.getText());
-		member.setCreditCard(this.creditCardTextField.getText());
+		corporateMember.setAccountExpiry(date);
+		corporateMember.setHomeAddress(this.homeAddressTextField.getText());
+		corporateMember.setCreditCard(this.creditCardTextField.getText());
+		
+		CorporateDAO corporateDAO = new CorporateDAO();
+		Corporate corporation = corporateDAO.findByName(this.companyNameTextField.getText());
+		
+		corporateMember.setCorporation(corporation);
 		
 		// close edit window
         okClicked = true;

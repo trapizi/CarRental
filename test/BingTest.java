@@ -21,6 +21,19 @@ public class BingTest {
 	public static void initMyTables() throws Exception {
 		try {
 			DBUtil.dbInitAllTables();
+			
+			CorporateDAO corporateDAO = new CorporateDAO();
+			Corporate c = new Corporate();
+			c.setCompanyName("TOPKEK");
+			corporateDAO.insert(c);
+			
+		    final String url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE_MEMBER");
+
+
+			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -120,13 +133,14 @@ public class BingTest {
 			DBUtil.clearTable("STAFF");
 			DBUtil.dropTable("STAFF");
 			
+			DBUtil.dropTable("CONSULTATION");
 			DBUtil.dropTable("CORPORATE_MEMBER");
 			
 			DBUtil.clearTable("MEMBER");
 			DBUtil.dropTable("MEMBER");
 			
 			DBUtil.clearTable("CORPORATE");
-			//DBUtil.dropTable("CORPORATE");
+			DBUtil.dropTable("CORPORATE");
 		} catch (Exception e) {
 			throw e;
 		}

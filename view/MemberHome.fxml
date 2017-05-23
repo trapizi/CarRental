@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="231.0">
          <children>
@@ -29,6 +28,8 @@
          <children>
             <Button mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
             <Label prefHeight="47.0" prefWidth="213.0" text="Add more buttons to other sections" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="1" />
+            <Button fx:id="viewConsultationButton" mnemonicParsing="false" text="View Consultations" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

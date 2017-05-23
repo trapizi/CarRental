@@ -60,13 +60,26 @@ public class Member extends User {
 			String accountExpiryDate, String homeAddress, String creditCard, int ID) 
 			throws InvalidInputException, SQLException, ClassNotFoundException {	
 		
+		try {	
+			validateRegistrationInput(userName, password, firstName, lastName, email, phoneNoText, homeAddress, creditCard, ID);
+
+			InputValidator.validateDate(accountExpiryDate);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void validateRegistrationInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
+			String homeAddress, String creditCard, int ID) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {
+		
 		try {
 			User.validateInput(userName, password, firstName, lastName, email, phoneNoText, "MEMBER", ID);
 			
 			// TODO: validate accountExpiry, homeAddress and creditCard here
 			InputValidator.validateCreditCard(creditCard);
 			InputValidator.validateHomeAddress(homeAddress);
-			InputValidator.validateDate(accountExpiryDate);
 			
 		} catch (Exception e) {
 			throw e;
