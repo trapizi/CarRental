@@ -1,7 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +17,6 @@ import mainApp.SUber;
 import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
-import model.Staff;
 import util.AlertBuilder;
 
 public class AgreementController {
@@ -119,13 +118,23 @@ public class AgreementController {
     private void showAgreementDetails(Agreement agmt) {
         if (agmt != null) {
         	agmtIDLabel.setText(Integer.toString(agmt.getAgreement_id()));
-        //	dateLabel.setText(agmt.getAgreeDate().toString());
-        	dateLabel.setText("");
+
+        	 try {
+             	dateLabel.setText(agmt.getAgreeDate().toString());
+             } catch (NullPointerException e) {
+             	dateLabel.setText("");
+             }
+
         	locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
         	locationToLabel.setText(Long.toString(agmt.getToPostcode()));
         	priceLabel.setText(Float.toString(agmt.getPayAmt()));
-        //	dayCreatedLabel.setText(agmt.getCreateDay().toString());
-        	dayCreatedLabel.setText("");
+        
+        	 try {
+              	dayCreatedLabel.setText(agmt.getCreateDay().toString());
+              } catch (NullPointerException e) {
+              	dayCreatedLabel.setText("");
+              }
+
         } else {
         	agmtIDLabel.setText("");
         	dateLabel.setText("");
@@ -178,17 +187,17 @@ public class AgreementController {
 
     	tempAgreement.setOfferer(Integer.parseInt(offererField.getText()));
     	tempAgreement.setSeeker(Integer.parseInt(seekerField.getText()));
-    	//tempAgreement.setAgreeDate(DateUtil.parse(dateField.getText()));
+    	tempAgreement.setAgreeDate(dateField.getText());
     	tempAgreement.setFromPostcode(Long.parseLong(fromField.getText()));
     	tempAgreement.setToPostcode(Long.parseLong(toField.getText()));
     	tempAgreement.setPayAmt(Float.parseFloat(priceField.getText()));
-    	//tempAgreement.setCreateDay(DateUtil.parse(createDay.getText()));
+    	tempAgreement.setCreateDay(createDayField.getText());
     	
     	try {	   	
     		// add new agreement to the database
     		agmtDAO.insert(tempAgreement);
 
-    		// TODO: ensure that agmtID gets updated on the staff details section after insert
+    		// ensure that agmtID gets updated 
     		agmtList.add(tempAgreement);
 
     	} catch (SQLException | ClassNotFoundException e) {	        	

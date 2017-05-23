@@ -112,7 +112,6 @@ public class AgreementDAO implements TableDAO<Agreement> {
 	    		agmt.setAgreeDate(rs.getDate("AGREEDATE"));
 	    		agmt.setCreateDay(rs.getDate("CREATEDAY"));
 	    		agmt.setInitiateBy(rs.getString("INITIATEBY"));
-	    		//agmt.setOffer??
 	    		agmt.setToPostcode(rs.getLong("TOPOSTCODE"));
 	    		agmt.setFromPostcode(rs.getLong("FROMPOSTCODE"));
 	    		//agmt.setDay(rs.getString("DAY"));

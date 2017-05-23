@@ -1,8 +1,10 @@
 package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import javafx.beans.property.*;
 import util.DBUtil;
 import util.InvalidInputException;
@@ -111,6 +113,16 @@ public class Agreement {
 		this.agreeDate.set(agreeDate);
 	}
 	
+	public void setAgreeDate(String date) {
+	    try {
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	java.util.Date temp = format.parse(date);
+			this.setAgreeDate(new Date(temp.getTime()));
+	    } catch (ParseException e) {
+	    	// exception should never be triggered as we validated it before
+	    }
+	}
+	
 	public SimpleObjectProperty<Date> agreeDateProperty() {
 		return agreeDate;
 	}
@@ -121,6 +133,16 @@ public class Agreement {
 
 	public void setCreateDay(Date createDay) {
 		this.createDay.set(createDay);
+	}
+	
+	public void setCreateDay(String date) {
+	    try {
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	java.util.Date temp = format.parse(date);
+			this.setCreateDay(new Date(temp.getTime()));
+	    } catch (ParseException e) {
+	    	// exception should never be triggered as we validated it before
+	    }
 	}
 	
 	public SimpleObjectProperty<Date> createDayProperty() {
