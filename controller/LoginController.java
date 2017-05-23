@@ -35,6 +35,7 @@ public class LoginController extends ControllerBase {
 	private MemberDAO memberDAO;
 	
 	private final String memberHomePage = "MemberHome.fxml";
+	private final String registrationPage = "RegistrationEditDialog.fxml";
 	// private final String staffHomePage = "";
 	
     @FXML
@@ -70,7 +71,8 @@ public class LoginController extends ControllerBase {
     		
     		System.out.println(user.getPassword() + " " + this.passwordField.getText());
     		
-    		if (!validLogin) {    			
+    		if (!validLogin) { 
+    			// TODO: set appropriate error message on unsuccessful login
         		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
     		} else {
     			
@@ -109,7 +111,7 @@ public class LoginController extends ControllerBase {
     @FXML
     private void handleRegister() {
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
+        boolean okClicked = mainApp.showEditDialog(tempMember, registrationPage);
         
         if (okClicked) {
 	        try {	   	

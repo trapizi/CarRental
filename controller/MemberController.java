@@ -51,7 +51,7 @@ public class MemberController extends ControllerBase {
     private MemberDAO memberDAO;
     
     @FXML
-    private void initialize () {    	
+    private void initialize() {    	
     	this.firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
     	this.lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
     	this.accountExpiryDateColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty());

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MemberEditController">
+
+<AnchorPane prefHeight="407.0" prefWidth="605.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="controller.RegistrationDialogController">
    <children>
       <GridPane prefHeight="330.0" prefWidth="565.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <columnConstraints>
@@ -17,7 +18,6 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="463.0" minWidth="10.0" prefWidth="405.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -40,15 +40,13 @@
             <TextField fx:id="phoneNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Password" GridPane.rowIndex="1" />
-            <Label text="Account Expiry (yyyy-mm-dd)" GridPane.rowIndex="6" />
-            <Label text="Home Address" GridPane.rowIndex="7" />
-            <Label text="Credit Card" GridPane.rowIndex="8" />
-            <TextField fx:id="accountExpiryTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="homeAddressTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="creditCardTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Home Address" GridPane.rowIndex="6" />
+            <Label text="Credit Card" GridPane.rowIndex="7" />
+            <TextField fx:id="homeAddressTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="creditCardTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="385.0" layoutY="350.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
+      <ButtonBar layoutX="385.0" layoutY="353.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
          <buttons>
             <Button mnemonicParsing="false" onAction="#handleOk" text="Ok" />
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />

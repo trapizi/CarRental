@@ -1,6 +1,8 @@
 package controller;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,7 +12,7 @@ import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
-public class MemberProfileEditController extends EditControllerBase {
+public class RegistrationDialogController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;
     @FXML
@@ -34,7 +36,7 @@ public class MemberProfileEditController extends EditControllerBase {
     @FXML
     private void initialize() {
     }
-        
+    
     @Override
     public void setObject(Object o) {
     	this.member = (Member) o;
@@ -65,7 +67,7 @@ public class MemberProfileEditController extends EditControllerBase {
     		Member.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				member.getAccountExpiry().toString(), this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
+    				null, this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
     				this.member.getMemberID());
     		
     	} catch (InvalidInputException e) {  
@@ -87,7 +89,10 @@ public class MemberProfileEditController extends EditControllerBase {
             alert.showAndWait();
             
             throw e;
-    	} 
+    	} catch (NullPointerException e) {
+    		
+    		// Expect to catch an exception from expiry date being null
+    	}
 
     	// set member fields if valid input entered    	
     	member.setUserName(this.userNameTextField.getText());
@@ -96,6 +101,12 @@ public class MemberProfileEditController extends EditControllerBase {
     	member.setLastName(this.lastNameTextField.getText());
     	member.setEmail(this.emailTextField.getText());
 		member.setPhoneNo(Integer.parseInt(this.phoneNoTextField.getText()));
+		
+		// set expiry date to 1 month from today
+		final int membershipLength = 1;
+		Date date = Date.valueOf(LocalDate.now().plusMonths(membershipLength));
+		
+		member.setAccountExpiry(date);
 		member.setHomeAddress(this.homeAddressTextField.getText());
 		member.setCreditCard(this.creditCardTextField.getText());
 		
