@@ -63,10 +63,15 @@ public class OfferEditController extends EditControllerBase{
 					);
 
 		} catch (InvalidInputException e) {
-			Alert alert = AlertBuilder.createAlert(Alert.AlertType.WARNING, dialogStage, "Invalid Input", "Invalid input entered!", e.getMessage());
+			Alert alert = AlertBuilder.createAlert(AlertType.WARNING, dialogStage, "Invalid Input", "Invalid input entered!", e.getMessage());
 			
 			alert.showAndWait();
 			throw e;
+		} catch (SQLException | ClassNotFoundException e) {
+			Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
+            
+            alert.showAndWait();
 		}
 		
 		offer.setBrand(this.brandTextField.getText());

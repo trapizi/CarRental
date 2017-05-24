@@ -78,7 +78,7 @@ public class Stevenmain extends Application {
         try {
             //First, load EmployeeView from EmployeeView.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Stevenmain.class.getResource("../view/OfferViewEditable.fxml"));
+            loader.setLocation(Stevenmain.class.getResource("../view/SeekView.fxml"));
             AnchorPane OfferView = (AnchorPane) loader.load();
 
             // Set Employee Operations view into the center of root layout.
@@ -111,7 +111,7 @@ public class Stevenmain extends Application {
     }
         
         
-  /*      public boolean showEditDialog(Object object, String viewFileName) {
+        public boolean showEditDialog(Object object, String viewFileName) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -140,5 +140,4 @@ public class Stevenmain extends Application {
             return false;
         }
     }
-    */
 }  

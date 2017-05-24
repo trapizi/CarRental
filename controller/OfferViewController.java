@@ -2,6 +2,8 @@ package controller;
 
 import java.sql.SQLException;
 
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import mainApp.SUber;
 import model.Offer;
 import model.OfferDAO;
 import model.Staff;
@@ -26,7 +29,7 @@ public class OfferViewController {
 	    @FXML
 	    private TableColumn<Offer, Long> postcodeColumn;
 	    @FXML
-	    private TableColumn<Offer, Double> rateColumn;
+	    private TableColumn<Offer, String> rateColumn;
 	    
 
 	    @FXML
@@ -62,19 +65,45 @@ public class OfferViewController {
 	    /**
 	     * Initializes the controller class. This method is automatically called
 	     * after the fxml file has been loaded.
+	     * @throws ClassNotFoundException 
+	     * @throws SQLException 
 	     */
 	    @FXML
-	    private void initialize() {
-	        // Initialize the person table with the two columns.
-	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().modelProperty());
+	    private void initialize() throws ClassNotFoundException, SQLException{
+	        // Initialize the person table with the 3 columns.
+	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().brandProperty());
 	    	postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
-	    	rateColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
+	    	this.offerDAO = new OfferDAO();
+	    	offerList = this.offerDAO.findAll();
+
+            offerTable.setItems(offerList);
+    		
+	    	this.offerTable.getSelectionModel().selectedItemProperty().addListener(
+	    		(observable, oldValue, newValue) -> showOfferDetails((Offer) newValue));
+	    
+	    	this.offerList = FXCollections.observableArrayList();
+	    
+
 	    }
 	    
 	    /**
 	     * Displays staff details on the right hand side of the UI when a row is selected in the table
 	     * @param staff the staff member to display
 	     */
+	    
+	    @FXML
+	    private void search() throws SQLException, ClassNotFoundException {
+	    	try {
+	    		offerList = this.offerDAO.findAll();
+	    		
+	    		offerTable.setItems(offerList);
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    		throw e;
+	    	} 
+	    }
+	    
 	    private void showOfferDetails(Offer offer) {
 	        if (offer != null) {
 	        	brandLabel.setText(offer.getBrand());
@@ -116,7 +145,8 @@ public class OfferViewController {
 	    			resultText.setText("Insert complete! \n");
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			Alert alert = AlertBuilder.createAlert(
-	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", "Database could not complete seasrch!", e.getMessage());
+	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+	    					"Database could not complete seasrch!", e.getMessage());
 	    			alert.showAndWait();
 	    			throw e;
 	    		}
@@ -130,7 +160,8 @@ public class OfferViewController {
 	    		
 	    		try {
 	    			OfferDAO offer = new OfferDAO();
-	    			offerDAO.delete("OFFER_ID=" + offerTable.getItems().get(selectedIndex).getOfferID());
+	    			//Delete the selected offer from the database
+	    			offerDAO.delete("OFFER_ID=" + ((Offer)offerTable.getItems().get(selectedIndex)).getOfferID());
 	    			resultText.setText("Delete complete!\n");
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			resultText.setText("Problem deleting selected offer from database!\n");
@@ -151,7 +182,7 @@ public class OfferViewController {
 	    	resultText.setText("Edit called!\n");
 	    	
 	    	try {
-	    		Offer selectedOffer = offerTable.getSelectionModel().getSelectedItem();
+	    		Offer selectedOffer = (Offer)offerTable.getSelectionModel().getSelectedItem();
 	    		boolean okClicked = mainApp.showEditDialog(selectedOffer, "OfferEdit.fxml");
 	    		
 	    		if (okClicked) {
@@ -171,17 +202,5 @@ public class OfferViewController {
 	    		
 	    		System.out.println("COULD NOT EDIT -- PLEASE SELECT AN OFFER");
 	    	}
-	    }
-
-	    /**
-	     * Is called by the main application to give a reference back to itself.
-	     * 
-	     * @param mainApp
-	     */
-	    public void setMainApp(SUber mainApp) {
-	        this.mainApp = mainApp;
-
-	        // Add observable list data to the table
-	        //offerTable.setItems(mainApp.getOfferData());
 	    }
 }
