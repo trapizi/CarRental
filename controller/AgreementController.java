@@ -19,7 +19,7 @@ import model.Agreement;
 import model.AgreementDAO;
 import util.AlertBuilder;
 
-public class AgreementController {
+public class AgreementController extends ControllerBase {
 	
 	@FXML
 	private TableView agreementTable;
@@ -212,6 +212,13 @@ public class AgreementController {
     		throw e;
     	}
     }
+    
+    @FXML
+    private void payNow() throws SQLException, ClassNotFoundException {
+    	mainApp.showView("AgreementInvoiceView.fxml");
+    	
+    }
+    
     
     public void setMainApp(SarinaMain mainApp) {
         this.mainApp = mainApp;
