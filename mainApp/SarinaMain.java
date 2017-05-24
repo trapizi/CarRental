@@ -45,7 +45,7 @@ public class SarinaMain extends Application {
         initRootLayout();
 
         //3) Display the Agreement View
-        showAgreementView();
+        showView("AgreementView.fxml");
     }
     
     //Initializes the root layout.
@@ -70,7 +70,7 @@ public class SarinaMain extends Application {
         }
     }   
     
-    public void showAgreementView() {
+  /*  public void showAgreementView() {
         try {
             //First, load EmployeeView from EmployeeView.fxml
             FXMLLoader loader = new FXMLLoader();
@@ -85,7 +85,7 @@ public class SarinaMain extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }	
-    }
+    }*/
 
     /**
      * @param args the command line arguments
@@ -121,7 +121,7 @@ public class SarinaMain extends Application {
 
     		// Set view into the center of root layout.
     		rootLayout.setCenter(view);
-   		
+    	
     		AgreementControllerBase controller = (AgreementControllerBase) loader.getController();
     		controller.setMainApp(this);
 
