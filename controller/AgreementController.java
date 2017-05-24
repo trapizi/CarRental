@@ -215,6 +215,10 @@ public class AgreementController extends AgreementControllerBase {
     
     @FXML
     private void payNow() throws SQLException, ClassNotFoundException {
+    	if (mainApp == null) {
+    		System.out.println("MAINAPP IS NULL");
+    	}
+    	
     	mainApp.showView("AgreementInvoiceView.fxml");
     	
     }

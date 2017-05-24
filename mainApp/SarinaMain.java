@@ -80,8 +80,8 @@ public class SarinaMain extends Application {
             // Set Employee Operations view into the center of root layout.
             rootLayout.setCenter(agmtOperationsView);
             
-			//AgreementInvoiceController controller = loader.getController();
-			//controller.setMainApp(this);
+			AgreementController controller = loader.getController();
+			controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }	
