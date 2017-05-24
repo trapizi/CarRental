@@ -19,7 +19,7 @@ import model.Agreement;
 import model.AgreementDAO;
 import util.AlertBuilder;
 
-public class AgreementInvoiceController extends ControllerBase {
+public class AgreementInvoiceController extends AgreementControllerBase {
 
 	@FXML
 	private Label agmtIDLabel;

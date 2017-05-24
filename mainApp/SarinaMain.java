@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import controller.AgreementController;
+import controller.AgreementControllerBase;
 import controller.AgreementInvoiceController;
 import controller.ControllerBase;
 import controller.RootLayoutController;
@@ -59,8 +60,8 @@ public class SarinaMain extends Application {
             primaryStage.setScene(scene); //Set the scene in primary stage.
 
             //Give the controller access to the main.
-            RootLayoutController controller = loader.getController();
-            controller.setMainApp(this);
+           // RootLayoutController controller = loader.getController();
+           // controller.setMainApp(this);
 
             //Third, show the primary stage
             primaryStage.show(); //Display the primary stage
@@ -121,7 +122,7 @@ public class SarinaMain extends Application {
     		// Set view into the center of root layout.
     		rootLayout.setCenter(view);
    		
-    		ControllerBase controller = (ControllerBase) loader.getController();
+    		AgreementControllerBase controller = (AgreementControllerBase) loader.getController();
     		controller.setMainApp(this);
 
     	} catch (IOException e) {

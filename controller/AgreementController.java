@@ -19,7 +19,7 @@ import model.Agreement;
 import model.AgreementDAO;
 import util.AlertBuilder;
 
-public class AgreementController extends ControllerBase {
+public class AgreementController extends AgreementControllerBase {
 	
 	@FXML
 	private TableView agreementTable;
