@@ -1,5 +1,6 @@
 package mainApp;
 
+import controller.AgreementControllerBase;
 import controller.RootLayoutController;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,9 +17,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import suber.controller.PaymentController;
+import controller.PaymentController; 
+import static javafx.application.Application.launch;
+import test.SelenaTest;
 import util.DBUtil;
-
+import controller.ControllerBase;
 /**
  *
  * @author selena
@@ -43,7 +46,7 @@ public class SelenaMain extends Application {
         initRootLayout();
         
         //diaplay payment view
-        showPaymentView();
+        showView("PaymentView.fxml");
     }
 
     //INITIALISE ROOT LAYOUT
@@ -71,7 +74,7 @@ public class SelenaMain extends Application {
         }
     }  
     
-
+/**
     
     public void showPaymentView(){
          try {
@@ -84,7 +87,7 @@ public class SelenaMain extends Application {
             //connect to controller
             PaymentController paymentController = loader.getController();
             PaymentController.setMain(this);  
-            */
+            
             Scene scene = new Scene(pane);
             
             primaryStage.setScene(scene);
@@ -95,9 +98,43 @@ public class SelenaMain extends Application {
         }
     }
     
-
+**/
     public static void main(String[] args) {
-        launch(args);
+            	try {
+    		
+    		DBUtil.dbInitAllTables();
+    		SelenaTest.testAgreementPaymentTable();
+    		launch(args);
+
+    		DBUtil.clearTable("AGREEMENT_PAYMENT");
+    		DBUtil.dropTable("AGREEMENT_PAYMENT");
+    		DBUtil.dbShutdown();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} 
     }
     
-}
+    public void showView(String viewFileName){
+        try{
+            System.out.println("HELLOOOOOOOOOOOOOOOO");
+    		final String dir = "../view/";
+
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(SelenaMain.class.getResource(dir + viewFileName));
+
+    		AnchorPane view = (AnchorPane) loader.load();
+
+    		// Set view into the center of root layout.
+    		rootLayout.setCenter(view);
+    	
+    		//PaymentControllerBase controller = (PaymentControllerBase) loader.getController();
+    		//controller.setMainApp(this); 
+
+    	} catch (IOException e) {
+    		System.out.println("BYEEEEEEEEE");
+    		e.printStackTrace();
+    	}
+    }
+    
+}   
