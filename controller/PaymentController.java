@@ -15,6 +15,10 @@ import mainApp.SelenaMain;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ *
+ * @author selena
+ */
 public class PaymentController {
     
     //VIEWS
