@@ -61,8 +61,7 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", agreementPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())        
             .toString();
         
         System.out.println(sqlStmt);
@@ -86,8 +85,7 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", agreementPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())         
             .where("AGREEMENT_PAYMENT_ID" + agreementPayment.getAgreementPayment_id())
                 .toString();
 		
@@ -125,7 +123,6 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
 	    	agreementPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
 	    	agreementPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	agreementPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
-	    	agreementPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));  
 
                 list.add(agreementPayment);
     		} catch (SQLException e) {

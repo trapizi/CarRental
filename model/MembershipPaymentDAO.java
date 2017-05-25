@@ -62,8 +62,7 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", membershipPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())       
             .addFieldValue("STATUS", membershipPayment.getStatus())
             .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
             .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
@@ -92,8 +91,7 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", membershipPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())        
             .addFieldValue("STATUS", membershipPayment.getStatus())
             .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
             .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
@@ -135,7 +133,6 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
 	    	membershipPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
 	    	membershipPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	membershipPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
-	    	membershipPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));
                 membershipPayment.setStatus(rs.getBoolean("STATUS"));
                 membershipPayment.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
                 membershipPayment.setNextExpiry(rs.getDate("NEXT_EXPIRY"));

@@ -63,8 +63,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", consultationPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())          
             .toString();
         
         System.out.println(sqlStmt);
@@ -87,8 +86,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
             .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())
-            .addFieldValue("PAYMENT_MEDIA", consultationPayment.getPaymentMedia())   
+            .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())           
             .where("CONSULTATION_PAYMENT_ID" + consultationPayment.getConsultationPayment_id())
                 .toString();
 		
@@ -126,7 +124,6 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
 	    	consultationPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
 	    	consultationPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	consultationPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
-	    	consultationPayment.setPaymentMedia(rs.getString("PAYMENT_MEDIA"));  
 
                 list.add(consultationPayment);
     		} catch (SQLException e) {
