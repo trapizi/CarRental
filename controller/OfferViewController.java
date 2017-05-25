@@ -11,14 +11,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import mainApp.SUber;
+
 import model.Offer;
 import model.OfferDAO;
-import model.Staff;
-import util.AlertBuilder;
-import mainApp.SUber;
 
-public class OfferViewController {
+import util.AlertBuilder;
+
+import mainApp.SUber;
+import mainApp.Stevenmain;
+
+public class OfferViewController extends ControllerBase {
 	
 		@FXML
 		private Label resultText;
@@ -53,7 +55,9 @@ public class OfferViewController {
 	    private OfferDAO offerDAO;
 	    
 	    // Reference to the main application.
+	    //private SUber mainApp;
 	    private SUber mainApp;
+	    
 
 	    /**
 	     * The constructor.
@@ -74,6 +78,7 @@ public class OfferViewController {
 	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().brandProperty());
 	    	postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
 	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
+	    	
 	    	this.offerDAO = new OfferDAO();
 	    	offerList = this.offerDAO.findAll();
 
@@ -153,6 +158,7 @@ public class OfferViewController {
 	    	}
 	    }
 	    
+	    
 	    @FXML
 	    private void deleteOffer() throws SQLException, ClassNotFoundException{
 	    	try {
@@ -176,7 +182,7 @@ public class OfferViewController {
 	    		throw e;
 	    	}
 	    }
-	    
+
 	    @FXML
 	    private void handleEditOffer() {
 	    	resultText.setText("Edit called!\n");
@@ -203,4 +209,17 @@ public class OfferViewController {
 	    		System.out.println("COULD NOT EDIT -- PLEASE SELECT AN OFFER");
 	    	}
 	    }
+	    
+	    @FXML
+	    private void handleBook() throws SQLException, ClassNotFoundException {
+	    	if (mainApp == null) {
+	    		System.out.println("NULL");
+	    	}
+	    	//THIS WILL CHANGE
+	    	mainApp.showView("SeekView.fxml");
+	    	}
+	    
+		public void setMainApp(SUber mainApp) {
+			this.mainApp = mainApp;
+		}
 }

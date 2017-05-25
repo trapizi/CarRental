@@ -67,7 +67,7 @@
                   </GridPane>
                   <ButtonBar layoutX="214.0" layoutY="402.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Book" />
+                      <Button mnemonicParsing="false" onAction="#handleBook" text="Book" />
                     </buttons>
                   </ButtonBar>
                </children>
