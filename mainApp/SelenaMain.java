@@ -31,6 +31,7 @@ public class SelenaMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws ClassNotFoundException, SQLException{
+        
         //create primary stage that contains everything
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SelenaMain");

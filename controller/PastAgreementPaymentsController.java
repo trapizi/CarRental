@@ -1,4 +1,4 @@
-package suber.controller;
+package controller;
 
 import java.util.Date;
 import javafx.collections.ObservableList;
@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.AgreementPayment;
 import model.AgreementPaymentDAO;
-import suber.mainApp.SelenaMain;
+import mainApp.SelenaMain;
 
 /**
  *

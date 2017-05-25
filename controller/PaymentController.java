@@ -1,4 +1,4 @@
-package suber.controller;
+package controller;
 
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -11,7 +11,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Payment;
-import suber.mainApp.SelenaMain;
+import mainApp.SelenaMain;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
