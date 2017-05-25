@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="516.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <AnchorPane layoutX="-166.0" layoutY="-103.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -54,6 +53,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -69,11 +70,17 @@
                         <RadioButton fx:id="staffRadioButton" mnemonicParsing="false" text="Staff" toggleGroup="$LoginAs" GridPane.rowIndex="2" />
                         <Label opacity="0.5" text="Register:" GridPane.rowIndex="3" />
                         <Label opacity="0.5" text="Login as:" />
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                          <buttons>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <buttons>
                             <Button mnemonicParsing="false" onAction="#handleRegister" text="Register" />
-                          </buttons>
+                           </buttons>
                         </ButtonBar>
+                        <RadioButton fx:id="registerMemberRadioButton" mnemonicParsing="false" selected="true" text="Member" GridPane.rowIndex="4">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="RegisterAs" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="registerCorporateMemberRadioButton" mnemonicParsing="false" text="Corporate Member" toggleGroup="$RegisterAs" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                </children>

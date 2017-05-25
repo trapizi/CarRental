@@ -17,7 +17,8 @@ public final class InputValidator {
 	 * @throws SQLException Thrown if exception occurred during database query
 	 * @throws ClassNotFoundException Thrown if exception occurred during connection / disconnection to database
 	 */
-	public static void validateUsername(String userName, String tableName, int ID) throws InvalidInputException, SQLException, ClassNotFoundException {
+	public static void validateUsername(String userName, String tableName, int ID) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {
 		// check if empty
 		isEmpty(userName, "Username");
 		
@@ -49,8 +50,40 @@ public final class InputValidator {
 		}
 	}
 	
+	public static void validateCompanyName(String companyName) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {
+		// check if empty
+		isEmpty(companyName, "Company Name");
+		
+		// validate company name, ensure it exists
+		try {
+			// remember to put company name in quotes to treat it as a VARCHAR value
+			// check if any company exists with the given companyName
+			ResultSet rs = DBUtil.dbExecuteQuery("SELECT COUNT(*) AS COUNT FROM CORPORATE" + " WHERE COMPANY_NAME=" + "'"+companyName+"'");
+	
+			// count occurrences of the company in the staff table
+			Long userNameCount;
+			if (rs.next()) {
+				userNameCount = rs.getLong("COUNT");
+			} else {
+				userNameCount = 0L;
+			}
+			
+			// throw exception if company name not in the table
+			if (userNameCount == 0) {
+				throw new InvalidInputException("Invalid company name entered. Company is not registered with SUber.");
+			} 
+		} catch (SQLException e) {
+			// TODO: uncomment line below if you want more information on exception thrown here
+			// throw e; 
+			throw new SQLException("Failed to query database!");
+		} catch (ClassNotFoundException e) {
+			throw new ClassNotFoundException("Failed to connect to database!");
+		}
+	}
+	
 	/**
-	 * Check phone number given does not contain non-digits or empty
+	 * Check phone number given does not contain non-digits or is empty
 	 * @param phoneNoText Phone number entered
 	 * @throws InvalidInputException Thrown when phoneNoText is not an integer or empty
 	 */

@@ -221,6 +221,7 @@ public class DBUtil {
      */
     public static void dropTable(String tableName) throws SQLException, ClassNotFoundException {
     	try {
+    		System.out.println("Dropping " + tableName + "...");
     		DBUtil.dbExecuteUpdate(SQLBuilder.dropTable(tableName));
     	} catch (Exception e) {
     		System.out.println("Could not drop table: " + tableName);
