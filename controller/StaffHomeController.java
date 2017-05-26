@@ -21,9 +21,9 @@ public class StaffHomeController extends ControllerBase {
     
 	// TODO: add more functions to change scenes with buttons
 	@FXML
-	private void handleViewProfile() {
+	private void handleManageMembers() {
 		//mainApp.showView(profileViewFileName, new MemberProfileController());
-		
+		//this.mainApp.showView(viewFileName);
 	}
 	
 	@FXML
