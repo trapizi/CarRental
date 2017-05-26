@@ -20,10 +20,10 @@ import model.OfferDAO;
 
 import util.AlertBuilder;
 import util.InvalidInputException;
-import mainApp.SUber;
+//import mainApp.SUber;
 import mainApp.Stevenmain;
 
-public class OfferViewController extends ControllerBase {
+public class OfferViewController extends OfferControllerBase {
 	
 		@FXML
 		private Label resultText;
@@ -63,7 +63,7 @@ public class OfferViewController extends ControllerBase {
 	    
 	    // Reference to the main application.
 	    //private SUber mainApp;
-	    private SUber mainApp;
+	    private Stevenmain mainApp;
 	    
 
 	    /**
@@ -274,7 +274,7 @@ public class OfferViewController extends ControllerBase {
 	    	mainApp.showView("Payment.fxml");
 	    	}
 	    
-		public void setMainApp(SUber mainApp) {
+		public void setMainApp(Stevenmain mainApp) {
 			this.mainApp = mainApp;
 		}
 }
