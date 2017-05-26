@@ -35,7 +35,7 @@ public class Offer {//extends offerList{
 
     @Override
     public String toString(){
-    	return "offerID: " + this.getOfferID();
+    	return "OfferID: " + this.getOfferID();
     }
     
     public static void validateInput(String brand, String model, String carType, int seats, String transmission,

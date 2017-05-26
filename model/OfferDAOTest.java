@@ -8,10 +8,11 @@ import org.junit.Test;
 import javafx.collections.ObservableList;
 import model.Offer;
 import util.DBUtil;
+import util.SQLBuilder;
 
 public class OfferDAOTest {
 
-/*	public void init(){
+	public void init(){
 		try{
 			String sqlStmt = SQLBuilder.createTableSQL("offer.txt");
 			DBUtil.dbInitTable(sqlStmt);
@@ -35,7 +36,7 @@ public class OfferDAOTest {
 		
 		return s1;
 	}
-	*/
+	
 
 	//Test Insert and Find by ID
 	@Test
@@ -45,7 +46,7 @@ public class OfferDAOTest {
 		try {
 			DBUtil.dbInitAllTables();	
 			
-			Offer s1 = new Offer();
+			Offer s1 = createRecord();
 			s1.setOfferID(1);
 			offerDAO.insert(s1);
 			
@@ -70,7 +71,7 @@ public class OfferDAOTest {
         try {
             DBUtil.dbInitAllTables();
 
-            Offer s1 = new Offer();
+            Offer s1 = createRecord();
             offerDAO.insert(s1);
 
             ObservableList<Offer> list = offerDAO.findAll();
@@ -99,7 +100,8 @@ public class OfferDAOTest {
 		try {
 			DBUtil.dbInitAllTables();
 			
-			Offer s1 = new Offer();
+			Offer s1 = createRecord();
+			
 			final int noRecords = 10;
 			
 			for (int i = 0; i < noRecords; i++) {
@@ -108,6 +110,11 @@ public class OfferDAOTest {
 			
 			ObservableList<Offer> list = offerDAO.findAll();
 			assertEquals(list.size(), 10);
+			
+			offerDAO.delete(("OFFER_ID = 1 OR OFFER_ID = 2"));
+			
+			list = offerDAO.findAll();
+			assertEquals(list.size(), 8);
 			
 			DBUtil.clearTable("Offer");
             DBUtil.dropTable("Offer");
@@ -125,7 +132,7 @@ public class OfferDAOTest {
 		 try {
 	            DBUtil.dbInitAllTables();
 	            
-	            Offer s1 = new Offer();
+	            Offer s1 = createRecord();
 	            offerDAO.insert(s1);
 	            offerDAO.insert(s1);
 	            

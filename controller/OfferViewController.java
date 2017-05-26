@@ -120,7 +120,9 @@ public class OfferViewController extends ControllerBase {
 	        // 5. Add sorted (and filtered) data to the table.
 	        offerTable.setItems(sortedData);
 	    	
-
+	        showOfferDetails(null);
+	        
+	        //Check which row is being selected
 	    	this.offerTable.getSelectionModel().selectedItemProperty().addListener(
 	    		(observable, oldValue, newValue) -> showOfferDetails((Offer) newValue));
 	    
@@ -207,28 +209,32 @@ public class OfferViewController extends ControllerBase {
 	    	try {
 	    		int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
 	    		
-	    		try {
-	    			OfferDAO offer = new OfferDAO();
+    			try {
+	    			OfferDAO offerDAO = new OfferDAO();
+	    			
 	    			//Delete the selected offer from the database
 	    			offerDAO.delete("OFFER_ID=" + ((Offer)offerTable.getItems().get(selectedIndex)).getOfferID());
+	    			
 	    			resultText.setText("Delete complete!\n");
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			resultText.setText("Problem deleting selected offer from database!\n");
 	    			throw e;
 	    		}
 	    		offerTable.getItems().remove(selectedIndex);
+	    		
 	    	} catch (ArrayIndexOutOfBoundsException e) {
+	    		
 	    		Alert alert = AlertBuilder.createAlert(
 	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Offer Selected", "Select an Offer in the table");
 	    				
 	    		alert.showAndWait();
-	    		throw e;
 	    	}
+
 	    }
 
 	    @FXML
 	    private void handleEditOffer() {
-	    	resultText.setText("Edit called!\n");
+	    	resultText.setText("Editing...!\n");
 	    	
 	    	try {
 	    		Offer selectedOffer = (Offer)offerTable.getSelectionModel().getSelectedItem();
@@ -253,6 +259,12 @@ public class OfferViewController extends ControllerBase {
 	    	}
 	    }
 	    
+	    
+	    /**
+	     * View changing functions
+	     * @throws SQLException
+	     * @throws ClassNotFoundException
+	     */
 	    @FXML
 	    private void handleBook() throws SQLException, ClassNotFoundException {
 	    	if (mainApp == null) {

@@ -45,9 +45,14 @@ public class OfferDAO implements TableDAO<Offer>{
     	return null;
     }
     
-    public Offer findByPostcode(long postcode) throws SQLException, ClassNotFoundException {
+    public ObservableList<Offer> findByPostcode(long postcode) throws SQLException, ClassNotFoundException {
     	try{
-    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "POSTCODE BETWEEN "+ (postcode-1) +"AND"+ (postcode+1)));
+    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "POSTCODE BETWEEN "+ (postcode-1) +" AND "+ (postcode+1)));
+    		
+    		ObservableList<Offer> list = this.getOfferList(rs);
+    		
+    			return list;
+    		
     	} catch (SQLException | ClassNotFoundException e) {
     		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
     		e.printStackTrace();
@@ -98,6 +103,10 @@ public class OfferDAO implements TableDAO<Offer>{
     		throw e;    		
     	}    	
     }
+    
+    /**
+     * Delete a record from the database
+     */
     
     public void delete(String condition) throws SQLException, ClassNotFoundException {
 		try {
