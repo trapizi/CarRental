@@ -4,7 +4,10 @@ import java.sql.SQLException;
 
 import controller.ControllerBase;
 import controller.EditControllerBase;
+import controller.LoginController;
+import controller.MemberHomeController;
 import controller.RootLayoutController;
+import controller.StaffHomeController;
 import test.BingTest;
 import util.*;
 
@@ -200,5 +203,43 @@ public class SUber extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+    
+	/**
+	 * Displays a navigation panel on the left of the screen
+	 * @param viewFileName the navigation panel view to load
+	 */
+	public void showNavigationPanel(String viewFileName) {
+		try {
+			// path to file from the current file
+			// TODO: forward slashes may not work with macs -- change as required
+			final String dir = "../view/";
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(SUber.class.getResource(dir + viewFileName));
+			
+			AnchorPane view = (AnchorPane) loader.load();
+
+			// Set view into the center of root layout.
+			rootLayout.setLeft(view);
+
+			ControllerBase controller = (ControllerBase) loader.getController();
+			controller.setMainApp(this);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void clearNavigationPanel() {
+		rootLayout.setLeft(null);			
+	}
+	
+    public void showMemberHomePage() {
+		this.showView(LoginController.MEMBER_HOME_PAGE, new MemberHomeController());
+    }
+    
+    public void showStaffHomePage() {
+		this.showView(LoginController.STAFF_HOME_PAGE, new StaffHomeController());
     }
 }

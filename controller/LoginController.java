@@ -41,18 +41,20 @@ public class LoginController extends ControllerBase {
 	private MemberDAO memberDAO;
 	private CorporateMemberDAO corporateMemberDAO;
 	
-	private final String memberHomePage = "MemberHome.fxml";
-	//private final String corporateMemberHomePage = "";
-	private final String registrationPage = "MemberRegistrationDialog.fxml";
-	private final String corporateMemberRegistrationPage = "CorporateMemberRegistrationDialog.fxml";
-	// private final String staffHomePage = "";
+	/* make page names public static final so we don't have to re-declare every time we want to use them */
+	public static final String MEMBER_HOME_PAGE = "MemberHome.fxml";
+	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
+	public static final String C_MEMBER_REGISTRATION_PAGE = "CorporateMemberRegistrationDialog.fxml";
+	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
+	
+	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
 	
     @FXML
     private void initialize () {      	
     	this.staffDAO = new StaffDAO();
     	this.memberDAO = new MemberDAO();
     	this.corporateMemberDAO = new CorporateMemberDAO();
-    	
+        	
     	assert(this.mainApp != null);
     }
     
@@ -70,6 +72,11 @@ public class LoginController extends ControllerBase {
     			// TODO: set appropriate error message on unsuccessful login
         		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
     		} else {
+    			
+    			// display navigation panel on the left
+    	    	this.mainApp.showNavigationPanel(NAVIGATION_PANEL);
+
+    			
     			// remember who logged in
     			mainApp.setLoggedInAs(user);
     			
@@ -84,7 +91,28 @@ public class LoginController extends ControllerBase {
     	// user doesn't exist
     	} catch (NullPointerException e) {
     		this.statusLabel.setText("Incorrect username or password entered. No user found");
-    	} 
+    	}
+    }
+    
+    private void displayHomePage(User user) throws SQLException, ClassNotFoundException {
+		// bring them to the member home page
+		if (this.memberRadioButton.isSelected()) {
+			
+			try {
+				// check if corporate member				
+				mainApp.showView(MEMBER_HOME_PAGE, new MemberHomeController());
+				
+			// let parent function handle exceptions
+			} catch (Exception e) {
+				throw e;
+			}
+		
+		// bring them to the staff home page
+		} else if (this.staffRadioButton.isSelected()) {
+
+			mainApp.showView(STAFF_HOME_PAGE, new StaffHomeController());
+			
+		} 
     }
     
     @FXML
@@ -153,7 +181,7 @@ public class LoginController extends ControllerBase {
      */
     private void registerCorporateMember() {
         CorporateMember tempMember = new CorporateMember();
-        boolean okClicked = mainApp.showEditDialog(tempMember, corporateMemberRegistrationPage);
+        boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE);
         
         if (okClicked) {
 	        try {	
@@ -175,31 +203,7 @@ public class LoginController extends ControllerBase {
 	        }
         }
     }
-    
-    private void displayHomePage(User user) throws SQLException, ClassNotFoundException {
-		// bring them to the next page
-		// display different pages depending on whether they logged in as user or member
-		if (this.memberRadioButton.isSelected()) {
-			
-			try {
-				// check if corporate member				
-				mainApp.showView(memberHomePage, new MemberHomeController());
-				
-			// let parent function handle exceptions
-			} catch (Exception e) {
-				throw e;
-			}
-			
-		} else if (this.staffRadioButton.isSelected()) {
-
-			// mainApp.showView(staffHomePage);
-			mainApp.showView("StaffView.fxml");
-			
-		} else {
-    		this.statusLabel.setText("SHOULD NEVER REACH THIS POINT -- A RADIO BUTTON SHOULD BE SELECTED!!!.");
-		}
-    }
-    
+        
     /**
      * Returns a corporate member if they exist in the corporate member table, otherwise a member
      * @return A corporate member or member 

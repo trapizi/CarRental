@@ -57,8 +57,9 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 		return null;
 	}
 	
-	/*
-	 * Inserts a member_id, corporate_id pair into the corporateMember table	 
+	/**
+	 * Inserts a member_id, corporate_id pair into the corporateMember table
+	 * @pre corporateMember has a valid memberID	 
 	 */
 	public void insert(CorporateMember corporateMember) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new InsertSQLBuilder()
@@ -74,8 +75,10 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
     	}  
 	}
 	
-	/*
+	/**
 	 * Overloaded insert() that takes in member and corporation
+	 * @pre member requires a valid memberID
+	 * @pre corporation requires a valid corporateID
 	 */
 	public void insert(Member member, Corporate corporation) throws SQLException, ClassNotFoundException {
 		String sqlStmt = new InsertSQLBuilder()
