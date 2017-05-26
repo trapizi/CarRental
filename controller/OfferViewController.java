@@ -9,14 +9,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 import model.Offer;
 import model.OfferDAO;
 
 import util.AlertBuilder;
-
+import util.InvalidInputException;
 import mainApp.SUber;
 import mainApp.Stevenmain;
 
@@ -50,9 +53,13 @@ public class OfferViewController extends ControllerBase {
 	    private Label postcodeLabel;
 	    @FXML
 	    private Label priceLabel;
+	    @FXML
+	    private TextField filterField;
+
 	    
-	    private ObservableList<Offer> offerList;
+	    private ObservableList<Offer> offerList = FXCollections.observableArrayList();
 	    private OfferDAO offerDAO;
+	    private SortedList<Offer> sortedData;
 	    
 	    // Reference to the main application.
 	    //private SUber mainApp;
@@ -80,25 +87,50 @@ public class OfferViewController extends ControllerBase {
 	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
 	    	
 	    	this.offerDAO = new OfferDAO();
+	    	offerTable.setItems(offerList);
 	    	offerList = this.offerDAO.findAll();
+	    	
+	    	/**
+	    	 * Filter function
+	    	 */
+	    	FilteredList<Offer> filteredData = new FilteredList<>(offerList, p -> true);
+        	sortedData = new SortedList<>(filteredData);
+	        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+	        	filteredData.setPredicate(offer -> {
+	                // If filter text is empty, display all persons.
+	                if (newValue == null || newValue.isEmpty()) {
+	                    return true;
+	                }
 
-            offerTable.setItems(offerList);
-    		
+	                // Compare first name and last name of every person with filter text.
+	                String postcodeFilter = newValue.toLowerCase();
+	                offerTable.setItems(sortedData);
+	                if (((Long.toString(offer.getPostcode()).contains(postcodeFilter)))) {
+	                    return true; // Filter matches postcode.
+	                } return false; // Does not match.
+	            });
+	        });
+
+	        // 3. Wrap the FilteredList in a SortedList. 
+	        //SortedList<Offer> sortedData = new SortedList<>(filteredData);
+
+	        // 4. Bind the SortedList comparator to the TableView comparator.
+	        sortedData.comparatorProperty().bind(offerTable.comparatorProperty());
+
+	        // 5. Add sorted (and filtered) data to the table.
+	        offerTable.setItems(sortedData);
+	    	
+
 	    	this.offerTable.getSelectionModel().selectedItemProperty().addListener(
 	    		(observable, oldValue, newValue) -> showOfferDetails((Offer) newValue));
 	    
 	    	this.offerList = FXCollections.observableArrayList();
-	    
 
 	    }
 	    
-	    /**
-	     * Displays staff details on the right hand side of the UI when a row is selected in the table
-	     * @param staff the staff member to display
-	     */
-	    
+
 	    @FXML
-	    private void search() throws SQLException, ClassNotFoundException {
+	    private void refreshTable() throws SQLException, ClassNotFoundException {
 	    	try {
 	    		offerList = this.offerDAO.findAll();
 	    		
@@ -107,6 +139,17 @@ public class OfferViewController extends ControllerBase {
 	    		e.printStackTrace();
 	    		throw e;
 	    	} 
+	    }
+	    
+	    /**
+	     * Search nearby cars within postcode +- 1 range.
+	     */
+	    
+	    
+	    @FXML
+	    private void searchPostcode() throws SQLException, ClassNotFoundException {
+	    		offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
+	    		offerTable.setItems(offerList);
 	    }
 	    
 	    private void showOfferDetails(Offer offer) {
@@ -216,7 +259,7 @@ public class OfferViewController extends ControllerBase {
 	    		System.out.println("NULL");
 	    	}
 	    	//THIS WILL CHANGE
-	    	mainApp.showView("SeekView.fxml");
+	    	mainApp.showView("Payment.fxml");
 	    	}
 	    
 		public void setMainApp(SUber mainApp) {
