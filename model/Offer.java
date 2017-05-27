@@ -29,7 +29,7 @@ public class Offer {//extends offerList{
 	private IntegerProperty offerID, memberID, seats;
     private StringProperty carType, brand, model, transmission, fuelType;
     private FloatProperty price;
-    private LongProperty postcode;
+    private LongProperty postcode, destination;
     private SimpleObjectProperty<Date> driveDay;
 
     public Offer() {
@@ -44,6 +44,7 @@ public class Offer {//extends offerList{
         this.postcode = new SimpleLongProperty();
         this.price = new SimpleFloatProperty();
         this.driveDay = new SimpleObjectProperty<Date>();
+        this.destination = new SimpleLongProperty();
     }
     
     public Offer(String brand, String model, String carType, int seats, String transmission, String fuelType,
@@ -162,6 +163,18 @@ public class Offer {//extends offerList{
     
     public LongProperty postcodeProperty(){
     	return postcode;
+    }
+    
+    public long getDestination(){
+    	return destination.get();
+    }
+    
+    public void setDestination(long destination) {
+    	this.destination.set(destination);
+    }
+    
+    public LongProperty destinationProperty(){
+    	return destination;
     }
     
     public String getTransmission() {

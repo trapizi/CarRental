@@ -23,7 +23,6 @@ import model.MemberDAO;
 import model.Offer;
 import model.OfferDAO;
 import model.Seek;
-import model.SeekDAO;
 
 import util.AlertBuilder;
 import util.DBTablePrinter;
@@ -63,6 +62,8 @@ public class OfferViewController extends ControllerBase {
 	    private Label priceLabel;
 	    @FXML
 	    private TextField filterField;
+	    @FXML
+	    private TextField destinationField;
 
 	    
 	    private ObservableList<Offer> offerList = FXCollections.observableArrayList();
@@ -101,7 +102,6 @@ public class OfferViewController extends ControllerBase {
 	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().brandProperty());
 	    	
 	    	postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
-	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
 	    	
 	    	this.offerDAO = new OfferDAO();
 	    	//offerList = this.offerDAO.findAll();
@@ -174,6 +174,9 @@ public class OfferViewController extends ControllerBase {
 	    		
 	    }
 	    
+	    
+
+	    
 	    //Show offer detail on the right side of the UI
 	    private void showOfferDetails(Offer offer) {
 	        if (offer != null) {
@@ -183,7 +186,9 @@ public class OfferViewController extends ControllerBase {
 	            seatsLabel.setText(Integer.toString(offer.getSeats()));
 	            transmissionLabel.setText(offer.getTransmission());
 	            fuelTypeLabel.setText(offer.getFuelType());
-	            priceLabel.setText(Float.toString(offer.getPrice()));
+	            //each unit in the postcode costs $8
+	            Float diff = (Float.parseFloat(this.destinationField.toString()) - Float.parseFloat(this.filterField.toString()) * 8);
+	            priceLabel.setText(diff.toString());
 	            postcodeLabel.setText(Long.toString(offer.getPostcode()));
 	        } else {
 	        	brandLabel.setText("");
@@ -208,6 +213,10 @@ public class OfferViewController extends ControllerBase {
 	    	}
 	    	
 	    	boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
+	    	
+	    	// set valid memberID in offer
+	    	MemberDAO memberDAO = new MemberDAO();
+	    	tempOffer.setMemberID(memberDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName()).getMemberID());
 	    	
 	    	if (okClicked) {
 	    		try{
