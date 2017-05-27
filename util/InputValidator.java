@@ -49,8 +49,6 @@ public final class InputValidator {
 				throw new InvalidInputException("Invalid username entered. Username has already been taken.");
 			} 
 		} catch (SQLException e) {
-			// TODO: uncomment line below if you want more information on exception thrown here
-			// throw e; 
 			throw new SQLException("Failed to query database!");
 		} catch (ClassNotFoundException e) {
 			throw new ClassNotFoundException("Failed to connect to database!");
@@ -81,8 +79,6 @@ public final class InputValidator {
 				throw new InvalidInputException("Invalid company name entered. Company is not registered with SUber.");
 			} 
 		} catch (SQLException e) {
-			// TODO: uncomment line below if you want more information on exception thrown here
-			// throw e; 
 			throw new SQLException("Failed to query database!");
 		} catch (ClassNotFoundException e) {
 			throw new ClassNotFoundException("Failed to connect to database!");
