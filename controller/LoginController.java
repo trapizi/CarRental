@@ -56,7 +56,7 @@ public class LoginController extends ControllerBase {
 	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
 	
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
-	public static final String PAYMENT_PAGE = "Dummy.fxml";
+	public static final String PAYMENT_PAGE = "PaymentView.fxml";
 	
     @FXML
     private void initialize () {      	
@@ -172,14 +172,18 @@ public class LoginController extends ControllerBase {
         Member tempMember = new Member();
         boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
 
+        // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
         membershipPayment.setPaymentAmount(15);
         
-        boolean paid = mainApp.showEditDialog(membershipPayment, "AgreementPaymentView.fxml");
+        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
         
-        if (okClicked) {
+        if (okClicked && paid) {
+        	// insert member into database
 	        try {	   	
+	        	
 	        	memberDAO.insert(tempMember);
+	        	
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -208,7 +212,6 @@ public class LoginController extends ControllerBase {
 	            		"Could not register member!", e.getMessage()); 
 	            
 	            alert.showAndWait();	   
-	            //throw e;
 	        }
         }
     }
@@ -220,7 +223,13 @@ public class LoginController extends ControllerBase {
         CorporateMember tempMember = new CorporateMember();
         boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE);
         
-        if (okClicked) {
+        // setup and show payment page
+        MembershipPayment membershipPayment = new MembershipPayment();
+        membershipPayment.setPaymentAmount(15);
+        
+        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        
+        if (okClicked && paid) {
 	        try {	
 	        	// NOTE: before inserting tempMember into the database does not have a memberID
 	        	// memberID is assigned after it has been inserted
@@ -237,6 +246,27 @@ public class LoginController extends ControllerBase {
 	            		"Could not register corporate member!", e.getMessage()); 
 	            
 	            alert.showAndWait();	        	
+	        }
+	        
+	        // insert payment into database
+	        try {
+	        	// get member ID of the registered member
+	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
+	        	
+	        	// attach it to the payment
+	        	membershipPayment.setMemberID(memberID);
+	        	membershipPaymentDAO.insert(membershipPayment);
+	        	
+			    final String url = "jdbc:derby:DBforDEMO;create=true";
+				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
+				
+	        } catch (SQLException | ClassNotFoundException e) {	        	
+	            // Create and display alert for the database exception
+	            Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
+	            		"Could not register member!", e.getMessage()); 
+	            
+	            alert.showAndWait();	   
 	        }
         }
     }
