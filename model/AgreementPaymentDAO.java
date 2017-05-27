@@ -54,13 +54,12 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     //inserts an agreementPayment into the database
     public void insert(AgreementPayment agreementPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
-            .addTable("AGREEMENT_PAYMENT")
-            .addFieldValue("AGREEMENT_PAYMENT_ID", agreementPayment.getAgreementPayment_id())
+            .addTable("AGREEMENT_PAYMENT")          
             .addFieldValue("PAYMENT_AMOUNT", agreementPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", agreementPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())        
             .toString();
         
@@ -84,7 +83,7 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             .addFieldValue("PAYMENT_DATE", agreementPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", agreementPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", agreementPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", agreementPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", agreementPayment.getAccountOwnerName())         
             .where("AGREEMENT_PAYMENT_ID" + agreementPayment.getAgreementPayment_id())
                 .toString();
