@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +32,8 @@ public class OfferEditController extends EditControllerBase {
 	private TextField postcodeTextField;
 	@FXML
 	private TextField priceTextField;
+	@FXML
+	private TextField driveDayTextField;
 	
 	private Offer offer;
 	
@@ -50,6 +53,11 @@ public class OfferEditController extends EditControllerBase {
 		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));
 		this.priceTextField.setText(Double.toString(offer.getPrice()));
 		
+		/*try{
+			this.driveDayTextField.setText(offer.getDriveDay().toString());
+		} catch (NullPointerException e) {
+			this.driveDayTextField.setText("");
+		}*/
 	}
 	
 	@FXML
@@ -84,7 +92,8 @@ public class OfferEditController extends EditControllerBase {
 		offer.setTransmission(this.transmissionTextField.getText());
 		offer.setFuelType(this.fuelTypeTextField.getText());
 		offer.setPostcode(Long.parseLong(this.postcodeTextField.getText()));
-		offer.setPrice(Double.parseDouble(this.priceTextField.getText()));
+		offer.setPrice(Float.parseFloat(this.priceTextField.getText()));
+		//offer.setDriveDay(new Date(1000,1,1));
 		
 		okClicked = true;
 		dialogStage.close();

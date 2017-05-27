@@ -171,8 +171,6 @@ public class OfferViewController extends ControllerBase {
 	    private void searchPostcode() throws SQLException, ClassNotFoundException {
 	    		offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
 	    		offerTable.setItems(offerList);
-	    		locationTo.valueOf(offerList);
-	    		
 	    		
 	    }
 	    
@@ -184,7 +182,7 @@ public class OfferViewController extends ControllerBase {
 	            seatsLabel.setText(Integer.toString(offer.getSeats()));
 	            transmissionLabel.setText(offer.getTransmission());
 	            fuelTypeLabel.setText(offer.getFuelType());
-	            priceLabel.setText(Double.toString(offer.getPrice()));
+	            priceLabel.setText(Float.toString(offer.getPrice()));
 	            postcodeLabel.setText(Long.toString(offer.getPostcode()));
 	        } else {
 	        	brandLabel.setText("");
@@ -213,7 +211,7 @@ public class OfferViewController extends ControllerBase {
 	    			//add new offer to the list
 	    			offerDAO.insert(tempOffer);
 	    			
-	    			//
+	    			
 	    			tempOffer = offerDAO.findById(tempOffer.getOfferID());
 	    			
 	    			//ensure offerID gets updated on the offer details section after insert
@@ -224,7 +222,7 @@ public class OfferViewController extends ControllerBase {
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			Alert alert = AlertBuilder.createAlert(
 	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-	    					"Database could not complete seasrch!", e.getMessage());
+	    					"Database could not complete search!", e.getMessage());
 	    			alert.showAndWait();
 	    			throw e;
 	    		}
