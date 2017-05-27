@@ -6,13 +6,22 @@
 package controller;
 
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Time;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import mainApp.LizMain;
+import javafx.scene.control.Alert.AlertType;
 import model.Consultation;
+import model.ConsultationDAO;
 import model.ConsultationPayment;
+import util.AlertBuilder;
+import util.DBTablePrinter;
 
 /**
  *
@@ -20,11 +29,8 @@ import model.ConsultationPayment;
  */
 public class PastConsultationController extends ControllerBase {
     @FXML
-    private TableView pastConsultationTable;
-    
-    @FXML 
-    private TableColumn<ConsultationPayment, Integer> consultPayment_idColumn; 
-    
+    private TableView<Consultation> pastConsultationTable;
+        
     @FXML
     private TableColumn<Consultation, Float> consultPriceColumn;
     
@@ -36,26 +42,43 @@ public class PastConsultationController extends ControllerBase {
     
     @FXML
     private TableColumn<Consultation, Integer> consultNumColumn;
+   
+    private ObservableList<Consultation> consultationList;
+    private ConsultationDAO consultationDAO;
     
-
-    
-    //reference mainApp
-    private LizMain mainApp;
-
     //initialize elements
+    @FXML
     private void initialize(){
-        consultPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPayment_idProperty().asObject());
         consultPriceColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPriceProperty().asObject());
         consultationDateColumn.setCellValueFactory(cellData -> cellData.getValue().consultationDateProperty());
         consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().consultationTimeProperty());
         consultNumColumn.setCellValueFactory(cellData -> cellData.getValue().consultationNumProperty().asObject());
         
+        this.consultationList = FXCollections.observableArrayList();
+        this.consultationDAO = new ConsultationDAO();
+
+        this.searchAll();
         
+        System.out.println("DONE SEARCHING\n");
     }
     
-    public void setMainApp(LizMain mainApp) {
-        this.mainApp = mainApp;
-        
+    @FXML
+    private void searchAll() {
+    	try {
 
-    }
+    		final String url = "jdbc:derby:DBforDEMO;create=true";
+    		DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CONSULTATION");
+    		
+    		this.consultationList = this.consultationDAO.findAll();
+    		
+    		this.pastConsultationTable.setItems(this.consultationList);
+    	} catch (SQLException | ClassNotFoundException e) {            
+            // Create and display alert for the database exception
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+            		"Database could not complete search!", e.getMessage()); 
+            
+            alert.showAndWait();            
+    	}
+    }    
 }

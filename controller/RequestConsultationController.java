@@ -28,9 +28,8 @@ import util.DBTablePrinter;
 public class RequestConsultationController extends ControllerBase {
     
     ObservableList<String> timePickerList = FXCollections.observableArrayList(
-            "10:00AM","11:00AM", "12:00PM", "1:00PM", "2:00PM", "3:00PM", "4:00PM");
+            "10:00","11:00", "12:00", "13:00", "14:00", "15:00PM", "16:00");
     
-
     @FXML
     private Label welcomeCorpLabel;
     private final String profileViewFileName;
@@ -54,28 +53,31 @@ public class RequestConsultationController extends ControllerBase {
     private void initialize() {				
 		this.priceLabel.setText("$" + "100.00");
 		this.timePicker.setItems(timePickerList);
-	    this.timePicker.setValue("12:00PM");
+	    this.timePicker.setValue("12:00");
     }
      
     @FXML
     private void handleMakePayment() {
     	//boolean okClicked = mainApp.showEditDialog(new MembershipPayment(), viewFileName)
         //mainApp.showView("PaymentView.fxml");
+    	
     	ConsultationDAO cDao = new ConsultationDAO();
     	Consultation consult1 = new Consultation();
-    	//consult1.setCorporateID(1);
     	consult1.setConsultationPrice(100.00f);
-    	//consult1.setConsultationTime((Time) this.timePicker.getValue());
+    	
+    	// convert from hh:mm:ss to java.sql.Time
+    	consult1.setConsultationTime(java.sql.Time.valueOf(this.timePicker.getValue().toString() + ":00"));
     	consult1.setConsultationDate(this.dateText.getText());
     	consult1.setCorporateID(Integer.parseInt(this.enterCompanyID.getText()));
     	
     	try {
+    		// TODO: comment out when submitting
     		final String url = "jdbc:derby:DBforDEMO;create=true";
     		DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
     		
         	cDao.insert(consult1);
 
-    		//final String url = "jdbc:derby:DBforDEMO;create=true";
+    		// TODO: comment out when submitting
     		DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CONSULTATION");
     		
     	} catch (Exception e) {
