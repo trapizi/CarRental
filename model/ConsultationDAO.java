@@ -61,12 +61,30 @@ public class ConsultationDAO implements TableDAO<Consultation> {
                
         return null;
     }
+    
+    public Consultation findMostRecent() throws SQLException, ClassNotFoundException {
+        try {
+        	ResultSet rs = DBUtil.dbExecuteQuery("SELECT * "
+        			+ "FROM CONSULTATION "
+        			+ "WHERE CONSULTATION_NUM=(SELECT MAX(CONSULTATION_NUM) FROM CONSULTATION)");
+        	
+            ObservableList<Consultation> list = this.getConsultationList(rs);
+            
+            if (list.size() > 0) {
+                return list.get(0);
+            }
+        } catch (SQLException | ClassNotFoundException e)  {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            e.printStackTrace();
+        } 
+               
+        return null;
+    } 
 
 
     public void insert(Consultation consultation) throws SQLException, ClassNotFoundException {
                     String sqlStmt = new InsertSQLBuilder()
                         .addTable("CONSULTATION")
- //                       .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
                         .addFieldValue("CONSULTATION_PRICE", consultation.getConsultationPrice())
                         .addFieldValue("CONSULTATION_TIME", consultation.getConsultationTime())
                         .addFieldValue("CONSULTATION_DATE", consultation.getConsultationDate())
@@ -86,7 +104,6 @@ public class ConsultationDAO implements TableDAO<Consultation> {
     public void update(Consultation consultation) throws SQLException, ClassNotFoundException {
        String sqlStmt = new UpdateSQLBuilder()
                         .addTable("CONSULTATION")
- //                       .addFieldValue("CONSULTATION_NUM", consultation.getConsultationNum())
                         .addFieldValue("CONSULTATION_PRICE", consultation.getConsultationPrice())
                         .addFieldValue("CONSULTATION_TIME", consultation.getConsultationTime())
                         .addFieldValue("CONSULTATION_DATE", consultation.getConsultationDate())
