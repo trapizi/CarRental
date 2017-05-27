@@ -37,8 +37,7 @@ public class PastConsultationController extends ControllerBase {
     @FXML
     private TableColumn<Consultation, Integer> consultNumColumn;
     
-    //list to display
-    ///////////DO THIS
+
     
     //reference mainApp
     private LizMain mainApp;
@@ -50,9 +49,13 @@ public class PastConsultationController extends ControllerBase {
         consultationDateColumn.setCellValueFactory(cellData -> cellData.getValue().consultationDateProperty());
         consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().consultationTimeProperty());
         consultNumColumn.setCellValueFactory(cellData -> cellData.getValue().consultationNumProperty().asObject());
+        
+        
     }
     
     public void setMainApp(LizMain mainApp) {
         this.mainApp = mainApp;
+        
+
     }
 }

@@ -7,7 +7,7 @@ package mainApp;
 
 
 import controller.CorpMemberControllerBase;
-import controller.CorporateMemberHomeController;
+import controller.PastConsultationController;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -47,19 +47,12 @@ public class LizMain extends Application {
         initRootLayout();
 
         //3) Display the corporate member View
-        showView("CorporateMemberHome.fxml");
+        showView("PastConsultationPayment.fxml");
         
-        //4) datepicker
-        DatePicker datePicker = new DatePicker();
-        datePicker.setOnAction(event -> {
-        LocalDate date = datePicker.getValue();
-        System.out.println("Selected date: " + date);
-        
-        });
+
         }  
    
-                
-
+             
     
     //Initializes the root layout.
  public void initRootLayout() {
@@ -94,11 +87,11 @@ public class LizMain extends Application {
     	try {
     		
     		DBUtil.dbInitAllTables();
-    		LizTest.testCorporateMemberTable();
+    		LizTest.testConsultationTable();
     		launch(args);
 
-    		DBUtil.clearTable("CORPORATEMEMBER");
-    		DBUtil.dropTable("CORPORATEMEMBER");
+    		DBUtil.clearTable("CONSULTATION");
+    		DBUtil.dropTable("CONSULTATION");
     		DBUtil.dbShutdown();
 			
 		} catch (ClassNotFoundException | SQLException e) {
@@ -120,7 +113,7 @@ public class LizMain extends Application {
     		// Set view into the center of root layout.
     		rootLayout.setCenter(view);
     	
-    		CorporateMemberHomeController controller = (CorporateMemberHomeController) loader.getController();
+    		PastConsultationController controller = (PastConsultationController) loader.getController();
     		controller.setMainApp(this);
 
     	} catch (IOException e) {
