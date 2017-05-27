@@ -335,7 +335,7 @@ public class OfferViewController extends ControllerBase {
 	    	agmt.setAgreeDate((new Date(1000,1,1)));
 	    	agmt.setFromPostcode(o.getPostcode());
 	    	agmt.setToPostcode(Long.parseLong(filterField.getText()));
-	    	agmt.setPayAmt(50.0f);
+	    	agmt.setPayAmt(o.getPrice());
 	    	
 	    	agreeDAO.insert(agmt);
 	    	
