@@ -100,7 +100,7 @@ public final class InputValidator {
     	try {
     		Integer.parseInt(phoneNoText);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid phone entered. Ensure phone number only contains digits.");
+    		throw new InvalidInputException("Invalid phone entered. Phone number only contains digits.");
     	}
 	}
 	
@@ -140,7 +140,7 @@ public final class InputValidator {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         	format.parse(date);
         } catch (ParseException e) {
-        	throw new InvalidInputException("Wrong date format entered.");
+        	throw new InvalidInputException("Wrong date format entered. Date must be in the yyyy-MM-dd format.");
         }
 	}
 	
@@ -166,7 +166,7 @@ public final class InputValidator {
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
-			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only caontains digits.");
+			throw new InvalidInputException("Invalid amount of seats. Seats field can only caontains digits.");
 		}
 	}
 	
@@ -184,7 +184,7 @@ public final class InputValidator {
     	try {
     		Long.parseLong(postcode);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid postcode entered. Ensure postcode only contains digits.");
+    		throw new InvalidInputException("Invalid postcode entered. Postcode can only contains digits.");
     	}
 	}
 	
@@ -194,7 +194,7 @@ public final class InputValidator {
     	try {
     		Double.parseDouble(price);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid price entered. Ensure price only contains digits.");
+    		throw new InvalidInputException("Invalid price entered. Price can only contains digits.");
     	}
 	}
 	
@@ -242,7 +242,7 @@ public final class InputValidator {
 				throw new InvalidInputException();
 			}
 		} catch (InvalidInputException e) {
-			throw new InvalidInputException("Invalid corporateID entered.");
+			throw new InvalidInputException("Invalid corporateID entered. Check that your corporateID is correct!");
 		} catch (Exception e) {
 			throw new InvalidInputException("Database error occurred!");
 		}

@@ -184,7 +184,7 @@ public class DBUtil {
         fileNames.add("consultationPayment.txt");
 
         // TODO: FIX THESE FILES
-        //fileNames.add("agreementPayment.txt");
+        fileNames.add("agreementPayment.txt");
 
     	/*
     	fileNames.add("offer.txt");
