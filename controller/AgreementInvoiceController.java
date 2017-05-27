@@ -17,12 +17,18 @@ import mainApp.SUber;
 import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
+import model.Member;
+import model.MemberDAO;
 import util.AlertBuilder;
 
-public class AgreementInvoiceController extends AgreementControllerBase {
+public class AgreementInvoiceController extends ControllerBase {
 
 	@FXML
-	private Label agmtIDLabel;
+	private Label seekerLabel;
+	@FXML
+	private Label offererLabel;
+	@FXML
+	private Label paymentIDLabel;
 	@FXML
 	private Label dateLabel;
 	@FXML
@@ -33,18 +39,29 @@ public class AgreementInvoiceController extends AgreementControllerBase {
 	private Label priceLabel;
 	@FXML
 	private Label dayCreatedLabel;
+	
+	private Agreement agreement;
 
 	@FXML
-	private void initialize() throws SQLException {
+	private void initialize() throws SQLException, ClassNotFoundException {
 		AgreementDAO aDAO = new AgreementDAO();
-		Agreement a = aDAO.findById(2);
+		Agreement a = new Agreement();
+		MemberDAO mDAO = new MemberDAO();
+		Member m = mDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName());
+		a.setSeeker(m.getMemberID());
+		
 		showAgreementInvoice(a);
+	}
+	
+	private void setAgreement(Agreement agmt) {
+		this.agreement = agmt;
 	}
 
 	private void showAgreementInvoice(Agreement agmt) {
 
-		agmtIDLabel.setText(Integer.toString(agmt.getAgreement_id()));
-
+		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
+		offererLabel.setText(Integer.toString(agmt.getOfferer()));
+		
 		try {
 			dateLabel.setText(agmt.getAgreeDate().toString());
 		} catch (NullPointerException e) {

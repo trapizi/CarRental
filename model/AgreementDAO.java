@@ -30,14 +30,13 @@ public class AgreementDAO implements TableDAO<Agreement> {
      */
     public void insert(Agreement agmt) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder().addTable("AGREEMENT")
-    			//.addFieldValue("SEEKER", agmt.getSeeker())
-    			//.addFieldValue("OFFERER", agmt.getOfferer())
+    			.addFieldValue("SEEKER", agmt.getSeeker())
+    			.addFieldValue("OFFERER", agmt.getOfferer())
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
-    			//.addFieldValue("OFFER", agmt)
     			.addFieldValue("TOPOSTCODE", agmt.getToPostcode())
     			.addFieldValue("FROMPOSTCODE", agmt.getFromPostcode())
     			.toString();
@@ -57,17 +56,15 @@ public class AgreementDAO implements TableDAO<Agreement> {
      */
     public void update(Agreement agmt) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder().addTable("AGREEMENT")
-    			//.addFieldValue("SEEKER", agmt.getSeeker())
-    			//.addFieldValue("OFFERER", agmt.getOfferer())
+    			.addFieldValue("SEEKER", agmt.getSeeker())
+    			.addFieldValue("OFFERER", agmt.getOfferer())
     			.addFieldValue("STATUS", agmt.getStatus())
     			.addFieldValue("PAYAMT", agmt.getPayAmt())
     			.addFieldValue("AGREEDATE", agmt.getAgreeDate())
     			.addFieldValue("CREATEDAY", agmt.getCreateDay())
     			.addFieldValue("INITIATEBY", agmt.getInitiateBy())
-    			//.addFieldValue("OFFER", agmt)
     			.addFieldValue("TOPOSTCODE", agmt.getToPostcode())
     			.addFieldValue("FROMPOSTCODE", agmt.getFromPostcode())
-    			//.addFieldValue("DAY", agmt.getDay())
     			.where("AGREEMENT_ID=" + agmt.getAgreement_id())
     			.toString();
     		
@@ -105,8 +102,8 @@ public class AgreementDAO implements TableDAO<Agreement> {
     		try {
 	    		Agreement agmt = new Agreement();    		
 	    		agmt.setAgreement_id(rs.getInt("AGREEMENT_ID"));
-	    		//agmt.setSeeker(rs.getInt("SEEKER"));
-	    		//agmt.setOfferer(rs.getInt("OFFERER"));
+	    		agmt.setSeeker(rs.getInt("SEEKER"));
+	    		agmt.setOfferer(rs.getInt("OFFERER"));
 	    		agmt.setStatus(rs.getString("STATUS"));
 	    		agmt.setPayAmt(rs.getFloat("PAYAMT"));
 	    		agmt.setAgreeDate(rs.getDate("AGREEDATE"));
@@ -114,7 +111,6 @@ public class AgreementDAO implements TableDAO<Agreement> {
 	    		agmt.setInitiateBy(rs.getString("INITIATEBY"));
 	    		agmt.setToPostcode(rs.getLong("TOPOSTCODE"));
 	    		agmt.setFromPostcode(rs.getLong("FROMPOSTCODE"));
-	    		//agmt.setDay(rs.getString("DAY"));
 	    	
 	    		list.add(agmt);
     		} catch (SQLException e) {

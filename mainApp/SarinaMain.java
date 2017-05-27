@@ -111,8 +111,4 @@ public class SarinaMain extends Application {
     		e.printStackTrace();
     	}
     }
-    
-    
-
-
 }
