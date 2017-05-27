@@ -59,8 +59,8 @@ public abstract class Payment {
 		
 		try {
 			InputValidator.validateDate(accountExpiryTextField);
-			InputValidator.validateName(fullNameTextField);
-			InputValidator.validateAccount(accountTextField);
+			//InputValidator.validateName(fullNameTextField);
+			//InputValidator.validateAccount(accountTextField);
 		} catch (Exception e) {
 			throw e;
 		}
