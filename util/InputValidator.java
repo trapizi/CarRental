@@ -105,8 +105,15 @@ public final class InputValidator {
 	}
 	
 	public static void validateEmail(String email) throws InvalidInputException {
-		// TODO: check if in correct format later
 		isEmpty(email, "Email");
+		
+		try {
+			if (!InputValidator.regexMatch(email, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}")) {
+				throw new InvalidInputException("Invalid email format. Email must be in the format name@domain!");
+			}
+		} catch (InvalidInputException e) {
+			throw e;
+		}
 	}
 	
 	public static void validatePassword(String password) throws InvalidInputException {
@@ -221,7 +228,11 @@ public final class InputValidator {
 	 * @return True if s contains space(s)
 	 */
 	private static boolean containsSpaces(String s) {
-		Pattern regex = Pattern.compile("\\s+");
+		return InputValidator.regexMatch(s, "\\s+");
+	}
+	
+	private static boolean regexMatch(String s, String pattern) {
+		Pattern regex = Pattern.compile(pattern);
 		Matcher regexMatch = regex.matcher(s);
 		
 		return regexMatch.find();
