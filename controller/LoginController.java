@@ -203,7 +203,9 @@ public class LoginController extends ControllerBase {
 	        // insert payment into database
 	        try {
 	        	// get member ID of the registered member
-	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
+	        	int memberID = (memberDAO.findByUserName(tempMember.getUserName())).getMemberID();
+	        	
+	        	System.out.println("MEMBER_ID = " + memberID);
 	        	
 	        	// attach it to the payment
 	        	membershipPayment.setMemberID(memberID);

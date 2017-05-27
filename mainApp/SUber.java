@@ -65,6 +65,7 @@ public class SUber extends Application {
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		} finally {
+			//DBUtil.dropAllTables();
 			BingTest.clearTables();
 			DBUtil.dbShutdown();
 		}

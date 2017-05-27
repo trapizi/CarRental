@@ -160,14 +160,16 @@ public class BingTest {
 			DBUtil.dropTable("CONSULTATION");
 			DBUtil.dropTable("CORPORATE_MEMBER");
 			
+			DBUtil.clearTable("MEMBERSHIP_PAYMENT");
+			DBUtil.dropTable("MEMBERSHIP_PAYMENT");
+			
 			DBUtil.clearTable("MEMBER");
-			DBUtil.dropTable("MEMBER");
+			//DBUtil.dropTable("MEMBER");
 			
 			DBUtil.clearTable("CORPORATE");
 			DBUtil.dropTable("CORPORATE");
 			
-			DBUtil.clearTable("MEMBERSHIP_PAYMENT");
-			DBUtil.dropTable("MEMBERSHIP_PAYMENT");
+
 		} catch (Exception e) {
 			throw e;
 		}
