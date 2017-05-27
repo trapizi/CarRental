@@ -50,7 +50,7 @@ public class SeekDAO implements TableDAO<Seek> {
     public void insert(Seek seek) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
     			.addTable("SEEK")
-    			.addFieldValue("MEMBER_ID", seek.getMemberID())
+    			.addFieldValue("USERNAME", seek.getUsername())
     			.addFieldValue("BOOK_DAY", seek.getBookDay())
     			.addFieldValue("BOOK_TIME", seek.getBookTime())
     			.where("SEEK_ID=" + seek.getSeekID())    			
@@ -67,7 +67,7 @@ public class SeekDAO implements TableDAO<Seek> {
     public void update(Seek seek) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder()
     			.addTable("SEEK")
-    			.addFieldValue("MEMBER_ID", seek.getMemberID())
+    			.addFieldValue("USERNAME", seek.getUsername())
     			.addFieldValue("BOOK_DAY", seek.getBookDay())
     			.addFieldValue("BOOK_TIME", seek.getBookTime())
     			.where("SEEK_ID=" + seek.getSeekID())
@@ -98,7 +98,7 @@ public class SeekDAO implements TableDAO<Seek> {
             try {
                     Seek seek = new Seek();    		
                     seek.setSeekID(rs.getInt("SEEK_ID"));
-                    seek.setMemberID(rs.getInt("MEMBER_ID"));
+                    seek.setUsername(rs.getString("USERNAME"));
                     seek.setBookDay(rs.getDate("BOOK_DAY"));
                     seek.setBookTime(rs.getDate("BOOK_TIME"));
                     

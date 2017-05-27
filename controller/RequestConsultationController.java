@@ -15,11 +15,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import model.AgreementPayment;
 import model.Consultation;
 import model.ConsultationDAO;
 import model.ConsultationPayment;
 import model.ConsultationPaymentDAO;
 import util.AlertBuilder;
+import util.InvalidInputException;
 
 /**
  *
@@ -58,46 +60,70 @@ public class RequestConsultationController extends ControllerBase {
      
     @FXML
     private void handleMakePayment() {
-    	ConsultationPayment tempPayment = new ConsultationPayment();
-    	boolean validPayment = mainApp.showEditDialog(tempPayment, LoginController.PAYMENT_PAGE);
+    	boolean validInput = true;
+    	
+    	// validate input before running payment
+		try {        
+			Consultation.validateInput(this.dateText.getText(), this.enterCompanyID.getText());
+		} catch (InvalidInputException e){
+			//create and display alert for incorrect input
+			Alert alert = AlertBuilder.createAlert(
+					Alert.AlertType.WARNING, this.mainApp.getPrimaryStage(), "Invalid Input", "Invalid input entered!", e.getMessage()); 
 
-    	if (validPayment) {     		
+			alert.showAndWait();
+			validInput = false;
+		} catch (Exception e) {
+			//create and display alert for incorrect input
+			Alert alert = AlertBuilder.createAlert(
+					Alert.AlertType.WARNING, this.mainApp.getPrimaryStage(), "Database Error", "Database Error Occurred!", e.getMessage()); 
 
-	    	consult1.setConsultationPrice(defaultConsultationPrice);
-	    	
-	    	// convert from hh:mm:ss to java.sql.Time
-	    	consult1.setConsultationTime(java.sql.Time.valueOf(this.timePicker.getValue().toString() + ":00"));
-	    	consult1.setConsultationDate(this.dateText.getText());
-	    	consult1.setCorporateID(Integer.parseInt(this.enterCompanyID.getText()));
-	    	
-	    	// insert consultation to database
-	    	try {	    		
-	        	cDao.insert(consult1);	    		
-	    	} catch (Exception e) {
-	       		// Create and display alert for database related exceptions
-	    		Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
-	            
-	            alert.showAndWait();
+			alert.showAndWait();
+			validInput = false;
+		}
+    	
+		// handle payment only if valid input was entered
+		if (validInput) {
+	    	ConsultationPayment tempPayment = new ConsultationPayment();
+	    	boolean validPayment = mainApp.showEditDialog(tempPayment, LoginController.PAYMENT_PAGE);
+	
+	    	if (validPayment) {     		
+	
+		    	consult1.setConsultationPrice(defaultConsultationPrice);
+		    	
+		    	// convert from hh:mm:ss to java.sql.Time
+		    	consult1.setConsultationTime(java.sql.Time.valueOf(this.timePicker.getValue().toString() + ":00"));
+		    	consult1.setConsultationDate(this.dateText.getText());
+		    	consult1.setCorporateID(Integer.parseInt(this.enterCompanyID.getText()));
+		    	
+		    	// insert consultation to database
+		    	try {	    		
+		        	cDao.insert(consult1);	    		
+		    	} catch (Exception e) {
+		       		// Create and display alert for database related exceptions
+		    		Alert alert = AlertBuilder.createAlert(
+		            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
+		            
+		            alert.showAndWait();
+		    	}
+		    	
+		    	// insert payment into database
+		    	try {	    
+		    		// find the most recent payment and set its consultation num
+		    		consult1 = cDao.findMostRecent();
+		    		
+		    		tempPayment.setConsultationNum(consult1.getConsultationNum());
+		    		
+		    		// set payment price as default price
+		    		tempPayment.setPaymentAmount(defaultConsultationPrice);
+		        	paymentDAO.insert(tempPayment);
+		    	} catch (Exception e) {
+		       		// Create and display alert for database related exceptions
+		    		Alert alert = AlertBuilder.createAlert(
+		            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
+		            
+		            alert.showAndWait();
+		    	}
 	    	}
-	    	
-	    	// insert payment into database
-	    	try {	    
-	    		// find the most recent payment and set its consultation num
-	    		consult1 = cDao.findMostRecent();
-	    		
-	    		tempPayment.setConsultationNum(consult1.getConsultationNum());
-	    		
-	    		// set payment price as default price
-	    		tempPayment.setPaymentAmount(defaultConsultationPrice);
-	        	paymentDAO.insert(tempPayment);
-	    	} catch (Exception e) {
-	       		// Create and display alert for database related exceptions
-	    		Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
-	            
-	            alert.showAndWait();
-	    	}
-    	}
+		}
     }
 }

@@ -16,6 +16,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import util.InputValidator;
 import javafx.beans.property.*;
 /**
  *
@@ -39,6 +40,15 @@ public class Consultation {
    
     }
 
+    public static void validateInput(String date, String corporateID) throws Exception {
+    	try {
+    		InputValidator.validateDate(date);
+    		InputValidator.validateCorporateID(corporateID);
+    	} catch (Exception e) {
+    		throw e;
+    	}
+    }
+    
     @Override
     public String toString() {
         return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporate.getCorporateID();
