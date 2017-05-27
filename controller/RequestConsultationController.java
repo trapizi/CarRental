@@ -19,7 +19,7 @@ import model.CorporateMember;
  *
  * @author elizabeth
  */
-public class CorporateMemberHomeController extends ControllerBase {
+public class RequestConsultationController extends ControllerBase {
     
     ObservableList<String> timePickerList = FXCollections.observableArrayList(
             "10:00AM","11:00AM", "12:00PM", "1:00PM", "2:00PM", "3:00PM", "4:00PM");
@@ -29,7 +29,7 @@ public class CorporateMemberHomeController extends ControllerBase {
     private Label welcomeCorpLabel;
     private final String profileViewFileName;
     @FXML
-    private TextField priceField;
+    private Label priceLabel;
     @FXML
     private final DatePicker datePicker = new DatePicker();
     @FXML
@@ -40,39 +40,20 @@ public class CorporateMemberHomeController extends ControllerBase {
     private CorporateMember corporateMember;
     private Corporate corporate;
 
-    public CorporateMemberHomeController() {
+    public RequestConsultationController() {
         this.profileViewFileName = "CorporateMemberProfile.fxml";
     }
     
         @FXML
     private void initialize() {				
-		this.welcomeCorpLabel.setText("Welcome, " + mainApp.getLoggedInAs().getFirstName() + "!");
-                
-                timePicker.setItems(timePickerList);
-                timePicker.setValue("12:00PM");
-                
-
-                
-                
-
+		this.priceLabel.setText("$" + "100.00");
+		this.timePicker.setItems(timePickerList);
+	    this.timePicker.setValue("12:00PM");
     }
+     
     @FXML
-   /* private void handleCorpMemberAccount() {
-        mainApp.showView(profileViewFileName, new MemberProfileController());
-    } */
-    
-    private void handlePaymentHistory() {
-        mainApp.showView("PastConsultationPayment.fxml");
-    }
-    
-    private void handleSeek() {
-        mainApp.showView("Seek.fxml");
-       
-    }
-    private void handleOffer() {
-        mainApp.showView("Offer.fxml");
-    }
     private void handleMakePayment() {
-        mainApp.showView("Payment.fxml");
+    	//boolean okClicked = mainApp.showEditDialog(new MembershipPayment(), viewFileName)
+        //mainApp.showView("Payment.fxml");
     }
 }

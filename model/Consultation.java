@@ -55,7 +55,7 @@ public class Consultation {
         this.consultationNum.set(consultationNum);
     }
    
-    public IntegerProperty consultationNumPropoerty() {
+    public IntegerProperty consultationNumProperty() {
         return consultationNum;
     }
     /**
@@ -71,6 +71,7 @@ public class Consultation {
     public void setConsultationPrice(float consultationPrice) {
         this.consultationPrice.set(consultationPrice);
     }
+    
     public FloatProperty consultationPriceProperty() {
 		return consultationPrice;
     } /**
