@@ -87,12 +87,14 @@ public class OfferViewController extends OfferControllerBase {
 	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
 	    	
 	    	this.offerDAO = new OfferDAO();
-	    	offerTable.setItems(offerList);
 	    	offerList = this.offerDAO.findAll();
+	    	offerTable.setItems(offerList);
+
 	    	
 	    	/**
 	    	 * Filter function
 	    	 */
+	    	/*
 	    	FilteredList<Offer> filteredData = new FilteredList<>(offerList, p -> true);
         	sortedData = new SortedList<>(filteredData);
 	        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -118,7 +120,7 @@ public class OfferViewController extends OfferControllerBase {
 	        sortedData.comparatorProperty().bind(offerTable.comparatorProperty());
 
 	        // 5. Add sorted (and filtered) data to the table.
-	        offerTable.setItems(sortedData);
+	        offerTable.setItems(sortedData);*/
 	    	
 	        showOfferDetails(null);
 	        

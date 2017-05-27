@@ -12,21 +12,22 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OfferViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OfferViewController">
    <children>
       <SplitPane dividerPositions="0.39297658862876256" layoutX="200.0" layoutY="120.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="437.0" prefWidth="232.0">
                <children>
-                  <TableView fx:id="offerTable" layoutY="40.0" prefHeight="397.0" prefWidth="232.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="offerTable" layoutY="40.0" prefHeight="408.0" prefWidth="232.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="availableCarColumn" prefWidth="85.0" text="Available Car" />
                       <TableColumn fx:id="postcodeColumn" prefWidth="73.0" text="Location" />
                         <TableColumn fx:id="rateColumn" prefWidth="73.0" text="Price" />
                     </columns>
                   </TableView>
-                  <Label layoutX="14.0" layoutY="398.0" text="STATUS:" textFill="RED" />
-                  <Label fx:id="resultText" layoutX="58.0" layoutY="398.0" text="..." textFill="#f2efef" />
+                  <Label layoutX="14.0" layoutY="416.0" text="STATUS:" textFill="RED" />
+                  <Label fx:id="resultText" layoutX="58.0" layoutY="416.0" text="..." textFill="#f2efef" />
+                  <Button layoutX="176.0" layoutY="412.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="348.0">
@@ -65,7 +66,7 @@
                         <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
-                  <ButtonBar layoutX="81.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0">
+                  <ButtonBar layoutX="81.0" layoutY="384.0" prefHeight="40.0" prefWidth="253.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#deleteOffer" text="Delete" />
                         <Button mnemonicParsing="false" text="Edit" />
