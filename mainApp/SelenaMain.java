@@ -52,7 +52,7 @@ public class SelenaMain extends Application {
         initRootLayout();
         
         //diaplay payment view
-        showPaymentView();
+        showAgreementPaymentView();
     }
 
     //INITIALISE ROOT LAYOUT
