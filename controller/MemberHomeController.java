@@ -40,4 +40,15 @@ public class MemberHomeController extends ControllerBase {
 	private void handleAgreementsView() {
 		mainApp.showView("AgreementView.fxml");
 	}
+	
+	//For seeker
+	@FXML
+	private void handleOfferView() {
+		mainApp.showView("OfferView.fxml");
+	}
+	//For SUber to edit offers
+	@FXML
+	private void handleOfferViewEditable() {
+		mainApp.showView("OfferViewEditable.fxml");
+	}
 }
