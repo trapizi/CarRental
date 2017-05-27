@@ -25,7 +25,7 @@ public class Consultation {
     private ObjectProperty consultationTime;
     private ObjectProperty consultationDate;
     private IntegerProperty corporateID;
-    private Corporate corporation;
+    private Corporate corporate;
 
     public Consultation() {
         this.consultationNum = new SimpleIntegerProperty();
@@ -39,7 +39,7 @@ public class Consultation {
 
     @Override
     public String toString() {
-        return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporation.getCorporateID();
+        return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporate.getCorporateID();
     }
     /**
      * @return the consultationNum
