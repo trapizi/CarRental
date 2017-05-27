@@ -57,8 +57,11 @@ public class SUber extends Application {
 
 		/* add stuff to start() if you want to test UI */
 		try {
-			BingTest.initMyTables();
+			//BingTest.initMyTables();
 			//BingTest.testCorporateMemberTable();
+			
+			DBUtil.dbInitAllTables();
+			DBUtil.insertDummyData();
 			
 			launch(args);	
 		} catch (Exception e) {
