@@ -43,14 +43,8 @@ public class AgreementInvoiceController extends ControllerBase {
 	private Agreement agreement;
 
 	@FXML
-	private void initialize() throws SQLException, ClassNotFoundException {
-		AgreementDAO aDAO = new AgreementDAO();
-		Agreement a = new Agreement();
-		MemberDAO mDAO = new MemberDAO();
-		Member m = mDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName());
-		a.setSeeker(m.getMemberID());
-		
-		showAgreementInvoice(a);
+	private void initialize() throws SQLException, ClassNotFoundException {		
+		showAgreementInvoice(this.agreement);
 	}
 	
 	private void setAgreement(Agreement agmt) {
@@ -78,7 +72,4 @@ public class AgreementInvoiceController extends ControllerBase {
 			dayCreatedLabel.setText("");
 		}
 	}
-	
-
-
 }
