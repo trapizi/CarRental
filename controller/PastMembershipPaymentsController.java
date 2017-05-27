@@ -53,10 +53,10 @@ public class PastMembershipPaymentsController {
     private void initialize(){
         membershipPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().membershipPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
-        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty();
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty().asObject());
-        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty().asObject());
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().asObject()); 
+        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
+        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty();
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
         refundFlagColumn.setCellValueFactory(cellData -> cellData.getValue().refundFlagProperty().asObject());
         
         // We must tell the cell how we want dates to be displayed
@@ -67,7 +67,7 @@ public class PastMembershipPaymentsController {
     			protected void updateItem(java.sql.Date item, boolean empty) {    			
     	            super.updateItem(item, empty);
 
-    	            if (item == null || empty) {
+    	            if (item == null || empty) { 
     	            	this.setText(null);
     	            } else {
     	            	// TODO: default format is yyyy-MM-dd -- use a date formatter to change if required

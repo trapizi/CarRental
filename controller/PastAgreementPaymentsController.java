@@ -51,11 +51,11 @@ public class PastAgreementPaymentsController {
     private void initialize(){
         agreementPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().agreementPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
-        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty();
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty().asObject());
+        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
         paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty().asObject());
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().asObject());
-        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty();
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
+        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty().asObject());
     
         // We must tell the cell how we want dates to be displayed
     	// section below adapted from http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/

@@ -117,7 +117,7 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
             try {
                 MembershipPayment membershipPayment = new MembershipPayment();
                 membershipPayment.setMembershipPayment_id(rs.getInt("MEMBERSHIP_PAYMENT_ID"));
-	    	membershipPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	membershipPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	membershipPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	membershipPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	membershipPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));

@@ -51,10 +51,10 @@ public class PastConsultationPaymentsController {
     private void initialize(){
         consultationPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
-        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty();
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty().asObject());
-        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty().asObject());
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().asObject());
+        paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
+        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty();
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
         accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty();
     
         // We must tell the cell how we want dates to be displayed

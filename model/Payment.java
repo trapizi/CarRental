@@ -3,8 +3,10 @@ package model;
 import java.sql.SQLException;
 import java.sql.Date;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +19,7 @@ public abstract class Payment {
     
     //PAYMENT table columns
     private IntegerProperty payment_id;
-    private DoubleProperty paymentAmount;
+    private FloatProperty paymentAmount;
     private SimpleObjectProperty<Date> paymentDate;    
     private StringProperty paymentAccount;
     private StringProperty paymentType;
@@ -28,7 +30,7 @@ public abstract class Payment {
     //PAYMENT default constructor
     public Payment() {
         this.payment_id = new SimpleIntegerProperty();
-        this.paymentAmount = new SimpleDoubleProperty();
+        this.paymentAmount = new SimpleFloatProperty();
         this.paymentDate = new SimpleObjectProperty<Date>();  
         this.paymentAccount = new SimpleStringProperty();
         this.paymentType = new SimpleStringProperty();
@@ -37,7 +39,7 @@ public abstract class Payment {
         this.memberID = new SimpleIntegerProperty();
     }
     
-    public Payment(int payment_id, double paymentAmount, Date paymentDate, String paymentAccount, String paymentType, Date accountExpiry, String accountOwnerName, String paymentMedia){
+    public Payment(int payment_id, float paymentAmount, Date paymentDate, String paymentAccount, String paymentType, Date accountExpiry, String accountOwnerName, String paymentMedia){
         this.payment_id.set(payment_id);
         this.paymentAmount.set(paymentAmount);
         this.paymentDate.set(paymentDate);
@@ -82,12 +84,12 @@ public abstract class Payment {
         return paymentAmount.get();
     }
     
-    public void setPaymentAmount(double paymentAmount){
+    public void setPaymentAmount(float paymentAmount){
         this.paymentAmount.set(paymentAmount);
     }
     
-    public DoubleProperty paymentAmountProperty(){
-        return paymentAmount;
+    public FloatProperty paymentAmountProperty(){
+        return paymentAmount; 
     }
     
     //paymentDate
