@@ -163,7 +163,7 @@ public class OfferViewController extends ControllerBase {
 	    }
 	    
 	    /**
-	     * Search nearby cars within postcode +- 1 range.
+	     * Search nearby cars within postcode +- 2 range.
 	     */
 	    
 	    //This function promts the input postcode to search for nearby cars in the range between (postcode-1) AND (postcode+1)
