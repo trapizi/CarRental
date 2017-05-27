@@ -52,21 +52,66 @@ public class StaffHomeController extends ControllerBase {
 	}
 	
 	@FXML
-	private void handleGenerateCorporateMailingList() throws Exception {
-		File outputFile  = new File("corporateMailingList.txt");
-		FileWriter writer = null;
+	private void handleGenerateCorporateMailingList() {
+		// generate mailing list and display location in alert
+		String pathFileName = System.getProperty("user.dir") + "\\" + this.generateMailingList(true);
 		
+        // Create and display alert for the database exception
+        Alert alert = AlertBuilder.createAlert(
+        		AlertType.INFORMATION, mainApp.getPrimaryStage(), "Status", 
+        		"Mailing List Generated!", "Mailing list can be found at: " + pathFileName); 
+        
+        alert.showAndWait();
+		
+		
+	}
+	
+	@FXML
+	private void handleGenerateMemberMailingList() {
+		// generate mailing list and display location in alert
+		String pathFileName = System.getProperty("user.dir") + "\\" + this.generateMailingList(false);
+		
+        // Create and display alert for the database exception
+        Alert alert = AlertBuilder.createAlert(
+        		AlertType.INFORMATION, mainApp.getPrimaryStage(), "Status", 
+        		"Mailing List Generated!", "Mailing list can be found at: " + pathFileName); 
+        
+        alert.showAndWait();
+	}
+	
+	/**
+	 * Generates a mailing list given a boolean value
+	 * @param isCorporateMember True if a mailing list for corporate members wants to be generated
+	 * @return The mailing list's file name
+	 */
+	private String generateMailingList(boolean isCorporateMember) {
+		String outputFileName;
+		
+		if (isCorporateMember) {
+			outputFileName = "corporateMailingList.txt";
+		} else {
+			outputFileName = "memberMailingList.txt";
+		}
+		
+		// grab list of corporate members to make a mailing list
 		ObservableList<Member> list = FXCollections.observableArrayList();
 		
 		// query database for corporateMember details
 		try {
-			list = memberDAO.findAll();
+			if (isCorporateMember) {
+				list = memberDAO.findAllCorporateMembers();
+			} else {
+				list = memberDAO.findAll();
+			}
 		} catch (Exception e) {
 			Alert alert = AlertBuilder.createAlert(
 		            AlertType.WARNING, mainApp.getPrimaryStage(), "Error", "Database Error", e.getMessage());
 			
             alert.showAndWait();       
 		}
+		
+		File outputFile  = new File(outputFileName);
+		FileWriter writer = null;
 			
 		try {
 			writer = new FileWriter(outputFile);
@@ -84,6 +129,7 @@ public class StaffHomeController extends ControllerBase {
             alert.showAndWait();  
             
 		} finally {
+			// close fileWriter 
 			if (writer != null) {
 				try {
 					writer.close();
@@ -96,10 +142,7 @@ public class StaffHomeController extends ControllerBase {
 				}
 			}
 		}
-	}
-	
-	@FXML
-	private void handleGenerateMemberMailingList() {
-		System.out.println("MEMBER MAILING LIST");
+		
+		return outputFileName;
 	}
 }
