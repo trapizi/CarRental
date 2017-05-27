@@ -5,9 +5,7 @@
  */
 package controller;
 
-import java.sql.DriverManager;
 import java.sql.Time;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,10 +19,7 @@ import model.Consultation;
 import model.ConsultationDAO;
 import model.ConsultationPayment;
 import model.ConsultationPaymentDAO;
-import model.Corporate;
-import model.CorporateMember;
 import util.AlertBuilder;
-import util.DBTablePrinter;
 
 /**
  *
@@ -33,7 +28,7 @@ import util.DBTablePrinter;
 public class RequestConsultationController extends ControllerBase {
     
     ObservableList<String> timePickerList = FXCollections.observableArrayList(
-            "10:00","11:00", "12:00", "13:00", "14:00", "15:00PM", "16:00");
+            "10:00","11:00", "12:00", "13:00", "14:00", "15:00", "16:00");
     
     @FXML
     private Label welcomeCorpLabel;
