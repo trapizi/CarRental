@@ -51,23 +51,6 @@ public class AgreementController extends ControllerBase {
 	@FXML
 	private Label dayCreatedLabel;
 
-
-	@FXML
-	private TextField offererField;
-	@FXML
-	private TextField seekerField;
-
-	@FXML
-	private TextField dateField;
-	@FXML
-	private TextField fromField;
-	@FXML
-	private TextField toField;
-	@FXML
-	private TextField priceField;
-	@FXML
-	private TextField createDayField;
-
 	// list to display onto the UI's table
 	private ObservableList<Agreement> agmtList;
 	private AgreementDAO agmtDAO;
@@ -184,47 +167,6 @@ public class AgreementController extends ControllerBase {
 
 		//deletes the selected agreement from the UI
 		agreementTable.getItems().remove(selectedIndex);  
-	}
-
-	/**
-	 * Called when the user clicks the insert button. 
-	 * A new agreement is made and inserted into the database and UI
-	 */
-	@FXML
-	private void insertAgreement() throws SQLException, ClassNotFoundException {    	
-		Agreement tempAgreement = new Agreement();
-
-		tempAgreement.setOfferer(Integer.parseInt(offererField.getText()));
-		tempAgreement.setSeeker(Integer.parseInt(seekerField.getText()));
-		tempAgreement.setAgreeDate(dateField.getText());
-		tempAgreement.setFromPostcode(Long.parseLong(fromField.getText()));
-		tempAgreement.setToPostcode(Long.parseLong(toField.getText()));
-		tempAgreement.setPayAmt(Float.parseFloat(priceField.getText()));
-		tempAgreement.setCreateDay(createDayField.getText());
-
-		try {	   	
-			// add a new agreement to the database
-			agmtDAO.insert(tempAgreement);
-
-			// ensure that agmtID gets updated 
-			agmtList.add(tempAgreement);
-
-		} catch (SQLException | ClassNotFoundException e) {	        	
-			// Create and display alert for the database exception
-			/*    Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-	            		"Database could not complete search!", e.getMessage()); 
-
-	            alert.showAndWait();	
-			 */
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	@FXML
-	private void payNow() throws SQLException, ClassNotFoundException {   	
-		mainApp.showView("AgreementInvoiceView.fxml"); 	
 	}
 
 	public void setMainApp(SUber mainApp) {

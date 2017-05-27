@@ -316,19 +316,16 @@ public class OfferViewController extends ControllerBase {
 	    	//THIS WILL CHANGE
 	    	
 	    	int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
-	    	
 	    	Offer o = offerTable.getItems().get(selectedIndex);
-	    	
-	    	
-	    	
+	    		
 	    	Agreement agmt = new Agreement();
 	    	AgreementDAO agreeDAO = new AgreementDAO();
 	    	
 	    	MemberDAO mDAO = new MemberDAO();
-	    	
 	    	Member m = mDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName());
 	    	
 	    	agmt.setSeeker(m.getMemberID());
+	    	System.out.println("------------ " + m.getMemberID() + " --------------");
 	    	
 	    	agmt.setOfferer(o.getOfferID());
 	    	
@@ -340,8 +337,9 @@ public class OfferViewController extends ControllerBase {
 	    	agreeDAO.insert(agmt);
 	    	
 	    	AgreementInvoiceController aic = new AgreementInvoiceController();
+	    	aic.setAgreement(agmt);
 	    	
-	    	//mainApp.showView("AgreementInvoiceView.fxml");
+	    	mainApp.showView("AgreementInvoiceView.fxml");
 	    	
 	    	final String url = "jdbc:derby:DBforDEMO;create=true";
 	    	DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
