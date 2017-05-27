@@ -38,6 +38,7 @@
                   <Label prefHeight="47.0" prefWidth="213.0" text="Add more buttons to other sections" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="1" />
                   <Button fx:id="viewConsultationButton" mnemonicParsing="false" text="View Consultations" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#handleAgreementsView" text="VIew Agreements" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" />

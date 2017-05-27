@@ -100,7 +100,7 @@ public class SarinaMain extends Application {
     		loader.setLocation(SarinaMain.class.getResource(dir + viewFileName));
 
     		AnchorPane view = (AnchorPane) loader.load();
-
+    		
     		// Set view into the center of root layout.
     		rootLayout.setCenter(view);
     	
