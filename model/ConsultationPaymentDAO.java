@@ -57,12 +57,11 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
     public void insert(ConsultationPayment consultationPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("CONSULTATION_PAYMENT")
-            .addFieldValue("CONSULTATION_PAYMENT_ID", consultationPayment.getConsultationPayment_id())
             .addFieldValue("PAYMENT_AMOUNT", consultationPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())          
             .toString();
         
@@ -85,7 +84,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())           
             .where("CONSULTATION_PAYMENT_ID" + consultationPayment.getConsultationPayment_id())
                 .toString();
