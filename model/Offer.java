@@ -1,7 +1,12 @@
 package model;
 
+/**
+ * @author Xuan Huy Ngo (z5076470)
+ */
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,9 +15,11 @@ import javafx.beans.property.StringProperty;
 
 import util.InvalidInputException;
 import util.InputValidator;
-import java.util.Date;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -23,7 +30,7 @@ public class Offer {//extends offerList{
     private StringProperty carType, brand, model, transmission, fuelType;
     private FloatProperty price;
     private LongProperty postcode;
-    //private SimpleObjectProperty<Date> driveDay;
+    private SimpleObjectProperty<Date> driveDay;
 
     public Offer() {
     	this.memberID = new SimpleIntegerProperty();
@@ -36,7 +43,7 @@ public class Offer {//extends offerList{
         this.fuelType = new SimpleStringProperty();
         this.postcode = new SimpleLongProperty();
         this.price = new SimpleFloatProperty();
-       // this.driveDay = new SimpleObjectProperty<Date>();
+        this.driveDay = new SimpleObjectProperty<Date>();
     }
     
     public Offer(String brand, String model, String carType, int seats, String transmission, String fuelType,
@@ -56,7 +63,7 @@ public class Offer {//extends offerList{
     }
     
     public static void validateInput(String brandTextField, String modelTextField, String carTypeTextField, String seatsTextField, String transmissionTextField,
-    		String fuelTypeTextField, String postcodeTextField, String priceTextField)
+    		String fuelTypeTextField, String postcodeTextField, String priceTextField, String driveDayTextField)
     		throws InvalidInputException, SQLException, ClassNotFoundException {
     	try {
     		InputValidator.validateBrand(brandTextField);
@@ -67,7 +74,7 @@ public class Offer {//extends offerList{
     		InputValidator.validateFuelType(fuelTypeTextField);
     		InputValidator.validatePostcode(postcodeTextField);
     		InputValidator.validatePrice(priceTextField);
-    		
+    		InputValidator.validateDate(driveDayTextField);
     	} catch (Exception e) {
     		throw e;
     	}
@@ -193,16 +200,24 @@ public class Offer {//extends offerList{
         return price;
     }
     
-    /*public Object getDriveDay(){
-    	return driveDay;
+    public Date getDriveDay(){
+    	return driveDay.get();
     }
     
     public void setDriveDay(Date driveDay) {
     	this.driveDay.set(driveDay);
     }
     
-    public SimpleObjectProperty<Date> driveDayProperty(){
-    	return driveDay;
-    }*/
+    public void setDriveDay(String date) {
+    	try{
+    		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    		java.util.Date temp = format.parse(date);
+    		this.setDriveDay(new Date(temp.getTime()));
+    	} catch (ParseException e) {
+    	}
+    }
     
+    public ObjectProperty<Date> driveDayProperty() {
+    	return driveDay;
+    }
 }

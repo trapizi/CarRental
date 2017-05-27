@@ -45,7 +45,7 @@
             <TextField fx:id="postcodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Drive Day" GridPane.rowIndex="8" />
-            <TextField promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="driveDayTextField" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <ButtonBar layoutX="386.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0">

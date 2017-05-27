@@ -72,7 +72,7 @@ public class OfferDAO implements TableDAO<Offer>{
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
     			.addFieldValue("PRICE", offer.getPrice())
     			.addFieldValue("POSTCODE", offer.getPostcode())
-    			//.addFieldValue("DRIVE_DAY", offer.getDriveDay())
+    			.addFieldValue("DRIVE_DAY", offer.getDriveDay())
     			.toString();
     	
     	
@@ -96,7 +96,7 @@ public class OfferDAO implements TableDAO<Offer>{
     			.addFieldValue("FUEL_TYPE", offer.getFuelType())
     			.addFieldValue("POSTCODE", offer.getPostcode())    			
     			.addFieldValue("PRICE", offer.getPrice())
-    			//.addFieldValue("DRIVE_DAY", offer.getDriveDay())
+    			.addFieldValue("DRIVE_DAY", offer.getDriveDay())
     			.where("OFFER_ID=" + offer.getOfferID())
     			.toString();
     	
@@ -138,7 +138,7 @@ public class OfferDAO implements TableDAO<Offer>{
                     offer.setFuelType(rs.getString("FUEL_TYPE"));
                     offer.setPostcode(rs.getLong("POSTCODE"));
                     offer.setPrice(rs.getFloat("PRICE"));
-                    //offer.setDriveDay(rs.getDate("DRIVE_DAY"));
+                    offer.setDriveDay(rs.getDate("DRIVE_DAY"));
                 list.add(offer);
 			} catch (SQLException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");

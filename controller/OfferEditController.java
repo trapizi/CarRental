@@ -53,11 +53,11 @@ public class OfferEditController extends EditControllerBase {
 		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));
 		this.priceTextField.setText(Double.toString(offer.getPrice()));
 		
-		/*try{
+		try{
 			this.driveDayTextField.setText(offer.getDriveDay().toString());
 		} catch (NullPointerException e) {
 			this.driveDayTextField.setText("");
-		}*/
+		}
 	}
 	
 	@FXML
@@ -69,7 +69,7 @@ public class OfferEditController extends EditControllerBase {
 			Offer.validateInput(
 					this.brandTextField.getText(), this.modelTextField.getText(), this.carTypeTextField.getText(),
 					this.seatsTextField.getText(), this.transmissionTextField.getText(), this.fuelTypeTextField.getText(),
-					this.postcodeTextField.getText(), this.priceTextField.getText()
+					this.postcodeTextField.getText(), this.priceTextField.getText(), this.driveDayTextField.getText()
 					);
 
 		} catch (InvalidInputException e) {
@@ -93,7 +93,7 @@ public class OfferEditController extends EditControllerBase {
 		offer.setFuelType(this.fuelTypeTextField.getText());
 		offer.setPostcode(Long.parseLong(this.postcodeTextField.getText()));
 		offer.setPrice(Float.parseFloat(this.priceTextField.getText()));
-		//offer.setDriveDay(new Date(1000,1,1));
+		offer.setDriveDay(this.driveDayTextField.getText());
 		
 		okClicked = true;
 		dialogStage.close();
