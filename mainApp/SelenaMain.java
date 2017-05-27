@@ -1,5 +1,6 @@
 package mainApp;
 
+import controller.AgreementControllerBase;
 import controller.RootLayoutController;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,9 +17,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import suber.controller.PaymentController;
+//import controller.PaymentController; 
+import static javafx.application.Application.launch;
+import test.SelenaTest;
 import util.DBUtil;
-
+import controller.ControllerBase;
+import controller.EditControllerBase;
+import javafx.stage.Modality;
 /**
  *
  * @author selena
@@ -28,6 +33,10 @@ public class SelenaMain extends Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
     
     @Override
     public void start(Stage primaryStage) throws ClassNotFoundException, SQLException{
@@ -43,7 +52,7 @@ public class SelenaMain extends Application {
         initRootLayout();
         
         //diaplay payment view
-        showPaymentView();
+        showAgreementPaymentView();
     }
 
     //INITIALISE ROOT LAYOUT
@@ -71,20 +80,26 @@ public class SelenaMain extends Application {
         }
     }  
     
-
+ 
     
-    public void showPaymentView(){
+    public void showAgrementPaymentView(){
          try {
              
             //(1) Load PaymentView from PaymentView.FXML
-            FXMLLoader loader = new FXMLLoader(SelenaMain.class.getResource("Payment.fxml"));
-        
-            AnchorPane pane = loader.load();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(SelenaMain.class.getResource("../view/AgreementPaymentView.fxml"));
+            AnchorPane AgreementPaymentView= (AnchorPane) loader.load();
+            
+            rootLayout.setCenter(AgreementPaymentView);
+            
+         } catch (IOException e){
+                 e.printStackTrace();
+                 }
         /*
             //connect to controller
             PaymentController paymentController = loader.getController();
             PaymentController.setMain(this);  
-            */
+            
             Scene scene = new Scene(pane);
             
             primaryStage.setScene(scene);
@@ -93,11 +108,55 @@ public class SelenaMain extends Application {
          } catch (IOException ex) {
                 Logger.getLogger(SelenaMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */    
     }
-    
-
+ 
     public static void main(String[] args) {
-        launch(args);
+            	try {
+    		
+    		DBUtil.dbInitAllTables();
+    		SelenaTest.testAgreementPaymentTable();
+    		launch(args);
+
+    		DBUtil.clearTable("AGREEMENT_PAYMENT");
+    		DBUtil.dropTable("AGREEMENT_PAYMENT");
+    		DBUtil.dbShutdown();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} 
     }
     
-}
+    public void showView(Object object, String viewFileName){
+        try{
+            System.out.println("HELLOOOOOOOOOOOOOOOO");
+    		final String dir = "../view/";
+                
+                //load the fxml file and create new stage for the pop- up
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(SelenaMain.class.getResource(dir + viewFileName));
+    		AnchorPane view = (AnchorPane) loader.load();
+
+                // Create the dialog Stage.
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(primaryStage);
+                Scene scene = new Scene(view);
+                dialogStage.setScene(scene);
+
+                // Set the person into the controller.
+                EditControllerBase controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setObject(object);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+    	} catch (IOException e) {
+    		System.out.println("BYEEEEEEEEE");
+    		e.printStackTrace();
+    	}
+    }
+    
+}   

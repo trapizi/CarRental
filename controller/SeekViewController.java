@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import mainApp.Stevenmain;
 
-public class SeekViewController {
+public class SeekViewController extends ControllerBase{
 
 	@FXML
 	private TableView<Seek> seekTable;
@@ -40,13 +40,24 @@ public class SeekViewController {
 	
 	private Stevenmain mainApp;
 	
+	public SeekViewController() {
+		
+	}
+	
 	@FXML
 	private void intialize() {
+		//Initialize the seek table with the 3 columns
 		seekIDColumn.setCellValueFactory(cellData -> cellData.getValue().seekIDProperty().asObject());
 		bookDayColumn.setCellValueFactory(cellData -> cellData.getValue().bookDayProperty());
 		bookTimeColumn.setCellValueFactory(cellData -> cellData.getValue().bookTimeProperty());
 		
+		this.seekDAO = new SeekDAO();
+		
 		showSeekDetails(null);
+		
+		this.seekTable.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> showSeekDetails((Seek) newValue));
+		this.seekList = FXCollections.observableArrayList();
 	}
 	
 	private void showSeekDetails(Seek seek) {
@@ -54,27 +65,13 @@ public class SeekViewController {
 			
 			seekIDLabel.setText(Integer.toString(seek.getSeekID()));
 			usernameLabel.setText(seek.getUsername());
-			
-			try{
-				bookDayLabel.setText(seek.getBookDay().toString());
-				
-			} catch (NullPointerException e) {
-				bookDayLabel.setText("");
-				
-			}
-
-			try {
-				bookTimeLabel.setText(seek.getBookTime().toString());
-			} catch (NullPointerException e) {
-				bookTimeLabel.setText("");
-			}
-			
+			bookDayLabel.setText(seek.getBookDay().toString());
+			bookTimeLabel.setText(seek.getBookTime().toString());
 		} else {
 			seekIDLabel.setText("");
 			usernameLabel.setText("");
 			bookDayLabel.setText("");
 			bookTimeLabel.setText("");
-			
 		}
 	}
 	

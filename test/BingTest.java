@@ -19,6 +19,10 @@ import util.DBUtil;
 public class BingTest {
 	
 	public static void initMyTables() throws Exception {
+		final String defaultStaffLogin = "staff";
+		final String defaultMemberLogin = "member";
+		final String defaultCMemberLogin = "cmember";
+		
 		try {
 			DBUtil.dbInitAllTables();
 			
@@ -27,13 +31,33 @@ public class BingTest {
 			c.setCompanyName("TOPKEK");
 			corporateDAO.insert(c);
 			
+			StaffDAO staffDAO = new StaffDAO();
+			Staff s  = new Staff();
+			s.setUserName(defaultStaffLogin);
+			s.setPassword(defaultStaffLogin);
+			staffDAO.insert(s);
+			
+			MemberDAO memberDAO = new MemberDAO();
+			Member m = new Member();
+			m.setUserName(defaultMemberLogin);
+			m.setPassword(defaultMemberLogin);
+			memberDAO.insert(m);
+			
+			CorporateMemberDAO corporateMemberDAO = new CorporateMemberDAO();
+			Member cm = new Member();
+			cm.setUserName(defaultCMemberLogin);
+			cm.setPassword(defaultCMemberLogin);
+			memberDAO.insert(cm);
+			// get updated memberID and corporateID
+			cm = memberDAO.findByUserName(cm.getUserName());
+			c = corporateDAO.findByName(c.getCompanyName());
+			corporateMemberDAO.insert(cm, c);
+			
 		    final String url = "jdbc:derby:DBforDEMO;create=true";
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE");
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CORPORATE_MEMBER");
 
-
-			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -141,6 +165,9 @@ public class BingTest {
 			
 			DBUtil.clearTable("CORPORATE");
 			DBUtil.dropTable("CORPORATE");
+			
+			DBUtil.clearTable("MEMBERSHIP_PAYMENT");
+			DBUtil.dropTable("MEMBERSHIP_PAYMENT");
 		} catch (Exception e) {
 			throw e;
 		}

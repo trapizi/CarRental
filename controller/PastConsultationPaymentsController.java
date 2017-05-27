@@ -3,64 +3,64 @@ package controller;
 import java.sql.Date;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableCell; 
+import javafx.scene.control.TableColumn; 
 import javafx.scene.control.TableView;
-import model.AgreementPayment;
-import model.AgreementPaymentDAO;
+import model.ConsultationPayment;
+import model.ConsultationPaymentDAO;
 import mainApp.SelenaMain;
 
 /**
  *
  * @author selena
  */
-public class PastAgreementPaymentsController {
+public class PastConsultationPaymentsController {
     
     @FXML
-    private TableView<AgreementPayment> agreementPaymentTable;
+    private TableView<ConsultationPayment> consultationPaymentTable;
     
     @FXML 
-    private TableColumn<AgreementPayment, Integer> agreementPayment_idColumn; 
-     
-    @FXML
-    private TableColumn<AgreementPayment, Float> paymentAmountColumn;
+    private TableColumn<ConsultationPayment, Integer> consultationPayment_idColumn; 
     
     @FXML
-    private TableColumn<AgreementPayment, Date> paymentDateColumn;
+    private TableColumn<ConsultationPayment, Float> paymentAmountColumn;
     
     @FXML
-    private TableColumn<AgreementPayment, String> accountOwnerNameColumn;
+    private TableColumn<ConsultationPayment, Date> paymentDateColumn;
     
     @FXML
-    private TableColumn<AgreementPayment, String> paymentTypeColumn;
+    private TableColumn<ConsultationPayment, String> accountOwnerNameColumn;
+    
+    @FXML
+    private TableColumn<ConsultationPayment, String> paymentTypeColumn;
    
     @FXML
-    private TableColumn<AgreementPayment, String> paymentAccountColumn;   
+    private TableColumn<ConsultationPayment, String> paymentAccountColumn;   
 
     @FXML
-    private TableColumn<AgreementPayment, Date> accountExpiryColumn;
+    private TableColumn<ConsultationPayment, Date> accountExpiryColumn;
     
     
     //list to display
-    private ObservableList<AgreementPayment> agreementPaymentList;
-    private AgreementPaymentDAO agreementPaymentDAO;
+    private ObservableList<ConsultationPayment> consultationPaymentList;
+    private ConsultationPaymentDAO consultationPaymentDAO; 
     
     
     //method to initialise elements
     @FXML
     private void initialize(){
-        agreementPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().agreementPayment_idProperty().asObject());
+        consultationPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
         paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
         accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty());
         paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
         paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty());
-        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty().asObject());
+        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty());
     
         // We must tell the cell how we want dates to be displayed
     	// section below adapted from http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-    	this.accountExpiryColumn.setCellFactory(column -> {
-    		return new TableCell<AgreementPayment, java.sql.Date>() {
+    	this.accountExpiryDateColumn.setCellFactory(column -> {
+    		return new TableCell<ConsultationPayment, java.sql.Date>() {
     			@Override
     			protected void updateItem(java.sql.Date item, boolean empty) {    			
     	            super.updateItem(item, empty);

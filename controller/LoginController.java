@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
@@ -9,13 +10,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import model.AgreementPayment;
 import model.CorporateMember;
 import model.CorporateMemberDAO;
 import model.Member;
 import model.MemberDAO;
+import model.MembershipPayment;
+import model.MembershipPaymentDAO;
+import model.Offer;
 import model.StaffDAO;
 import model.User;
 import util.AlertBuilder;
+import util.DBTablePrinter;
 
 /**
  * Controller to handle login
@@ -40,18 +46,24 @@ public class LoginController extends ControllerBase {
 	private StaffDAO staffDAO;
 	private MemberDAO memberDAO;
 	private CorporateMemberDAO corporateMemberDAO;
+	private MembershipPaymentDAO membershipPaymentDAO;
 	
-	private final String memberHomePage = "MemberHome.fxml";
-	//private final String corporateMemberHomePage = "";
-	private final String registrationPage = "MemberRegistrationDialog.fxml";
-	private final String corporateMemberRegistrationPage = "CorporateMemberRegistrationDialog.fxml";
-	// private final String staffHomePage = "";
+	/* make page names public static final so we don't have to re-declare every time we want to use them */
+	public static final String LOGIN_PAGE = "Login.fxml";
+	public static final String MEMBER_HOME_PAGE = "MemberHome.fxml";
+	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
+	public static final String C_MEMBER_REGISTRATION_PAGE = "CorporateMemberRegistrationDialog.fxml";
+	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
+	
+	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
+	public static final String PAYMENT_PAGE = "PaymentView.fxml";
 	
     @FXML
     private void initialize () {      	
     	this.staffDAO = new StaffDAO();
     	this.memberDAO = new MemberDAO();
     	this.corporateMemberDAO = new CorporateMemberDAO();
+    	this.membershipPaymentDAO = new MembershipPaymentDAO();
     	
     	assert(this.mainApp != null);
     }
@@ -70,6 +82,11 @@ public class LoginController extends ControllerBase {
     			// TODO: set appropriate error message on unsuccessful login
         		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
     		} else {
+    			
+    			// display navigation panel on the left
+    	    	this.mainApp.showNavigationPanel(NAVIGATION_PANEL);
+
+    			
     			// remember who logged in
     			mainApp.setLoggedInAs(user);
     			
@@ -84,11 +101,32 @@ public class LoginController extends ControllerBase {
     	// user doesn't exist
     	} catch (NullPointerException e) {
     		this.statusLabel.setText("Incorrect username or password entered. No user found");
-    	} 
+    	}
+    }
+    
+    private void displayHomePage(User user) throws SQLException, ClassNotFoundException {
+		// bring them to the member home page
+		if (this.memberRadioButton.isSelected()) {
+			
+			try {
+				// check if corporate member				
+				mainApp.showView(MEMBER_HOME_PAGE, new MemberHomeController());
+				
+			// let parent function handle exceptions
+			} catch (Exception e) {
+				throw e;
+			}
+		
+		// bring them to the staff home page
+		} else if (this.staffRadioButton.isSelected()) {
+
+			mainApp.showView(STAFF_HOME_PAGE, new StaffHomeController());
+			
+		} 
     }
     
     @FXML
-    private void handleRegister() {
+    private void handleRegister() throws Exception {
     	// show member registration screen
     	if (this.registerMemberRadioButton.isSelected()) {
 	        this.registerMember();
@@ -132,11 +170,20 @@ public class LoginController extends ControllerBase {
      */
     private void registerMember() {
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
+        boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
+
+        // setup and show payment page
+        MembershipPayment membershipPayment = new MembershipPayment();
+        membershipPayment.setPaymentAmount(15);
         
-        if (okClicked) {
+        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        
+        if (okClicked && paid) {
+        	// insert member into database
 	        try {	   	
+	        	
 	        	memberDAO.insert(tempMember);
+	        	
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -144,6 +191,27 @@ public class LoginController extends ControllerBase {
 	            		"Could not register member!", e.getMessage()); 
 	            
 	            alert.showAndWait();	        	
+	        }
+	        
+	        // insert payment into database
+	        try {
+	        	// get member ID of the registered member
+	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
+	        	
+	        	// attach it to the payment
+	        	membershipPayment.setMemberID(memberID);
+	        	membershipPaymentDAO.insert(membershipPayment);
+	        	
+			    final String url = "jdbc:derby:DBforDEMO;create=true";
+				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
+				
+	        } catch (SQLException | ClassNotFoundException e) {	        	
+	            // Create and display alert for the database exception
+	            Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
+	            		"Could not register member!", e.getMessage()); 
+	            
+	            alert.showAndWait();	   
 	        }
         }
     }
@@ -153,9 +221,15 @@ public class LoginController extends ControllerBase {
      */
     private void registerCorporateMember() {
         CorporateMember tempMember = new CorporateMember();
-        boolean okClicked = mainApp.showEditDialog(tempMember, corporateMemberRegistrationPage);
+        boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE);
         
-        if (okClicked) {
+        // setup and show payment page
+        MembershipPayment membershipPayment = new MembershipPayment();
+        membershipPayment.setPaymentAmount(15);
+        
+        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        
+        if (okClicked && paid) {
 	        try {	
 	        	// NOTE: before inserting tempMember into the database does not have a memberID
 	        	// memberID is assigned after it has been inserted
@@ -173,33 +247,30 @@ public class LoginController extends ControllerBase {
 	            
 	            alert.showAndWait();	        	
 	        }
+	        
+	        // insert payment into database
+	        try {
+	        	// get member ID of the registered member
+	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
+	        	
+	        	// attach it to the payment
+	        	membershipPayment.setMemberID(memberID);
+	        	membershipPaymentDAO.insert(membershipPayment);
+	        	
+			    final String url = "jdbc:derby:DBforDEMO;create=true";
+				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
+				
+	        } catch (SQLException | ClassNotFoundException e) {	        	
+	            // Create and display alert for the database exception
+	            Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
+	            		"Could not register member!", e.getMessage()); 
+	            
+	            alert.showAndWait();	   
+	        }
         }
     }
-    
-    private void displayHomePage(User user) throws SQLException, ClassNotFoundException {
-		// bring them to the next page
-		// display different pages depending on whether they logged in as user or member
-		if (this.memberRadioButton.isSelected()) {
-			
-			try {
-				// check if corporate member				
-				mainApp.showView(memberHomePage, new MemberHomeController());
-				
-			// let parent function handle exceptions
-			} catch (Exception e) {
-				throw e;
-			}
-			
-		} else if (this.staffRadioButton.isSelected()) {
-
-			// mainApp.showView(staffHomePage);
-			mainApp.showView("StaffView.fxml");
-			
-		} else {
-    		this.statusLabel.setText("SHOULD NEVER REACH THIS POINT -- A RADIO BUTTON SHOULD BE SELECTED!!!.");
-		}
-    }
-    
+        
     /**
      * Returns a corporate member if they exist in the corporate member table, otherwise a member
      * @return A corporate member or member 

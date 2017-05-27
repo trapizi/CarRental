@@ -2,6 +2,14 @@ package util;
 
 import com.sun.rowset.CachedRowSetImpl;
 
+import model.Corporate;
+import model.CorporateDAO;
+import model.CorporateMemberDAO;
+import model.Member;
+import model.MemberDAO;
+import model.Staff;
+import model.StaffDAO;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -167,7 +175,6 @@ public class DBUtil {
     	ArrayList<String> fileNames = new ArrayList<String>();
     	final String dir = "src\\table\\";
 
-    	
     	/* add your files that contain your CREATE TABLE statements here */
     	fileNames.add("agreement.txt");
     	fileNames.add("staff.txt");
@@ -177,6 +184,10 @@ public class DBUtil {
         fileNames.add("consultation.txt");
         fileNames.add("seek.txt");
         fileNames.add("offer.txt");
+        fileNames.add("membershipPayment.txt");
+        // TODO: FIX THESE FILES
+        //fileNames.add("agreementPayment.txt");
+        //fileNames.add("consultationPayment.txt");
 
     	/*
     	fileNames.add("offer.txt");
@@ -197,6 +208,39 @@ public class DBUtil {
 	    		throw e;
 	    	}
     	}
+    }
+    
+    public static void insertDummyData() throws SQLException, ClassNotFoundException {
+		final String defaultStaffLogin = "staff";
+		final String defaultMemberLogin = "member";
+		final String defaultCMemberLogin = "cmember";
+    	
+		CorporateDAO corporateDAO = new CorporateDAO();
+		Corporate c = new Corporate();
+		c.setCompanyName("TOPKEK");
+		corporateDAO.insert(c);
+		
+		StaffDAO staffDAO = new StaffDAO();
+		Staff s  = new Staff();
+		s.setUserName(defaultStaffLogin);
+		s.setPassword(defaultStaffLogin);
+		staffDAO.insert(s);
+		
+		MemberDAO memberDAO = new MemberDAO();
+		Member m = new Member();
+		m.setUserName(defaultMemberLogin);
+		m.setPassword(defaultMemberLogin);
+		memberDAO.insert(m);
+		
+		CorporateMemberDAO corporateMemberDAO = new CorporateMemberDAO();
+		Member cm = new Member();
+		cm.setUserName(defaultCMemberLogin);
+		cm.setPassword(defaultCMemberLogin);
+		memberDAO.insert(cm);
+		// get updated memberID and corporateID
+		cm = memberDAO.findByUserName(cm.getUserName());
+		c = corporateDAO.findByName(c.getCompanyName());
+		corporateMemberDAO.insert(cm, c);
     }
     
     /*

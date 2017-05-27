@@ -1,41 +1,45 @@
 package model;
 
-import java.util.Date;
+import java.sql.SQLException;
+import java.sql.Date;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import util.InputValidator;
+import util.InvalidInputException;
 
 //PAYMENT is abstract as we never instantiate this class
 public abstract class Payment { 
     
     //PAYMENT table columns
     private IntegerProperty payment_id;
-    private DoubleProperty paymentAmount;
+    private FloatProperty paymentAmount;
     private SimpleObjectProperty<Date> paymentDate;    
     private StringProperty paymentAccount;
     private StringProperty paymentType;
     private SimpleObjectProperty<Date> accountExpiry;
     private StringProperty accountOwnerName;
-    private StringProperty paymentMedia;
+    private IntegerProperty memberID;
 
     //PAYMENT default constructor
     public Payment() {
         this.payment_id = new SimpleIntegerProperty();
-        this.paymentAmount = new SimpleDoubleProperty();
+        this.paymentAmount = new SimpleFloatProperty();
         this.paymentDate = new SimpleObjectProperty<Date>();  
         this.paymentAccount = new SimpleStringProperty();
         this.paymentType = new SimpleStringProperty();
         this.accountExpiry = new SimpleObjectProperty<Date>();
         this.accountOwnerName = new SimpleStringProperty();
-        this.paymentMedia = new SimpleStringProperty();
-  
+        this.memberID = new SimpleIntegerProperty();
     }
     
-    public Payment(int payment_id, double paymentAmount, Date paymentDate, String paymentAccount, String paymentType, Date accountExpiry, String accountOwnerName, String paymentMedia){
+    public Payment(int payment_id, float paymentAmount, Date paymentDate, String paymentAccount, String paymentType, Date accountExpiry, String accountOwnerName, String paymentMedia){
         this.payment_id.set(payment_id);
         this.paymentAmount.set(paymentAmount);
         this.paymentDate.set(paymentDate);
@@ -43,7 +47,6 @@ public abstract class Payment {
         this.paymentType.set(paymentType);
         this.accountExpiry.set(accountExpiry);
         this.accountOwnerName.set(accountOwnerName);
-        this.paymentMedia.set(paymentMedia);
     }
     
     @Override
@@ -51,6 +54,17 @@ public abstract class Payment {
         return "Payment_id: " + this.getPayment_id() + " " + "paymentAmount: " + this.getPaymentAmount();
     }
     
+	public static void validateInput(String fullNameTextField, String accountTextField, String accountExpiryTextField) 
+			throws InvalidInputException, SQLException, ClassNotFoundException {	
+		
+		try {
+			InputValidator.validateDate(accountExpiryTextField);
+			//InputValidator.validateName(fullNameTextField);
+			//InputValidator.validateAccount(accountTextField);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
     
     //paymentID   
     public int getPayment_id(){
@@ -70,12 +84,12 @@ public abstract class Payment {
         return paymentAmount.get();
     }
     
-    public void setPaymentAmount(double paymentAmount){
+    public void setPaymentAmount(float paymentAmount){
         this.paymentAmount.set(paymentAmount);
     }
     
-    public DoubleProperty paymentAmountProperty(){
-        return paymentAmount;
+    public FloatProperty paymentAmountProperty(){
+        return paymentAmount; 
     }
     
     //paymentDate
@@ -144,17 +158,16 @@ public abstract class Payment {
         return accountOwnerName;
     }
     
-    //paymentMedia
-    public String getPaymentMedia(){
-        return paymentMedia.get();
+    //paymentID   
+    public int getMemberID(){
+        return memberID.get();
     }
     
-    public void setPaymentMedia(String paymentMedia){
-        this.paymentMedia.set(paymentMedia);
+    public void setMemberID(int MemberID){
+        this.memberID.set(MemberID);
     }
     
-    public StringProperty paymentMediaProperty(){
-        return paymentMedia;
+    public IntegerProperty MemberIDProperty(){
+        return memberID;
     }
-
 }

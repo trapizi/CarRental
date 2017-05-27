@@ -57,12 +57,11 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
     public void insert(ConsultationPayment consultationPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("CONSULTATION_PAYMENT")
-            .addFieldValue("CONSULTATION_PAYMENT_ID", consultationPayment.getConsultationPayment_id())
             .addFieldValue("PAYMENT_AMOUNT", consultationPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())          
             .toString();
         
@@ -85,7 +84,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", consultationPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", consultationPayment.getAccountOwnerName())           
             .where("CONSULTATION_PAYMENT_ID" + consultationPayment.getConsultationPayment_id())
                 .toString();
@@ -97,7 +96,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             throw e;
     	}
     }
-
+ 
 
     //delete() 
     //delete a consultationPayment from database given a condition
@@ -108,7 +107,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
             throw e;
     	}
-    }
+    } 
 	
     //Helper function (convert records from database into objects for java)
     private ObservableList<ConsultationPayment> getConsultationPaymentList (ResultSet rs) throws SQLException {
@@ -118,7 +117,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             try {
                 ConsultationPayment consultationPayment = new ConsultationPayment();
                 consultationPayment.setConsultationPayment_id(rs.getInt("CONSULTATION_PAYMENT_ID"));
-	    	consultationPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	consultationPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	consultationPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	consultationPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	consultationPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));

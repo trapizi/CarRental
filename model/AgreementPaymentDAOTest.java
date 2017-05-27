@@ -30,7 +30,7 @@ public class AgreementPaymentDAOTest {
         AgreementPayment ap1 = new AgreementPayment();
         
         ap1.setPaymentAmount((float)200.00);
-        ap1.setPaymentDate("10.10.2017");
+        ap1.setPaymentDate(10.10.2017);
         ap1.setPaymentAccount("1111323212321232");
         ap1.setPaymentType("Visa");
         ap1.setAccountExpiry("22.12.2017");

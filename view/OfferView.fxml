@@ -6,6 +6,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -31,7 +32,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <GridPane layoutX="2.0" layoutY="2.0" prefHeight="273.0" prefWidth="424.0">
+                  <GridPane layoutX="14.0" layoutY="92.0" prefHeight="273.0" prefWidth="424.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -67,9 +68,25 @@
                   </GridPane>
                   <ButtonBar layoutX="214.0" layoutY="402.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Book" />
+                      <Button mnemonicParsing="false" onAction="#handleBook" text="Book" />
                     </buttons>
                   </ButtonBar>
+                  <GridPane layoutX="26.0" layoutY="38.0" prefHeight="30.0" prefWidth="384.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="119.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="166.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="139.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="121.0" text="Search nearby cars" />
+                        <TextField fx:id="filterField" prefHeight="25.0" prefWidth="130.0" promptText="Please enter the postcode" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#searchPostcode" text="Search" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+                  <Button layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh List" />
                </children>
             </AnchorPane>
         </items>

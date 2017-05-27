@@ -12,18 +12,17 @@ import test.StevenTest;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+import controller.ControllerBase;
+//import controller.ControllerBase;
 import controller.EditControllerBase;
+import controller.OfferControllerBase;
 import controller.OfferViewController;
 
 import controller.SeekController;
 import javafx.scene.Parent;
 import javafx.stage.Modality;
 
-/**
- *
- * @author TiM
- */
+
 public class Stevenmain extends Application {
     
     // Create a primary stage that contains everything
@@ -84,10 +83,35 @@ public class Stevenmain extends Application {
             // Set Employee Operations view into the center of root layout.
             rootLayout.setCenter(OfferView);
 
+            OfferControllerBase controller = (OfferControllerBase) loader.getController();
+            controller.setMainApp(this); 
+            
         } catch (IOException e) {
             e.printStackTrace();
         }	
     }
+    
+	public void showView(String viewFileName) {
+		try {
+			// path to file from the current file
+			// TODO: forward slashes may not work with macs -- change as required
+			final String dir = "../view/";
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(SUber.class.getResource(dir + viewFileName));
+			
+			AnchorPane view = (AnchorPane) loader.load();
+
+			// Set view into the center of root layout.
+			rootLayout.setCenter(view);
+
+			OfferControllerBase controller = (OfferControllerBase) loader.getController();
+			controller.setMainApp(this);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
     /**
      * @param args the command line arguments

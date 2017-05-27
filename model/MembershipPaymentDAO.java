@@ -56,17 +56,12 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     public void insert(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBERSHIP_PAYMENT_ID", membershipPayment.getMembershipPayment_id())
             .addFieldValue("PAYMENT_AMOUNT", membershipPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", membershipPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())       
-            .addFieldValue("STATUS", membershipPayment.getStatus())
-            .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
-            .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
-            .addFieldValue("DURATION_TO_EXPIRY", membershipPayment.getDurationToExpiry())
             .addFieldValue("REFUND_FLAG", membershipPayment.getRefundFlag())
             .toString();
         
@@ -85,17 +80,12 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     public void update(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new UpdateSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
-            .addFieldValue("MEMBERSHIP_PAYMENT_ID", membershipPayment.getMembershipPayment_id())
             .addFieldValue("PAYMENT_AMOUNT", membershipPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", membershipPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", membershipPayment.getPaymentType())
-            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getPaymentType())
+            .addFieldValue("ACCOUNT_EXPIRY", membershipPayment.getAccountExpiry())
             .addFieldValue("ACCOUNT_OWNER_NAME", membershipPayment.getAccountOwnerName())        
-            .addFieldValue("STATUS", membershipPayment.getStatus())
-            .addFieldValue("LAST_MATCH_DATE", membershipPayment.getLastMatchDate())
-            .addFieldValue("NEXT_EXPIRY", membershipPayment.getNextExpiry())
-            .addFieldValue("DURATION_TO_EXPIRY", membershipPayment.getDurationToExpiry())
             .addFieldValue("REFUND_FLAG", membershipPayment.getRefundFlag())
             .where("MEMBERSHIP_PAYMENT_ID" + membershipPayment.getMembershipPayment_id())
                 .toString();
@@ -127,16 +117,12 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
             try {
                 MembershipPayment membershipPayment = new MembershipPayment();
                 membershipPayment.setMembershipPayment_id(rs.getInt("MEMBERSHIP_PAYMENT_ID"));
-	    	membershipPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	membershipPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	membershipPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	membershipPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	membershipPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
 	    	membershipPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	membershipPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
-                membershipPayment.setStatus(rs.getBoolean("STATUS"));
-                membershipPayment.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
-                membershipPayment.setNextExpiry(rs.getDate("NEXT_EXPIRY"));
-	    	membershipPayment.setDurationToExpiry(rs.getInt("DURATION_TO_EXPIRY"));
                 membershipPayment.setRefundFlag(rs.getBoolean("REFUND_FLAG"));
 
 	    	list.add(membershipPayment);
