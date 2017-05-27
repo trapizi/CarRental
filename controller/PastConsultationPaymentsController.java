@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.Date;
+import java.sql.Date;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell; 
@@ -52,10 +52,10 @@ public class PastConsultationPaymentsController {
         consultationPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
         paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
-        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty();
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
-        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty();
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty());
+        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty());
+        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty());
     
         // We must tell the cell how we want dates to be displayed
     	// section below adapted from http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/

@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.Date;
+import java.sql.Date;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;

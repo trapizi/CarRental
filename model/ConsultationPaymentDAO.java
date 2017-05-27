@@ -96,7 +96,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             throw e;
     	}
     }
-
+ 
 
     //delete() 
     //delete a consultationPayment from database given a condition
@@ -107,7 +107,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
             throw e;
     	}
-    }
+    } 
 	
     //Helper function (convert records from database into objects for java)
     private ObservableList<ConsultationPayment> getConsultationPaymentList (ResultSet rs) throws SQLException {
@@ -117,7 +117,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
             try {
                 ConsultationPayment consultationPayment = new ConsultationPayment();
                 consultationPayment.setConsultationPayment_id(rs.getInt("CONSULTATION_PAYMENT_ID"));
-	    	consultationPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	consultationPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	consultationPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	consultationPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	consultationPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
