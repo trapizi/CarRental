@@ -3,7 +3,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-<TableView fx:id="paymentsTable" prefHeight="400.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PastMembershipPaymentsController">
+<TableView fx:id="paymentsTable" prefHeight="400.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PastMembershipPaymentsController">
    <columns>
       <TableColumn fx:id="membershipPayment_idColumn" prefWidth="75.0" text="Payment ID" />
       <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
@@ -13,8 +13,6 @@
       <TableColumn fx:id="paymentTypeColumn" prefWidth="85.0" text="Payment Type" />
       <TableColumn fx:id="paymentAccountColumn" prefWidth="65.0" text="Account" />
       <TableColumn fx:id="accountExpiryColumn" prefWidth="95.0" text="Account Expiry" />
-      <TableColumn fx:id="statusColumn" prefWidth="65.0" text="Status" />
-      <TableColumn fx:id="daysToExpiryColumn" prefWidth="85.0" text="Days to Exp." />
       <TableColumn fx:id="refundFlagColumn" prefWidth="65.0" text="Refund" />
    </columns>
 </TableView>

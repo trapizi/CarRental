@@ -36,12 +36,6 @@ public class PastMembershipPaymentsController {
    
     @FXML
     private TableColumn<MembershipPayment, Long> paymentAccountColumn;   
-
-    @FXML
-    private TableColumn<MembershipPayment, Date> accountExpiryColumn;
-    
-    @FXML
-    private TableColumn<MembershipPayment, Integer> durationToExpiryColumn;
     
     @FXML
     private TableColumn<MembershipPayment, Boolean> refundFlagColumn;
@@ -62,9 +56,7 @@ public class PastMembershipPaymentsController {
         paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty();
         accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty().asObject());
         paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty().asObject());
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().asObject());
-        accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty();
-        durationToExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().durationToExpiryProperty().asObject());
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().asObject()); 
         refundFlagColumn.setCellValueFactory(cellData -> cellData.getValue().refundFlagProperty().asObject());
         
         // We must tell the cell how we want dates to be displayed
