@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PastConsultationController">
+   <children>
+      <TableView fx:id="PastConsultationTable" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn prefWidth="82.0" text="Payment ID" />
+          <TableColumn prefWidth="53.0" text="Date" />
+            <TableColumn prefWidth="71.0" text="Time" />
+            <TableColumn prefWidth="128.0" text="Consultation Number" />
+            <TableColumn prefWidth="57.0" text="Price" />
+            <TableColumn prefWidth="68.0" text="Date Paid" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

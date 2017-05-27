@@ -22,6 +22,7 @@ public class MemberHomeController extends ControllerBase {
 			// display consultation button
 			//this.viewConsultationButton.setDisable(true);
 			this.viewConsultationButton.setVisible(false);
+			
 		}
     }
     
@@ -39,5 +40,26 @@ public class MemberHomeController extends ControllerBase {
 	@FXML
 	private void handleAgreementsView() {
 		mainApp.showView("AgreementView.fxml");
+	}
+	
+	//For seeker
+	@FXML
+	private void handleOfferView() {
+		mainApp.showView("OfferView.fxml");
+	}
+	//For SUber to edit offers
+	@FXML
+	private void handleOfferViewEditable() {
+		mainApp.showView("OfferViewEditable.fxml");
+	}
+	
+	@FXML
+	private void handleViewPastConsultations() {
+		mainApp.showView("PastConsultationPayment.fxml");
+	}
+	
+	@FXML
+	private void handleRequestConsultation() {
+		mainApp.showView("RequestConsultationView.fxml");
 	}
 }

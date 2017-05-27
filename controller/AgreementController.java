@@ -22,7 +22,7 @@ import util.AlertBuilder;
 public class AgreementController extends ControllerBase {
 	
 	@FXML
-	private TableView agreementTable;
+	private TableView<Agreement> agreementTable;
 	@FXML
 	private TableColumn<Agreement, Integer> seekerColumn;
 	@FXML

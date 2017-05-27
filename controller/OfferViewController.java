@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javafx.beans.binding.Bindings;
@@ -14,16 +16,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
+import model.Agreement;
+import model.AgreementDAO;
+import model.Member;
+import model.MemberDAO;
 import model.Offer;
 import model.OfferDAO;
+import model.Seek;
+import model.SeekDAO;
 
 import util.AlertBuilder;
+import util.DBTablePrinter;
 import util.InvalidInputException;
-//import mainApp.SUber;
+import mainApp.SUber;
 import mainApp.Stevenmain;
 
-public class OfferViewController extends OfferControllerBase {
+public class OfferViewController extends ControllerBase {
 	
 		@FXML
 		private Label resultText;
@@ -60,10 +68,17 @@ public class OfferViewController extends OfferControllerBase {
 	    private ObservableList<Offer> offerList = FXCollections.observableArrayList();
 	    private OfferDAO offerDAO;
 	    private SortedList<Offer> sortedData;
+	    private Offer offer;
 	    
+	    private void setObject (Object o) {
+	    	this.offer = (Offer) o;
+	    	
+	    }
+	    
+	    public static String locationTo; 
 	    // Reference to the main application.
 	    //private SUber mainApp;
-	    private Stevenmain mainApp;
+	    //private Stevenmain mainApp;
 	    
 
 	    /**
@@ -81,15 +96,17 @@ public class OfferViewController extends OfferControllerBase {
 	     */
 	    @FXML
 	    private void initialize() throws ClassNotFoundException, SQLException{
-	        // Initialize the person table with the 3 columns.
+
+	    	// Initialize the person table with the 3 columns.
 	    	availableCarColumn.setCellValueFactory(cellData -> cellData.getValue().brandProperty());
+	    	
 	    	postcodeColumn.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty().asObject());
 	    	rateColumn.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().priceProperty()));
 	    	
 	    	this.offerDAO = new OfferDAO();
-	    	offerList = this.offerDAO.findAll();
-	    	offerTable.setItems(offerList);
-
+	    	//offerList = this.offerDAO.findAll();
+	    	//offerTable.setItems(offerList);
+	    	this.refreshTable();
 	    	
 	    	/**
 	    	 * Filter function
@@ -132,7 +149,7 @@ public class OfferViewController extends OfferControllerBase {
 
 	    }
 	    
-
+	    //This function is used to refresh table when initiate UI and when a record is created or edited.
 	    @FXML
 	    private void refreshTable() throws SQLException, ClassNotFoundException {
 	    	try {
@@ -149,11 +166,14 @@ public class OfferViewController extends OfferControllerBase {
 	     * Search nearby cars within postcode +- 1 range.
 	     */
 	    
-	    
+	    //This function promts the input postcode to search for nearby cars in the range between (postcode-1) AND (postcode+1)
 	    @FXML
 	    private void searchPostcode() throws SQLException, ClassNotFoundException {
 	    		offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
 	    		offerTable.setItems(offerList);
+	    		locationTo.valueOf(offerList);
+	    		
+	    		
 	    }
 	    
 	    private void showOfferDetails(Offer offer) {
@@ -200,6 +220,7 @@ public class OfferViewController extends OfferControllerBase {
 	    			offerList.add(tempOffer);
 	    			
 	    			resultText.setText("Insert complete! \n");
+	    			this.refreshTable();
 	    		} catch (SQLException | ClassNotFoundException e) {
 	    			Alert alert = AlertBuilder.createAlert(
 	    					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
@@ -238,6 +259,23 @@ public class OfferViewController extends OfferControllerBase {
 	    	}
 
 	    }
+	    
+	    @FXML
+	    private Offer extractOffer() throws SQLException, ClassNotFoundException {
+	    	try {
+	    		int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
+	    		
+	    		return offerTable.getItems().get(selectedIndex);
+	    	} catch (ArrayIndexOutOfBoundsException e) {
+	    		
+	    		Alert alert = AlertBuilder.createAlert(
+	    				AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Offer Selected", "Select an Offer in the table");
+	    				
+	    		alert.showAndWait();
+	    	}
+	    	
+	    	return null;
+	    }
 
 	    @FXML
 	    private void handleEditOffer() {
@@ -274,14 +312,42 @@ public class OfferViewController extends OfferControllerBase {
 	     */
 	    @FXML
 	    private void handleBook() throws SQLException, ClassNotFoundException {
-	    	if (mainApp == null) {
-	    		System.out.println("NULL");
-	    	}
 	    	//THIS WILL CHANGE
-	    	mainApp.showView("Payment.fxml");
+	    	
+	    	int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
+	    	
+	    	Offer o = offerTable.getItems().get(selectedIndex);
+	    	
+	    	
+	    	
+	    	Agreement agmt = new Agreement();
+	    	AgreementDAO agreeDAO = new AgreementDAO();
+	    	
+	    	MemberDAO mDAO = new MemberDAO();
+	    	
+	    	Member m = mDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName());
+	    	
+	    	agmt.setSeeker(m.getMemberID());
+	    	
+	    	agmt.setOfferer(o.getOfferID());
+	    	
+	    	agmt.setAgreeDate((new Date(1000,1,1)));
+	    	agmt.setFromPostcode(o.getPostcode());
+	    	agmt.setToPostcode(Long.parseLong(filterField.getText()));
+	    	agmt.setPayAmt(50.0f);
+	    	
+	    	agreeDAO.insert(agmt);
+	    	
+	    	AgreementInvoiceController aic = new AgreementInvoiceController();
+	    	
+	    	//mainApp.showView("AgreementInvoiceView.fxml");
+	    	
+	    	final String url = "jdbc:derby:DBforDEMO;create=true";
+	    	DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
+	    	
 	    	}
 	    
-		public void setMainApp(Stevenmain mainApp) {
-			this.mainApp = mainApp;
-		}
+		//public void setMainApp(Stevenmain mainApp) {
+		//	this.mainApp = mainApp;
+		//}
 }

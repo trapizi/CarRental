@@ -22,10 +22,7 @@ import controller.SeekController;
 import javafx.scene.Parent;
 import javafx.stage.Modality;
 
-/**
- *
- * @author TiM
- */
+
 public class Stevenmain extends Application {
     
     // Create a primary stage that contains everything
@@ -80,7 +77,7 @@ public class Stevenmain extends Application {
         try {
             //First, load EmployeeView from EmployeeView.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Stevenmain.class.getResource("../view/OfferViewEditable.fxml"));
+            loader.setLocation(Stevenmain.class.getResource("../view/SeekView.fxml"));
             AnchorPane OfferView = (AnchorPane) loader.load();
 
             // Set Employee Operations view into the center of root layout.

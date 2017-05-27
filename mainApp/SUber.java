@@ -52,14 +52,13 @@ public class SUber extends Application {
 		System.out.println("java version: "+System.getProperty("java.version"));
 		System.out.println("javafx.version: " + System.getProperty("javafx.version"));
 
-		/* add stuff to this function if you want to test tables */
+		// add stuff to this function if you want to test tables
 		SUber.testTables();
 
-		/* add stuff to start() if you want to test UI */
-		try {
-			BingTest.initMyTables();
-			//BingTest.testCorporateMemberTable();
-			
+		// add stuff to start() if you want to test UI
+		try {			
+			DBUtil.dbInitAllTables();
+			DBUtil.insertDummyData();		
 			launch(args);	
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import model.Corporate;
 import model.CorporateDAO;
 import model.CorporateMember;
@@ -15,11 +16,15 @@ import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * Handles everything related to the corporate member registration page
+ * @author Bing Wen (z3463269)
+ */
 public class CorporateMemberRegistrationController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
     @FXML
     private TextField firstNameTextField;
     @FXML

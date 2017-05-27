@@ -16,12 +16,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
-	private IntegerProperty offerID, seats;
+	private IntegerProperty offerID, memberID, seats;
     private StringProperty carType, brand, model, transmission, fuelType;
     private DoubleProperty price;
     private LongProperty postcode;
 
     public Offer() {
+    	this.memberID = new SimpleIntegerProperty();
         this.offerID = new SimpleIntegerProperty();
         this.seats = new SimpleIntegerProperty();
         this.carType = new SimpleStringProperty();
@@ -32,23 +33,52 @@ public class Offer {//extends offerList{
         this.postcode = new SimpleLongProperty();
         this.price = new SimpleDoubleProperty();
     }
+    
+    public Offer(String brand, String model, String carType, int seats, String transmission, String fuelType,
+    		Long postcode, Integer price) {
+    	this.brand.set(brand);
+    	this.model.set(model);
+    	this.carType.set(carType);
+    	this.seats.set(seats);
+    	this.transmission.set(transmission);
+    	this.postcode.set(postcode);
+    	this.price.set(price);
+    }
 
     @Override
     public String toString(){
     	return "OfferID: " + this.getOfferID();
     }
     
-    public static void validateInput(String brand, String model, String carType, int seats, String transmission,
-    		String fuelType,  long postcode, double price, int offerID )
+    public static void validateInput(String brandTextField, String modelTextField, String carTypeTextField, String seatsTextField, String transmissionTextField,
+    		String fuelTypeTextField, String postcodeTextField, String priceTextField)
     		throws InvalidInputException, SQLException, ClassNotFoundException {
     	try {
-    		Offer.validateInput(brand, model, carType, seats, transmission, fuelType, postcode, price, offerID);;
+    		InputValidator.validateBrand(brandTextField);
+    		InputValidator.validateModel(modelTextField);
+    		InputValidator.validateCarType(carTypeTextField);
+    		InputValidator.validateSeats(seatsTextField);
+    		InputValidator.validateTransmission(transmissionTextField);
+    		InputValidator.validateFuelType(fuelTypeTextField);
+    		InputValidator.validatePostcode(postcodeTextField);
+    		InputValidator.validatePrice(priceTextField);
     	
     	} catch (Exception e) {
     		throw e;
     	}
     }
     
+    public int getMemberID() {
+    	return memberID.get();
+    }
+    
+    public void setMemberID(int memberID) {
+    	this.memberID.set(memberID);
+    }
+    
+    public IntegerProperty memberIDProperty(){
+    	return memberID;
+    }
     
     public int getOfferID() {
         return offerID.get();

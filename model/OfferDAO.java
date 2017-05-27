@@ -63,6 +63,7 @@ public class OfferDAO implements TableDAO<Offer>{
     public void insert(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
     			.addTable("OFFER")
+    			.addFieldValue("MEMBER_ID", offer.getMemberID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
@@ -85,6 +86,7 @@ public class OfferDAO implements TableDAO<Offer>{
     public void update(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new UpdateSQLBuilder()
     			.addTable("OFFER")
+    			.addFieldValue("MEMBER_ID", offer.getMemberID())
     			.addFieldValue("SEATS", offer.getSeats())
     			.addFieldValue("CAR_TYPE", offer.getCarType())
     			.addFieldValue("BRAND", offer.getBrand())
@@ -125,6 +127,7 @@ public class OfferDAO implements TableDAO<Offer>{
 		try {
     		Offer offer = new Offer();    		
     		offer.setOfferID(rs.getInt("OFFER_ID"));
+    				offer.setMemberID(rs.getInt("MEMBER_ID"));
                     offer.setSeats(rs.getInt("SEATS"));
                     offer.setCarType(rs.getString("CAR_TYPE"));
                     offer.setBrand(rs.getString("BRAND"));
