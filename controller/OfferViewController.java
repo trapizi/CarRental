@@ -181,6 +181,11 @@ public class OfferViewController extends OfferControllerBase {
 	    @FXML
 	    private void handleNewOffer() throws SQLException, ClassNotFoundException{
 	    	Offer tempOffer = new Offer();
+	    	
+	    	if (mainApp == null) {
+	    		System.out.println("MY MAIN APP IS NULL\n");
+	    	}
+	    	
 	    	boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
 	    	
 	    	if (okClicked) {

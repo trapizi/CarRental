@@ -17,6 +17,7 @@ import model.Member;
 import model.MemberDAO;
 import model.MembershipPayment;
 import model.MembershipPaymentDAO;
+import model.Offer;
 import model.StaffDAO;
 import model.User;
 import util.AlertBuilder;
@@ -138,6 +139,9 @@ public class LoginController extends ControllerBase {
      * Displays a pop-up screen to enter member details
      */
     private void registerMember() throws Exception {
+    	Offer tempOffer = new Offer();
+    	boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
+    	/*
         Member tempMember = new Member();        
         boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
                 
@@ -181,6 +185,7 @@ public class LoginController extends ControllerBase {
 	            throw e;
 	        }
         }
+        */
     }
     
     /**

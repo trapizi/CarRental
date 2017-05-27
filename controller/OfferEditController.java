@@ -13,7 +13,7 @@ import model.Offer;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
-public class OfferEditController extends EditControllerBase{
+public class OfferEditController extends EditControllerBase {
 	
 	@FXML
 	private TextField brandTextField;

@@ -12,6 +12,7 @@ import test.StevenTest;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import controller.ControllerBase;
 //import controller.ControllerBase;
 import controller.EditControllerBase;
 import controller.OfferControllerBase;
@@ -85,6 +86,9 @@ public class Stevenmain extends Application {
             // Set Employee Operations view into the center of root layout.
             rootLayout.setCenter(OfferView);
 
+            OfferControllerBase controller = (OfferControllerBase) loader.getController();
+            controller.setMainApp(this); 
+            
         } catch (IOException e) {
             e.printStackTrace();
         }	

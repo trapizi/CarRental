@@ -69,8 +69,8 @@
                   <ButtonBar layoutX="81.0" layoutY="384.0" prefHeight="40.0" prefWidth="253.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#deleteOffer" text="Delete" />
-                        <Button mnemonicParsing="false" text="Edit" />
-                        <Button mnemonicParsing="false" text="New" />
+                        <Button mnemonicParsing="false" onAction="#handleEditOffer" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#handleNewOffer" text="New" />
                     </buttons>
                   </ButtonBar>
                   <GridPane layoutX="31.0" layoutY="14.0">
