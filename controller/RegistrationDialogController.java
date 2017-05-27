@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
@@ -16,7 +17,7 @@ public class RegistrationDialogController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
     @FXML
     private TextField firstNameTextField;
     @FXML

@@ -35,7 +35,11 @@ public class StaffHomeController extends ControllerBase {
 		this.corporateMemberDAO = new CorporateMemberDAO();
     }
     
-	// TODO: add more functions to change scenes with buttons
+    @FXML
+    private void handleViewConsultation() {
+    	this.mainApp.showView("StaffViewConsultation.fxml");
+    }
+        
 	@FXML
 	private void handleManageMembers() {
 		this.mainApp.showView(manageMemberPage);

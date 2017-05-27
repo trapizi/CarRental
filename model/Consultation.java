@@ -6,7 +6,9 @@
 package model;
 
 import java.sql.Time;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -25,7 +27,7 @@ public class Consultation {
     private ObjectProperty consultationTime;
     private ObjectProperty consultationDate;
     private IntegerProperty corporateID;
-    private Corporate corporation;
+    private Corporate corporate;
 
     public Consultation() {
         this.consultationNum = new SimpleIntegerProperty();
@@ -39,7 +41,7 @@ public class Consultation {
 
     @Override
     public String toString() {
-        return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporation.getCorporateID();
+        return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporate.getCorporateID();
     }
     /**
      * @return the consultationNum
@@ -55,7 +57,7 @@ public class Consultation {
         this.consultationNum.set(consultationNum);
     }
    
-    public IntegerProperty consultationNumPropoerty() {
+    public IntegerProperty consultationNumProperty() {
         return consultationNum;
     }
     /**
@@ -71,6 +73,7 @@ public class Consultation {
     public void setConsultationPrice(float consultationPrice) {
         this.consultationPrice.set(consultationPrice);
     }
+    
     public FloatProperty consultationPriceProperty() {
 		return consultationPrice;
     } /**
@@ -102,6 +105,16 @@ public class Consultation {
      */
     public void setConsultationDate(Date consultationDate) {
         this.consultationDate.set(consultationDate);
+    }
+    
+    public void setConsultationDate(String date) {
+	    try {
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	java.util.Date temp = format.parse(date);
+			this.consultationDate.set(new Date(temp.getTime()));
+	    } catch (ParseException e) {
+	    	// exception should never be triggered as we validated it before
+	    }
     }
     
     public ObjectProperty consultationDateProperty() {

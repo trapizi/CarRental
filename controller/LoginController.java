@@ -48,7 +48,7 @@ public class LoginController extends ControllerBase {
 	private CorporateMemberDAO corporateMemberDAO;
 	private MembershipPaymentDAO membershipPaymentDAO;
 	
-	/* make page names public static final so we don't have to re-declare every time we want to use them */
+	// make page names public static final so we don't have to re-declare every time we want to use them
 	public static final String LOGIN_PAGE = "Login.fxml";
 	public static final String MEMBER_HOME_PAGE = "MemberHome.fxml";
 	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
@@ -57,6 +57,8 @@ public class LoginController extends ControllerBase {
 	
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
 	public static final String PAYMENT_PAGE = "PaymentView.fxml";
+	
+	private final float monthlyMembershipCost = 15.0f;
 	
     @FXML
     private void initialize () {      	
@@ -68,7 +70,6 @@ public class LoginController extends ControllerBase {
     	assert(this.mainApp != null);
     }
     
-    // TODO: do better exception handling
     @FXML
     private void handleLogin() throws Exception {   
     	
@@ -104,6 +105,12 @@ public class LoginController extends ControllerBase {
     	}
     }
     
+    /**
+     * Displays home page
+     * @param user The logged in user
+     * @throws SQLException Throws when a database error occurs
+     * @throws ClassNotFoundException Throws when a database error occurs
+     */
     private void displayHomePage(User user) throws SQLException, ClassNotFoundException {
 		// bring them to the member home page
 		if (this.memberRadioButton.isSelected()) {
@@ -174,7 +181,7 @@ public class LoginController extends ControllerBase {
 
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
-        membershipPayment.setPaymentAmount(15);
+        membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
         
         boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
         
@@ -225,7 +232,7 @@ public class LoginController extends ControllerBase {
         
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
-        membershipPayment.setPaymentAmount(15);
+        membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
         
         boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
         

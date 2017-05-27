@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Check input from textField is not stupid
@@ -21,6 +23,11 @@ public final class InputValidator {
 			throws InvalidInputException, SQLException, ClassNotFoundException {
 		// check if empty
 		isEmpty(userName, "Username");
+
+		// check if username contains spaces
+		if (InputValidator.containsSpaces(userName)) {
+			throw new InvalidInputException("Invalid username. Username may not contain spaces.");
+		}
 		
 		// validate username, ensure unique
 		try {
@@ -42,8 +49,6 @@ public final class InputValidator {
 				throw new InvalidInputException("Invalid username entered. Username has already been taken.");
 			} 
 		} catch (SQLException e) {
-			// TODO: uncomment line below if you want more information on exception thrown here
-			// throw e; 
 			throw new SQLException("Failed to query database!");
 		} catch (ClassNotFoundException e) {
 			throw new ClassNotFoundException("Failed to connect to database!");
@@ -74,8 +79,6 @@ public final class InputValidator {
 				throw new InvalidInputException("Invalid company name entered. Company is not registered with SUber.");
 			} 
 		} catch (SQLException e) {
-			// TODO: uncomment line below if you want more information on exception thrown here
-			// throw e; 
 			throw new SQLException("Failed to query database!");
 		} catch (ClassNotFoundException e) {
 			throw new ClassNotFoundException("Failed to connect to database!");
@@ -208,6 +211,16 @@ public final class InputValidator {
 			throw new InvalidInputException(fieldName + " can't be empty.");
 		}
 	}
-	
 
+	/**
+	 * Returns true if the string contains spaces
+	 * @param s The string to check
+	 * @return True if s contains space(s)
+	 */
+	private static boolean containsSpaces(String s) {
+		Pattern regex = Pattern.compile("\\s+");
+		Matcher regexMatch = regex.matcher(s);
+		
+		return regexMatch.find();
+	}
 }

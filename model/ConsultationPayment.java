@@ -20,7 +20,7 @@ public class ConsultationPayment extends Payment {
     
     //agreementPaymentID
     public Integer getConsultationPayment_id() {
-	return consultationPayment_id.get();
+    	return consultationPayment_id.get();
     }
 
     public void setConsultationPayment_id(Integer consultationPayment_id) {
