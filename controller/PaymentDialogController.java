@@ -16,6 +16,10 @@ import model.Payment;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ *
+ * @author selena
+ */
 public class PaymentDialogController extends EditControllerBase {
 	@FXML
 	private Label paymentIDLabel;    
@@ -43,8 +47,6 @@ public class PaymentDialogController extends EditControllerBase {
 	@FXML
 	private Button confirmPaymentButton;   
 
-
-	//private AgreementPayment agreementPayment;
 	private Payment payment;
 
 	//paymentType choice box
@@ -115,9 +117,10 @@ public class PaymentDialogController extends EditControllerBase {
 
 	/**
 	 * Called when the user clicks cancel.
-	 */
+	 */ 
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
 	}
 }
+ 
