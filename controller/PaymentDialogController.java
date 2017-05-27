@@ -1,30 +1,22 @@
 package controller;
 
 import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox; 
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.Payment;
-import mainApp.SelenaMain;
 import model.AgreementPayment;
 import model.AgreementPaymentDAO;
+import model.Payment;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
-/**
- *
- * @author selena
- */
-public class AgreementPaymentController extends EditControllerBase{
-
-	//VIEWS
-	//Payment    
+public class PaymentDialogController extends EditControllerBase {
 	@FXML
 	private Label paymentIDLabel;    
 
@@ -39,7 +31,7 @@ public class AgreementPaymentController extends EditControllerBase{
 	private TextField accountOwnerNameField;
 
 	@FXML
-	private ChoiceBox paymentTypeChoiceBox;   
+	private ChoiceBox<String> paymentTypeChoiceBox;   
 
 	@FXML
 	private TextField paymentAccountField;
@@ -52,46 +44,24 @@ public class AgreementPaymentController extends EditControllerBase{
 	private Button confirmPaymentButton;   
 
 
-	private AgreementPayment agreementPayment;
+	//private AgreementPayment agreementPayment;
+	private Payment payment;
 
 	//paymentType choice box
 	ObservableList<String> paymentTypeList = FXCollections
 			.observableArrayList("Visa", "MasterCard", "American Express");
-
-
+	
 	//method to initialise elements
 	@FXML
 	private void initialize(){    
 		paymentTypeChoiceBox.setItems(paymentTypeList);
-		AgreementPaymentDAO apDAO = new AgreementPaymentDAO();
-		//AgreementPayment ap = apDAO.findById(1);
-		//showPaymentAutofill(ap);
 	}
 
-
-	//showPaymentAutofill()
-	private void showPaymentAutofill(AgreementPayment agreementPayment){
-		//for paymentID
-		paymentIDLabel.setText(Integer.toString(agreementPayment.getAgreementPayment_id()));
-
-		//for amountDue
-		amountDueLabel.setText(Float.toString((float) agreementPayment.getPaymentAmount()));
-
-		//for paymentDate
-		try {
-			paymentDateLabel.setText(agreementPayment.getPaymentDate().toString());
-		} catch (NullPointerException e){
-			paymentDateLabel.setText("");
-		}     
-	}
-
-
-	//setObject()
 	public void setObject(Object o){
-		this.agreementPayment = (AgreementPayment) o;
-		this.accountOwnerNameField.setText(agreementPayment.getAccountOwnerName());
-		this.paymentAccountField.setText(agreementPayment.getPaymentAccount());
-		this.amountDueLabel.setText("$" + Double.toString(agreementPayment.getPaymentAmount()));
+		this.payment = (Payment) o;
+		this.accountOwnerNameField.setText(payment.getAccountOwnerName());
+		this.paymentAccountField.setText(payment.getPaymentAccount());
+		this.amountDueLabel.setText("$" + Double.toString(payment.getPaymentAmount()));
 
 		// TODO: decide whether to remove later
 		//this.accountExpiryField.setText(date.toString(agreementPayment.getAccountExpiry()));      
@@ -128,9 +98,13 @@ public class AgreementPaymentController extends EditControllerBase{
 		} 
 
 		//(2) modify agreementPayment fields if valid input entered
-		agreementPayment.setAccountOwnerName(this.accountOwnerNameField.getText());
+		payment.setAccountOwnerName(this.accountOwnerNameField.getText());
+		payment.setPaymentAccount(this.paymentAccountField.getText());
+		payment.setPaymentType(this.paymentTypeChoiceBox.getValue());
+		payment.setPaymentType(this.accountExpiryField.getText());
+				
+		// TODO: decide what to do with these two lines
 		//agreementPayment.setPaymentType(this.paymentTypeOptionBox);
-		agreementPayment.setPaymentAccount(this.paymentAccountField.getText());
 		//agreementPayment.setAccountExpiry(this.accountExpiryField.getText());
 
 		//(3) close edit window and set OkClicked to true
@@ -145,5 +119,5 @@ public class AgreementPaymentController extends EditControllerBase{
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
-	} 
-} 
+	}
+}

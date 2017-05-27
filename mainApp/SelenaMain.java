@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import controller.PaymentController; 
+//import controller.PaymentController; 
 import static javafx.application.Application.launch;
 import test.SelenaTest;
 import util.DBUtil;

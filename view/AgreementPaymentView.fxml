@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgreementPaymentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentDialogController">
    <children>
       <GridPane layoutX="40.0" layoutY="176.0" prefHeight="151.0" prefWidth="451.0">
         <columnConstraints>
@@ -35,19 +35,9 @@
             <Label fx:id="paymentAccountLabel" text="Account" GridPane.rowIndex="2" />
             <Label text="Full Name" />
             <Label fx:id="accountExpiryLabel" text="Account Expiry (yyyy-mm-dd)" GridPane.rowIndex="3" />
-            <TextField fx:id="accountOwnerNameField" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="paymentAccountField" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="accountExpiryField" prefHeight="60.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </TextField>
+            <TextField fx:id="accountOwnerNameField" GridPane.columnIndex="1" />
+            <TextField fx:id="paymentAccountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="accountExpiryField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <AnchorPane layoutX="-1.0" prefHeight="173.0" prefWidth="600.0">
@@ -65,15 +55,12 @@
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Payment ID" />
-                  <Label fx:id="paymentIDLabel" text="Label" GridPane.columnIndex="1" />
-                  <Label text="Payment Date" GridPane.rowIndex="2" />
-                  <Label fx:id="paymentDateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Amount Due" GridPane.rowIndex="1" />
-                  <Label fx:id="amountDueLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Payment Date" GridPane.rowIndex="1" />
+                  <Label fx:id="paymentDateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Amount Due" />
+                  <Label fx:id="amountDueLabel" text="Label" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <ButtonBar layoutX="97.0" layoutY="336.0" prefHeight="40.0" prefWidth="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />

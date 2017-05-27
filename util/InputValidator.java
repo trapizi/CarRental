@@ -123,6 +123,14 @@ public final class InputValidator {
 		isEmpty(creditCard, "Credit Card");
 	}
 	
+	public static void validateName(String name) throws InvalidInputException {		
+		isEmpty(name, "Name");
+	}
+	
+	public static void validateAccount(String account) throws InvalidInputException {		
+		isEmpty(account, "Account");
+	}
+	
 	public static void validateDate(String date) throws InvalidInputException {
 		isEmpty(date, "Date");
 		

@@ -177,6 +177,8 @@ public class DBUtil {
         fileNames.add("consultation.txt");
         fileNames.add("seek.txt");
         fileNames.add("offer.txt");
+        
+        fileNames.add("membershipPayment.txt");
 
     	/*
     	fileNames.add("offer.txt");

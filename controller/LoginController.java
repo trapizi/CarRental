@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
@@ -9,13 +10,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import model.AgreementPayment;
 import model.CorporateMember;
 import model.CorporateMemberDAO;
 import model.Member;
 import model.MemberDAO;
+import model.MembershipPayment;
+import model.MembershipPaymentDAO;
 import model.StaffDAO;
 import model.User;
 import util.AlertBuilder;
+import util.DBTablePrinter;
 
 /**
  * Controller to handle login
@@ -40,6 +45,7 @@ public class LoginController extends ControllerBase {
 	private StaffDAO staffDAO;
 	private MemberDAO memberDAO;
 	private CorporateMemberDAO corporateMemberDAO;
+	private MembershipPaymentDAO membershipPaymentDAO;
 	
 	private final String memberHomePage = "MemberHome.fxml";
 	//private final String corporateMemberHomePage = "";
@@ -52,6 +58,7 @@ public class LoginController extends ControllerBase {
     	this.staffDAO = new StaffDAO();
     	this.memberDAO = new MemberDAO();
     	this.corporateMemberDAO = new CorporateMemberDAO();
+    	this.membershipPaymentDAO = new MembershipPaymentDAO();
     	
     	assert(this.mainApp != null);
     }
@@ -88,7 +95,7 @@ public class LoginController extends ControllerBase {
     }
     
     @FXML
-    private void handleRegister() {
+    private void handleRegister() throws Exception {
     	// show member registration screen
     	if (this.registerMemberRadioButton.isSelected()) {
 	        this.registerMember();
@@ -130,12 +137,18 @@ public class LoginController extends ControllerBase {
     /**
      * Displays a pop-up screen to enter member details
      */
-    private void registerMember() {
-        Member tempMember = new Member();
+    private void registerMember() throws Exception {
+        Member tempMember = new Member();        
         boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
+                
+        MembershipPayment membershipPayment = new MembershipPayment();
+        membershipPayment.setPaymentAmount(15);
         
-        if (okClicked) {
-	        try {	   	
+        boolean paid = mainApp.showEditDialog(membershipPayment, "AgreementPaymentView.fxml");
+        
+        if (okClicked && paid) {
+        	// insert member into database
+	        try {
 	        	memberDAO.insert(tempMember);
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
@@ -144,6 +157,28 @@ public class LoginController extends ControllerBase {
 	            		"Could not register member!", e.getMessage()); 
 	            
 	            alert.showAndWait();	        	
+	        }
+	        
+	        // insert payment into database
+	        try {
+	        	// get member ID of the registered member
+	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
+	        	
+	        	// attach it to the payment
+	        	membershipPayment.setMemberID(memberID);
+	        	membershipPaymentDAO.insert(membershipPayment);
+	        	
+			    final String url = "jdbc:derby:DBforDEMO;create=true";
+				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
+				
+	        } catch (SQLException | ClassNotFoundException e) {	        	
+	            // Create and display alert for the database exception
+	            Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
+	            		"Could not register member!", e.getMessage()); 
+	            
+	            alert.showAndWait();	   
+	            throw e;
 	        }
         }
     }
