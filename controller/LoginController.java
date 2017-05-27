@@ -163,9 +163,8 @@ public class LoginController extends ControllerBase {
     private void registerMember() {
         Member tempMember = new Member();
         boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
-    	boolean validPayment = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
 
-        if (okClicked && validPayment) {
+        if (okClicked) {
 	        try {	   	
 	        	memberDAO.insert(tempMember);
 	        } catch (SQLException | ClassNotFoundException e) {	        	
