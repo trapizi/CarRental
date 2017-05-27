@@ -18,7 +18,7 @@ import model.ConsultationPayment;
  *
  * @author elizabeth
  */
-public class PastConsultationController {
+public class PastConsultationController extends ControllerBase {
     @FXML
     private TableView pastConsultationTable;
     
@@ -37,16 +37,12 @@ public class PastConsultationController {
     @FXML
     private TableColumn<Consultation, Integer> consultNumColumn;
     
-    @FXML
-    private TableColumn<ConsultationPayment, Date> datePaidColumn;
     //list to display
     ///////////DO THIS
     
     //reference mainApp
     private LizMain mainApp;
 
-    
-    
     //initialize elements
     private void initialize(){
         consultPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().consultationPayment_idProperty().asObject());
@@ -54,11 +50,8 @@ public class PastConsultationController {
         consultationDateColumn.setCellValueFactory(cellData -> cellData.getValue().consultationDateProperty());
         consultationTimeColumn.setCellValueFactory(cellData -> cellData.getValue().consultationTimeProperty());
         consultNumColumn.setCellValueFactory(cellData -> cellData.getValue().consultationNumProperty().asObject());
-        datePaidColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty().);
-      
-   
-    
     }
+    
     public void setMainApp(LizMain mainApp) {
         this.mainApp = mainApp;
     }
