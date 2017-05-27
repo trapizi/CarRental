@@ -5,6 +5,10 @@ import model.CorporateMember;
 import model.Member;
 import model.Staff;
 
+/**
+ * Abstract class that contains a reference back to the main app
+ * @author Bing Wen (z3463269)
+ */
 public abstract class ControllerBase {
 	// used to get a reference back to the root layout's primary stage
     protected SUber mainApp;

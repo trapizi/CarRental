@@ -50,6 +50,9 @@ public class Member extends User {
 		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
 	}
 	
+	/**
+	 * Validate member registration input
+	 */
 	public static void validateInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
 			String accountExpiryDate, String homeAddress, String creditCard, int ID) 
 			throws InvalidInputException, SQLException, ClassNotFoundException {	
@@ -64,6 +67,9 @@ public class Member extends User {
 		}
 	}
 	
+	/**
+	 * Validates member registration input
+	 */
 	public static void validateRegistrationInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
 			String homeAddress, String creditCard, int ID) 
 			throws InvalidInputException, SQLException, ClassNotFoundException {

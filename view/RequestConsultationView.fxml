@@ -33,7 +33,7 @@
                   <Label text="Enter Company ID:" GridPane.rowIndex="3" />
                   <ChoiceBox fx:id="timePicker" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="enterCompanyID" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="dateText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label fx:id="priceLabel" GridPane.columnIndex="1" />
                </children>
             </GridPane>

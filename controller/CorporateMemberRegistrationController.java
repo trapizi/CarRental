@@ -16,6 +16,10 @@ import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * Handles everything related to the corporate member registration page
+ * @author Bing Wen (z3463269)
+ */
 public class CorporateMemberRegistrationController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;
