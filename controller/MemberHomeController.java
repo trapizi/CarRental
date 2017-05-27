@@ -10,6 +10,8 @@ public class MemberHomeController extends ControllerBase {
 	private Label welcomeLabel;
 	@FXML
 	private Button viewConsultationButton;
+	@FXML
+	private Button requestConsultationButton;
 	
 	private final String profileViewFileName = "MemberProfile.fxml";
 		
@@ -19,10 +21,8 @@ public class MemberHomeController extends ControllerBase {
 
 		// TODO: hide any buttons not related to corporate member here if user not a corporate member
 		if (!(this.mainApp.getLoggedInAs() instanceof CorporateMember)) {
-			// display consultation button
-			//this.viewConsultationButton.setDisable(true);
 			this.viewConsultationButton.setVisible(false);
-			
+			this.requestConsultationButton.setVisible(false);
 		}
     }
     
@@ -54,9 +54,7 @@ public class MemberHomeController extends ControllerBase {
 	}
 	
 	@FXML
-	private void handleViewPastConsultations() {
-		System.out.println("SHOWING PAST CONSULTATIONS TABLE\n");
-		
+	private void handleViewPastConsultations() {		
 		mainApp.showView("PastConsultations.fxml");
 	}
 	
