@@ -40,10 +40,10 @@
             <TextField fx:id="phoneNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Password" GridPane.rowIndex="1" />
-            <Label text="Account Expiry (yyyy-mm-dd)" GridPane.rowIndex="6" />
+            <Label text="Account Expiry" GridPane.rowIndex="6" />
             <Label text="Home Address" GridPane.rowIndex="7" />
             <Label text="Credit Card" GridPane.rowIndex="8" />
-            <TextField fx:id="accountExpiryTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="accountExpiryTextField" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="homeAddressTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="creditCardTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>

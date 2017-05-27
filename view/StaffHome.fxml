@@ -24,13 +24,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleViewProfile" text="Manage Members" />
-            <Label prefHeight="47.0" prefWidth="213.0" text="Add more buttons to other sections" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleManageMembers" text="Manage Members" />
             <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="2" />
             <Button fx:id="viewConsultationButton" mnemonicParsing="false" text="View Consultations" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" text="Manage Staff" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#handleManageStaff" text="Manage Staff" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#handleGenerateCorporateMailingList" text="Generate Corporate Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#handleGenerateMemberMailingList" text="Generate Member Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

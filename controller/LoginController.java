@@ -42,12 +42,14 @@ public class LoginController extends ControllerBase {
 	private CorporateMemberDAO corporateMemberDAO;
 	
 	/* make page names public static final so we don't have to re-declare every time we want to use them */
+	public static final String LOGIN_PAGE = "Login.fxml";
 	public static final String MEMBER_HOME_PAGE = "MemberHome.fxml";
 	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
 	public static final String C_MEMBER_REGISTRATION_PAGE = "CorporateMemberRegistrationDialog.fxml";
 	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
 	
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
+	public static final String PAYMENT_PAGE = "Dummy.fxml";
 	
     @FXML
     private void initialize () {      	
@@ -160,9 +162,10 @@ public class LoginController extends ControllerBase {
      */
     private void registerMember() {
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showEditDialog(tempMember, "MemberEditDialog.fxml");
-        
-        if (okClicked) {
+        boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
+    	boolean validPayment = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
+
+        if (okClicked && validPayment) {
 	        try {	   	
 	        	memberDAO.insert(tempMember);
 	        } catch (SQLException | ClassNotFoundException e) {	        	

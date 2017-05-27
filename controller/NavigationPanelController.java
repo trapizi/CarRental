@@ -24,7 +24,7 @@ public class NavigationPanelController extends ControllerBase {
     @FXML
     private void handleLogoutButton() {
     	this.mainApp.clearNavigationPanel();
-		this.mainApp.showView("Login.fxml");
+		this.mainApp.showLoginPage();
     }
     
 }

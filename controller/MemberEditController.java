@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Member;
 import util.AlertBuilder;
@@ -29,6 +30,9 @@ public class MemberEditController extends EditControllerBase {
     private TextField homeAddressTextField;
     @FXML
     private TextField creditCardTextField;
+    
+    @FXML
+    private Label expiryDateLabel;
     
     // holds the staff member being created / edited
     private Member member;

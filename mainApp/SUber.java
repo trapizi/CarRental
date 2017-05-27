@@ -25,18 +25,6 @@ public class SUber extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private User loggedInAs;
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-    
-    public void setLoggedInAs(User user) {
-    	this.loggedInAs = user;
-    }
-    
-    public User getLoggedInAs() {
-    	return this.loggedInAs;
-    }
 	
 	@Override
 	public void start(Stage primaryStage) throws ClassNotFoundException, SQLException{
@@ -54,9 +42,7 @@ public class SUber extends Application {
 			initRootLayout();
 	
 			//3) Display the EmployeeOperations View
-			//showView("StaffView.fxml");		// equivalent of showStaffView();
-			//showView("Login.fxml");
-			this.showView("StaffView.fxml");
+			this.showLoginPage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -195,6 +181,7 @@ public class SUber extends Application {
             EditControllerBase controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setObject(object);
+            controller.setMainApp(this);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -242,5 +229,21 @@ public class SUber extends Application {
     
     public void showStaffHomePage() {
 		this.showView(LoginController.STAFF_HOME_PAGE, new StaffHomeController());
+    }
+    
+    public void showLoginPage() {
+		this.showView(LoginController.LOGIN_PAGE);
+    }
+    
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+    
+    public void setLoggedInAs(User user) {
+    	this.loggedInAs = user;
+    }
+    
+    public User getLoggedInAs() {
+    	return this.loggedInAs;
     }
 }

@@ -2,7 +2,7 @@ package controller;
 
 import javafx.stage.Stage;
 
-public abstract class EditControllerBase {
+public abstract class EditControllerBase extends ControllerBase {
     protected boolean okClicked = false;
     
     // the edit page opens in another window which requires another stage

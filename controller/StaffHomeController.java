@@ -10,24 +10,38 @@ public class StaffHomeController extends ControllerBase {
 	@FXML
 	private Button viewConsultationButton;
 	
-	//private final String profileViewFileName = "MemberProfile.fxml";
+	private final String manageMemberPage = "MemberView.fxml";
+	private final String manageStaffPage = "StaffView.fxml";
 		
     @FXML
     private void initialize() {				
 		this.welcomeLabel.setText("Welcome, " + mainApp.getLoggedInAs().getFirstName() + "!");
 		// TODO: hide any buttons not related to corporate member here if user not a corporate member
-
     }
     
 	// TODO: add more functions to change scenes with buttons
 	@FXML
 	private void handleManageMembers() {
-		//mainApp.showView(profileViewFileName, new MemberProfileController());
-		//this.mainApp.showView(viewFileName);
+		this.mainApp.showView(manageMemberPage);
+	}
+	
+	@FXML
+	private void handleManageStaff() {
+		this.mainApp.showView(manageStaffPage);
 	}
 	
 	@FXML
 	private void handleStuffView() {
 		mainApp.showView("StuffView.fxml");
+	}
+	
+	@FXML
+	private void handleGenerateCorporateMailingList() {
+		System.out.println("CORPORATE MAILING LIST");
+	}
+	
+	@FXML
+	private void handleGenerateMemberMailingList() {
+		System.out.println("MEMBER MAILING LIST");
 	}
 }
