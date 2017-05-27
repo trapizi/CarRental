@@ -69,23 +69,6 @@ public class SarinaMain extends Application {
             e.printStackTrace();
         }
     }   
-    
-  /*  public void showAgreementView() {
-        try {
-            //First, load EmployeeView from EmployeeView.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(SarinaMain.class.getResource("../view/AgreementView.fxml"));
-            AnchorPane agmtOperationsView = (AnchorPane) loader.load();
-
-            // Set Employee Operations view into the center of root layout.
-            rootLayout.setCenter(agmtOperationsView);
-            
-			AgreementController controller = loader.getController();
-			controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }	
-    }*/
 
     /**
      * @param args the command line arguments
@@ -111,7 +94,6 @@ public class SarinaMain extends Application {
     
     public void showView(String viewFileName) {
     	try {
-    		System.out.println("HELLOOOOOOOOOOOOOOOO");
     		final String dir = "../view/";
 
     		FXMLLoader loader = new FXMLLoader();
@@ -126,7 +108,6 @@ public class SarinaMain extends Application {
     		controller.setMainApp(this);
 
     	} catch (IOException e) {
-    		System.out.println("BYEEEEEEEEE");
     		e.printStackTrace();
     	}
     }
