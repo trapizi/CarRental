@@ -116,7 +116,7 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
             try {
                 AgreementPayment agreementPayment = new AgreementPayment();
                 agreementPayment.setAgreementPayment_id(rs.getInt("AGREEMENT_PAYMENT_ID"));
-	    	agreementPayment.setPaymentAmount(rs.getDouble("PAYMENT_AMOUNT"));
+	    	agreementPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	agreementPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	agreementPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
 	    	agreementPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));

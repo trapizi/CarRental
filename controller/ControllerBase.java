@@ -1,6 +1,9 @@
 package controller;
 
 import mainApp.SUber;
+import model.CorporateMember;
+import model.Member;
+import model.Staff;
 
 public abstract class ControllerBase {
 	// used to get a reference back to the root layout's primary stage
@@ -10,4 +13,16 @@ public abstract class ControllerBase {
         this.mainApp = mainApp;
     }
     
+    public boolean isStaffLoggedIn() {
+    	return (this.mainApp.getLoggedInAs() instanceof Staff);
+    }
+    
+    public boolean isMemberLoggedIn() {
+    	return (this.mainApp.getLoggedInAs() instanceof Member &&
+    			!(this.mainApp.getLoggedInAs() instanceof CorporateMember));
+    }
+    
+    public boolean isCorporateMemberLoggedIn() {
+    	return this.mainApp.getLoggedInAs() instanceof CorporateMember;
+    }
 }

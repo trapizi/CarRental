@@ -27,6 +27,25 @@ public class MemberDAO implements TableDAO<Member> {
     	return null;
 	}
 	
+	public ObservableList<Member> findAllCorporateMembers() throws SQLException, ClassNotFoundException {
+        try {
+        	/* Query database for member */
+        	ResultSet rs = DBUtil.dbExecuteQuery(
+        			  "SELECT MEMBER.* "
+        			+ "FROM MEMBER, CORPORATE_MEMBER "
+        			+ "WHERE MEMBER.MEMBER_ID=CORPORATE_MEMBER.MEMBER_ID");
+        			            
+            ObservableList<Member> list = this.getMemberList(rs);
+            
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+        	e.printStackTrace();
+        }
+    	
+    	return null;
+	}
+	
 	public Member findById(int member_id) throws SQLException, ClassNotFoundException {
 		try {
         	/* Query database for staff */

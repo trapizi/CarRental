@@ -35,4 +35,9 @@ public class MemberHomeController extends ControllerBase {
 	private void handleStuffView() {
 		mainApp.showView("StuffView.fxml");
 	}
+	
+	@FXML
+	private void handleAgreementsView() {
+		mainApp.showView("AgreementView.fxml");
+	}
 }
