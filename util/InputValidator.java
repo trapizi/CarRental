@@ -123,10 +123,6 @@ public final class InputValidator {
 		isEmpty(creditCard, "Credit Card");
 	}
 	
-	public static void validateName(String name) throws InvalidInputException {		
-		isEmpty(name, "Name");
-	}
-	
 	public static void validateAccount(String account) throws InvalidInputException {		
 		isEmpty(account, "Account");
 	}
@@ -140,6 +136,60 @@ public final class InputValidator {
         } catch (ParseException e) {
         	throw new InvalidInputException("Wrong date format entered.");
         }
+	}
+	
+	public static void validateName(String name) throws InvalidInputException {		
+		isEmpty(name, "Name");
+	}
+	
+	public static void validateBrand(String brand) throws InvalidInputException {		
+		isEmpty(brand, "Brand");
+	}
+	
+	public static void validateModel(String model) throws InvalidInputException {		
+		isEmpty(model, "Model");
+	}
+	
+	public static void validateCarType (String carType) throws InvalidInputException {
+		isEmpty(carType, "Car Type");
+	}
+	
+	public static void validateSeats (String seats) throws InvalidInputException {
+		isEmpty(seats, "Seats");
+		
+		try{
+			Integer.parseInt(seats);
+		} catch (NumberFormatException e) {
+			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only caontains digits.");
+		}
+	}
+	
+	public static void validateTransmission(String transmission) throws InvalidInputException {		
+		isEmpty(transmission, "Transmission");
+	}
+	
+	public static void validateFuelType(String fuelType) throws InvalidInputException {		
+		isEmpty(fuelType, "Fuel Type");
+	}
+	
+	public static void validatePostcode(String postcode) throws InvalidInputException {
+		isEmpty(postcode, "Postcode");
+		
+    	try {
+    		Long.parseLong(postcode);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid postcode entered. Ensure postcode only contains digits.");
+    	}
+	}
+	
+	public static void validatePrice(String price) throws InvalidInputException {
+		isEmpty(price, "Price");
+		
+    	try {
+    		Double.parseDouble(price);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid price entered. Ensure price only contains digits.");
+    	}
 	}
 	
 	/**

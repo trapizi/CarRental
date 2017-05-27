@@ -55,23 +55,26 @@ public class OfferEditController extends EditControllerBase {
 	@FXML
 	private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException{
 		
+		
+		// Check for valid input
 		try {
 			Offer.validateInput(
 					this.brandTextField.getText(), this.modelTextField.getText(), this.carTypeTextField.getText(),
-					Integer.parseInt(this.seatsTextField.getText()), this.transmissionTextField.getText(), this.fuelTypeTextField.getText(),
-					Long.parseLong(this.postcodeTextField.getText()), Double.parseDouble(this.priceTextField.getText()), this.offer.getOfferID()
+					this.seatsTextField.getText(), this.transmissionTextField.getText(), this.fuelTypeTextField.getText(),
+					this.postcodeTextField.getText(), this.priceTextField.getText()
 					);
 
 		} catch (InvalidInputException e) {
 			Alert alert = AlertBuilder.createAlert(AlertType.WARNING, dialogStage, "Invalid Input", "Invalid input entered!", e.getMessage());
 			
 			alert.showAndWait();
-			throw e;
+			
 		} catch (SQLException | ClassNotFoundException e) {
 			Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
             
             alert.showAndWait();
+            throw e;
 		}
 		
 		offer.setBrand(this.brandTextField.getText());

@@ -32,22 +32,42 @@ public class Offer {//extends offerList{
         this.postcode = new SimpleLongProperty();
         this.price = new SimpleDoubleProperty();
     }
+    
+    public Offer(String brand, String model, String carType, int seats, String transmission, String fuelType,
+    		Long postcode, Integer price) {
+    	this.brand.set(brand);
+    	this.model.set(model);
+    	this.carType.set(carType);
+    	this.seats.set(seats);
+    	this.transmission.set(transmission);
+    	this.postcode.set(postcode);
+    	this.price.set(price);
+    }
 
     @Override
     public String toString(){
     	return "OfferID: " + this.getOfferID();
     }
     
-    public static void validateInput(String brand, String model, String carType, int seats, String transmission,
-    		String fuelType,  long postcode, double price, int offerID )
+    public static void validateInput(String brandTextField, String modelTextField, String carTypeTextField, String seatsTextField, String transmissionTextField,
+    		String fuelTypeTextField, String postcodeTextField, String priceTextField)
     		throws InvalidInputException, SQLException, ClassNotFoundException {
     	try {
-    		Offer.validateInput(brand, model, carType, seats, transmission, fuelType, postcode, price, offerID);;
+    		InputValidator.validateBrand(brandTextField);
+    		InputValidator.validateModel(modelTextField);
+    		InputValidator.validateCarType(carTypeTextField);
+    		InputValidator.validateSeats(seatsTextField);
+    		InputValidator.validateTransmission(transmissionTextField);
+    		InputValidator.validateFuelType(fuelTypeTextField);
+    		InputValidator.validatePostcode(postcodeTextField);
+    		InputValidator.validatePrice(priceTextField);
     	
     	} catch (Exception e) {
     		throw e;
     	}
     }
+    
+    
     
     
     public int getOfferID() {
