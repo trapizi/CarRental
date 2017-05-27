@@ -29,13 +29,13 @@ public class PastAgreementPaymentsController {
     private TableColumn<AgreementPayment, Date> paymentDateColumn;
     
     @FXML
-    private TableColumn<AgreementPayment, Long> accountOwnerNameColumn;
+    private TableColumn<AgreementPayment, String> accountOwnerNameColumn;
     
     @FXML
-    private TableColumn<AgreementPayment, Long> paymentTypeColumn;
+    private TableColumn<AgreementPayment, String> paymentTypeColumn;
    
     @FXML
-    private TableColumn<AgreementPayment, Long> paymentAccountColumn;   
+    private TableColumn<AgreementPayment, String> paymentAccountColumn;   
 
     @FXML
     private TableColumn<AgreementPayment, Date> accountExpiryColumn;
@@ -52,9 +52,9 @@ public class PastAgreementPaymentsController {
         agreementPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().agreementPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
         paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
-        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty().asObject());
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty());
+        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty());
         accountExpiryColumn.setCellValueFactory(cellData -> cellData.getValue().accountExpiryProperty().asObject());
     
         // We must tell the cell how we want dates to be displayed

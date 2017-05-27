@@ -29,13 +29,13 @@ public class PastMembershipPaymentsController {
     private TableColumn<MembershipPayment, Date> paymentDateColumn;
     
     @FXML
-    private TableColumn<MembershipPayment, Long> accountOwnerNameColumn;
+    private TableColumn<MembershipPayment, String> accountOwnerNameColumn;
     
     @FXML
-    private TableColumn<MembershipPayment, Long> paymentTypeColumn;
+    private TableColumn<MembershipPayment, String> paymentTypeColumn;
    
     @FXML
-    private TableColumn<MembershipPayment, Long> paymentAccountColumn;   
+    private TableColumn<MembershipPayment, String> paymentAccountColumn;   
     
     @FXML
     private TableColumn<MembershipPayment, Boolean> refundFlagColumn;
@@ -54,10 +54,10 @@ public class PastMembershipPaymentsController {
         membershipPayment_idColumn.setCellValueFactory(cellData -> cellData.getValue().membershipPayment_idProperty().asObject());
         paymentAmountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAmountProperty().asObject());
         paymentDateColumn.setCellValueFactory(cellData -> cellData.getValue().paymentDateProperty());
-        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty();
-        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty();
-        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty();
-        refundFlagColumn.setCellValueFactory(cellData -> cellData.getValue().refundFlagProperty().asObject());
+        accountOwnerNameColumn.setCellValueFactory(cellData -> cellData.getValue().accountOwnerNameProperty());
+        paymentTypeColumn.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
+        paymentAccountColumn.setCellValueFactory(cellData -> cellData.getValue().paymentAccountProperty());
+        refundFlagColumn.setCellValueFactory(cellData -> cellData.getValue().refundFlagProperty().asObject()); 
         
         // We must tell the cell how we want dates to be displayed
     	// section below adapted from http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/

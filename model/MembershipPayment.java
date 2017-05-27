@@ -45,7 +45,7 @@ public class MembershipPayment extends Payment {
         this.refundFlag.set(refundFlag);
     }
     
-    public BooleanProperty refundFlag(){
+    public BooleanProperty refundFlagProperty(){
         return refundFlag;
     }
 }

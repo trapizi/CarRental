@@ -29,13 +29,13 @@ public class PastConsultationPaymentsController {
     private TableColumn<ConsultationPayment, Date> paymentDateColumn;
     
     @FXML
-    private TableColumn<ConsultationPayment, Long> accountOwnerNameColumn;
+    private TableColumn<ConsultationPayment, String> accountOwnerNameColumn;
     
     @FXML
-    private TableColumn<ConsultationPayment, Long> paymentTypeColumn;
+    private TableColumn<ConsultationPayment, String> paymentTypeColumn;
    
     @FXML
-    private TableColumn<ConsultationPayment, Long> paymentAccountColumn;   
+    private TableColumn<ConsultationPayment, String> paymentAccountColumn;   
 
     @FXML
     private TableColumn<ConsultationPayment, Date> accountExpiryColumn;
