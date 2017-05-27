@@ -17,7 +17,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import mainApp.LizMain;
 import model.Consultation;
 import model.ConsultationDAO;
 import model.ConsultationPayment;
@@ -30,7 +29,7 @@ import util.DBTablePrinter;
  */
 public class StaffViewConsultationController extends ControllerBase {
     @FXML
-    private TableView ConsultationTable;
+    private TableView<Consultation> ConsultationTable;
     @FXML
     private TableColumn<Consultation, Integer> consultNumColumn;    
     @FXML
@@ -60,9 +59,7 @@ public class StaffViewConsultationController extends ControllerBase {
         this.consultationList = FXCollections.observableArrayList();
         this.consultationDAO = new ConsultationDAO();
 
-        this.searchAll();
-        
-        System.out.println("DONE SEARCHING\n");
+        this.searchAll();        
     }
     
     @FXML

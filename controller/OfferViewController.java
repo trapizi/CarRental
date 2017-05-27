@@ -106,7 +106,7 @@ public class OfferViewController extends ControllerBase {
 	    	this.offerDAO = new OfferDAO();
 	    	//offerList = this.offerDAO.findAll();
 	    	//offerTable.setItems(offerList);
-	    	this.refreshTable();
+	    	
 	    	
 	    	/**
 	    	 * Filter function
@@ -174,6 +174,7 @@ public class OfferViewController extends ControllerBase {
 	    		
 	    }
 	    
+	    //Show offer detail on the right side of the UI
 	    private void showOfferDetails(Offer offer) {
 	        if (offer != null) {
 	        	brandLabel.setText(offer.getBrand());
@@ -196,6 +197,8 @@ public class OfferViewController extends ControllerBase {
 	        }
 	    }	    
 	    
+	    
+	    //Add new offer to the OFFER table
 	    @FXML
 	    private void handleNewOffer() throws SQLException, ClassNotFoundException{
 	    	Offer tempOffer = new Offer();
