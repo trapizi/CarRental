@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="407.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="407.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,6 @@
               </rowConstraints>
                <children>
                   <Button mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
-                  <Label prefHeight="47.0" prefWidth="213.0" text="Add more buttons to other sections" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="1" />
                   <Button fx:id="viewConsultationButton" mnemonicParsing="false" text="View Consultations" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#handleAgreementsView" text="VIew Agreements" GridPane.columnIndex="1" GridPane.rowIndex="1" />

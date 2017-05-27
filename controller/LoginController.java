@@ -209,6 +209,7 @@ public class LoginController extends ControllerBase {
 	        	membershipPayment.setMemberID(memberID);
 	        	membershipPaymentDAO.insert(membershipPayment);
 	        	
+	        	// TODO: remove this
 			    final String url = "jdbc:derby:DBforDEMO;create=true";
 				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
 				

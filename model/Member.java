@@ -38,8 +38,6 @@ public class Member extends User {
 		this.commissionRate = new SimpleFloatProperty(); 
 		this.creditCard = new SimpleStringProperty(); 
 		this.homeAddress = new SimpleStringProperty();
-		
-		assert(this.accountExpiry != null);
 	}
 	
 	/**

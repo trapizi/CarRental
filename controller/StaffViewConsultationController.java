@@ -21,7 +21,6 @@ import model.ConsultationPayment;
 public class StaffViewConsultationController extends ControllerBase {
     @FXML
     private TableView ConsultationTable;
-        
     @FXML
     private TableColumn<Consultation, Integer> consultNumColumn;
     @FXML

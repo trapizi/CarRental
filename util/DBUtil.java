@@ -13,14 +13,10 @@ import model.StaffDAO;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by ONUR BASKIRT on 22.02.2016.
- */
 public class DBUtil {
     //Connection
     private static Connection conn = null;
     
-    //private static final String connectionURL = "jdbc:derby://localhost:1527/DBforDEMO;create=true";
     private static final String connectionURL = "jdbc:derby:DBforDEMO;create=true";
 
     //Connect to DB
@@ -184,7 +180,7 @@ public class DBUtil {
         fileNames.add("consultation.txt");
         fileNames.add("seek.txt");
         fileNames.add("offer.txt");
-        //fileNames.add("membershipPayment.txt");
+        fileNames.add("membershipPayment.txt");
         // TODO: FIX THESE FILES
         //fileNames.add("agreementPayment.txt");
         //fileNames.add("consultationPayment.txt");
