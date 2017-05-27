@@ -1,10 +1,12 @@
 package model;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.DBTablePrinter;
 import util.DBUtil;
 import util.InsertSQLBuilder;
 import util.SQLBuilder;
@@ -104,6 +106,11 @@ public class MemberDAO implements TableDAO<Member> {
     			
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
+        	
+        	// TODO: cleanup
+			String url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
+        	
         } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     		throw e;

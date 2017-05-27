@@ -56,6 +56,7 @@ public class MembershipPaymentDAO implements TableDAO<MembershipPayment> {
     public void insert(MembershipPayment membershipPayment) throws SQLException, ClassNotFoundException {
 	String sqlStmt = new InsertSQLBuilder()
             .addTable("MEMBERSHIP_PAYMENT")
+            .addFieldValue("MEMBER_ID", membershipPayment.getMemberID())
             .addFieldValue("PAYMENT_AMOUNT", membershipPayment.getPaymentAmount())
             .addFieldValue("PAYMENT_DATE", membershipPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", membershipPayment.getPaymentAccount())   
