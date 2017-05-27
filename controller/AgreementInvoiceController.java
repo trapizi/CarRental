@@ -21,6 +21,10 @@ import model.Member;
 import model.MemberDAO;
 import util.AlertBuilder;
 
+/**
+ * @author Sarina Lee (z5020069)
+ */
+
 public class AgreementInvoiceController extends ControllerBase {
 
 	@FXML
@@ -39,23 +43,29 @@ public class AgreementInvoiceController extends ControllerBase {
 	private Label priceLabel;
 	@FXML
 	private Label dayCreatedLabel;
-	
+
 	private Agreement agreement;
 
+	/**
+	 * shows details about the agreement after payment
+	 */
 	@FXML
 	private void initialize() throws SQLException, ClassNotFoundException {		
 		showAgreementInvoice(this.agreement);
 	}
-	
+
 	private void setAgreement(Agreement agmt) {
 		this.agreement = agmt;
 	}
 
+	/**
+	 * Fills all text fields to show details about the agreement invoice.
+	 */
 	private void showAgreementInvoice(Agreement agmt) {
 
 		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
 		offererLabel.setText(Integer.toString(agmt.getOfferer()));
-		
+
 		try {
 			dateLabel.setText(agmt.getAgreeDate().toString());
 		} catch (NullPointerException e) {

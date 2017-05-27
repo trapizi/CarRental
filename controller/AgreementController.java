@@ -19,6 +19,10 @@ import model.Agreement;
 import model.AgreementDAO;
 import util.AlertBuilder;
 
+/**
+ * @author Sarina Lee (z5020069)
+ * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
+ */
 public class AgreementController extends ControllerBase {
 
 	@FXML
@@ -64,14 +68,16 @@ public class AgreementController extends ControllerBase {
 	@FXML
 	private TextField createDayField;
 
-
 	// list to display onto the UI's table
 	private ObservableList<Agreement> agmtList;
 	private AgreementDAO agmtDAO;
 
-	// reference to mainApp for alerts
+	// reference to mainApp 
 	private SUber mainApp;
 
+	/**
+	 * Initialises columns in agreement table
+	 */
 	@FXML
 	private void initialize () {
 		seekerColumn.setCellValueFactory(cellData -> cellData.getValue().seekerIDProperty().asObject());
@@ -92,6 +98,10 @@ public class AgreementController extends ControllerBase {
 		this.agmtDAO = new AgreementDAO();
 	}
 
+	/**
+	 * Called when user clicks on the search button
+	 * displays a list of agreements in the agreement table UI
+	 */
 	@FXML
 	private void search() throws SQLException, ClassNotFoundException {
 		try {
@@ -113,7 +123,8 @@ public class AgreementController extends ControllerBase {
 		}
 	}
 
-	/*  * Fills all text fields to show details about the agreement.
+	/**
+	 * Fills all text fields to show details about the agreement.
 	 * If the specified agreement is null, all text fields are cleared.
 	 */
 	private void showAgreementDetails(Agreement agmt) {
@@ -146,7 +157,6 @@ public class AgreementController extends ControllerBase {
 
 	/**
 	 * Called when the user clicks on the delete button.
-	 * 
 	 * Removes an agreement from the database and the UI.
 	 */
 	@FXML
@@ -178,7 +188,7 @@ public class AgreementController extends ControllerBase {
 
 	/**
 	 * Called when the user clicks the insert button. 
-	 * details for a new agreement.
+	 * A new agreement is made and inserted into the database and UI
 	 */
 	@FXML
 	private void insertAgreement() throws SQLException, ClassNotFoundException {    	
@@ -220,6 +230,4 @@ public class AgreementController extends ControllerBase {
 	public void setMainApp(SUber mainApp) {
 		this.mainApp = mainApp;
 	}
-
-
 }
