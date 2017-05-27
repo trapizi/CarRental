@@ -60,7 +60,7 @@ public class AgreementInvoiceController extends ControllerBase {
 		a.setToPostcode(67890L);
 		a.setPayAmt(25.0f);
 		
-		showAgreementInvoice(a); */
+		showAgreementInvoice(a);  */
 		showAgreementInvoice(this.agreement);
 	}
 
@@ -73,8 +73,8 @@ public class AgreementInvoiceController extends ControllerBase {
 	 */
 	private void showAgreementInvoice(Agreement agmt) {
 
-//		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
-//		offererLabel.setText(Integer.toString(agmt.getOfferer()));
+		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
+		offererLabel.setText(Integer.toString(agmt.getOfferer()));
 
 		try {
 			dateLabel.setText(agmt.getAgreeDate().toString());
