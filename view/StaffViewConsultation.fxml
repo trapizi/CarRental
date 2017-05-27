@@ -8,12 +8,11 @@
    <children>
       <TableView fx:id="ConsultationTable" layoutX="214.0" layoutY="93.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn prefWidth="143.0" text="Consultation Number" />
-          <TableColumn minWidth="7.0" prefWidth="78.0" text="Payment ID" />
-            <TableColumn prefWidth="50.0" text="Price" />
-            <TableColumn prefWidth="55.0" text="Date" />
-            <TableColumn prefWidth="57.0" text="Time" />
-            <TableColumn prefWidth="110.0" text="Corporate ID" />
+          <TableColumn fx:id="consultNumColumn" prefWidth="143.0" text="Consultation Number" />
+            <TableColumn fx:id="consultPriceColumn" prefWidth="50.0" text="Price" />
+            <TableColumn fx:id="consultationDateColumn" prefWidth="55.0" text="Date" />
+            <TableColumn fx:id="consultationTimeColumn" prefWidth="57.0" text="Time" />
+            <TableColumn fx:id="corporateIDColumn" prefWidth="110.0" text="Corporate ID" />
         </columns>
       </TableView>
    </children>

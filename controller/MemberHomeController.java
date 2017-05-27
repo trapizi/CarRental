@@ -55,7 +55,9 @@ public class MemberHomeController extends ControllerBase {
 	
 	@FXML
 	private void handleViewPastConsultations() {
-		mainApp.showView("PastConsultationPayment.fxml");
+		System.out.println("SHOWING PAST CONSULTATIONS TABLE\n");
+		
+		mainApp.showView("PastConsultations.fxml");
 	}
 	
 	@FXML

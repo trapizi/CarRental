@@ -5,10 +5,12 @@
  */
 package model;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.DBTablePrinter;
 import util.DBUtil;
 import util.SQLBuilder;
 import model.Consultation;
@@ -22,11 +24,18 @@ public class ConsultationDAO implements TableDAO<Consultation> {
 
     public ObservableList<Consultation> findAll() throws SQLException, ClassNotFoundException {
         try {
-            ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "CONSULTATION", "")) ;
+    		final String url = "jdbc:derby:DBforDEMO;create=true";
+    		DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "CONSULTATION");
+        	
+            //ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "CONSULTATION", "")) ;
+    		ResultSet rs = DBUtil.dbExecuteQuery("SELECT * FROM CONSULTATION");
+    		
+            System.out.println("SIZE = " + rs.getFetchSize());
             
             ObservableList<Consultation> list = this.getConsultationList(rs);
+            
             return list;
-            } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
         	e.printStackTrace();
         } 
@@ -103,16 +112,17 @@ public class ConsultationDAO implements TableDAO<Consultation> {
     		throw e;
     	}
 	}
+    
     private ObservableList<Consultation> getConsultationList(ResultSet rs) throws SQLException {
-    ObservableList<Consultation> list = FXCollections.observableArrayList();
-    while (rs.next()) {
+	    ObservableList<Consultation> list = FXCollections.observableArrayList();
+	    while (rs.next()) {
     		try {   
-                    Consultation consultation = new Consultation();
-  //                  consultation.setConsultationNum(rs.getInt("CONSULTATION_NUM"));
-                    consultation.setConsultationPrice(rs.getFloat("CONSULTATION_PRICE"));
-                    consultation.setConsultationTime(rs.getTime("CONSULTATION_TIME"));
-                    consultation.setConsultationDate(rs.getDate("CONSULTATION_DATE"));
-                    consultation.setCorporateID(rs.getInt("CORPORATE_ID"));
+                Consultation consultation = new Consultation();
+                consultation.setConsultationNum(rs.getInt("CONSULTATION_NUM"));
+                consultation.setConsultationPrice(rs.getFloat("CONSULTATION_PRICE"));
+                consultation.setConsultationTime(rs.getTime("CONSULTATION_TIME"));
+                consultation.setConsultationDate(rs.getDate("CONSULTATION_DATE"));
+                consultation.setCorporateID(rs.getInt("CORPORATE_ID"));
 			
 	    		list.add(consultation);
     		} catch (SQLException e) {
