@@ -13,6 +13,9 @@
             <TableColumn fx:id="consultNumColumn" prefWidth="128.0" text="Consultation Number" />
             <TableColumn fx:id="consultPriceColumn" prefWidth="57.0" text="Price" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </AnchorPane>

@@ -14,6 +14,9 @@
             <TableColumn fx:id="consultationTimeColumn" prefWidth="57.0" text="Time" />
             <TableColumn fx:id="corporateIDColumn" prefWidth="110.0" text="Corporate ID" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </AnchorPane>
