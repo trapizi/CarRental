@@ -34,6 +34,8 @@ public class SarinaTest {
 		Agreement agmt1 = new Agreement();
 		agmt1.setStatus("pending");
 		agmt1.setPayAmt(50.0f);
+		agmt1.setSeeker(808);
+		agmt1.setOfferer(8311);
 
 		Agreement agmt2 = new Agreement();
 		agmt2.setStatus("accepted");
@@ -43,6 +45,8 @@ public class SarinaTest {
 		agmt2.setInitiateBy("seeker");
 		agmt2.setToPostcode(2234L);
 		agmt2.setFromPostcode(2220L);
+		agmt2.setSeeker(505);
+		agmt2.setOfferer(5311);
 	
 		try {
 			agmtDAO.insert(agmt1);
@@ -52,19 +56,19 @@ public class SarinaTest {
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
 
 
+		
 			Agreement a = agmtDAO.findById(1);
 			a.setPayAmt(20.0f);
 			a.setStatus("completed");
 			agmtDAO.update(a);	
 
-			//System.out.println(a.toString());
+			System.out.println(a.toString());
 
 			Agreement aCopy2 = agmtDAO.findById(2);
 			aCopy2.setAgreeDate(new Date(1000,1,1));
 			aCopy2.setFromPostcode(12345L);
 			agmtDAO.update(aCopy2);
 
-			//agmtDAO.delete("AGREEMENT_ID=2");
 			
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
 

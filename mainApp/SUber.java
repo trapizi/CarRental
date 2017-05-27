@@ -40,8 +40,8 @@ public class SUber extends Application {
 	
 			//2) Initialize RootLayout
 			initRootLayout();
-	
-			//3) Display the EmployeeOperations View
+
+			// display login page
 			this.showLoginPage();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,8 +55,10 @@ public class SUber extends Application {
 		// add stuff to this function if you want to test tables
 		SUber.testTables();
 
+		/* add stuff to start() if you want to test UI */
 		// add stuff to start() if you want to test UI
-		try {			
+		try {
+			//BingTest.initMyTables();
 			DBUtil.dbInitAllTables();
 			DBUtil.insertDummyData();		
 			launch(args);	

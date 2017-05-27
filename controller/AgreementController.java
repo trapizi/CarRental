@@ -19,12 +19,14 @@ import model.Agreement;
 import model.AgreementDAO;
 import util.AlertBuilder;
 
-public class AgreementController extends AgreementControllerBase {
+public class AgreementController extends ControllerBase {
 	
 	@FXML
 	private TableView<Agreement> agreementTable;
 	@FXML
-	private TableColumn<Agreement, Integer> memberColumn;
+	private TableColumn<Agreement, Integer> seekerColumn;
+	@FXML
+	private TableColumn<Agreement, Integer> offererColumn;
 	@FXML
 	private TableColumn<Agreement, Date> dateColumn;
 	@FXML
@@ -34,8 +36,6 @@ public class AgreementController extends AgreementControllerBase {
 	@FXML
 	private TableColumn<Agreement, Float> priceColumn;
 	
-	 @FXML
-	 private Label agmtIDLabel;
 	 @FXML
 	 private Label dateLabel;
 	 @FXML
@@ -70,11 +70,12 @@ public class AgreementController extends AgreementControllerBase {
     private AgreementDAO agmtDAO;
 	
     // reference to mainApp for alerts
-    private SarinaMain mainApp;
+    private SUber mainApp;
     
 	@FXML
 	private void initialize () {
-		memberColumn.setCellValueFactory(cellData -> cellData.getValue().offererIDProperty().asObject());
+		seekerColumn.setCellValueFactory(cellData -> cellData.getValue().seekerIDProperty().asObject());
+		offererColumn.setCellValueFactory(cellData -> cellData.getValue().offererIDProperty().asObject());
 		dateColumn.setCellValueFactory(cellData -> cellData.getValue().agreeDateProperty());
 		postcodeToColumn.setCellValueFactory(cellData -> cellData.getValue().toPostcodeProperty().asObject());
 		postcodeFromColumn.setCellValueFactory(cellData -> cellData.getValue().fromPostcodeProperty().asObject());
@@ -83,7 +84,7 @@ public class AgreementController extends AgreementControllerBase {
 		// Clear agreement details
 		showAgreementDetails(null);
 		
-		// Listen for selection changes and show the person details when changed.
+		// Listen for selection changes and show the agreement details when changed.
         this.agreementTable.getSelectionModel().selectedItemProperty().addListener(
         		(observable, oldValue, newValue) -> showAgreementDetails((Agreement) newValue));
 		
@@ -101,12 +102,12 @@ public class AgreementController extends AgreementControllerBase {
     		
     	} catch (SQLException e) {            
             // Create and display alert for the database exception
-         /*   Alert alert = AlertBuilder.createAlert(
+      /*      Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
             		"Database could not complete search!", e.getMessage()); 
             
             alert.showAndWait();
-          */
+        */  
     		e.printStackTrace();
     		throw e;
     	}
@@ -116,8 +117,7 @@ public class AgreementController extends AgreementControllerBase {
 	  	 * If the specified agreement is null, all text fields are cleared.
 	 */
     private void showAgreementDetails(Agreement agmt) {
-        if (agmt != null) {
-        	agmtIDLabel.setText(Integer.toString(agmt.getAgreement_id()));
+        if (agmt != null) {;
 
         	 try {
              	dateLabel.setText(agmt.getAgreeDate().toString());
@@ -136,7 +136,6 @@ public class AgreementController extends AgreementControllerBase {
               }
 
         } else {
-        	agmtIDLabel.setText("");
         	dateLabel.setText("");
         	locationFromLabel.setText("");
         	locationToLabel.setText("");
@@ -194,7 +193,7 @@ public class AgreementController extends AgreementControllerBase {
     	tempAgreement.setCreateDay(createDayField.getText());
     	
     	try {	   	
-    		// add new agreement to the database
+    		// add a new agreement to the database
     		agmtDAO.insert(tempAgreement);
 
     		// ensure that agmtID gets updated 
@@ -214,17 +213,11 @@ public class AgreementController extends AgreementControllerBase {
     }
     
     @FXML
-    private void payNow() throws SQLException, ClassNotFoundException {
-    	if (mainApp == null) {
-    		System.out.println("MAINAPP IS NULL");
-    	}
-    	
-    	mainApp.showView("AgreementInvoiceView.fxml");
-    	
+    private void payNow() throws SQLException, ClassNotFoundException {   	
+    	mainApp.showView("AgreementInvoiceView.fxml"); 	
     }
     
-    
-    public void setMainApp(SarinaMain mainApp) {
+    public void setMainApp(SUber mainApp) {
         this.mainApp = mainApp;
     }
     
