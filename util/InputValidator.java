@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.Corporate;
+import model.CorporateDAO;
+
 /**
  * Check input from textField is not stupid
  * @author Bing
@@ -222,5 +225,26 @@ public final class InputValidator {
 		Matcher regexMatch = regex.matcher(s);
 		
 		return regexMatch.find();
+	}
+	
+	/**
+	 * Throws InvalidInputException if corporation doesn't exist in the corporate table
+	 * @param ID The ID to check if it belongs to a corporation
+	 * @throws Exception InvalidInputException, SQLException
+	 */
+	public static void validateCorporateID(String ID) throws Exception {
+		try {
+			CorporateDAO corporateDAO = new CorporateDAO();
+			Corporate corporate = corporateDAO.findById(Integer.parseInt(ID));
+			
+			// null is returned if no corporation is in the database with the given ID
+			if (corporate == null) {
+				throw new InvalidInputException();
+			}
+		} catch (InvalidInputException e) {
+			throw new InvalidInputException("Invalid corporateID entered.");
+		} catch (Exception e) {
+			throw new InvalidInputException("Database error occurred!");
+		}
 	}
 }
