@@ -20,6 +20,7 @@ import util.*;
 
 
 public class SeekDAO implements TableDAO<Seek> {
+	
     public ObservableList<Seek> findAll() throws SQLException, ClassNotFoundException {
         try {
                 ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "SEEK", ""));

@@ -16,12 +16,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 //carOffer could be a subclass of offerList?
 public class Offer {//extends offerList{
-	private IntegerProperty offerID, seats;
+	private IntegerProperty offerID, memberID, seats;
     private StringProperty carType, brand, model, transmission, fuelType;
     private DoubleProperty price;
     private LongProperty postcode;
 
     public Offer() {
+    	this.memberID = new SimpleIntegerProperty();
         this.offerID = new SimpleIntegerProperty();
         this.seats = new SimpleIntegerProperty();
         this.carType = new SimpleStringProperty();
@@ -67,8 +68,17 @@ public class Offer {//extends offerList{
     	}
     }
     
+    public int getMemberID() {
+    	return memberID.get();
+    }
     
+    public void setMemberID(int memberID) {
+    	this.memberID.set(memberID);
+    }
     
+    public IntegerProperty memberIDProperty(){
+    	return memberID;
+    }
     
     public int getOfferID() {
         return offerID.get();

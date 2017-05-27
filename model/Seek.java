@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
 
 public class Seek {
 	private IntegerProperty seekID;
-    private StringProperty username;
+    private StringProperty memberID;
     private SimpleObjectProperty<Date> bookDay, bookTime;
 
 	public int getSeekID() {

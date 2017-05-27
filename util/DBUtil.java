@@ -184,7 +184,7 @@ public class DBUtil {
         fileNames.add("consultation.txt");
         fileNames.add("seek.txt");
         fileNames.add("offer.txt");
-        fileNames.add("membershipPayment.txt");
+        //fileNames.add("membershipPayment.txt");
         // TODO: FIX THESE FILES
         //fileNames.add("agreementPayment.txt");
         //fileNames.add("consultationPayment.txt");
