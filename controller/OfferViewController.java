@@ -314,9 +314,6 @@ public class OfferViewController extends ControllerBase {
 	    @FXML
 	    private void handleBook() throws SQLException, ClassNotFoundException {
 	    	//THIS WILL CHANGE
-	    	
-	    	int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
-	    	Offer o = offerTable.getItems().get(selectedIndex);
 	    		
 	    	Agreement agmt = new Agreement();
 	    	AgreementDAO agreeDAO = new AgreementDAO();
@@ -324,22 +321,26 @@ public class OfferViewController extends ControllerBase {
 	    	MemberDAO mDAO = new MemberDAO();
 	    	Member m = mDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName());
 	    	
-	    	agmt.setSeeker(m.getMemberID());
 	    	System.out.println("------------ " + m.getMemberID() + " --------------");
 	    	
-	    	agmt.setOfferer(o.getOfferID());
+	    	int selectedIndex = offerTable.getSelectionModel().getSelectedIndex();
+	    	Offer o = offerTable.getItems().get(selectedIndex);
 	    	
-	    	agmt.setAgreeDate((new Date(1000,1,1)));
+	    	agmt.setSeeker(m.getMemberID());
+	    	agmt.setOfferer(o.getOfferID());
+	    	agmt.setAgreeDate(o.getDriveDay());
 	    	agmt.setFromPostcode(o.getPostcode());
 	    	agmt.setToPostcode(Long.parseLong(filterField.getText()));
 	    	agmt.setPayAmt(o.getPrice());
+	    	
+	    	//still need day created for payment
 	    	
 	    	agreeDAO.insert(agmt);
 	    	
 	    	AgreementInvoiceController aic = new AgreementInvoiceController();
 	    	aic.setAgreement(agmt);
 	    	
-	    	mainApp.showView("AgreementInvoiceView.fxml");
+	    	mainApp.showView("AgreementInvoiceView.fxml", aic);
 	    	
 	    	final String url = "jdbc:derby:DBforDEMO;create=true";
 	    	DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");

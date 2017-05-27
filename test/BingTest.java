@@ -161,7 +161,7 @@ public class BingTest {
 			DBUtil.dropTable("CORPORATE_MEMBER");
 			
 			DBUtil.clearTable("MEMBER");
-			DBUtil.dropTable("MEMBER");
+		//	DBUtil.dropTable("MEMBER");
 			
 			DBUtil.clearTable("CORPORATE");
 			DBUtil.dropTable("CORPORATE");
