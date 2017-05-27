@@ -5,13 +5,11 @@ import java.util.Date;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
 
 
 
 public class Seek {
-	private IntegerProperty seekID;
-    private StringProperty memberID;
+	private IntegerProperty seekID, memberID;
     private SimpleObjectProperty<Date> bookDay, bookTime;
 
 	public int getSeekID() {
@@ -26,16 +24,16 @@ public class Seek {
             return seekID;
         }
     
-    public String getUsername() {
-        return username.get();
+    public int getMemberID() {
+        return memberID.get();
     }
 
-    public void setUsername(String username) {
-        this.username.set(username);
+    public void setMemberID(int memberID) {
+        this.memberID.set(memberID);
     }
     
-    public StringProperty usernameProperty(){
-        return username;
+    public IntegerProperty memberIDProperty(){
+        return memberID;
     }
 
 	public Object getBookDay() {
