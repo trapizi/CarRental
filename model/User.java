@@ -11,6 +11,7 @@ import util.InvalidInputException;
 
 /**
  * User is abstract as we never instantiate this class
+ * @author Bing Wen (z3463269)
  */
 public abstract class User {	
 	private StringProperty userName;

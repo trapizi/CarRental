@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * @author Bing Wen (z3463269)
+ */
 public class Member extends User {		
 	private IntegerProperty memberID;
 	private ObjectProperty<Date> lastMatchDate;
@@ -23,16 +26,7 @@ public class Member extends User {
 	private FloatProperty commissionRate;
 	private StringProperty creditCard;
 	private StringProperty homeAddress;
-		
-	/*
-	 * TODO: uncomment when other classes made
-	 */
-	
-	//private ArrayList<CarOffer> offerList;
-	//private ArrayList<CarSeek> seekList;
-	//private ArrayList<Agreement> agreementList;
-	//private CorporateMember corporateMem;
-	
+			
 	/**
 	 * Default constructor for member
 	 */
@@ -48,10 +42,10 @@ public class Member extends User {
 		assert(this.accountExpiry != null);
 	}
 	
-	@Override
 	/**
 	 * @return a string containing the member's ID and user details
 	 */
+	@Override
 	public String toString() {
 		return "MemberID: " + this.getMemberID() + " | " + super.toString(); 
 	}
