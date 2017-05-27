@@ -58,6 +58,8 @@ public class LoginController extends ControllerBase {
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
 	public static final String PAYMENT_PAGE = "PaymentView.fxml";
 	
+	private final float monthlyMembershipCost = 15.0f;
+	
     @FXML
     private void initialize () {      	
     	this.staffDAO = new StaffDAO();
@@ -179,7 +181,7 @@ public class LoginController extends ControllerBase {
 
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
-        membershipPayment.setPaymentAmount(15);
+        membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
         
         boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
         
@@ -230,7 +232,7 @@ public class LoginController extends ControllerBase {
         
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
-        membershipPayment.setPaymentAmount(15);
+        membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
         
         boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
         
