@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.Corporate;
+import model.CorporateDAO;
+
 /**
  * Check input from textField is not stupid
  * @author Bing
@@ -97,13 +100,20 @@ public final class InputValidator {
     	try {
     		Integer.parseInt(phoneNoText);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid phone entered. Ensure phone number only contains digits.");
+    		throw new InvalidInputException("Invalid phone entered. Phone number only contains digits.");
     	}
 	}
 	
 	public static void validateEmail(String email) throws InvalidInputException {
-		// TODO: check if in correct format later
 		isEmpty(email, "Email");
+		
+		try {
+			if (!InputValidator.regexMatch(email, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}")) {
+				throw new InvalidInputException("Invalid email format. Email must be in the format name@domain!");
+			}
+		} catch (InvalidInputException e) {
+			throw e;
+		}
 	}
 	
 	public static void validatePassword(String password) throws InvalidInputException {
@@ -137,7 +147,7 @@ public final class InputValidator {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         	format.parse(date);
         } catch (ParseException e) {
-        	throw new InvalidInputException("Wrong date format entered.");
+        	throw new InvalidInputException("Wrong date format entered. Date must be in the yyyy-MM-dd format.");
         }
 	}
 	
@@ -163,7 +173,7 @@ public final class InputValidator {
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
-			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only caontains digits.");
+			throw new InvalidInputException("Invalid amount of seats. Seats field can only caontains digits.");
 		}
 	}
 	
@@ -181,7 +191,7 @@ public final class InputValidator {
     	try {
     		Long.parseLong(postcode);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid postcode entered. Ensure postcode only contains digits.");
+    		throw new InvalidInputException("Invalid postcode entered. Postcode can only contains digits.");
     	}
 	}
 	
@@ -191,7 +201,7 @@ public final class InputValidator {
     	try {
     		Double.parseDouble(price);
     	} catch (NumberFormatException e) {
-    		throw new InvalidInputException("Invalid price entered. Ensure price only contains digits.");
+    		throw new InvalidInputException("Invalid price entered. Price can only contains digits.");
     	}
 	}
 	
@@ -218,9 +228,34 @@ public final class InputValidator {
 	 * @return True if s contains space(s)
 	 */
 	private static boolean containsSpaces(String s) {
-		Pattern regex = Pattern.compile("\\s+");
+		return InputValidator.regexMatch(s, "\\s+");
+	}
+	
+	private static boolean regexMatch(String s, String pattern) {
+		Pattern regex = Pattern.compile(pattern);
 		Matcher regexMatch = regex.matcher(s);
 		
 		return regexMatch.find();
+	}
+	
+	/**
+	 * Throws InvalidInputException if corporation doesn't exist in the corporate table
+	 * @param ID The ID to check if it belongs to a corporation
+	 * @throws Exception InvalidInputException, SQLException
+	 */
+	public static void validateCorporateID(String ID) throws Exception {
+		try {
+			CorporateDAO corporateDAO = new CorporateDAO();
+			Corporate corporate = corporateDAO.findById(Integer.parseInt(ID));
+			
+			// null is returned if no corporation is in the database with the given ID
+			if (corporate == null) {
+				throw new InvalidInputException();
+			}
+		} catch (InvalidInputException e) {
+			throw new InvalidInputException("Invalid corporateID entered. Check that your corporateID is correct!");
+		} catch (Exception e) {
+			throw new InvalidInputException("Database error occurred!");
+		}
 	}
 }

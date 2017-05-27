@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
@@ -10,18 +9,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import model.AgreementPayment;
 import model.CorporateMember;
 import model.CorporateMemberDAO;
 import model.Member;
 import model.MemberDAO;
 import model.MembershipPayment;
 import model.MembershipPaymentDAO;
-import model.Offer;
 import model.StaffDAO;
 import model.User;
 import util.AlertBuilder;
-import util.DBTablePrinter;
 
 /**
  * Controller to handle login
@@ -54,7 +50,6 @@ public class LoginController extends ControllerBase {
 	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
 	public static final String C_MEMBER_REGISTRATION_PAGE = "CorporateMemberRegistrationDialog.fxml";
 	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
-	
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
 	public static final String PAYMENT_PAGE = "PaymentView.fxml";
 	
@@ -80,28 +75,22 @@ public class LoginController extends ControllerBase {
     		boolean validLogin = user.getPassword().equals(this.passwordField.getText());
     		
     		if (!validLogin) { 
-    			// TODO: set appropriate error message on unsuccessful login
-        		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
+        		this.statusLabel.setText("Incorrect username or password entered.");
     		} else {
     			
     			// display navigation panel on the left
     	    	this.mainApp.showNavigationPanel(NAVIGATION_PANEL);
 
-    			
     			// remember who logged in
     			mainApp.setLoggedInAs(user);
     			
-    			// TODO: remove this after next page implemented
-    			System.out.println("LOGGED IN AS: " + mainApp.getLoggedInAs().getUserName());
-        		this.statusLabel.setText("Login successful.");
-
         		// displays a suitable home page based on member / corporate member / staff 
         		this.displayHomePage(user);
     		}
     		
     	// user doesn't exist
     	} catch (NullPointerException e) {
-    		this.statusLabel.setText("Incorrect username or password entered. No user found");
+    		this.statusLabel.setText("Incorrect username or password entered.");
     	}
     }
     
@@ -209,12 +198,7 @@ public class LoginController extends ControllerBase {
 	        	
 	        	// attach it to the payment
 	        	membershipPayment.setMemberID(memberID);
-	        	membershipPaymentDAO.insert(membershipPayment);
-	        	
-	        	// TODO: remove this
-			    final String url = "jdbc:derby:DBforDEMO;create=true";
-				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
-				
+	        	membershipPaymentDAO.insert(membershipPayment);				
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -265,11 +249,7 @@ public class LoginController extends ControllerBase {
 	        	
 	        	// attach it to the payment
 	        	membershipPayment.setMemberID(memberID);
-	        	membershipPaymentDAO.insert(membershipPayment);
-	        	
-			    final String url = "jdbc:derby:DBforDEMO;create=true";
-				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
-				
+	        	membershipPaymentDAO.insert(membershipPayment);				
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
