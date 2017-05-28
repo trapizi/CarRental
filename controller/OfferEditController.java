@@ -15,7 +15,7 @@ import util.AlertBuilder;
 import util.InvalidInputException;
 
 public class OfferEditController extends EditControllerBase {
-	
+
 	@FXML
 	private TextField brandTextField;
 	@FXML
@@ -34,14 +34,14 @@ public class OfferEditController extends EditControllerBase {
 	private TextField priceTextField;
 	@FXML
 	private TextField driveDayTextField;
-	
+
 	private Offer offer;
-	
+
 	@FXML
 	private void initialize() {
 	}
-	
-	
+
+
 	public void setObject(Object o) {
 		this.offer= (Offer) o;
 		this.brandTextField.setText(offer.getBrand());
@@ -52,18 +52,18 @@ public class OfferEditController extends EditControllerBase {
 		this.fuelTypeTextField.setText(offer.getFuelType());
 		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));
 		this.priceTextField.setText(Double.toString(offer.getPrice()));
-		
+
 		try{
 			this.driveDayTextField.setText(offer.getDriveDay().toString());
 		} catch (NullPointerException e) {
 			this.driveDayTextField.setText("");
 		}
 	}
-	
+
 	@FXML
 	private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException{
-		
-		
+
+
 		// Check for valid input
 		try {
 			Offer.validateInput(
@@ -74,17 +74,17 @@ public class OfferEditController extends EditControllerBase {
 
 		} catch (InvalidInputException e) {
 			Alert alert = AlertBuilder.createAlert(AlertType.WARNING, dialogStage, "Invalid Input", "Invalid input entered!", e.getMessage());
-			
+
 			alert.showAndWait();
 			throw e;
 		} catch (SQLException | ClassNotFoundException e) {
 			Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
-            
-            alert.showAndWait();
-            throw e;
+					AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
+
+			alert.showAndWait();
+			throw e;
 		}
-		
+
 		offer.setBrand(this.brandTextField.getText());
 		offer.setModel(this.modelTextField.getText());
 		offer.setCarType(this.carTypeTextField.getText());
@@ -94,11 +94,11 @@ public class OfferEditController extends EditControllerBase {
 		offer.setPostcode(Long.parseLong(this.postcodeTextField.getText()));
 		offer.setPrice(Float.parseFloat(this.priceTextField.getText()));
 		offer.setDriveDay(this.driveDayTextField.getText());
-		
+
 		okClicked = true;
 		dialogStage.close();
 	}
-	
+
 	@FXML
 	private void handleCancel(){
 		dialogStage.close();

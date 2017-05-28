@@ -64,6 +64,7 @@ public class OfferViewController extends ControllerBase {
 	private TextField filterField;
 	@FXML
 	private TextField destinationField;
+	
 
 
 	private ObservableList<Offer> offerList = FXCollections.observableArrayList();
@@ -121,11 +122,27 @@ public class OfferViewController extends ControllerBase {
 		} 
 	}
 
+	//This function shows the currently logged in Offerer's Offers
+	@FXML
+	private void fetchOffers() throws SQLException, ClassNotFoundException, Exception {
+		try {
+			MemberDAO mDAO = new MemberDAO();
+			Member m = mDAO.findByUserName(((Member) (this.mainApp.getLoggedInAs())).getUserName()); 
+			offerList = this.offerDAO.findMyOffer(m.getMemberID());
+			
+			offerTable.setItems(offerList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
 	/**
 	 * Search nearby cars within postcode +- 2 range.
 	 */
 
-	//This function promts the input postcode to search for nearby cars in the range between (postcode-1) AND (postcode+1)
+	//This function promts the input postcode to search for nearby cars in the range between (postcode-2) AND (postcode+2)
 	@FXML
 	private void searchPostcode() throws SQLException, ClassNotFoundException, Exception {	    	
 		try {
@@ -149,6 +166,15 @@ public class OfferViewController extends ControllerBase {
 		}
 	}
 
+	//This function does the same function with searchPostcode() but doesn't check for destination field
+	@FXML
+	private void searchPostcode2() throws SQLException, ClassNotFoundException, Exception {	    	
+		offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
+		// only display offer list when both fields not empty
+		offerTable.setItems(offerList);
+	}
+
+	
 	//Show offer detail on the right side of the UI
 	private void showOfferDetails(Offer offer) {
 		if (offer != null) {
@@ -175,7 +201,7 @@ public class OfferViewController extends ControllerBase {
 
 				alert.showAndWait();
 			} catch (NumberFormatException e) {	 
-				// TODO: remove dodgy shit
+				// TODO: remove unwanted pop up
 				Alert alert = AlertBuilder.createAlert(AlertType.WARNING, mainApp.getPrimaryStage(), "Error", "Invalid Destination", "Enter a valid destination."); 
 
 				alert.showAndWait();
@@ -196,7 +222,7 @@ public class OfferViewController extends ControllerBase {
 
 	//Add new offer to the OFFER table
 	@FXML
-	private void handleNewOffer() throws SQLException, ClassNotFoundException{
+	private void handleNewOffer() throws Exception{
 		Offer tempOffer = new Offer();
 
 		if (mainApp == null) {
@@ -205,7 +231,7 @@ public class OfferViewController extends ControllerBase {
 
 		boolean okClicked = mainApp.showEditDialog(tempOffer, "OfferEdit.fxml");
 
-		// set valid memberID in offer
+		//set valid memberID in offer
 		MemberDAO memberDAO = new MemberDAO();
 		tempOffer.setMemberID(memberDAO.findByUserName(this.mainApp.getLoggedInAs().getUserName()).getMemberID());
 
@@ -221,7 +247,7 @@ public class OfferViewController extends ControllerBase {
 				offerList.add(tempOffer);
 
 				resultText.setText("Insert complete! \n");
-				this.refreshTable();
+				this.fetchOffers();
 			} catch (SQLException | ClassNotFoundException e) {
 				Alert alert = AlertBuilder.createAlert(
 						AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
@@ -232,7 +258,7 @@ public class OfferViewController extends ControllerBase {
 		}
 	}
 
-
+	//Delete offer function
 	@FXML
 	private void deleteOffer() throws SQLException, ClassNotFoundException{
 		try {
@@ -261,6 +287,7 @@ public class OfferViewController extends ControllerBase {
 
 	}
 
+	//This function extract the information from Offer and parse it to Agreement
 	@FXML
 	private Offer extractOffer() throws SQLException, ClassNotFoundException {
 		try {
@@ -278,6 +305,7 @@ public class OfferViewController extends ControllerBase {
 		return null;
 	}
 
+	//This function is used to edit an offer
 	@FXML
 	private void handleEditOffer() {
 		resultText.setText("Editing...!\n");
