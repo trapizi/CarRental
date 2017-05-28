@@ -24,8 +24,8 @@
                         <TableColumn fx:id="offererColumn" prefWidth="75.0" text="Offerer" />
                         <TableColumn fx:id="postcodeFromColumn" minWidth="15.0" prefWidth="93.66665649414062" text="Destination" />
                         <TableColumn fx:id="postcodeToColumn" prefWidth="91.33331298828125" text="Pick-up" />
-                      <TableColumn fx:id="dateColumn" prefWidth="52.333343505859375" resizable="false" text="Date" />
-                        <TableColumn fx:id="priceColumn" minWidth="22.0" prefWidth="81.66668701171875" text="Price" />
+                      <TableColumn fx:id="dateColumn" prefWidth="81.0" resizable="false" text="Date" />
+                        <TableColumn fx:id="priceColumn" minWidth="6.0" prefWidth="63.0" text="Price" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -37,7 +37,7 @@
                <children>
                   <Label layoutX="28.0" layoutY="21.0" text="Extra Information" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font></Label>
                   <GridPane layoutX="12.0" layoutY="46.0" prefHeight="288.0" prefWidth="422.0" AnchorPane.bottomAnchor="114.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
                     <columnConstraints>

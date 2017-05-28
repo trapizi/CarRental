@@ -26,8 +26,6 @@ import util.AlertBuilder;
  */
 
 public class AgreementInvoiceController extends ControllerBase {
-
-	//need payment ID
 	
 	@FXML
 	private Label seekerLabel;

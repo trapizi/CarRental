@@ -173,11 +173,7 @@ public final class InputValidator {
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
-<<<<<<< HEAD
-			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only contains digits.");
-=======
 			throw new InvalidInputException("Invalid amount of seats. Seats field can only caontains digits.");
->>>>>>> 94f5c88b832acdc809d3eef7930380abb2773746
 		}
 	}
 	
@@ -211,6 +207,7 @@ public final class InputValidator {
 	
 	public static void validateSeeker(String seeker) throws InvalidInputException {
 		isEmpty(seeker, "Seeker");
+		positiveCheck(seeker, "Seeker");
 		
     	try {
     		Integer.parseInt(seeker);
@@ -221,6 +218,7 @@ public final class InputValidator {
 	
 	public static void validateOfferer(String offerer) throws InvalidInputException {
 		isEmpty(offerer, "Offerer");
+		positiveCheck(offerer, "Offerer");
 		
     	try {
     		Integer.parseInt(offerer);
@@ -231,6 +229,7 @@ public final class InputValidator {
 	
 	public static void validatePickup(String pickup) throws InvalidInputException {
 		isEmpty(pickup, "Pick-up");
+		positiveCheck(pickup, "Pick-up");
 		
     	try {
     		Long.parseLong(pickup);
@@ -241,6 +240,7 @@ public final class InputValidator {
 	
 	public static void validateDestination(String dest) throws InvalidInputException {
 		isEmpty(dest, "Destination");
+		positiveCheck(dest, "Destination");
 		
     	try {
     		Long.parseLong(dest);
@@ -248,7 +248,6 @@ public final class InputValidator {
     		throw new InvalidInputException("Invalid destination entered. Destination can only contains digits for postcode.");
     	}
 	}
-	
 	
 	/**
 	 * Checks if textField is empty
@@ -268,7 +267,7 @@ public final class InputValidator {
 	}
 
 	private static void positiveCheck(String s, String fieldName) throws InvalidInputException {
-		if (Integer.parseInt(s) <= 0) {
+		if (Integer.parseInt(s) <= 0 || Long.parseLong(s) <= 0) {
 			throw new InvalidInputException(fieldName + " must be greater than 0.");
 		} else;
 	}
