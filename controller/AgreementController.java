@@ -42,6 +42,10 @@ public class AgreementController extends ControllerBase {
 	private TableColumn<Agreement, Float> priceColumn;
 
 	@FXML
+	private Label seekerLabel;
+	@FXML
+	private Label offererLabel;
+	@FXML
 	private Label dateLabel;
 	@FXML
 	private Label locationFromLabel;
@@ -111,25 +115,30 @@ public class AgreementController extends ControllerBase {
 	 * If the specified agreement is null, all text fields are cleared.
 	 */
 	private void showAgreementDetails(Agreement agmt) {
-		if (agmt != null) {;
+		if (agmt != null) {
 
-		try {
-			dateLabel.setText(agmt.getAgreeDate().toString());
-		} catch (NullPointerException e) {
-			dateLabel.setText("");
-		}
+			seekerLabel.setText(Integer.toString(agmt.getSeeker()));
+			offererLabel.setText(Integer.toString(agmt.getOfferer()));
 
-		locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
-		locationToLabel.setText(Long.toString(agmt.getToPostcode()));
-		priceLabel.setText(Float.toString(agmt.getPayAmt()));
+			try {
+				dateLabel.setText(agmt.getAgreeDate().toString());
+			} catch (NullPointerException e) {
+				dateLabel.setText("");
+			}
 
-		try {
-			dayCreatedLabel.setText(agmt.getCreateDay().toString());
-		} catch (NullPointerException e) {
-			dayCreatedLabel.setText("");
-		}
+			locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
+			locationToLabel.setText(Long.toString(agmt.getToPostcode()));
+			priceLabel.setText(Float.toString(agmt.getPayAmt()));
+
+			try {
+				dayCreatedLabel.setText(agmt.getCreateDay().toString());
+			} catch (NullPointerException e) {
+				dayCreatedLabel.setText("");
+			}
 
 		} else {
+			seekerLabel.setText("");
+			offererLabel.setText("");
 			dateLabel.setText("");
 			locationFromLabel.setText("");
 			locationToLabel.setText("");
