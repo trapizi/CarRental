@@ -1,12 +1,15 @@
 package util;
 
-import static org.junit.Assert.*;
 
 import java.sql.Time;
 import java.sql.Date;
 
 import org.junit.Test;
 
+/**
+ * Class for building simple Insert SQL statements
+ * @author Bing Wen (z3463269)
+ */
 public class InsertSQLBuilderTest {
 
 	@Test
