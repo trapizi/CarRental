@@ -1,5 +1,10 @@
+/**
+ * @author Xuan Huy Ngo z5076470
+ */
+
 package model;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -46,12 +51,26 @@ public class OfferDAO implements TableDAO<Offer>{
 		}
 		return null;
 	}
+	
+	//Find by Date
+	public ObservableList<Offer> findByDate(String date) throws SQLException, ClassNotFoundException {
+		try {
+			ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "DRIVE_DAY = " + date));
+			
+			ObservableList<Offer> list = this.getOfferList(rs);
+			return list;
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 
 	//Find the Offerer's offers
 	public ObservableList<Offer> findMyOffer(int MemberID) throws SQLException, ClassNotFoundException {
 		try {
-			ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "MEMBER_ID =" + MemberID));
+			ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "MEMBER_ID =" + MemberID + " ORDER BY DRIVE_DAY"));
 
 			ObservableList<Offer> list = this.getOfferList(rs);
 			return list;

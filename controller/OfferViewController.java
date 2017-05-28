@@ -3,6 +3,8 @@ package controller;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import javafx.beans.binding.Bindings;
@@ -64,23 +66,18 @@ public class OfferViewController extends ControllerBase {
 	private TextField filterField;
 	@FXML
 	private TextField destinationField;
+	@FXML
+	private TextField bookDayField;
 	
 
 
 	private ObservableList<Offer> offerList = FXCollections.observableArrayList();
 	private OfferDAO offerDAO;
-	private SortedList<Offer> sortedData;
 	private Offer offer;
 
 	// magic numbers
 	private final float costPerPostcode = 8; 
 	private final int maxPostcodeDifference = 10;
-
-	private void setObject (Object o) {
-		this.offer = (Offer) o;
-
-	}
-
 	//public static String locationTo; 
 
 	/**
@@ -139,6 +136,26 @@ public class OfferViewController extends ControllerBase {
 	
 	
 	/**
+	 * Search cars that drive on the entered date
+	 */
+	@FXML
+	private void searchByDate() throws SQLException, ClassNotFoundException {
+		try {
+			
+			offerList= this.offerDAO.findByDate(offer.getDriveDay().toString());
+					
+			offerTable.setItems(offerList);
+		} catch (SQLException e) {
+			Alert alert = AlertBuilder.createAlert(AlertType.WARNING, mainApp.getPrimaryStage(), "Error", "Invalid Input", e.getMessage()); 
+
+			alert.showAndWait();
+
+			throw e;
+		}
+	}
+	
+	
+	/**
 	 * Search nearby cars within postcode +- 2 range.
 	 */
 
@@ -149,7 +166,7 @@ public class OfferViewController extends ControllerBase {
 			offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
 
 			if (this.destinationField.getText().isEmpty()) {
-				throw new NullPointerException("Destination Field is null!");
+				throw new InvalidInputException("Destination Field is null!");
 			} else if (Math.abs(Integer.parseInt(this.destinationField.getText()) - Integer.parseInt(this.filterField.getText())) > this.maxPostcodeDifference)  {
 				throw new InvalidInputException("Destination is too far!");
 			} else {
@@ -165,15 +182,6 @@ public class OfferViewController extends ControllerBase {
 			throw e;
 		}
 	}
-
-	//This function does the same function with searchPostcode() but doesn't check for destination field
-	@FXML
-	private void searchPostcode2() throws SQLException, ClassNotFoundException, Exception {	    	
-		offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
-		// only display offer list when both fields not empty
-		offerTable.setItems(offerList);
-	}
-
 	
 	//Show offer detail on the right side of the UI
 	private void showOfferDetails(Offer offer) {

@@ -1,3 +1,6 @@
+/**
+ * @author Xuan Huy Ngo z5076470
+ */
 package controller;
 
 import java.sql.SQLException;
@@ -31,8 +34,6 @@ public class OfferEditController extends EditControllerBase {
 	@FXML
 	private TextField postcodeTextField;
 	@FXML
-	private TextField priceTextField;
-	@FXML
 	private TextField driveDayTextField;
 
 	private Offer offer;
@@ -51,7 +52,6 @@ public class OfferEditController extends EditControllerBase {
 		this.transmissionTextField.setText(offer.getTransmission());
 		this.fuelTypeTextField.setText(offer.getFuelType());
 		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));
-		this.priceTextField.setText(Double.toString(offer.getPrice()));
 
 		try{
 			this.driveDayTextField.setText(offer.getDriveDay().toString());
@@ -69,7 +69,7 @@ public class OfferEditController extends EditControllerBase {
 			Offer.validateInput(
 					this.brandTextField.getText(), this.modelTextField.getText(), this.carTypeTextField.getText(),
 					this.seatsTextField.getText(), this.transmissionTextField.getText(), this.fuelTypeTextField.getText(),
-					this.postcodeTextField.getText(), this.priceTextField.getText(), this.driveDayTextField.getText()
+					this.postcodeTextField.getText(), this.driveDayTextField.getText()
 					);
 
 		} catch (InvalidInputException e) {
@@ -92,7 +92,6 @@ public class OfferEditController extends EditControllerBase {
 		offer.setTransmission(this.transmissionTextField.getText());
 		offer.setFuelType(this.fuelTypeTextField.getText());
 		offer.setPostcode(Long.parseLong(this.postcodeTextField.getText()));
-		offer.setPrice(Float.parseFloat(this.priceTextField.getText()));
 		offer.setDriveDay(this.driveDayTextField.getText());
 
 		okClicked = true;

@@ -48,7 +48,7 @@ public class MemberHomeController extends ControllerBase {
 	//For SUber to edit offers
 	@FXML
 	private void handleOfferViewEditable() {
-		mainApp.showView("OfferViewEditable.fxml");
+		mainApp.showView("OfferViewEditable2.fxml");
 	}
 	
 	@FXML
