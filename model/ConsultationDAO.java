@@ -18,7 +18,7 @@ import util.InsertSQLBuilder;
 import util.UpdateSQLBuilder;
 /**
  *
- * @author elizabeth
+ * @author elizabeth z5077170
  */
 public class ConsultationDAO implements TableDAO<Consultation> {
 

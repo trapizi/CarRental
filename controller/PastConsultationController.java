@@ -25,7 +25,7 @@ import util.DBTablePrinter;
 
 /**
  *
- * @author elizabeth
+ * @author elizabeth z5077170
  */
 public class PastConsultationController extends ControllerBase {
     @FXML

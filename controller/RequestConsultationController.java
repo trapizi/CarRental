@@ -25,15 +25,14 @@ import util.InvalidInputException;
 
 /**
  *
- * @author elizabeth
+ * @author elizabeth z5077170
  */
 public class RequestConsultationController extends ControllerBase {
     
     ObservableList<String> timePickerList = FXCollections.observableArrayList(
             "10:00","11:00", "12:00", "13:00", "14:00", "15:00", "16:00");
     
-    @FXML
-    private Label welcomeCorpLabel;
+
     @FXML
     private Label priceLabel;
     @FXML
@@ -56,6 +55,7 @@ public class RequestConsultationController extends ControllerBase {
 	    this.paymentDAO = new ConsultationPaymentDAO();
 	    this.cDao = new ConsultationDAO();
 	    this.consult1 = new Consultation();
+
     }
      
     @FXML

@@ -5,16 +5,17 @@
  */
 package controller;
 
-import mainApp.LizMain;
+
+import mainApp.SUber;
 
 /**
  *
- * @author elizabeth
+ * @author elizabeth z5077170
  */
 public class CorpMemberControllerBase {
-    protected LizMain mainApp;
+    protected SUber mainApp;
     
-    public void setMainApp (LizMain mainApp) {
+    public void setMainApp (SUber mainApp) {
         this.mainApp = mainApp;
     }
 }

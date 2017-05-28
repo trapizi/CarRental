@@ -20,7 +20,7 @@ import util.InputValidator;
 import javafx.beans.property.*;
 /**
  *
- * @author elizabeth
+ * @author elizabeth z5077170
  */
 public class Consultation {
     private IntegerProperty consultationNum;
