@@ -17,6 +17,7 @@ import mainApp.SUber;
 import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
+import model.Member;
 import util.AlertBuilder;
 
 /**
@@ -188,7 +189,40 @@ public class StaffAgreementController extends ControllerBase {
 			throw e;
 		}
 	}
+	
+	/**
+	 * Called when the user clicks the edit button. 
+	 * An agreement is edited
+	 */
+	@FXML
+	private void editAgreement() throws SQLException, ClassNotFoundException {   
+        try {
+            Agreement selectedMember = agreementTable.getSelectionModel().getSelectedItem();
+            boolean okClicked = mainApp.showEditDialog(selectedMember, "StaffEditAgreement.fxml");
+            
+            if (okClicked) {
+            	
+            	// triggers null pointer exception from setters if nothing is selected
+                showAgreementDetails(selectedMember);
+                
+                try {
+                	agmtDAO.update(selectedMember);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            }
 
+        } catch (NullPointerException e) {
+        	// Create and display alert when no staff is selected
+            Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+            
+            alert.showAndWait();       
+        }
+    }
+	
+		
 	/**
 	 * Called when the user clicks on the delete button.
 	 * Removes an agreement from the database and the UI.
