@@ -159,11 +159,11 @@ public final class InputValidator {
 	
 	public static void validateSeats (String seats) throws InvalidInputException {
 		isEmpty(seats, "Seats");
-		
+		positiveCheck(seats, "Seats");
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
-			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only caontains digits.");
+			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only contains digits.");
 		}
 	}
 	
@@ -212,6 +212,12 @@ public final class InputValidator {
 		}
 	}
 
+	private static void positiveCheck(String s, String fieldName) throws InvalidInputException {
+		if (Integer.parseInt(s) <= 0) {
+			throw new InvalidInputException(fieldName + " must be greater than 0.");
+		} else;
+	}
+	
 	/**
 	 * Returns true if the string contains spaces
 	 * @param s The string to check
