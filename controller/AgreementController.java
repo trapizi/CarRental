@@ -87,7 +87,7 @@ public class AgreementController extends ControllerBase {
 	 * displays a list of agreements in the agreement table UI
 	 */
 	@FXML
-	private void search() throws SQLException, ClassNotFoundException {
+	private void search() {
 		try {
 			Member currentMember = (Member) (this.mainApp.getLoggedInAs());
 			agmtList = this.agmtDAO.findMemberAgreements(currentMember.getMemberID());
@@ -97,14 +97,11 @@ public class AgreementController extends ControllerBase {
 
 		} catch (SQLException e) {            
 			// Create and display alert for the database exception
-			/*      Alert alert = AlertBuilder.createAlert(
+			     Alert alert = AlertBuilder.createAlert(
             		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
             		"Database could not complete search!", e.getMessage()); 
 
             alert.showAndWait();
-			 */  
-			e.printStackTrace();
-			throw e;
 		}
 	}
 

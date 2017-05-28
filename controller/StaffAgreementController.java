@@ -50,22 +50,6 @@ public class StaffAgreementController extends ControllerBase {
 	private Label priceLabel;
 	@FXML
 	private Label dayCreatedLabel;
-	
-
-	@FXML
-	private TextField offererField;
-	@FXML
-	private TextField seekerField;
-	@FXML
-	private TextField dateField;
-	@FXML
-	private TextField fromField;
-	@FXML
-	private TextField toField;
-	@FXML
-	private TextField priceField;
-	@FXML
-	private TextField createDayField;
 
 	// list to display onto the UI's table
 	private ObservableList<Agreement> agmtList;
@@ -102,7 +86,7 @@ public class StaffAgreementController extends ControllerBase {
 	 * displays a list of agreements in the agreement table UI
 	 */
 	@FXML
-	private void search() throws SQLException, ClassNotFoundException {
+	private void search() {
 		try {
 			agmtList = this.agmtDAO.findAll();
 
@@ -111,14 +95,11 @@ public class StaffAgreementController extends ControllerBase {
 
 		} catch (SQLException e) {            
 			// Create and display alert for the database exception
-			/*      Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-            		"Database could not complete search!", e.getMessage()); 
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+					"Database could not complete search!", e.getMessage()); 
 
-            alert.showAndWait();
-			 */  
-			e.printStackTrace();
-			throw e;
+			alert.showAndWait();
 		}
 	}
 
@@ -153,76 +134,69 @@ public class StaffAgreementController extends ControllerBase {
 			dayCreatedLabel.setText("");
 		}
 	}
-	
+
 	/**
 	 * Called when the user clicks the insert button. 
 	 * A new agreement is made and inserted into the database and UI
 	 */
 	@FXML
-	private void insertAgreement() throws SQLException, ClassNotFoundException {    	
-		Agreement tempAgreement = new Agreement();
+	private void insertAgreement() {    	
+		Agreement tempAgmt = new Agreement();
+		boolean okClicked = mainApp.showEditDialog(tempAgmt, "StaffEditAgreement.fxml");
 
-		tempAgreement.setOfferer(Integer.parseInt(offererField.getText()));
-		tempAgreement.setSeeker(Integer.parseInt(seekerField.getText()));
-		tempAgreement.setAgreeDate(dateField.getText());
-		tempAgreement.setFromPostcode(Long.parseLong(fromField.getText()));
-		tempAgreement.setToPostcode(Long.parseLong(toField.getText()));
-		tempAgreement.setPayAmt(Float.parseFloat(priceField.getText()));
-		tempAgreement.setCreateDay(createDayField.getText());
+		if (okClicked) {
+			try {	   	
+				// insert agreement into the database
+				agmtDAO.insert(tempAgmt);
 
-		try {	   	
-			// add a new agreement to the database
-			agmtDAO.insert(tempAgreement);
+				// need to retrieve the inserted agreement from the database to get the ID assigned to it
+				tempAgmt = agmtDAO.findById(tempAgmt.getAgreement_id());
 
-			// ensure that agmtID gets updated 
-			agmtList.add(tempAgreement);
+				// ensure that agmtID gets updated on the agreement details section after insert
+				agmtList.add(tempAgmt);
 
-		} catch (SQLException | ClassNotFoundException e) {	        	
-			// Create and display alert for the database exception
-			/*    Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-	            		"Database could not complete search!", e.getMessage()); 
+			} catch (SQLException | ClassNotFoundException e) {	        	
+				// Create and display alert for the database exception
+				Alert alert = AlertBuilder.createAlert(
+						AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+						"Database could not complete search!", e.getMessage()); 
 
-	            alert.showAndWait();	
-			 */
-			e.printStackTrace();
-			throw e;
+				alert.showAndWait();	        	
+			}
 		}
 	}
-	
+
 	/**
 	 * Called when the user clicks the edit button. 
 	 * An agreement is edited
 	 */
 	@FXML
 	private void editAgreement() throws SQLException, ClassNotFoundException {   
-        try {
-            Agreement selectedMember = agreementTable.getSelectionModel().getSelectedItem();
-            boolean okClicked = mainApp.showEditDialog(selectedMember, "StaffEditAgreement.fxml");
-            
-            if (okClicked) {
-            	
-            	// triggers null pointer exception from setters if nothing is selected
-                showAgreementDetails(selectedMember);
-                
-                try {
-                	agmtDAO.update(selectedMember);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                
-            }
+		try {
+			Agreement selectedMember = agreementTable.getSelectionModel().getSelectedItem();
+			boolean okClicked = mainApp.showEditDialog(selectedMember, "StaffEditAgreement.fxml");
 
-        } catch (NullPointerException e) {
-        	// Create and display alert when no staff is selected
-            Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
-            
-            alert.showAndWait();       
-        }
-    }
-	
-		
+			if (okClicked) {
+
+				// triggers null pointer exception from setters if nothing is selected
+				showAgreementDetails(selectedMember);
+
+				try {
+					agmtDAO.update(selectedMember);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}              
+			}
+
+		} catch (NullPointerException e) {
+			// Create and display alert when no staff is selected
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+
+			alert.showAndWait();       
+		}
+	}
+
 	/**
 	 * Called when the user clicks on the delete button.
 	 * Removes an agreement from the database and the UI.
@@ -243,11 +217,11 @@ public class StaffAgreementController extends ControllerBase {
 			}
 		} else {
 			// Create and display alert when no staff is selected
-			/*       Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
 
-            alert.showAndWait();  
-			 */  		
+			alert.showAndWait();  
+
 		}
 
 		//deletes the selected agreement from the UI

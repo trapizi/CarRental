@@ -96,7 +96,6 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("EMAIL", member.getEmail())
     			.addFieldValue("PHONE", member.getPhoneNo())
     			.addFieldValue("HOME_ADDRESS", member.getHomeAddress())
-    			.addFieldValue("LAST_MATCH_DATE", member.getLastMatchDate())
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
     			.toString();
 		
@@ -125,7 +124,6 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("EMAIL", member.getEmail())
     			.addFieldValue("PHONE", member.getPhoneNo())
     			.addFieldValue("HOME_ADDRESS", member.getHomeAddress())
-    			.addFieldValue("LAST_MATCH_DATE", member.getLastMatchDate())
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
     			.where("MEMBER_ID=" + member.getMemberID())
     			.toString();			
@@ -164,7 +162,6 @@ public class MemberDAO implements TableDAO<Member> {
 	    		member.setEmail(rs.getString("EMAIL"));
 	    		member.setPhoneNo(rs.getInt("PHONE"));
 	    		member.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
-	    		member.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
 	    		member.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
 	    	
 	    		list.add(member);
