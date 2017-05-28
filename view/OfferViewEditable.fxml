@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OfferViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OfferViewController">
    <children>
       <SplitPane dividerPositions="0.39297658862876256" layoutX="200.0" layoutY="120.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -22,7 +22,6 @@
                     <columns>
                       <TableColumn fx:id="availableCarColumn" prefWidth="85.0" text="Available Car" />
                       <TableColumn fx:id="postcodeColumn" prefWidth="73.0" text="Location" />
-                        <TableColumn fx:id="rateColumn" prefWidth="73.0" text="Price" />
                     </columns>
                   </TableView>
                   <Label layoutX="14.0" layoutY="416.0" text="STATUS:" textFill="RED" />
