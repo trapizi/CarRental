@@ -2,7 +2,7 @@ package util;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Builds select SQL statements
  * 
  * Doesn't support JOINS -- need to write them yourself

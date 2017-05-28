@@ -2,6 +2,11 @@ package util;
 
 import java.util.ArrayList;
 
+/**
+ * Base class for Insert/Select/UpdateSQLBuilder classes
+ * @author Bing
+ *
+ */
 public abstract class Builder {
 	protected ArrayList<String> fields;
 	protected ArrayList<Object> values;
@@ -15,9 +20,8 @@ public abstract class Builder {
 		this.conditions = new ArrayList<String>();
 	}
 	
-	/*
+	/**
 	 * Add a field and a value for that field to the SQL statement
-	 * 
 	 */
 	public Builder addFieldValue(String field, Object value) {
 		this.fields.add(field);
@@ -25,7 +29,7 @@ public abstract class Builder {
 		return this;
 	}
 
-	/*
+	/**
 	 * Add a field to the SQL statement
 	 * 
 	 * @param field - the field you want to insert in
@@ -35,7 +39,7 @@ public abstract class Builder {
 		return this;
 	}
 	
-	/*
+	/**
 	 * Add a table to the SQL statement
 	 * 
 	 * @param tableName - the table you want to insert in
@@ -45,7 +49,7 @@ public abstract class Builder {
 		return this;
 	}
 	
-	/*
+	/**
 	 * Add a condition to the SQL statement
 	 */
 	public Builder where(String condition) {
@@ -53,7 +57,7 @@ public abstract class Builder {
 		return this;
 	}
 	
-	/*
+	/**
 	 * Add more conditions to the SQL statement
 	 */
 	public Builder and(String condition) {
