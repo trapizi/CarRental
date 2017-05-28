@@ -32,12 +32,12 @@
                   <Insets />
                </GridPane.margin></ChoiceBox>
             <Label fx:id="paymentTypeLabel" text="Payment Type" GridPane.rowIndex="1" />
-            <Label fx:id="paymentAccountLabel" text="Account" GridPane.rowIndex="2" />
+            <Label fx:id="paymentAccountLabel" text="Card Number" GridPane.rowIndex="2" />
             <Label text="Full Name" />
-            <Label fx:id="accountExpiryLabel" text="Account Expiry (yyyy-mm-dd)" GridPane.rowIndex="3" />
+            <Label fx:id="accountExpiryLabel" text="Card Expiry" GridPane.rowIndex="3" />
             <TextField fx:id="accountOwnerNameField" GridPane.columnIndex="1" />
             <TextField fx:id="paymentAccountField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="accountExpiryField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="accountExpiryField" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <AnchorPane layoutX="-1.0" prefHeight="173.0" prefWidth="600.0">
@@ -54,11 +54,8 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Payment Date" GridPane.rowIndex="1" />
-                  <Label fx:id="paymentDateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Amount Due" />
                   <Label fx:id="amountDueLabel" text="Label" GridPane.columnIndex="1" />
                </children>

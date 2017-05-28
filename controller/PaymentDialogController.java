@@ -1,7 +1,9 @@
 package controller;
 
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.collections.FXCollections;
@@ -28,9 +30,6 @@ public class PaymentDialogController extends EditControllerBase {
 
 	@FXML
 	private Label amountDueLabel;
-
-	@FXML
-	private Label paymentDateLabel;
 
 	//Billing Information
 	@FXML
@@ -65,22 +64,27 @@ public class PaymentDialogController extends EditControllerBase {
 		this.payment = (Payment) o;
 		this.accountOwnerNameField.setText(payment.getAccountOwnerName());
 		this.paymentAccountField.setText(payment.getPaymentAccount());
-		this.amountDueLabel.setText("$" + Double.toString(payment.getPaymentAmount()));
-                //this.paymentDateLabel.setText(payment.getPaymentDate(Calendar.getInstance())); 
+		
+		NumberFormat nf= NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(2);
+		nf.setMinimumFractionDigits(2);
+		nf.setRoundingMode(RoundingMode.HALF_UP);
+		
+		this.amountDueLabel.setText("$" + nf.format(payment.getPaymentAmount()));
                 
 		// TODO: decide whether to remove later
 		//this.accountExpiryField.setText(date.toString(agreementPayment.getAccountExpiry()));      
-        }
+    }
 
 
 	//when user clicks "Confirm Payment"
 	@FXML
 	private void handleConfirmPaymentButton() throws InvalidInputException, SQLException, ClassNotFoundException { 
 		//(1)Check for valid input
-		try {        
-			AgreementPayment.validateInput(
-					this.accountOwnerNameField.getText(),
-					this.paymentAccountField.getText(),
+		try { 
+			Payment.validateInput(
+					this.accountOwnerNameField.getText(), 
+					this.paymentAccountField.getText(), 
 					this.accountExpiryField.getText());
 
 		} catch (InvalidInputException e){

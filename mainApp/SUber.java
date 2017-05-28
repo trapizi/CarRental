@@ -37,7 +37,7 @@ public class SUber extends Application {
 			this.primaryStage.setTitle("SUber");
 			
 			this.setLoggedInAs(null);
-			//DBUtil.dropAllTables();;
+
 			// init table
 			//DBUtil.dbInitAllTables();
 	
@@ -61,7 +61,8 @@ public class SUber extends Application {
 		SUber.testTables();
 		
 		// add stuff to start() if you want to test UI
-		try {		
+
+		try {
 			DBUtil.dbInitAllTables();
 		
 			//BingTest.initMyTables();

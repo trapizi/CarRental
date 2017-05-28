@@ -1,4 +1,0 @@
-public class ConsultantPayment extends Payment {
- 
-    //to complete when attributes are determined
-}

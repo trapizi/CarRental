@@ -134,12 +134,12 @@ public final class InputValidator {
 	
 	public static void validateCreditCard(String creditCard) throws InvalidInputException {		
 		isEmpty(creditCard, "Credit Card");
+		
+		if (!InputValidator.regexMatch(creditCard, "[0-9]{16,}")) {
+			throw new InvalidInputException("Invalid credit card number. Credit card number must contain 16 digits.");
+		}
 	}
-	
-	public static void validateAccount(String account) throws InvalidInputException {		
-		isEmpty(account, "Account");
-	}
-	
+		
 	public static void validateDate(String date) throws InvalidInputException {
 		isEmpty(date, "Date");
 		

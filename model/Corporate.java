@@ -11,7 +11,7 @@ public class Corporate {
 	public IntegerProperty corporateID;
     private StringProperty companyName, companyAddr;
     private LongProperty companyPhoneNumber, companyPCode;
-    private IntegerProperty customerType;
+    // TODO: private IntegerProperty customerType;
      
     public Corporate() {
     	this.corporateID = new SimpleIntegerProperty();
@@ -19,7 +19,6 @@ public class Corporate {
         this.companyAddr = new SimpleStringProperty();
         this.companyPhoneNumber = new SimpleLongProperty();
         this.companyPCode = new SimpleLongProperty();
-        this.customerType = new SimpleIntegerProperty();
     }
     
 	public int getCorporateID() {
@@ -80,17 +79,5 @@ public class Corporate {
 	
 	public LongProperty companyPCodeProperty() {
 		return companyPCode;
-	}
-	
-	public int getCustomerType() {
-		return customerType.get();
-	}
-	
-	public void setCustomerType(int customerType) {
-		this.customerType.set(customerType);
-	}
-	
-	public IntegerProperty customerTypeProperty() {
-		return customerType;
 	}
 }
