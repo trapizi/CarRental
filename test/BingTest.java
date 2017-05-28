@@ -112,7 +112,6 @@ public class BingTest {
 			
 			Member m = mDAO.findById(1);
 			m.setFirstName("test");
-			m.setLastMatchDate(new Date(10,10,10));
 			mDAO.update(m);
 			
 			Corporate c = cDAO.findById(1);

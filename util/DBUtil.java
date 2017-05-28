@@ -182,16 +182,7 @@ public class DBUtil {
         fileNames.add("offer.txt");
         fileNames.add("membershipPayment.txt");
         fileNames.add("consultationPayment.txt");
-
-        // TODO: FIX THESE FILES
         fileNames.add("agreementPayment.txt");
-
-    	/*
-    	fileNames.add("offer.txt");
-    	fileNames.add("seek.txt");
-    	fileNames.add("carShareOffice.txt");
-		*/
-    	/* */
     	
     	/* construct tables using the files given in ArrayList<String> fileNames */
     	for (String file: fileNames) {
@@ -229,7 +220,6 @@ public class DBUtil {
     }
     
     public static void insertDummyData() throws SQLException, ClassNotFoundException {
-    	/*
 		final String defaultStaffLogin = "staff";
 		final String defaultMemberLogin = "member";
 		final String defaultCMemberLogin = "cmember";
@@ -263,10 +253,6 @@ public class DBUtil {
 		cm = memberDAO.findByUserName(cm.getUserName());
 		c = corporateDAO.findByName(c.getCompanyName());
 		corporateMemberDAO.insert(cm, c);
-		*/
-		MemberDAO memberDAO = new MemberDAO();
-		
-		
     }
     
     /*
