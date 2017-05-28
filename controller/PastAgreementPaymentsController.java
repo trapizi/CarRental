@@ -74,7 +74,7 @@ public class PastAgreementPaymentsController {
     			}
     		};
     	});
-    	
+    	 
     	showMemberDetails(null);
     
     }
