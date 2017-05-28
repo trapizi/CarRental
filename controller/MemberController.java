@@ -16,6 +16,10 @@ import model.Member;
 import model.MemberDAO;
 import util.AlertBuilder;
 
+/**
+ * Handles staff member page
+ * @author Bing Wen (z3463269)
+ */
 public class MemberController extends ControllerBase {
     @FXML
     private Label resultText;	// used to display success/failure messages for functions 
@@ -67,7 +71,6 @@ public class MemberController extends ControllerBase {
     	            if (item == null || empty) {
     	            	this.setText(null);
     	            } else {
-    	            	// TODO: default format is yyyy-MM-dd -- use a date formatter to change if required
     	                this.setText(item.toString());
     	            }
     			}
@@ -156,7 +159,6 @@ public class MemberController extends ControllerBase {
 	        	// need to retrieve the inserted member from the database to get the ID assigned to it
 	        	tempMember = memberDAO.findByUserName(tempMember.getUserName());
 	        	
-	        	// TODO: ensure that memberID gets updated on the member details section after insert
 	        	memberList.add(tempMember);
 
 	            resultText.setText("Insert successful!\n");

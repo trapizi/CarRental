@@ -29,12 +29,11 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" onAction="#handleManageMembers" text="Manage Members" />
-            <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="2" />
             <Button fx:id="viewConsultationButton" mnemonicParsing="false" onAction="#handleViewConsultation" text="View Consultations" GridPane.columnIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleManageStaff" text="Manage Staff" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleGenerateCorporateMailingList" text="Generate Corporate Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleGenerateMemberMailingList" text="Generate Member Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#handleAllAgreements" text="View All Agreements" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#handleAllAgreements" text="View All Agreements" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

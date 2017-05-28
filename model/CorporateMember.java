@@ -39,7 +39,6 @@ public class CorporateMember extends Member {
 	
 	public CorporateMember() {
 		super();
-		//this.corporateID = new SimpleIntegerProperty();
 	}
 	
 	public Corporate getCorporation() {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Builds select SQL statements
- * 
+ * @author Bing Wen (z3463269)
  * Doesn't support JOINS -- need to write them yourself
  */
 public class SelectSQLBuilder extends Builder {		

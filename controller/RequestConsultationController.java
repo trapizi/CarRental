@@ -83,47 +83,54 @@ public class RequestConsultationController extends ControllerBase {
     	
 		// handle payment only if valid input was entered
 		if (validInput) {
-	    	ConsultationPayment tempPayment = new ConsultationPayment();
-	    	boolean validPayment = mainApp.showEditDialog(tempPayment, LoginController.PAYMENT_PAGE);
-	
-	    	if (validPayment) {     		
-	
-		    	consult1.setConsultationPrice(defaultConsultationPrice);
-		    	
-		    	// convert from hh:mm:ss to java.sql.Time
-		    	consult1.setConsultationTime(java.sql.Time.valueOf(this.timePicker.getValue().toString() + ":00"));
-		    	consult1.setConsultationDate(this.dateText.getText());
-		    	consult1.setCorporateID(Integer.parseInt(this.enterCompanyID.getText()));
-		    	
-		    	// insert consultation to database
-		    	try {	    		
-		        	cDao.insert(consult1);	    		
-		    	} catch (Exception e) {
-		       		// Create and display alert for database related exceptions
-		    		Alert alert = AlertBuilder.createAlert(
-		            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
-		            
-		            alert.showAndWait();
-		    	}
-		    	
-		    	// insert payment into database
-		    	try {	    
-		    		// find the most recent payment and set its consultation num
-		    		consult1 = cDao.findMostRecent();
-		    		
-		    		tempPayment.setConsultationNum(consult1.getConsultationNum());
-		    		
-		    		// set payment price as default price
-		    		tempPayment.setPaymentAmount(defaultConsultationPrice);
-		        	paymentDAO.insert(tempPayment);
-		    	} catch (Exception e) {
-		       		// Create and display alert for database related exceptions
-		    		Alert alert = AlertBuilder.createAlert(
-		            		AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
-		            
-		            alert.showAndWait();
-		    	}
-	    	}
+			// set up payment amount for payment screen
+			ConsultationPayment tempPayment = new ConsultationPayment();
+			tempPayment.setPaymentAmount(this.defaultConsultationPrice);
+
+			boolean validPayment = mainApp.showEditDialog(tempPayment, LoginController.PAYMENT_PAGE);
+
+			if (validPayment) {     		
+
+				consult1.setConsultationPrice(defaultConsultationPrice);
+
+				// convert from hh:mm:ss to java.sql.Time
+				consult1.setConsultationTime(java.sql.Time.valueOf(this.timePicker.getValue().toString() + ":00"));
+				consult1.setConsultationDate(this.dateText.getText());
+				consult1.setCorporateID(Integer.parseInt(this.enterCompanyID.getText()));
+
+				// insert consultation to database
+				try {	    		
+					cDao.insert(consult1);	    		
+				} catch (Exception e) {
+					// Create and display alert for database related exceptions
+					Alert alert = AlertBuilder.createAlert(
+							AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
+
+					alert.showAndWait();
+				}
+
+				// insert payment into database
+				try {	    
+					// find the most recent payment and set its consultation num
+					consult1 = cDao.findMostRecent();
+
+					tempPayment.setConsultationNum(consult1.getConsultationNum());
+
+					// set payment price as default price
+					tempPayment.setPaymentAmount(defaultConsultationPrice);
+					paymentDAO.insert(tempPayment);
+					
+				} catch (Exception e) {
+					// Create and display alert for database related exceptions
+					Alert alert = AlertBuilder.createAlert(
+							AlertType.WARNING, this.mainApp.getPrimaryStage() , "Database Error", "Database could not complete query", e.getMessage()); 
+
+					alert.showAndWait();
+				}
+				
+				// bring them back to member home page once payment is complete
+				this.mainApp.showMemberHomePage();	
+			}
 		}
     }
 }

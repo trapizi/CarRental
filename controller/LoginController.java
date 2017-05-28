@@ -62,9 +62,7 @@ public class LoginController extends ControllerBase {
     	this.staffDAO = new StaffDAO();
     	this.memberDAO = new MemberDAO();
     	this.corporateMemberDAO = new CorporateMemberDAO();
-    	this.membershipPaymentDAO = new MembershipPaymentDAO();
-    	
-    	assert(this.mainApp != null);
+    	this.membershipPaymentDAO = new MembershipPaymentDAO();    	
     }
     
     @FXML

@@ -12,6 +12,10 @@ import util.InsertSQLBuilder;
 import util.SQLBuilder;
 import util.UpdateSQLBuilder;
 
+/**
+ * Accesses member table in database
+ * @author Bing Wen (z3463269)
+ */
 public class MemberDAO implements TableDAO<Member> {
 	public ObservableList<Member> findAll() throws SQLException, ClassNotFoundException {
         try {

@@ -3,7 +3,10 @@ package util;
 import java.sql.Time;
 import java.util.Date;
 
-/* Look in UpdateSQLBuilderTest.java to see how it's used */
+/**
+ * Builds simple update SQL statements
+ * @author Bing Wen (z3463269)
+ */
 public class UpdateSQLBuilder extends Builder {		
 	public UpdateSQLBuilder() {
 		super();

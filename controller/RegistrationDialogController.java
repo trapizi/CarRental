@@ -13,6 +13,10 @@ import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * Handles registration dialog page
+ * @author Bing Wen (z3463269)
+ */
 public class RegistrationDialogController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;

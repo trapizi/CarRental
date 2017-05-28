@@ -9,10 +9,11 @@ import model.MemberDAO;
 import model.User;
 import util.AlertBuilder;
 
-public class MemberProfileController extends ControllerBase {
-    @FXML
-    private Label resultText;	// used to display success/failure messages for functions
-    
+/**
+ * Handles member profile
+ * @author Bing Wen (z3463269)
+ */
+public class MemberProfileController extends ControllerBase {    
     @FXML
     private Label memberIDLabel;
     @FXML
@@ -40,9 +41,7 @@ public class MemberProfileController extends ControllerBase {
     }
     
     @FXML
-    private void handleEditMember() { 
-        resultText.setText("Editing...\n");
-        
+    private void handleEditMember() {         
         try {
             Member selectedMember = (Member) this.mainApp.getLoggedInAs();
             // Note: LoginController.REGISTRATION_PAGE displays the view to edit 
@@ -56,12 +55,12 @@ public class MemberProfileController extends ControllerBase {
                 try {
                 	memberDAO.update(selectedMember);
                 } catch (Exception e) {
-                    resultText.setText("Update to database failed!\n");
+            		Alert alert = AlertBuilder.createAlert(
+                    		AlertType.WARNING, this.mainApp.getPrimaryStage(), "Database Error", "Database could not complete query", e.getMessage()); 
+                    
+                    alert.showAndWait();
                 }
-            }
-            
-            resultText.setText("Edit complete!\n");
-            
+            }            
         } catch (NullPointerException e) {
         	// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(

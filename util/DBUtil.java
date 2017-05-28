@@ -229,6 +229,7 @@ public class DBUtil {
     }
     
     public static void insertDummyData() throws SQLException, ClassNotFoundException {
+    	/*
 		final String defaultStaffLogin = "staff";
 		final String defaultMemberLogin = "member";
 		final String defaultCMemberLogin = "cmember";
@@ -262,6 +263,10 @@ public class DBUtil {
 		cm = memberDAO.findByUserName(cm.getUserName());
 		c = corporateDAO.findByName(c.getCompanyName());
 		corporateMemberDAO.insert(cm, c);
+		*/
+		MemberDAO memberDAO = new MemberDAO();
+		
+		
     }
     
     /*
@@ -294,4 +299,6 @@ public class DBUtil {
     		throw e;
     	}
     }
+    
+    
 }

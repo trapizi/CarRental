@@ -1,9 +1,7 @@
 package model;
 
-import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,6 +30,18 @@ public class Member extends User {
 		this.memberID = new SimpleIntegerProperty();
 		this.accountExpiry = new SimpleObjectProperty<Date>(); 
 		this.homeAddress = new SimpleStringProperty();
+	}
+	
+	public Member(String userName, String password, String firstName, String lastName, String email, String phoneNo, 
+					String accountExpiry, String homeAddress) {		
+		this.setUserName(userName);
+		this.setPassword(password);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setPhoneNo(Integer.parseInt(phoneNo));
+		this.setAccountExpiry(accountExpiry);
+		this.setHomeAddress(homeAddress);
 	}
 	
 	/**

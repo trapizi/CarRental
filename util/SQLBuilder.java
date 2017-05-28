@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.util.Scanner;
 
-/*
+/**
  * Constructs SQL statements for Apache Derby
  * Switch out this class for your own if you are using another database
  */
