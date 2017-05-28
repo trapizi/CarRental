@@ -15,6 +15,10 @@ import model.Member;
 import model.MemberDAO;
 import util.AlertBuilder;
 
+/**
+ * Handles staff home page
+ * @author Bing Wen (z3463269)
+ */
 public class StaffHomeController extends ControllerBase {
 	@FXML
 	private Label welcomeLabel;
@@ -72,8 +76,6 @@ public class StaffHomeController extends ControllerBase {
         		"Mailing List Generated!", "Mailing list can be found at: " + pathFileName); 
         
         alert.showAndWait();
-		
-		
 	}
 	
 	@FXML
@@ -152,7 +154,6 @@ public class StaffHomeController extends ControllerBase {
 				}
 			}
 		}
-		
 		return outputFileName;
 	}
 }

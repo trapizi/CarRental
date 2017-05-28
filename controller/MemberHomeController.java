@@ -5,6 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.CorporateMember;
 
+/**
+ * Handles member home page
+ * @author Bing Wen (z3463269)
+ */
 public class MemberHomeController extends ControllerBase {
 	@FXML
 	private Label welcomeLabel;

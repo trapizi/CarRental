@@ -66,8 +66,8 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk() throws InvalidInputException, SQLException, ClassNotFoundException {
-    	/* TODO: follow these steps for this section
+    private void handleOk() {
+    	/*
     	 * 1. check that input entered is valid
     	 * 2. use setters for the object you're modifying
     	 * 3. close the edit window and set OkClicked to true
@@ -92,8 +92,6 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
             
             alert.showAndWait();
             
-            // throw exception as well for debugging purposes
-            throw e;
     	} catch (SQLException | ClassNotFoundException e) {
     		
     		// Create and display alert for database related exceptions
@@ -101,11 +99,6 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
             		AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
             
             alert.showAndWait();
-            
-            throw e;
-    	} catch (NullPointerException e) {
-    		
-    		// Expect to catch an exception from expiry date being null
     	}
 
     	// set corporateMember fields if valid input entered    	
@@ -123,10 +116,20 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
 		corporateMember.setAccountExpiry(date);
 		corporateMember.setHomeAddress(this.homeAddressTextField.getText());
 		
-		CorporateDAO corporateDAO = new CorporateDAO();
-		Corporate corporation = corporateDAO.findByName(this.companyNameTextField.getText());
-		
-		corporateMember.setCorporation(corporation);
+		// find the member's corporation and set it to the member
+		try {
+			CorporateDAO corporateDAO = new CorporateDAO();
+			Corporate corporation = corporateDAO.findByName(this.companyNameTextField.getText());
+
+			corporateMember.setCorporation(corporation);
+		} catch (SQLException | ClassNotFoundException e) {
+
+			// Create and display alert for database related exceptions
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, dialogStage, "Database Error", "Database could not complete query", e.getMessage()); 
+
+			alert.showAndWait();
+		}
 		
 		// close edit window
         okClicked = true;

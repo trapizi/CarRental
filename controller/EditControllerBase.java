@@ -2,6 +2,10 @@ package controller;
 
 import javafx.stage.Stage;
 
+/**
+ * Base controller class for all pop-up screens
+ * @author Bing Wen (z3463269)
+ */
 public abstract class EditControllerBase extends ControllerBase {
     protected boolean okClicked = false;
     

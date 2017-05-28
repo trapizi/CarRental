@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import model.Staff;
 
+/**
+ * Handles navigation controller
+ * @author Bing Wen (z3463269)
+ */
 public class NavigationPanelController extends ControllerBase {
 	@FXML
 	private Button homePageButton;

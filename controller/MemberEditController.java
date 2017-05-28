@@ -6,11 +6,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * Handles member edit popup screen
+ * @author Bing Wen (z3463269)
+ */
 public class MemberEditController extends EditControllerBase {
     @FXML
     private TextField userNameTextField;

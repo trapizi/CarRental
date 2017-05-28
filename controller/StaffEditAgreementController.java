@@ -1,20 +1,19 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.Date;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import model.Agreement;
-import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * Handles staff popup screen for editing staff
+ * @author Bing Wen (z3463269)
+ */
 public class StaffEditAgreementController extends EditControllerBase {
 
 	@FXML

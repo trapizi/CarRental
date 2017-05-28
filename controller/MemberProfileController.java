@@ -9,6 +9,10 @@ import model.MemberDAO;
 import model.User;
 import util.AlertBuilder;
 
+/**
+ * Handles member profile
+ * @author Bing Wen (z3463269)
+ */
 public class MemberProfileController extends ControllerBase {
     @FXML
     private Label resultText;	// used to display success/failure messages for functions
