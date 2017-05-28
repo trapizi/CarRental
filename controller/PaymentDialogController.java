@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.collections.FXCollections;
@@ -69,7 +70,7 @@ public class PaymentDialogController extends EditControllerBase {
                 
 		// TODO: decide whether to remove later
 		//this.accountExpiryField.setText(date.toString(agreementPayment.getAccountExpiry()));      
-	}
+        }
 
 
 	//when user clicks "Confirm Payment"
@@ -105,7 +106,9 @@ public class PaymentDialogController extends EditControllerBase {
 		payment.setAccountOwnerName(this.accountOwnerNameField.getText());
 		payment.setPaymentAccount(this.paymentAccountField.getText());
 		payment.setPaymentType(this.paymentTypeChoiceBox.getValue());
-                payment.setAccountExpiry(this.accountExpiryField.getText());
+                
+                DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                payment.setAccountExpiry(df.parse(this.accountExpiryField.getText()));
 			
 
 		//(3) close edit window and set OkClicked to true

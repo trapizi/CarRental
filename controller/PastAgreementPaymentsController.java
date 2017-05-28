@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import mainApp.SUber;
 import model.AgreementPayment;
 import model.AgreementPaymentDAO;
 import mainApp.SelenaMain;
@@ -74,12 +75,10 @@ public class PastAgreementPaymentsController {
     			}
     		};
     	});
-    	 
-    	showMemberDetails(null);
     
     }
     
-    public void setMainApp(SelenaMain mainApp){
+    public void setMainApp(SUber mainApp){
         this.mainApp = mainApp; 
     }
 } 

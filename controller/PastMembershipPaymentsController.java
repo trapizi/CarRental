@@ -78,9 +78,7 @@ public class PastMembershipPaymentsController {
     			}
     		};
     	});
-    	
-    	//showMemberDetails(null); 
-    
+
     }
     
     public void setMainApp(SelenaMain mainApp){
