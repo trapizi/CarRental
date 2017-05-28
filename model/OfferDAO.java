@@ -19,7 +19,7 @@ import util.UpdateSQLBuilder;
 
 
 public class OfferDAO implements TableDAO<Offer>{
-<<<<<<< HEAD
+
 
 	//SELECT * FROM
 	public ObservableList<Offer> findAll() throws SQLException, ClassNotFoundException {
@@ -98,73 +98,7 @@ public class OfferDAO implements TableDAO<Offer>{
 		}
 		return null;
 	}
-
-	//insert input data into OFFER Table
-	public void insert(Offer offer) throws SQLException, ClassNotFoundException {
-		String sqlStmt = new InsertSQLBuilder()
-				.addTable("OFFER")
-				.addFieldValue("MEMBER_ID", offer.getMemberID())
-				.addFieldValue("SEATS", offer.getSeats())
-				.addFieldValue("CAR_TYPE", offer.getCarType())
-				.addFieldValue("BRAND", offer.getBrand())
-				.addFieldValue("MODEL", offer.getModel())
-				.addFieldValue("TRANSMISSION", offer.getTransmission())
-				.addFieldValue("FUEL_TYPE", offer.getFuelType())
-				.addFieldValue("PRICE", offer.getPrice())
-				.addFieldValue("POSTCODE", offer.getPostcode())
-				.addFieldValue("DRIVE_DAY", offer.getDriveDay())
-				.addFieldValue("DESTINATION", offer.getDestination())
-				.toString();
-
-
-=======
     
-    public ObservableList<Offer> findAll() throws SQLException, ClassNotFoundException {
-        try {
-                ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", ""));
-        
-                ObservableList<Offer> list = this.getOfferList(rs);
-                
-                return list;
-    } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() +" failed.");
-            e.printStackTrace();
-    	}
-        return null;
-    }
-    
-    public Offer findById(int offerID) throws SQLException, ClassNotFoundException {
-    	try {
-    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "OFFER_ID=" + offerID  ));
-    		
-    		ObservableList<Offer> list = this.getOfferList(rs);
-    	
-    		if (list.size() >0){
-    			return list.get(0);
-    		}
-    	} catch (SQLException | ClassNotFoundException e) {
-    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
-    		e.printStackTrace();
-    	}
-    	return null;
-    }
-    
-    
-    //Find nearby car
-    public ObservableList<Offer> findByPostcode(long postcode) throws SQLException, ClassNotFoundException {
-    	try{
-    		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "POSTCODE BETWEEN "+ (postcode-2) +" AND "+ (postcode+2)));
-    		
-    		ObservableList<Offer> list = this.getOfferList(rs);
-    		
-    			return list;
-    		
-    	} catch (SQLException | ClassNotFoundException e) {
-    		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
-    		e.printStackTrace();
-    	}
-    	return null;
-    }
     
     public void insert(Offer offer) throws SQLException, ClassNotFoundException {
     	String sqlStmt = new InsertSQLBuilder()
@@ -225,7 +159,7 @@ public class OfferDAO implements TableDAO<Offer>{
      */
     
     public void delete(String condition) throws SQLException, ClassNotFoundException {
->>>>>>> 867e830bc73198e953636bf5720355ffeadbde40
+
 		try {
     		DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("OFFER", condition));
     	} catch (SQLException | ClassNotFoundException e) {

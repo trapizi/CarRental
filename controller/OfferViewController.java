@@ -1,13 +1,15 @@
+/**
+ * @author Xuan Huy Ngo z5076470
+ */
+
 package controller;
 
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,8 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+
+
 import model.Agreement;
 import model.AgreementDAO;
 import model.AgreementPayment;
@@ -66,13 +68,6 @@ public class OfferViewController extends ControllerBase {
 	private TextField filterField;
 	@FXML
 	private TextField destinationField;
-<<<<<<< HEAD
-	@FXML
-	private TextField bookDayField;
-	
-=======
->>>>>>> 867e830bc73198e953636bf5720355ffeadbde40
-
 
 	private ObservableList<Offer> offerList = FXCollections.observableArrayList();
 	private OfferDAO offerDAO;
@@ -122,26 +117,7 @@ public class OfferViewController extends ControllerBase {
 		} 
 	}
 
-	/**
-	 * Search cars that drive on the entered date
-	 */
-	@FXML
-	private void searchByDate() throws SQLException, ClassNotFoundException {
-		try {
-			
-			offerList= this.offerDAO.findByDate(offer.getDriveDay().toString());
-					
-			offerTable.setItems(offerList);
-		} catch (SQLException e) {
-			Alert alert = AlertBuilder.createAlert(AlertType.WARNING, mainApp.getPrimaryStage(), "Error", "Invalid Input", e.getMessage()); 
 
-			alert.showAndWait();
-
-			throw e;
-		}
-	}
-	
-	
 	/**
 	 * Search nearby cars within postcode +- 2 range.
 	 */
@@ -169,11 +145,6 @@ public class OfferViewController extends ControllerBase {
 			throw e;
 		}
 	}
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> 867e830bc73198e953636bf5720355ffeadbde40
 	//Show offer detail on the right side of the UI
 	private void showOfferDetails(Offer offer) {
 		if (offer != null) {
@@ -194,7 +165,7 @@ public class OfferViewController extends ControllerBase {
 				this.priceLabel.setText("$" + price.toString());
 				offer.setPrice(price);
 
-			// TODO: fix this from popping up in offer page
+				// TODO: fix this from popping up in offer page
 			} catch (NullPointerException e) {	            	
 				Alert alert = AlertBuilder.createAlert(AlertType.WARNING, mainApp.getPrimaryStage(), "No Destination", "No Destination Selected", "Select a destination."); 
 
@@ -257,7 +228,7 @@ public class OfferViewController extends ControllerBase {
 		}
 	}
 
-
+	//Delete Function
 	@FXML
 	private void deleteOffer() throws SQLException, ClassNotFoundException{
 		try {
@@ -339,7 +310,7 @@ public class OfferViewController extends ControllerBase {
 	@FXML
 	private void handleBook() throws SQLException, ClassNotFoundException {
 		AgreementPaymentDAO apDAO = new AgreementPaymentDAO();
-		
+
 		Agreement agmt = new Agreement();
 		AgreementDAO agreeDAO = new AgreementDAO();
 
@@ -371,41 +342,41 @@ public class OfferViewController extends ControllerBase {
 			// insert agreementPayment into database
 			try {
 				apDAO.insert(agreementPayment);
-				
+
 				final String url = "jdbc:derby:DBforDEMO;create=true";
 				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT_PAYMENT");
-				
+
 			} catch (SQLException | ClassNotFoundException e) {	        	
-	            // Create and display alert for the database exception
-	            Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
-	            		"Could not complete agreement!", e.getMessage()); 
-	            
-	            alert.showAndWait();	   
-	        }
-			
+				// Create and display alert for the database exception
+				Alert alert = AlertBuilder.createAlert(
+						AlertType.WARNING, mainApp.getPrimaryStage(), "Payment insertion error", 
+						"Could not complete agreement!", e.getMessage()); 
+
+				alert.showAndWait();	   
+			}
+
 			// insert agreement into database
 			try {
 				agreeDAO.insert(agmt);
-				
-			} catch (SQLException | ClassNotFoundException e) {	        	
-	            // Create and display alert for the database exception
-	            Alert alert = AlertBuilder.createAlert(
-	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Agreement insertion error", 
-	            		"Could not complete agreement!", e.getMessage()); 
-	            
-	            alert.showAndWait();	   
-	        }
-			
 
-			
+			} catch (SQLException | ClassNotFoundException e) {	        	
+				// Create and display alert for the database exception
+				Alert alert = AlertBuilder.createAlert(
+						AlertType.WARNING, mainApp.getPrimaryStage(), "Agreement insertion error", 
+						"Could not complete agreement!", e.getMessage()); 
+
+				alert.showAndWait();	   
+			}
+
+
+
 			// setup and show invoice page
 			AgreementInvoiceController aic = new AgreementInvoiceController();
 			aic.setPaymentID(apDAO.findMostRecent().getAgreementPayment_id());
 			aic.setAgreement(agmt);			
-			
+
 			System.out.println("PAYMENT ID = " + apDAO.findMostRecent().getAgreementPayment_id());
-			
+
 
 			mainApp.showView("AgreementInvoiceView.fxml", aic);
 

@@ -51,13 +51,7 @@ public class OfferEditController extends EditControllerBase {
 		this.seatsTextField.setText(Integer.toString(offer.getSeats()));
 		this.transmissionTextField.setText(offer.getTransmission());
 		this.fuelTypeTextField.setText(offer.getFuelType());
-		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));
-<<<<<<< HEAD
-
-=======
-		this.priceTextField.setText(Double.toString(offer.getPrice()));
-		
->>>>>>> 867e830bc73198e953636bf5720355ffeadbde40
+		this.postcodeTextField.setText(Long.toString(offer.getPostcode()));		
 		try{
 			this.driveDayTextField.setText(offer.getDriveDay().toString());
 		} catch (NullPointerException e) {

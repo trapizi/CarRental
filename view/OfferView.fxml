@@ -77,19 +77,15 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="139.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="121.0" text="Search nearby cars" GridPane.rowIndex="1" />
-                        <TextField fx:id="filterField" prefHeight="25.0" prefWidth="130.0" promptText="Please enter the postcode" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#searchPostcode" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label text="Set destination" GridPane.rowIndex="2" />
-                        <TextField fx:id="destinationField" promptText="Destination postcode" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Set book date" />
-                        <TextField fx:id="bookDayField" promptText="YYYY-mm-dd" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#searchByDate" text="GO" GridPane.columnIndex="2" />
+                        <Label prefHeight="17.0" prefWidth="121.0" text="Search nearby cars" />
+                        <TextField fx:id="filterField" prefHeight="25.0" prefWidth="130.0" promptText="Please enter the postcode" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#searchPostcode" text="Search" GridPane.columnIndex="2" />
+                        <Label text="Set destination" GridPane.rowIndex="1" />
+                        <TextField fx:id="destinationField" promptText="Destination postcode" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <Button layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh List" />
