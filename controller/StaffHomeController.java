@@ -53,12 +53,7 @@ public class StaffHomeController extends ControllerBase {
 	private void handleManageStaff() {
 		this.mainApp.showView(manageStaffPage);
 	}
-	
-	@FXML
-	private void handleStuffView() {
-		mainApp.showView("StuffView.fxml");
-	}
-	
+		
 	//Staff can view all agreements
 	@FXML
 	private void handleAllAgreements() {
