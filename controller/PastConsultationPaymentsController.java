@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableCell; 
 import javafx.scene.control.TableColumn; 
 import javafx.scene.control.TableView;
+import mainApp.SUber;
 import model.ConsultationPayment;
 import model.ConsultationPaymentDAO;
 import mainApp.SelenaMain;
@@ -77,7 +78,7 @@ public class PastConsultationPaymentsController {
     	
     }
     
-    public void setMainApp(SelenaMain mainApp){
+    public void setMainApp(SUber mainApp){
         this.mainApp = mainApp; 
     }
 } 
