@@ -85,7 +85,7 @@
                         <TextField fx:id="filterField" prefHeight="25.0" prefWidth="130.0" promptText="Please enter the postcode" GridPane.columnIndex="1" />
                         <Button mnemonicParsing="false" onAction="#searchPostcode" text="Search" GridPane.columnIndex="2" />
                         <Label text="Set destination" GridPane.rowIndex="1" />
-                        <TextField promptText="Destination postcode" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="destinationField" promptText="Destination postcode" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <Button layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh List" />

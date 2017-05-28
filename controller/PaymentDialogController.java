@@ -107,10 +107,9 @@ public class PaymentDialogController extends EditControllerBase {
 		payment.setPaymentAccount(this.paymentAccountField.getText());
 		payment.setPaymentType(this.paymentTypeChoiceBox.getValue());
                 
-                DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-                payment.setAccountExpiry(df.parse(this.accountExpiryField.getText()));
+        //DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        //payment.setAccountExpiry(df.parse(this.accountExpiryField.getText()));
 			
-
 		//(3) close edit window and set OkClicked to true
 		// close edit window
 		okClicked = true;

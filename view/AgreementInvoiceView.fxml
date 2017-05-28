@@ -40,7 +40,7 @@
             <Label text="Offerer" GridPane.rowIndex="1" />
             <Label fx:id="offererLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Payment ID" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="paymentIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label layoutX="172.0" layoutY="14.0" prefHeight="42.0" prefWidth="249.0" text="PAYMENT SUCCESSFUL! ">
