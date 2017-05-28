@@ -127,6 +127,9 @@ public class RequestConsultationController extends ControllerBase {
 
 					alert.showAndWait();
 				}
+				
+				// bring them back to member home page once payment is complete
+				this.mainApp.showMemberHomePage();	
 			}
 		}
 	}
