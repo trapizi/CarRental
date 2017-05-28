@@ -81,10 +81,10 @@ public class PaymentDialogController extends EditControllerBase {
 	@FXML
 	private void handleConfirmPaymentButton() throws InvalidInputException, SQLException, ClassNotFoundException { 
 		//(1)Check for valid input
-		try {        
-			AgreementPayment.validateInput(
-					this.accountOwnerNameField.getText(),
-					this.paymentAccountField.getText(),
+		try { 
+			Payment.validateInput(
+					this.accountOwnerNameField.getText(), 
+					this.paymentAccountField.getText(), 
 					this.accountExpiryField.getText());
 
 		} catch (InvalidInputException e){
