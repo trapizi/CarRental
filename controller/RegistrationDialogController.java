@@ -48,7 +48,6 @@ public class RegistrationDialogController extends EditControllerBase {
     	this.emailTextField.setText(member.getEmail());
 		this.phoneNoTextField.setText(Integer.toString(member.getPhoneNo()));		
 		this.homeAddressTextField.setText(member.getHomeAddress());
-		this.creditCardTextField.setText(member.getCreditCard());
     }
     
     /**
@@ -110,7 +109,6 @@ public class RegistrationDialogController extends EditControllerBase {
 		
 		member.setAccountExpiry(date);
 		member.setHomeAddress(this.homeAddressTextField.getText());
-		member.setCreditCard(this.creditCardTextField.getText());
 		
 		// close edit window
         okClicked = true;

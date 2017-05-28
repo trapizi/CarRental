@@ -12,9 +12,7 @@ public class MemberHomeController extends ControllerBase {
 	private Button viewConsultationButton;
 	@FXML
 	private Button requestConsultationButton;
-	
-	private final String profileViewFileName = "MemberProfile.fxml";
-		
+			
     @FXML
     private void initialize() {				
 		this.welcomeLabel.setText("Welcome, " + mainApp.getLoggedInAs().getFirstName() + "!");
@@ -29,7 +27,7 @@ public class MemberHomeController extends ControllerBase {
 	// TODO: add more functions to change scenes with buttons
 	@FXML
 	private void handleViewProfile() {
-		mainApp.showView(profileViewFileName, new MemberProfileController());
+		mainApp.showView("MemberProfile.fxml", new MemberProfileController());
 	}
 	
 	@FXML

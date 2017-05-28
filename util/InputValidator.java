@@ -257,5 +257,5 @@ public final class InputValidator {
 		} catch (Exception e) {
 			throw new InvalidInputException("Database error occurred!");
 		}
-	}
+	}	
 }
