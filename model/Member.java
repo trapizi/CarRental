@@ -32,6 +32,18 @@ public class Member extends User {
 		this.homeAddress = new SimpleStringProperty();
 	}
 	
+	public Member(String userName, String password, String firstName, String lastName, String email, String phoneNo, 
+					String accountExpiry, String homeAddress) {		
+		this.setUserName(userName);
+		this.setPassword(password);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setPhoneNo(Integer.parseInt(phoneNo));
+		this.setAccountExpiry(accountExpiry);
+		this.setHomeAddress(homeAddress);
+	}
+	
 	/**
 	 * @return a string containing the member's ID and user details
 	 */
