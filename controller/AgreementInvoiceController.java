@@ -47,6 +47,7 @@ public class AgreementInvoiceController extends ControllerBase {
 	private Label dayCreatedLabel;
 
 	private Agreement agreement;
+	private int paymentID;
 
 	/**
 	 * shows details about the agreement after payment
@@ -67,6 +68,10 @@ public class AgreementInvoiceController extends ControllerBase {
 	public void setAgreement(Agreement agmt) {
 		this.agreement = agmt;
 	}
+	
+	public void setPaymentID(int paymentID) {
+		this.paymentID = paymentID;
+	}
 
 	/**
 	 * Fills all text fields to show details about the agreement invoice.
@@ -81,10 +86,12 @@ public class AgreementInvoiceController extends ControllerBase {
 		} catch (NullPointerException e) {
 			dateLabel.setText("");
 		}
+		
+		this.paymentIDLabel.setText(Integer.toString(this.paymentID));
 
 		locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
 		locationToLabel.setText(Long.toString(agmt.getToPostcode()));
-		priceLabel.setText(Float.toString(agmt.getPayAmt()));
+		priceLabel.setText("$" + Float.toString(agmt.getPayAmt()));
 
 		try {
 			dayCreatedLabel.setText(agmt.getCreateDay().toString());
