@@ -28,8 +28,6 @@ public class MemberEditController extends EditControllerBase {
     private TextField accountExpiryTextField;    
     @FXML
     private TextField homeAddressTextField;
-    @FXML
-    private TextField creditCardTextField;
     
     @FXML
     private Label expiryDateLabel;
@@ -59,7 +57,6 @@ public class MemberEditController extends EditControllerBase {
 		}
 		
 		this.homeAddressTextField.setText(member.getHomeAddress());
-		this.creditCardTextField.setText(member.getCreditCard());
     }
     
     /**
@@ -79,8 +76,7 @@ public class MemberEditController extends EditControllerBase {
     		Member.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				this.accountExpiryTextField.getText(), this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
-    				this.member.getMemberID());
+    				this.accountExpiryTextField.getText(), this.homeAddressTextField.getText(), this.member.getMemberID());
     		
     	} catch (InvalidInputException e) {  
     		
@@ -114,7 +110,6 @@ public class MemberEditController extends EditControllerBase {
 		// TODO: overload setAccountExpiry to accept a string or this will expect a java.sql.Date variable
 		member.setAccountExpiry(this.accountExpiryTextField.getText());		
 		member.setHomeAddress(this.homeAddressTextField.getText());
-		member.setCreditCard(this.creditCardTextField.getText());
 		
 		// close edit window
         okClicked = true;

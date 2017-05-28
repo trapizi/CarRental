@@ -146,10 +146,7 @@ public class CorporateMemberDAO implements TableDAO<CorporateMember> {
 	    		corporateMember.setEmail(rs.getString("EMAIL"));
 	    		corporateMember.setPhoneNo(rs.getInt("PHONE"));
 	    		corporateMember.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
-	    		corporateMember.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
 	    		corporateMember.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
-	    		corporateMember.setCommissionRate(rs.getFloat("COMMISSION_RATE"));
-	    		corporateMember.setCreditCard(rs.getString("CREDIT_CARD"));
 	    	
 	    		list.add(corporateMember);
     		} catch (SQLException e) {

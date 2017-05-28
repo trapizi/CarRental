@@ -35,8 +35,6 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
     private TextField phoneNoTextField; 
     @FXML
     private TextField homeAddressTextField;
-    @FXML
-    private TextField creditCardTextField;	
 	@FXML
 	private TextField companyNameTextField;
 	
@@ -56,7 +54,6 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
     	this.emailTextField.setText(corporateMember.getEmail());
 		this.phoneNoTextField.setText(Integer.toString(corporateMember.getPhoneNo()));		
 		this.homeAddressTextField.setText(corporateMember.getHomeAddress());
-		this.creditCardTextField.setText(corporateMember.getCreditCard());
 		
 		if (corporateMember.getCorporation() == null) {
 			this.companyNameTextField.setText("");
@@ -83,8 +80,7 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
     		Member.validateRegistrationInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
-    				this.corporateMember.getMemberID());
+    				this.homeAddressTextField.getText(), this.corporateMember.getMemberID());
     		
     		CorporateMember.validateCompanyName(this.companyNameTextField.getText());
     		
@@ -126,7 +122,6 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
 		
 		corporateMember.setAccountExpiry(date);
 		corporateMember.setHomeAddress(this.homeAddressTextField.getText());
-		corporateMember.setCreditCard(this.creditCardTextField.getText());
 		
 		CorporateDAO corporateDAO = new CorporateDAO();
 		Corporate corporation = corporateDAO.findByName(this.companyNameTextField.getText());

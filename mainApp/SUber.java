@@ -8,7 +8,7 @@ import controller.LoginController;
 import controller.MemberHomeController;
 import controller.RootLayoutController;
 import controller.StaffHomeController;
-import test.BingTest;
+//import test.BingTest;
 import util.*;
 
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Agreement;
+import model.AgreementDAO;
 import model.User;
+import test.BingTest;
+import test.SarinaTest;
 import javafx.application.Application;
 import java.io.IOException;
 
@@ -34,15 +38,16 @@ public class SUber extends Application {
 			this.primaryStage.setTitle("SUber");
 			
 			this.setLoggedInAs(null);
-			DBUtil.dropTable("OFFER");
+			//DBUtil.dropAllTables();;
 			// init table
-			DBUtil.dbInitAllTables();
+			//DBUtil.dbInitAllTables();
 	
 			//2) Initialize RootLayout
 			initRootLayout();
 
 			// display login page
 			this.showLoginPage();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,19 +59,21 @@ public class SUber extends Application {
 
 		// add stuff to this function if you want to test tables
 		SUber.testTables();
-
+		
 		// add stuff to start() if you want to test UI
 		try {
-			//BingTest.initMyTables();
-			DBUtil.dropTable("AGREEMENT");
+			BingTest.clearTables();
 			DBUtil.dbInitAllTables();
+			
+			//BingTest.initMyTables();
+			//DBUtil.dropAllTables();
+			
 			DBUtil.insertDummyData();		
 			launch(args);	
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		} finally {
-			//DBUtil.dropAllTables();
-			BingTest.clearTables();
+			DBUtil.dropAllTables();
 			DBUtil.dbShutdown();
 		}
 	}
@@ -165,6 +172,10 @@ public class SUber extends Application {
      * @return true if the user clicked OK, false otherwise.
      */
     public boolean showEditDialog(Object object, String viewFileName) {
+    	return showEditDialog(object, viewFileName, "Edit");
+    }
+    
+    public boolean showEditDialog(Object object, String viewFileName, String dialogName) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -173,7 +184,7 @@ public class SUber extends Application {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit");
+            dialogStage.setTitle(dialogName);
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);

@@ -169,7 +169,7 @@ public final class InputValidator {
 	
 	public static void validateSeats (String seats) throws InvalidInputException {
 		isEmpty(seats, "Seats");
-		
+		positiveCheck(seats, "Seats");
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
@@ -199,9 +199,53 @@ public final class InputValidator {
 		isEmpty(price, "Price");
 		
     	try {
-    		Double.parseDouble(price);
+    		Float.parseFloat(price);
     	} catch (NumberFormatException e) {
     		throw new InvalidInputException("Invalid price entered. Price can only contains digits.");
+    	}
+	}
+	
+	public static void validateSeeker(String seeker) throws InvalidInputException {
+		isEmpty(seeker, "Seeker");
+		positiveCheck(seeker, "Seeker");
+		
+    	try {
+    		Integer.parseInt(seeker);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid seeker entered. Seeker can only contains digits for ID.");
+    	}
+	}
+	
+	public static void validateOfferer(String offerer) throws InvalidInputException {
+		isEmpty(offerer, "Offerer");
+		positiveCheck(offerer, "Offerer");
+		
+    	try {
+    		Integer.parseInt(offerer);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid offerer entered. Offerer can only contains digits for ID.");
+    	}
+	}
+	
+	public static void validatePickup(String pickup) throws InvalidInputException {
+		isEmpty(pickup, "Pick-up");
+		positiveCheck(pickup, "Pick-up");
+		
+    	try {
+    		Long.parseLong(pickup);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid pick-up place entered. Pick-up can only contains digits for postcode.");
+    	}
+	}
+	
+	public static void validateDestination(String dest) throws InvalidInputException {
+		isEmpty(dest, "Destination");
+		positiveCheck(dest, "Destination");
+		
+    	try {
+    		Long.parseLong(dest);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid destination entered. Destination can only contains digits for postcode.");
     	}
 	}
 	
@@ -222,6 +266,12 @@ public final class InputValidator {
 		}
 	}
 
+	private static void positiveCheck(String s, String fieldName) throws InvalidInputException {
+		if (Integer.parseInt(s) <= 0 || Long.parseLong(s) <= 0) {
+			throw new InvalidInputException(fieldName + " must be greater than 0.");
+		} else;
+	}
+	
 	/**
 	 * Returns true if the string contains spaces
 	 * @param s The string to check
@@ -257,5 +307,5 @@ public final class InputValidator {
 		} catch (Exception e) {
 			throw new InvalidInputException("Database error occurred!");
 		}
-	}
+	}	
 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableCell; 
 import javafx.scene.control.TableColumn; 
 import javafx.scene.control.TableView;
+import mainApp.SUber;
 import model.ConsultationPayment;
 import model.ConsultationPaymentDAO;
 import mainApp.SelenaMain;
@@ -59,7 +60,7 @@ public class PastConsultationPaymentsController {
     
         // We must tell the cell how we want dates to be displayed
     	// section below adapted from http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-    	this.accountExpiryDateColumn.setCellFactory(column -> {
+    	this.accountExpiryColumn.setCellFactory(column -> { 
     		return new TableCell<ConsultationPayment, java.sql.Date>() {
     			@Override
     			protected void updateItem(java.sql.Date item, boolean empty) {    			
@@ -75,11 +76,9 @@ public class PastConsultationPaymentsController {
     		};
     	});
     	
-    	showMemberDetails(null);
-    
     }
     
-    public void setMainApp(SelenaMain mainApp){
+    public void setMainApp(SUber mainApp){
         this.mainApp = mainApp; 
     }
 } 

@@ -45,6 +45,8 @@ public class OfferDAO implements TableDAO<Offer>{
     	return null;
     }
     
+    
+    //Find nearby car
     public ObservableList<Offer> findByPostcode(long postcode) throws SQLException, ClassNotFoundException {
     	try{
     		ResultSet rs = DBUtil.dbExecuteQuery(SQLBuilder.selectTable("*", "OFFER", "POSTCODE BETWEEN "+ (postcode-2) +" AND "+ (postcode+2)));
@@ -73,6 +75,7 @@ public class OfferDAO implements TableDAO<Offer>{
     			.addFieldValue("PRICE", offer.getPrice())
     			.addFieldValue("POSTCODE", offer.getPostcode())
     			.addFieldValue("DRIVE_DAY", offer.getDriveDay())
+    			.addFieldValue("DESTINATION", offer.getDestination())
     			.toString();
     	
     	
@@ -82,6 +85,10 @@ public class OfferDAO implements TableDAO<Offer>{
     		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     		throw e;    		
     	}
+    }
+    
+    public void updatePrice(Offer offer) throws SQLException, ClassNotFoundException {
+    	
     }
     
     public void update(Offer offer) throws SQLException, ClassNotFoundException {
@@ -97,6 +104,7 @@ public class OfferDAO implements TableDAO<Offer>{
     			.addFieldValue("POSTCODE", offer.getPostcode())    			
     			.addFieldValue("PRICE", offer.getPrice())
     			.addFieldValue("DRIVE_DAY", offer.getDriveDay())
+    			.addFieldValue("DESTINATION", offer.getDestination())
     			.where("OFFER_ID=" + offer.getOfferID())
     			.toString();
     	
@@ -139,7 +147,8 @@ public class OfferDAO implements TableDAO<Offer>{
                     offer.setPostcode(rs.getLong("POSTCODE"));
                     offer.setPrice(rs.getFloat("PRICE"));
                     offer.setDriveDay(rs.getDate("DRIVE_DAY"));
-                list.add(offer);
+                    offer.setDestination(rs.getLong("DESTINATION"));
+                    list.add(offer);
 			} catch (SQLException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
 			throw e;

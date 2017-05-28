@@ -209,18 +209,18 @@ public class DBUtil {
     
     public static void dropAllTables() throws SQLException, ClassNotFoundException {
     	try {
+			
     		/*
 			DBUtil.dropTable("agreement");
-			DBUtil.dropTable("staff");
-			DBUtil.dropTable("member");
-			DBUtil.dropTable("corporate");
-			DBUtil.dropTable("corporateMember");
-			DBUtil.dropTable("consultation");
+			DBUtil.dropTable("membership_Payment");
+			DBUtil.dropTable("consultation_Payment");
 			DBUtil.dropTable("seek");
 			DBUtil.dropTable("offer");
-			DBUtil.dropTable("membershipPayment");
-			DBUtil.dropTable("consultationPayment");
-			*/
+			DBUtil.dropTable("member");
+			DBUtil.dropTable("corporate");
+			DBUtil.dropTable("corporate_Member");
+			DBUtil.dropTable("consultation");
+    		 */
 
     		
     	} catch (Exception e) {
