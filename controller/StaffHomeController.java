@@ -55,6 +55,12 @@ public class StaffHomeController extends ControllerBase {
 		mainApp.showView("StuffView.fxml");
 	}
 	
+	//Staff can view all agreements
+	@FXML
+	private void handleAllAgreements() {
+		mainApp.showView("StaffAgreementView.fxml");
+	}
+	
 	@FXML
 	private void handleGenerateCorporateMailingList() {
 		// generate mailing list and display location in alert

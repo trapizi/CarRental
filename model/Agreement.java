@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import javafx.beans.property.*;
 import util.DBUtil;
+import util.InputValidator;
 import util.InvalidInputException;
 
 /**
@@ -18,11 +19,9 @@ public class Agreement {
 	private IntegerProperty agreement_id;
 	private IntegerProperty seeker_id;
 	private IntegerProperty offerer_id;
-	private StringProperty status;
 	private FloatProperty payAmt;
 	private SimpleObjectProperty<Date> agreeDate;
 	private SimpleObjectProperty<Date> createDay;
-	private StringProperty initiateBy;
 	private LongProperty toPostcode;
 	private LongProperty fromPostcode;
 
@@ -33,21 +32,37 @@ public class Agreement {
 		this.agreement_id = new SimpleIntegerProperty();
 		this.seeker_id = new SimpleIntegerProperty();
 		this.offerer_id = new SimpleIntegerProperty();
-		this.status = new SimpleStringProperty(); 
 		this.payAmt = new SimpleFloatProperty(); 
 		this.agreeDate = new SimpleObjectProperty<Date>();
 		this.createDay = new SimpleObjectProperty<Date>();
-		this.initiateBy = new SimpleStringProperty();
 		this.toPostcode = new SimpleLongProperty();
 		this.fromPostcode = new SimpleLongProperty();
 	}
 
 	@Override
 	public String toString() {
-		return "id: " + this.getAgreement_id() + " status: " + this.getStatus() + " price: " + 
+		return "id: " + this.getAgreement_id() + " price: " + 
 				this.getPayAmt() + " date: " + this.getAgreeDate() + "date created: " + this.getCreateDay() +
-				"initiated by: " + this.getInitiateBy() + "postcode from: " + this.getFromPostcode() +
+				"initiated by: " + "postcode from: " + this.getFromPostcode() +
 				"postcode to: " + this.getToPostcode();
+	}
+
+	/**
+	 * Validate agreement input
+	 */
+	public static void validateInput(String seekerField, String offererField, String dateField, String pickupField, String destinationField,
+			String priceField)
+					throws InvalidInputException, SQLException, ClassNotFoundException {
+		try {
+			InputValidator.validateSeeker(seekerField);
+			InputValidator.validateOfferer(offererField);
+			InputValidator.validateDate(dateField);
+			InputValidator.validatePickup(pickupField);
+			InputValidator.validateDestination(destinationField);
+			InputValidator.validatePrice(priceField);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	public int getAgreement_id() {
@@ -84,18 +99,6 @@ public class Agreement {
 
 	public IntegerProperty offererIDProperty() {
 		return offerer_id;
-	}
-
-	public String getStatus() {
-		return status.get();
-	}
-
-	public void setStatus(String status) {
-		this.status.set(status);;
-	}
-
-	public StringProperty statusProperty() {
-		return status;
 	}
 
 	public float getPayAmt() {
@@ -152,18 +155,6 @@ public class Agreement {
 
 	public SimpleObjectProperty<Date> createDayProperty() {
 		return createDay;
-	}
-
-	public String getInitiateBy() {
-		return initiateBy.get();
-	}
-
-	public void setInitiateBy(String initiateBy) {
-		this.initiateBy.set(initiateBy);
-	}
-
-	public StringProperty initiateByProperty() {
-		return initiateBy;
 	}
 
 	public long getToPostcode() {

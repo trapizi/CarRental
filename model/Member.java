@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
  */
 public class Member extends User {		
 	private IntegerProperty memberID;
-	//private ObjectProperty<Date> lastMatchDate;
 	private ObjectProperty<Date> accountExpiry;
 	private StringProperty homeAddress;
 			

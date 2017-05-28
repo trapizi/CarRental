@@ -22,9 +22,8 @@ import util.AlertBuilder;
 
 /**
  * @author Sarina Lee (z5020069)
- * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
  */
-public class AgreementController extends ControllerBase {
+public class StaffAgreementController extends ControllerBase {
 
 	@FXML
 	private TableView<Agreement> agreementTable;
@@ -89,19 +88,18 @@ public class AgreementController extends ControllerBase {
 	@FXML
 	private void search() {
 		try {
-			Member currentMember = (Member) (this.mainApp.getLoggedInAs());
-			agmtList = this.agmtDAO.findMemberAgreements(currentMember.getMemberID());
+			agmtList = this.agmtDAO.findAll();
 
 			// display results in the table
 			agreementTable.setItems(agmtList);
 
 		} catch (SQLException e) {            
 			// Create and display alert for the database exception
-			     Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-            		"Database could not complete search!", e.getMessage()); 
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+					"Database could not complete search!", e.getMessage()); 
 
-            alert.showAndWait();
+			alert.showAndWait();
 		}
 	}
 
@@ -135,6 +133,99 @@ public class AgreementController extends ControllerBase {
 			priceLabel.setText("");
 			dayCreatedLabel.setText("");
 		}
+	}
+
+	/**
+	 * Called when the user clicks the insert button. 
+	 * A new agreement is made and inserted into the database and UI
+	 */
+	@FXML
+	private void insertAgreement() {    	
+		Agreement tempAgmt = new Agreement();
+		boolean okClicked = mainApp.showEditDialog(tempAgmt, "StaffEditAgreement.fxml");
+
+		if (okClicked) {
+			try {	   	
+				// insert agreement into the database
+				agmtDAO.insert(tempAgmt);
+
+				// need to retrieve the inserted agreement from the database to get the ID assigned to it
+				tempAgmt = agmtDAO.findById(tempAgmt.getAgreement_id());
+
+				// ensure that agmtID gets updated on the agreement details section after insert
+				agmtList.add(tempAgmt);
+
+			} catch (SQLException | ClassNotFoundException e) {	        	
+				// Create and display alert for the database exception
+				Alert alert = AlertBuilder.createAlert(
+						AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+						"Database could not complete search!", e.getMessage()); 
+
+				alert.showAndWait();	        	
+			}
+		}
+	}
+
+	/**
+	 * Called when the user clicks the edit button. 
+	 * An agreement is edited
+	 */
+	@FXML
+	private void editAgreement() throws SQLException, ClassNotFoundException {   
+		try {
+			Agreement selectedMember = agreementTable.getSelectionModel().getSelectedItem();
+			boolean okClicked = mainApp.showEditDialog(selectedMember, "StaffEditAgreement.fxml");
+
+			if (okClicked) {
+
+				// triggers null pointer exception from setters if nothing is selected
+				showAgreementDetails(selectedMember);
+
+				try {
+					agmtDAO.update(selectedMember);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}              
+			}
+
+		} catch (NullPointerException e) {
+			// Create and display alert when no staff is selected
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+
+			alert.showAndWait();       
+		}
+	}
+
+	/**
+	 * Called when the user clicks on the delete button.
+	 * Removes an agreement from the database and the UI.
+	 */
+	@FXML
+	private void deleteAgreement() throws SQLException, ClassNotFoundException {
+		int selectedIndex = agreementTable.getSelectionModel().getSelectedIndex();
+
+		if (selectedIndex >= 0) {
+			try {
+				AgreementDAO agmtDAO = new AgreementDAO();
+				//deletes the selected agreement from the database
+				agmtDAO.delete("AGREEMENT_ID=" + ((Agreement) agreementTable.getItems().get(selectedIndex)).getAgreement_id());
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		} else {
+			// Create and display alert when no staff is selected
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+
+			alert.showAndWait();  
+
+		}
+
+		//deletes the selected agreement from the UI
+		agreementTable.getItems().remove(selectedIndex);  
 	}
 
 	public void setMainApp(SUber mainApp) {
