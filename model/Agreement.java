@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import javafx.beans.property.*;
 import util.DBUtil;
+import util.InputValidator;
 import util.InvalidInputException;
 
 /**
@@ -44,6 +45,24 @@ public class Agreement {
 				this.getPayAmt() + " date: " + this.getAgreeDate() + "date created: " + this.getCreateDay() +
 				"initiated by: " + "postcode from: " + this.getFromPostcode() +
 				"postcode to: " + this.getToPostcode();
+	}
+
+	/**
+	 * Validate agreement input
+	 */
+	public static void validateInput(String seekerField, String offererField, String dateField, String pickupField, String destinationField,
+			String priceField)
+					throws InvalidInputException, SQLException, ClassNotFoundException {
+		try {
+			InputValidator.validateSeeker(seekerField);
+			InputValidator.validateOfferer(offererField);
+			InputValidator.validateDate(dateField);
+			InputValidator.validatePickup(pickupField);
+			InputValidator.validateDestination(destinationField);
+			InputValidator.validatePrice(priceField);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	public int getAgreement_id() {

@@ -114,8 +114,8 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     	
     	while (rs.next()) {
             try {
-                AgreementPayment agreementPayment = new AgreementPayment();
-                agreementPayment.setAgreementPayment_id(rs.getInt("AGREEMENT_PAYMENT_ID"));
+            AgreementPayment agreementPayment = new AgreementPayment();
+            agreementPayment.setAgreementPayment_id(rs.getInt("AGREEMENT_PAYMENT_ID"));
 	    	agreementPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
 	    	agreementPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 	    	agreementPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
@@ -131,4 +131,30 @@ public class AgreementPaymentDAO implements TableDAO<AgreementPayment> {
     	}
     	return list;
     }
+    
+    public AgreementPayment findMostRecent() throws SQLException, ClassNotFoundException {
+        try {
+        	/*
+        	ResultSet rs = DBUtil.dbExecuteQuery("SELECT * "
+        			+ "FROM CONSULTATION "
+        			+ "WHERE CONSULTATION_NUM=(SELECT MAX(CONSULTATION_NUM) FROM CONSULTATION)");
+        	*/
+        	ResultSet rs = DBUtil.dbExecuteQuery("SELECT * "
+        			+ "FROM AGREEMENT_PAYMENT "
+        			+ "WHERE AGREEMENT_PAYMENT_ID=(SELECT MAX(AGREEMENT_PAYMENT_ID) FROM AGREEMENT_PAYMENT)");
+            
+        	ObservableList<AgreementPayment> list = this.getAgreementPaymentList(rs);
+            
+        	System.out.println("list SIZE = " + list.size());
+        	
+            if (list.size() > 0) {
+                return list.get(0);
+            }
+        } catch (SQLException | ClassNotFoundException e)  {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
+            e.printStackTrace();
+        } 
+               
+        return null;
+    } 
 }

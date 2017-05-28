@@ -199,11 +199,52 @@ public final class InputValidator {
 		isEmpty(price, "Price");
 		
     	try {
-    		Double.parseDouble(price);
+    		Float.parseFloat(price);
     	} catch (NumberFormatException e) {
     		throw new InvalidInputException("Invalid price entered. Price can only contains digits.");
     	}
 	}
+	
+	public static void validateSeeker(String seeker) throws InvalidInputException {
+		isEmpty(seeker, "Seeker");
+		
+    	try {
+    		Integer.parseInt(seeker);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid seeker entered. Seeker can only contains digits for ID.");
+    	}
+	}
+	
+	public static void validateOfferer(String offerer) throws InvalidInputException {
+		isEmpty(offerer, "Offerer");
+		
+    	try {
+    		Integer.parseInt(offerer);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid offerer entered. Offerer can only contains digits for ID.");
+    	}
+	}
+	
+	public static void validatePickup(String pickup) throws InvalidInputException {
+		isEmpty(pickup, "Pick-up");
+		
+    	try {
+    		Long.parseLong(pickup);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid pick-up place entered. Pick-up can only contains digits for postcode.");
+    	}
+	}
+	
+	public static void validateDestination(String dest) throws InvalidInputException {
+		isEmpty(dest, "Destination");
+		
+    	try {
+    		Long.parseLong(dest);
+    	} catch (NumberFormatException e) {
+    		throw new InvalidInputException("Invalid destination entered. Destination can only contains digits for postcode.");
+    	}
+	}
+	
 	
 	/**
 	 * Checks if textField is empty
