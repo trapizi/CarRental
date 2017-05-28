@@ -89,6 +89,7 @@ public class AgreementController extends ControllerBase {
 	@FXML
 	private void search() {
 		try {
+			//finds a list of all agreements that the current member has
 			Member currentMember = (Member) (this.mainApp.getLoggedInAs());
 			agmtList = this.agmtDAO.findMemberAgreements(currentMember.getMemberID());
 
@@ -97,11 +98,11 @@ public class AgreementController extends ControllerBase {
 
 		} catch (SQLException e) {            
 			// Create and display alert for the database exception
-			     Alert alert = AlertBuilder.createAlert(
-            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
-            		"Database could not complete search!", e.getMessage()); 
+			Alert alert = AlertBuilder.createAlert(
+					AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+					"Database could not complete search!", e.getMessage()); 
 
-            alert.showAndWait();
+			alert.showAndWait();
 		}
 	}
 

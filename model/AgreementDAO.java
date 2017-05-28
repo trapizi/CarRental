@@ -30,7 +30,7 @@ public class AgreementDAO implements TableDAO<Agreement> {
 
 		return null;
 	}
-	
+
 	/**
 	 * Returns a list of all agreements in the agreement table
 	 */
@@ -62,7 +62,6 @@ public class AgreementDAO implements TableDAO<Agreement> {
 				.addFieldValue("TOPOSTCODE", agmt.getToPostcode())
 				.addFieldValue("FROMPOSTCODE", agmt.getFromPostcode())
 				.toString();
-
 		try {
 			DBUtil.dbExecuteUpdate(sqlStmt);
 		} catch (SQLException | ClassNotFoundException e) {

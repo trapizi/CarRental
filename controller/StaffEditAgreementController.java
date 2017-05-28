@@ -15,6 +15,9 @@ import model.Member;
 import util.AlertBuilder;
 import util.InvalidInputException;
 
+/**
+ * @author Sarina Lee (z5020069)
+ */
 public class StaffEditAgreementController extends EditControllerBase {
 
 	@FXML
@@ -63,8 +66,8 @@ public class StaffEditAgreementController extends EditControllerBase {
 		// check for valid input here
 		try {
 			Agreement.validateInput(
-				this.seekerTextField.getText(), this.offererTextField.getText(), this.dateTextField.getText(), 
-				this.pickupTextField.getText(), this.destinationTextField.getText(), this.priceTextField.getText());
+					this.seekerTextField.getText(), this.offererTextField.getText(), this.dateTextField.getText(), 
+					this.pickupTextField.getText(), this.destinationTextField.getText(), this.priceTextField.getText());
 		} catch (InvalidInputException e) {  
 
 			// Create and display alert for incorrect input
@@ -86,7 +89,7 @@ public class StaffEditAgreementController extends EditControllerBase {
 			throw e;
 		} 
 
-		// set agreement fields if valid input entered    
+		// set agreement fields if a valid input is entered    
 		agmt.setSeeker(Integer.parseInt(this.seekerTextField.getText()));
 		agmt.setOfferer(Integer.parseInt(this.offererTextField.getText()));
 		agmt.setAgreeDate(this.dateTextField.getText());
