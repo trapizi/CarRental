@@ -87,8 +87,6 @@ public class CorporateTestData {
         corporate10.setCompanyPCode(2987);
         corporate10.setCustomerType(1);
 
-        
-
             
         System.out.println(corporate1);
         System.out.println(corporate2);

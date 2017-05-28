@@ -53,6 +53,7 @@ public class Consultation {
     public String toString() {
         return "Consultation number: " + this.getConsultationNum() + "CorporateID: " + this.corporate.getCorporateID();
     }
+    
     /**
      * @return the consultationNum
      */

@@ -15,28 +15,11 @@ public class MemberTestData {
          
     
         Member member1 = new Member();
-        try {
             member1.validateInput("JoyceL", "password1", "Joyce", "Lu", "joyce_lu@gmail.com", "98003334", "2009-09-09", "3 Summer Street", "584647354567", 1);
-        } catch (InvalidInputException ex) {
-            throw ex;
-            //Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+
+              
         Member member2 = new Member();
-        try {
             member2.validateInput("SamSmith", "password2", "Sam", "Smith", "sam.smith@gmail.com", "76545679", "2017-08-09", "4 Ray Road", "988753675465", 2);
-        } catch (InvalidInputException ex) {
-            Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MemberTestData.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         
         Member member3 = new Member();
