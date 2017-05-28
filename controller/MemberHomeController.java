@@ -29,12 +29,7 @@ public class MemberHomeController extends ControllerBase {
 	private void handleViewProfile() {
 		mainApp.showView("MemberProfile.fxml", new MemberProfileController());
 	}
-	
-	@FXML
-	private void handleStuffView() {
-		mainApp.showView("StuffView.fxml");
-	}
-	
+		
 	@FXML
 	private void handleAgreementsView() {
 		mainApp.showView("AgreementView.fxml");
@@ -45,6 +40,7 @@ public class MemberHomeController extends ControllerBase {
 	private void handleOfferView() {
 		mainApp.showView("OfferView.fxml");
 	}
+	
 	//For SUber to edit offers
 	@FXML
 	private void handleOfferViewEditable() {

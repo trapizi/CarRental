@@ -80,8 +80,7 @@ public class CorporateMemberRegistrationController extends EditControllerBase {
     		Member.validateRegistrationInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				this.homeAddressTextField.getText(), "DUMMY DATA",
-    				this.corporateMember.getMemberID());
+    				this.homeAddressTextField.getText(), this.corporateMember.getMemberID());
     		
     		CorporateMember.validateCompanyName(this.companyNameTextField.getText());
     		

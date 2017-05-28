@@ -20,7 +20,9 @@ public class Agreement {
 	private IntegerProperty seeker_id;
 	private IntegerProperty offerer_id;
 	private FloatProperty payAmt;
+	//date at which the car ride occurs
 	private SimpleObjectProperty<Date> agreeDate;
+	//date at which the payment is made
 	private SimpleObjectProperty<Date> createDay;
 	private LongProperty toPostcode;
 	private LongProperty fromPostcode;

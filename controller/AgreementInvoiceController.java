@@ -24,9 +24,8 @@ import util.AlertBuilder;
 /**
  * @author Sarina Lee (z5020069)
  */
-
 public class AgreementInvoiceController extends ControllerBase {
-	
+
 	@FXML
 	private Label seekerLabel;
 	@FXML
@@ -36,7 +35,8 @@ public class AgreementInvoiceController extends ControllerBase {
 	@FXML
 	private Label dateLabel;
 	@FXML
-	private Label locationFromLabel;
+	private 
+	Label locationFromLabel;
 	@FXML
 	private Label locationToLabel;
 	@FXML
@@ -52,21 +52,13 @@ public class AgreementInvoiceController extends ControllerBase {
 	 */
 	@FXML
 	private void initialize() throws SQLException, ClassNotFoundException {		
-		//AgreementDAO aDAO = new AgreementDAO();
-	/*	Agreement a = new Agreement();
-		a.setAgreeDate(new Date(2019,1,1));
-		a.setFromPostcode(12345L);
-		a.setToPostcode(67890L);
-		a.setPayAmt(25.0f);
-		
-		showAgreementInvoice(a);  */
 		showAgreementInvoice(this.agreement);
 	}
 
 	public void setAgreement(Agreement agmt) {
 		this.agreement = agmt;
 	}
-	
+
 	public void setPaymentID(int paymentID) {
 		this.paymentID = paymentID;
 	}
@@ -84,7 +76,7 @@ public class AgreementInvoiceController extends ControllerBase {
 		} catch (NullPointerException e) {
 			dateLabel.setText("");
 		}
-		
+
 		this.paymentIDLabel.setText(Integer.toString(this.paymentID));
 
 		locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));

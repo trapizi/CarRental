@@ -36,10 +36,9 @@
               </rowConstraints>
                <children>
                   <Button mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
-                  <Button mnemonicParsing="false" onAction="#handleStuffView" text="StuffView" GridPane.rowIndex="1" />
                   <Button fx:id="viewConsultationButton" mnemonicParsing="false" onAction="#handleViewPastConsultations" text="View Consultations" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onAction="#handleAgreementsView" text="View Agreements" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#handleOfferViewEditable" text="Create Offer" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#handleOfferViewEditable" text="Create Offer" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#handleOfferView" text="Booking" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button fx:id="requestConsultationButton" mnemonicParsing="false" onAction="#handleRequestConsultation" text="Book Consultation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
