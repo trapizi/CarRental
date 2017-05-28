@@ -149,9 +149,6 @@ public class StaffAgreementController extends ControllerBase {
 				// insert agreement into the database
 				agmtDAO.insert(tempAgmt);
 
-				// need to retrieve the inserted agreement from the database to get the ID assigned to it
-				tempAgmt = agmtDAO.findById(tempAgmt.getAgreement_id());
-
 				// ensure that agmtID gets updated on the agreement details section after insert
 				agmtList.add(tempAgmt);
 
