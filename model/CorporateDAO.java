@@ -73,7 +73,6 @@ public class CorporateDAO implements TableDAO<Corporate> {
 				.addFieldValue("COMPANY_ADDRESS", corporate.getCompanyAddr())
 				.addFieldValue("COMPANY_PHONE_NO", corporate.getCompanyPhoneNumber())
 				.addFieldValue("COMPANY_POSTCODE", corporate.getCompanyPCode())
-				.addFieldValue("CUSTOMER_TYPE", corporate.getCustomerType())
 				.toString();
 
     	try {
@@ -91,7 +90,6 @@ public class CorporateDAO implements TableDAO<Corporate> {
 				.addFieldValue("COMPANY_ADDRESS", corporate.getCompanyAddr())
 				.addFieldValue("COMPANY_PHONE_NO", corporate.getCompanyPhoneNumber())
 				.addFieldValue("COMPANY_POSTCODE", corporate.getCompanyPCode())
-				.addFieldValue("CUSTOMER_TYPE", corporate.getCustomerType())
 				.where("CORPORATE_ID=" + corporate.getCorporateID())
 				.toString();
 
@@ -123,7 +121,6 @@ public class CorporateDAO implements TableDAO<Corporate> {
     			corporate.setCompanyAddr(rs.getString("COMPANY_ADDRESS"));
     			corporate.setCompanyPhoneNumber(rs.getLong("COMPANY_PHONE_NO"));
     			corporate.setCompanyPCode(rs.getLong("COMPANY_POSTCODE"));
-    			corporate.setCustomerType(rs.getInt("CUSTOMER_TYPE"));
     						
 	    		list.add(corporate);
     		} catch (SQLException e) {

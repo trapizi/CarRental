@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
  */
 public class Member extends User {		
 	private IntegerProperty memberID;
-	private ObjectProperty<Date> lastMatchDate;
+	//private ObjectProperty<Date> lastMatchDate;
 	private ObjectProperty<Date> accountExpiry;
 	private StringProperty homeAddress;
 			
@@ -31,7 +31,6 @@ public class Member extends User {
 	public Member() {
 		super();
 		this.memberID = new SimpleIntegerProperty();
-		this.lastMatchDate = new SimpleObjectProperty<Date>();
 		this.accountExpiry = new SimpleObjectProperty<Date>(); 
 		this.homeAddress = new SimpleStringProperty();
 	}
@@ -90,18 +89,6 @@ public class Member extends User {
 	
 	public IntegerProperty memberIDProperty() {
 		return memberID;
-	}
-
-	public Object getLastMatchDate() {
-		return lastMatchDate.get();
-	}
-	
-	public void setLastMatchDate(Date lastMatchDate) {
-		this.lastMatchDate.set(lastMatchDate);
-	}
-	
-	public ObjectProperty<Date> lastMatchDateProperty() {
-		return lastMatchDate;
 	}
 	
 	public Date getAccountExpiry() {

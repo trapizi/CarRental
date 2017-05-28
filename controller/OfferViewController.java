@@ -175,7 +175,6 @@ public class OfferViewController extends ControllerBase {
 
 				alert.showAndWait();
 			} catch (NumberFormatException e) {	 
-				// TODO: remove dodgy shit
 				Alert alert = AlertBuilder.createAlert(AlertType.WARNING, mainApp.getPrimaryStage(), "Error", "Invalid Destination", "Enter a valid destination."); 
 
 				alert.showAndWait();
@@ -300,7 +299,7 @@ public class OfferViewController extends ControllerBase {
 					AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Offer Selected", "Select an Offer in the table");
 
 			alert.showAndWait();
-
+			// TODO: blah
 			System.out.println("COULD NOT EDIT -- PLEASE SELECT AN OFFER");
 		}
 	}
