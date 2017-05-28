@@ -28,8 +28,6 @@ public class RegistrationDialogController extends EditControllerBase {
     private TextField phoneNoTextField; 
     @FXML
     private TextField homeAddressTextField;
-    @FXML
-    private TextField creditCardTextField;
     
     // holds the staff member being created / edited
     private Member member;
@@ -68,8 +66,7 @@ public class RegistrationDialogController extends EditControllerBase {
     		Member.validateRegistrationInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				this.homeAddressTextField.getText(), this.creditCardTextField.getText(),
-    				this.member.getMemberID());
+    				this.homeAddressTextField.getText(), this.member.getMemberID());
     		
     	} catch (InvalidInputException e) {  
     		

@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
  */
 public class Member extends User {		
 	private IntegerProperty memberID;
-	private ObjectProperty<Date> lastMatchDate;
 	private ObjectProperty<Date> accountExpiry;
 	private StringProperty homeAddress;
 			
@@ -31,7 +30,6 @@ public class Member extends User {
 	public Member() {
 		super();
 		this.memberID = new SimpleIntegerProperty();
-		this.lastMatchDate = new SimpleObjectProperty<Date>();
 		this.accountExpiry = new SimpleObjectProperty<Date>(); 
 		this.homeAddress = new SimpleStringProperty();
 	}
@@ -48,11 +46,11 @@ public class Member extends User {
 	 * Validate member registration input
 	 */
 	public static void validateInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
-			String accountExpiryDate, String homeAddress, String creditCard, int ID) 
+			String accountExpiryDate, String homeAddress, int ID) 
 			throws InvalidInputException, SQLException, ClassNotFoundException {	
 		
 		try {	
-			validateRegistrationInput(userName, password, firstName, lastName, email, phoneNoText, homeAddress, creditCard, ID);
+			validateRegistrationInput(userName, password, firstName, lastName, email, phoneNoText, homeAddress, ID);
 
 			InputValidator.validateDate(accountExpiryDate);
 			
@@ -65,14 +63,13 @@ public class Member extends User {
 	 * Validates member registration input
 	 */
 	public static void validateRegistrationInput(String userName, String password, String firstName, String lastName, String email, String phoneNoText,
-			String homeAddress, String creditCard, int ID) 
+			String homeAddress, int ID) 
 			throws InvalidInputException, SQLException, ClassNotFoundException {
 		
 		try {
 			User.validateInput(userName, password, firstName, lastName, email, phoneNoText, "MEMBER", ID);
 			
 			// TODO: validate accountExpiry, homeAddress and creditCard here
-			InputValidator.validateCreditCard(creditCard);
 			InputValidator.validateHomeAddress(homeAddress);
 			
 		} catch (Exception e) {
@@ -90,18 +87,6 @@ public class Member extends User {
 	
 	public IntegerProperty memberIDProperty() {
 		return memberID;
-	}
-
-	public Object getLastMatchDate() {
-		return lastMatchDate.get();
-	}
-	
-	public void setLastMatchDate(Date lastMatchDate) {
-		this.lastMatchDate.set(lastMatchDate);
-	}
-	
-	public ObjectProperty<Date> lastMatchDateProperty() {
-		return lastMatchDate;
 	}
 	
 	public Date getAccountExpiry() {

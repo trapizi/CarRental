@@ -168,7 +168,7 @@ public class LoginController extends ControllerBase {
      */
     private void registerMember() {
         Member tempMember = new Member();
-        boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
+        boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE, "Registration");
 
         MembershipPayment membershipPayment = new MembershipPayment();
         boolean paid = false;
@@ -177,7 +177,7 @@ public class LoginController extends ControllerBase {
         if (okClicked) {
         	// setup and show payment page
         	membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
-        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);	
+        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE, "Membership Payment");	
         }
         
         // insert member and payment details in database if valid data was entered
@@ -221,7 +221,7 @@ public class LoginController extends ControllerBase {
      */
     private void registerCorporateMember() {
         CorporateMember tempMember = new CorporateMember();
-        boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE);
+        boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE, "Registration");
 
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
@@ -229,7 +229,7 @@ public class LoginController extends ControllerBase {
         boolean paid = false;
         
         if (okClicked) {
-        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE, "Membership Payment");
         }
         	
         if (okClicked && paid) {

@@ -76,8 +76,7 @@ public class MemberEditController extends EditControllerBase {
     		Member.validateInput(
     				this.userNameTextField.getText(), this.passwordTextField.getText(), this.firstNameTextField.getText(), 
     				this.lastNameTextField.getText(), this.emailTextField.getText(), this.phoneNoTextField.getText(),
-    				this.accountExpiryTextField.getText(), this.homeAddressTextField.getText(), "DUMMY DATA",
-    				this.member.getMemberID());
+    				this.accountExpiryTextField.getText(), this.homeAddressTextField.getText(), this.member.getMemberID());
     		
     	} catch (InvalidInputException e) {  
     		
