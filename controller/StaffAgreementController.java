@@ -17,14 +17,12 @@ import mainApp.SUber;
 import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
-import model.Member;
 import util.AlertBuilder;
 
 /**
  * @author Sarina Lee (z5020069)
- * Code skeleton adapted from http://code.makery.ch/library/javafx-8-tutorial
  */
-public class AgreementController extends ControllerBase {
+public class StaffAgreementController extends ControllerBase {
 
 	@FXML
 	private TableView<Agreement> agreementTable;
@@ -51,6 +49,22 @@ public class AgreementController extends ControllerBase {
 	private Label priceLabel;
 	@FXML
 	private Label dayCreatedLabel;
+	
+
+	@FXML
+	private TextField offererField;
+	@FXML
+	private TextField seekerField;
+	@FXML
+	private TextField dateField;
+	@FXML
+	private TextField fromField;
+	@FXML
+	private TextField toField;
+	@FXML
+	private TextField priceField;
+	@FXML
+	private TextField createDayField;
 
 	// list to display onto the UI's table
 	private ObservableList<Agreement> agmtList;
@@ -89,8 +103,7 @@ public class AgreementController extends ControllerBase {
 	@FXML
 	private void search() throws SQLException, ClassNotFoundException {
 		try {
-			Member currentMember = (Member) (this.mainApp.getLoggedInAs());
-			agmtList = this.agmtDAO.findMemberAgreements(currentMember.getMemberID());
+			agmtList = this.agmtDAO.findAll();
 
 			// display results in the table
 			agreementTable.setItems(agmtList);
@@ -138,6 +151,73 @@ public class AgreementController extends ControllerBase {
 			priceLabel.setText("");
 			dayCreatedLabel.setText("");
 		}
+	}
+	
+	/**
+	 * Called when the user clicks the insert button. 
+	 * A new agreement is made and inserted into the database and UI
+	 */
+	@FXML
+	private void insertAgreement() throws SQLException, ClassNotFoundException {    	
+		Agreement tempAgreement = new Agreement();
+
+		tempAgreement.setOfferer(Integer.parseInt(offererField.getText()));
+		tempAgreement.setSeeker(Integer.parseInt(seekerField.getText()));
+		tempAgreement.setAgreeDate(dateField.getText());
+		tempAgreement.setFromPostcode(Long.parseLong(fromField.getText()));
+		tempAgreement.setToPostcode(Long.parseLong(toField.getText()));
+		tempAgreement.setPayAmt(Float.parseFloat(priceField.getText()));
+		tempAgreement.setCreateDay(createDayField.getText());
+
+		try {	   	
+			// add a new agreement to the database
+			agmtDAO.insert(tempAgreement);
+
+			// ensure that agmtID gets updated 
+			agmtList.add(tempAgreement);
+
+		} catch (SQLException | ClassNotFoundException e) {	        	
+			// Create and display alert for the database exception
+			/*    Alert alert = AlertBuilder.createAlert(
+	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Search Error", 
+	            		"Database could not complete search!", e.getMessage()); 
+
+	            alert.showAndWait();	
+			 */
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	/**
+	 * Called when the user clicks on the delete button.
+	 * Removes an agreement from the database and the UI.
+	 */
+	@FXML
+	private void deleteAgreement() throws SQLException, ClassNotFoundException {
+		int selectedIndex = agreementTable.getSelectionModel().getSelectedIndex();
+
+		if (selectedIndex >= 0) {
+			try {
+				AgreementDAO agmtDAO = new AgreementDAO();
+				//deletes the selected agreement from the database
+				agmtDAO.delete("AGREEMENT_ID=" + ((Agreement) agreementTable.getItems().get(selectedIndex)).getAgreement_id());
+
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		} else {
+			// Create and display alert when no staff is selected
+			/*       Alert alert = AlertBuilder.createAlert(
+            		AlertType.WARNING, mainApp.getPrimaryStage(), "No Selection", "No Agreement Selected", "Select an agreement in the table"); 
+
+            alert.showAndWait();  
+			 */  		
+		}
+
+		//deletes the selected agreement from the UI
+		agreementTable.getItems().remove(selectedIndex);  
 	}
 
 	public void setMainApp(SUber mainApp) {

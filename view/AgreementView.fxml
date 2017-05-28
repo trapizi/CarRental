@@ -67,7 +67,6 @@
                   <ButtonBar layoutX="97.0" layoutY="336.0" prefHeight="31.0" prefWidth="168.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
                         <Button mnemonicParsing="false" onAction="#search" text="Search" />
-                        <Button minWidth="71.0" mnemonicParsing="false" onAction="#deleteAgreement" prefHeight="17.0" text="Delete" />
                     </buttons>
                   </ButtonBar>
                </children>

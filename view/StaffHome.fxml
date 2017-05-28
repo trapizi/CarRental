@@ -34,6 +34,7 @@
             <Button mnemonicParsing="false" onAction="#handleManageStaff" text="Manage Staff" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleGenerateCorporateMailingList" text="Generate Corporate Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#handleGenerateMemberMailingList" text="Generate Member Mailing List" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleAllAgreements" text="View All Agreements" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
