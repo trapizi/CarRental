@@ -7,10 +7,12 @@ public class ConsultationPayment extends Payment {
     
     //CONSULTATION_PAYMENT table columns
     private IntegerProperty consultationPayment_id;
+    private IntegerProperty consultationNum;
     
     //CONSULTATION_PAYMENT default constructor
     public ConsultationPayment() {
         this.consultationPayment_id = new SimpleIntegerProperty();
+        this.consultationNum = new SimpleIntegerProperty();
     }
     
     //return string containing consultationPaymentID + other payment details
@@ -29,6 +31,18 @@ public class ConsultationPayment extends Payment {
     
     public IntegerProperty consultationPayment_idProperty(){
         return consultationPayment_id;
+    }
+    
+    public Integer getConsultationNum() {
+    	return consultationNum.get();
+    }
+
+    public void setConsultationNum(Integer consultationNum) {
+    	this.consultationNum.set(consultationNum);
+    }
+    
+    public IntegerProperty consultationNumProperty(){
+        return consultationNum;
     }
 
 }

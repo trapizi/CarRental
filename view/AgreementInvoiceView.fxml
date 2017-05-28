@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgreementInvoiceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="51.0" layoutY="104.0" prefHeight="282.0" prefWidth="476.0">
          <columnConstraints>
@@ -40,7 +40,7 @@
             <Label text="Offerer" GridPane.rowIndex="1" />
             <Label fx:id="offererLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Payment ID" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="paymentIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label layoutX="172.0" layoutY="14.0" prefHeight="42.0" prefWidth="249.0" text="PAYMENT SUCCESSFUL! ">

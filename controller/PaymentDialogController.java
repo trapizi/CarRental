@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.AgreementPayment;
+import model.AgreementPayment; 
 import model.AgreementPaymentDAO;
 import model.Payment;
 import util.AlertBuilder;
@@ -64,10 +66,11 @@ public class PaymentDialogController extends EditControllerBase {
 		this.accountOwnerNameField.setText(payment.getAccountOwnerName());
 		this.paymentAccountField.setText(payment.getPaymentAccount());
 		this.amountDueLabel.setText("$" + Double.toString(payment.getPaymentAmount()));
-
+                //this.paymentDateLabel.setText(payment.getPaymentDate(Calendar.getInstance())); 
+                
 		// TODO: decide whether to remove later
 		//this.accountExpiryField.setText(date.toString(agreementPayment.getAccountExpiry()));      
-	}
+        }
 
 
 	//when user clicks "Confirm Payment"
@@ -99,16 +102,14 @@ public class PaymentDialogController extends EditControllerBase {
 			throw e;
 		} 
 
-		//(2) modify agreementPayment fields if valid input entered
+		//(2) modify Payment fields if valid input entered
 		payment.setAccountOwnerName(this.accountOwnerNameField.getText());
 		payment.setPaymentAccount(this.paymentAccountField.getText());
 		payment.setPaymentType(this.paymentTypeChoiceBox.getValue());
-		payment.setPaymentType(this.accountExpiryField.getText());
-				
-		// TODO: decide what to do with these two lines
-		//agreementPayment.setPaymentType(this.paymentTypeOptionBox);
-		//agreementPayment.setAccountExpiry(this.accountExpiryField.getText());
-
+                
+        //DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        //payment.setAccountExpiry(df.parse(this.accountExpiryField.getText()));
+			
 		//(3) close edit window and set OkClicked to true
 		// close edit window
 		okClicked = true;

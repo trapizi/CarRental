@@ -10,14 +10,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import model.AgreementPayment;
 import model.CorporateMember;
 import model.CorporateMemberDAO;
 import model.Member;
 import model.MemberDAO;
 import model.MembershipPayment;
 import model.MembershipPaymentDAO;
-import model.Offer;
 import model.StaffDAO;
 import model.User;
 import util.AlertBuilder;
@@ -54,7 +52,6 @@ public class LoginController extends ControllerBase {
 	public static final String REGISTRATION_PAGE = "MemberRegistrationDialog.fxml";
 	public static final String C_MEMBER_REGISTRATION_PAGE = "CorporateMemberRegistrationDialog.fxml";
 	public static final String STAFF_HOME_PAGE = "StaffHome.fxml";
-	
 	public static final String NAVIGATION_PANEL = "NavigationPanel.fxml";
 	public static final String PAYMENT_PAGE = "PaymentView.fxml";
 	
@@ -80,28 +77,22 @@ public class LoginController extends ControllerBase {
     		boolean validLogin = user.getPassword().equals(this.passwordField.getText());
     		
     		if (!validLogin) { 
-    			// TODO: set appropriate error message on unsuccessful login
-        		this.statusLabel.setText(user.getUserName() + " " + user.getPassword());
+        		this.statusLabel.setText("Incorrect username or password entered.");
     		} else {
     			
     			// display navigation panel on the left
     	    	this.mainApp.showNavigationPanel(NAVIGATION_PANEL);
 
-    			
     			// remember who logged in
     			mainApp.setLoggedInAs(user);
     			
-    			// TODO: remove this after next page implemented
-    			System.out.println("LOGGED IN AS: " + mainApp.getLoggedInAs().getUserName());
-        		this.statusLabel.setText("Login successful.");
-
         		// displays a suitable home page based on member / corporate member / staff 
         		this.displayHomePage(user);
     		}
     		
     	// user doesn't exist
     	} catch (NullPointerException e) {
-    		this.statusLabel.setText("Incorrect username or password entered. No user found");
+    		this.statusLabel.setText("Incorrect username or password entered.");
     	}
     }
     
@@ -179,40 +170,41 @@ public class LoginController extends ControllerBase {
         Member tempMember = new Member();
         boolean okClicked = mainApp.showEditDialog(tempMember, REGISTRATION_PAGE);
 
-        // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
-        membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
+        boolean paid = false;
         
-        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        // check that registration page has been completed 
+        if (okClicked) {
+        	// setup and show payment page
+        	membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
+        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);	
+        }
         
+        // insert member and payment details in database if valid data was entered
         if (okClicked && paid) {
-        	// insert member into database
-	        try {	   	
-	        	
+        	// member insertion
+        	try {	   		        	
 	        	memberDAO.insert(tempMember);
-	        	
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
 	            		AlertType.WARNING, mainApp.getPrimaryStage(), "Registration error", 
 	            		"Could not register member!", e.getMessage()); 
-	            
 	            alert.showAndWait();	        	
 	        }
 	        
-	        // insert payment into database
+        	// payment insertion
 	        try {
 	        	// get member ID of the registered member
-	        	int memberID = memberDAO.findByUserName(tempMember.getUserName()).getMemberID();
-	        	
+	        	int memberID = (memberDAO.findByUserName(tempMember.getUserName())).getMemberID();
+	        		        	
 	        	// attach it to the payment
 	        	membershipPayment.setMemberID(memberID);
-	        	membershipPaymentDAO.insert(membershipPayment);
+	        	membershipPaymentDAO.insert(membershipPayment);				
 	        	
-	        	// TODO: remove this
-			    final String url = "jdbc:derby:DBforDEMO;create=true";
+		        // TODO: remove this later
+		        String url = "jdbc:derby:DBforDEMO;create=true";
 				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
-				
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(
@@ -230,13 +222,16 @@ public class LoginController extends ControllerBase {
     private void registerCorporateMember() {
         CorporateMember tempMember = new CorporateMember();
         boolean okClicked = mainApp.showEditDialog(tempMember, C_MEMBER_REGISTRATION_PAGE);
-        
+
         // setup and show payment page
         MembershipPayment membershipPayment = new MembershipPayment();
         membershipPayment.setPaymentAmount(this.monthlyMembershipCost);
+        boolean paid = false;
         
-        boolean paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
-        
+        if (okClicked) {
+        	paid = mainApp.showEditDialog(membershipPayment, PAYMENT_PAGE);
+        }
+        	
         if (okClicked && paid) {
 	        try {	
 	        	// NOTE: before inserting tempMember into the database does not have a memberID
@@ -263,11 +258,7 @@ public class LoginController extends ControllerBase {
 	        	
 	        	// attach it to the payment
 	        	membershipPayment.setMemberID(memberID);
-	        	membershipPaymentDAO.insert(membershipPayment);
-	        	
-			    final String url = "jdbc:derby:DBforDEMO;create=true";
-				DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBERSHIP_PAYMENT");
-				
+	        	membershipPaymentDAO.insert(membershipPayment);				
 	        } catch (SQLException | ClassNotFoundException e) {	        	
 	            // Create and display alert for the database exception
 	            Alert alert = AlertBuilder.createAlert(

@@ -23,8 +23,6 @@ public class Member extends User {
 	private IntegerProperty memberID;
 	private ObjectProperty<Date> lastMatchDate;
 	private ObjectProperty<Date> accountExpiry;
-	private FloatProperty commissionRate;
-	private StringProperty creditCard;
 	private StringProperty homeAddress;
 			
 	/**
@@ -35,8 +33,6 @@ public class Member extends User {
 		this.memberID = new SimpleIntegerProperty();
 		this.lastMatchDate = new SimpleObjectProperty<Date>();
 		this.accountExpiry = new SimpleObjectProperty<Date>(); 
-		this.commissionRate = new SimpleFloatProperty(); 
-		this.creditCard = new SimpleStringProperty(); 
 		this.homeAddress = new SimpleStringProperty();
 	}
 	
@@ -129,31 +125,7 @@ public class Member extends User {
 	public ObjectProperty<Date> accountExpiryProperty() {
 		return accountExpiry;
 	} 
-	
-	public float getCommissionRate() {
-		return commissionRate.get();
-	}
-	
-	public void setCommissionRate(float commissionRate) {
-		this.commissionRate.set(commissionRate);
-	}
-	
-	public FloatProperty commissionRateProperty() {
-		return commissionRate;
-	}
-	
-	public String getCreditCard() {
-		return creditCard.get();
-	}
-	
-	public void setCreditCard(String creditCard) {
-		this.creditCard.set(creditCard);
-	}
-	
-	public StringProperty creditCardProperty() {
-		return creditCard;
-	}
-	
+		
 	public String getHomeAddress() {
 		return homeAddress.get();
 	}

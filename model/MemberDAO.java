@@ -1,10 +1,12 @@
 package model;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.DBTablePrinter;
 import util.DBUtil;
 import util.InsertSQLBuilder;
 import util.SQLBuilder;
@@ -96,14 +98,17 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("HOME_ADDRESS", member.getHomeAddress())
     			.addFieldValue("LAST_MATCH_DATE", member.getLastMatchDate())
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
-    			.addFieldValue("COMMISSION_RATE", member.getCommissionRate())
-    			.addFieldValue("CREDIT_CARD", member.getCreditCard())
     			.toString();
 		
 		System.out.println(sqlStmt);
     			
     	try {
         	DBUtil.dbExecuteUpdate(sqlStmt);
+        	
+        	// TODO: cleanup
+			String url = "jdbc:derby:DBforDEMO;create=true";
+			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
+        	
         } catch (SQLException | ClassNotFoundException e) {
         	System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " failed.");
     		throw e;
@@ -122,8 +127,6 @@ public class MemberDAO implements TableDAO<Member> {
     			.addFieldValue("HOME_ADDRESS", member.getHomeAddress())
     			.addFieldValue("LAST_MATCH_DATE", member.getLastMatchDate())
     			.addFieldValue("ACCOUNT_EXPIRY", member.getAccountExpiry())
-    			.addFieldValue("COMMISSION_RATE", member.getCommissionRate())
-    			.addFieldValue("CREDIT_CARD", member.getCreditCard())
     			.where("MEMBER_ID=" + member.getMemberID())
     			.toString();			
     	try {
@@ -163,8 +166,6 @@ public class MemberDAO implements TableDAO<Member> {
 	    		member.setHomeAddress(rs.getString("HOME_ADDRESS"));    		
 	    		member.setLastMatchDate(rs.getDate("LAST_MATCH_DATE"));
 	    		member.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
-	    		member.setCommissionRate(rs.getFloat("COMMISSION_RATE"));
-	    		member.setCreditCard(rs.getString("CREDIT_CARD"));
 	    	
 	    		list.add(member);
     		} catch (SQLException e) {

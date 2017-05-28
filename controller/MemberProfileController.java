@@ -45,7 +45,8 @@ public class MemberProfileController extends ControllerBase {
         
         try {
             Member selectedMember = (Member) this.mainApp.getLoggedInAs();
-            boolean okClicked = mainApp.showEditDialog(selectedMember, "MemberProfileEdit.fxml");
+            // Note: LoginController.REGISTRATION_PAGE displays the view to edit 
+            boolean okClicked = mainApp.showEditDialog(selectedMember, LoginController.REGISTRATION_PAGE);
             
             if (okClicked) {
             	
@@ -57,10 +58,10 @@ public class MemberProfileController extends ControllerBase {
                 } catch (Exception e) {
                     resultText.setText("Update to database failed!\n");
                 }
-                
             }
             
             resultText.setText("Edit complete!\n");
+            
         } catch (NullPointerException e) {
         	// Create and display alert when no staff is selected
             Alert alert = AlertBuilder.createAlert(

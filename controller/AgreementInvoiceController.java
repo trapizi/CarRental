@@ -47,6 +47,7 @@ public class AgreementInvoiceController extends ControllerBase {
 	private Label dayCreatedLabel;
 
 	private Agreement agreement;
+	private int paymentID;
 
 	/**
 	 * shows details about the agreement after payment
@@ -60,12 +61,16 @@ public class AgreementInvoiceController extends ControllerBase {
 		a.setToPostcode(67890L);
 		a.setPayAmt(25.0f);
 		
-		showAgreementInvoice(a); */
+		showAgreementInvoice(a);  */
 		showAgreementInvoice(this.agreement);
 	}
 
 	public void setAgreement(Agreement agmt) {
 		this.agreement = agmt;
+	}
+	
+	public void setPaymentID(int paymentID) {
+		this.paymentID = paymentID;
 	}
 
 	/**
@@ -73,18 +78,20 @@ public class AgreementInvoiceController extends ControllerBase {
 	 */
 	private void showAgreementInvoice(Agreement agmt) {
 
-//		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
-//		offererLabel.setText(Integer.toString(agmt.getOfferer()));
+		seekerLabel.setText(Integer.toString(agmt.getSeeker()));
+		offererLabel.setText(Integer.toString(agmt.getOfferer()));
 
 		try {
 			dateLabel.setText(agmt.getAgreeDate().toString());
 		} catch (NullPointerException e) {
 			dateLabel.setText("");
 		}
+		
+		this.paymentIDLabel.setText(Integer.toString(this.paymentID));
 
 		locationFromLabel.setText(Long.toString(agmt.getFromPostcode()));
 		locationToLabel.setText(Long.toString(agmt.getToPostcode()));
-		priceLabel.setText(Float.toString(agmt.getPayAmt()));
+		priceLabel.setText("$" + Float.toString(agmt.getPayAmt()));
 
 		try {
 			dayCreatedLabel.setText(agmt.getCreateDay().toString());

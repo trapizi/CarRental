@@ -135,18 +135,6 @@ public class BingTest {
 			for (CorporateMember cm: list) {
 				System.out.println(cm.getFirstName());
 			}
-			
-			/* does not work on CORPORATE_MEMBER table due to the naming conventions of the fields in there */
-			/*
-			//DBUtil.clearTable("CORPORATE_MEMBER");
-			DBUtil.dropTable("CORPORATE_MEMBER");
-			
-			DBUtil.clearTable("MEMBER");
-			DBUtil.dropTable("MEMBER");
-			
-			DBUtil.clearTable("CORPORATE");
-			DBUtil.dropTable("CORPORATE");
-			*/
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -160,14 +148,16 @@ public class BingTest {
 			DBUtil.dropTable("CONSULTATION");
 			DBUtil.dropTable("CORPORATE_MEMBER");
 			
+			DBUtil.clearTable("MEMBERSHIP_PAYMENT");
+			DBUtil.dropTable("MEMBERSHIP_PAYMENT");
+			
 			DBUtil.clearTable("MEMBER");
-			DBUtil.dropTable("MEMBER");
+			//DBUtil.dropTable("MEMBER");
 			
 			DBUtil.clearTable("CORPORATE");
 			DBUtil.dropTable("CORPORATE");
 			
-			DBUtil.clearTable("MEMBERSHIP_PAYMENT");
-			DBUtil.dropTable("MEMBERSHIP_PAYMENT");
+
 		} catch (Exception e) {
 			throw e;
 		}

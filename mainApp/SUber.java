@@ -34,7 +34,7 @@ public class SUber extends Application {
 			this.primaryStage.setTitle("SUber");
 			
 			this.setLoggedInAs(null);
-	
+			DBUtil.dropTable("OFFER");
 			// init table
 			DBUtil.dbInitAllTables();
 	
@@ -55,16 +55,17 @@ public class SUber extends Application {
 		// add stuff to this function if you want to test tables
 		SUber.testTables();
 
-		/* add stuff to start() if you want to test UI */
 		// add stuff to start() if you want to test UI
 		try {
 			//BingTest.initMyTables();
+			DBUtil.dropTable("AGREEMENT");
 			DBUtil.dbInitAllTables();
 			DBUtil.insertDummyData();		
 			launch(args);	
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		} finally {
+			//DBUtil.dropAllTables();
 			BingTest.clearTables();
 			DBUtil.dbShutdown();
 		}

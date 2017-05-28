@@ -32,17 +32,14 @@ public class SarinaTest {
 		AgreementDAO agmtDAO = new AgreementDAO();
 
 		Agreement agmt1 = new Agreement();
-		agmt1.setStatus("pending");
 		agmt1.setPayAmt(50.0f);
 		agmt1.setSeeker(808);
 		agmt1.setOfferer(8311);
 
 		Agreement agmt2 = new Agreement();
-		agmt2.setStatus("accepted");
 		agmt2.setPayAmt(100.0f);
 		agmt2.setAgreeDate(new Date(1000,1,1));
 		agmt2.setCreateDay(new Date(1000,1,1));
-		agmt2.setInitiateBy("seeker");
 		agmt2.setToPostcode(2234L);
 		agmt2.setFromPostcode(2220L);
 		agmt2.setSeeker(505);
@@ -54,12 +51,9 @@ public class SarinaTest {
 
 			final String url = "jdbc:derby:DBforDEMO;create=true";
 			DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "AGREEMENT");
-
-
 		
 			Agreement a = agmtDAO.findById(1);
 			a.setPayAmt(20.0f);
-			a.setStatus("completed");
 			agmtDAO.update(a);	
 
 			System.out.println(a.toString());

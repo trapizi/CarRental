@@ -181,9 +181,10 @@ public class DBUtil {
         fileNames.add("seek.txt");
         fileNames.add("offer.txt");
         fileNames.add("membershipPayment.txt");
+        fileNames.add("consultationPayment.txt");
+
         // TODO: FIX THESE FILES
-        //fileNames.add("agreementPayment.txt");
-        //fileNames.add("consultationPayment.txt");
+        fileNames.add("agreementPayment.txt");
 
     	/*
     	fileNames.add("offer.txt");
@@ -203,6 +204,27 @@ public class DBUtil {
 	    		e.printStackTrace();
 	    		throw e;
 	    	}
+    	}
+    }
+    
+    public static void dropAllTables() throws SQLException, ClassNotFoundException {
+    	try {
+    		/*
+			DBUtil.dropTable("agreement");
+			DBUtil.dropTable("staff");
+			DBUtil.dropTable("member");
+			DBUtil.dropTable("corporate");
+			DBUtil.dropTable("corporateMember");
+			DBUtil.dropTable("consultation");
+			DBUtil.dropTable("seek");
+			DBUtil.dropTable("offer");
+			DBUtil.dropTable("membershipPayment");
+			DBUtil.dropTable("consultationPayment");
+			*/
+
+    		
+    	} catch (Exception e) {
+    		throw e;
     	}
     }
     
@@ -227,6 +249,9 @@ public class DBUtil {
 		m.setUserName(defaultMemberLogin);
 		m.setPassword(defaultMemberLogin);
 		memberDAO.insert(m);
+		
+	    String url = "jdbc:derby:DBforDEMO;create=true";
+		DBTablePrinter.printTable(DriverManager.getConnection(url, "demo", "demo"), "MEMBER");
 		
 		CorporateMemberDAO corporateMemberDAO = new CorporateMemberDAO();
 		Member cm = new Member();

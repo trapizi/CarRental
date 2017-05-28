@@ -55,9 +55,13 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
     //insert() 
     //inserts an consultatonPayment into the database
     public void insert(ConsultationPayment consultationPayment) throws SQLException, ClassNotFoundException {
-	String sqlStmt = new InsertSQLBuilder()
+    	
+    	System.out.println("HANGING IN INSERT\n");
+    	
+    	String sqlStmt = new InsertSQLBuilder()
             .addTable("CONSULTATION_PAYMENT")
             .addFieldValue("PAYMENT_AMOUNT", consultationPayment.getPaymentAmount())
+            .addFieldValue("CONSULTATION_NUM", consultationPayment.getConsultationNum())
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
@@ -81,6 +85,7 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
         String sqlStmt = new UpdateSQLBuilder()
             .addTable("CONSULTATION_PAYMENT")      
             .addFieldValue("PAYMENT_AMOUNT", consultationPayment.getPaymentAmount())
+            .addFieldValue("CONSULTATION_NUM", consultationPayment.getConsultationNum())
             .addFieldValue("PAYMENT_DATE", consultationPayment.getPaymentDate())
             .addFieldValue("PAYMENT_ACCOUNT", consultationPayment.getPaymentAccount())   
             .addFieldValue("PAYMENT_TYPE", consultationPayment.getPaymentType())
@@ -115,14 +120,15 @@ public class ConsultationPaymentDAO implements TableDAO<ConsultationPayment> {
     	
     	while (rs.next()) {
             try {
-                ConsultationPayment consultationPayment = new ConsultationPayment();
-                consultationPayment.setConsultationPayment_id(rs.getInt("CONSULTATION_PAYMENT_ID"));
-	    	consultationPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
-	    	consultationPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
-	    	consultationPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
-	    	consultationPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
-	    	consultationPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
-	    	consultationPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
+            	ConsultationPayment consultationPayment = new ConsultationPayment();
+            	consultationPayment.setConsultationPayment_id(rs.getInt("CONSULTATION_PAYMENT_ID"));
+            	consultationPayment.setConsultationNum(rs.getInt("CONSULTATION_NUM"));
+            	consultationPayment.setPaymentAmount(rs.getFloat("PAYMENT_AMOUNT"));
+            	consultationPayment.setPaymentDate(rs.getDate("PAYMENT_DATE"));
+            	consultationPayment.setPaymentAccount(rs.getString("PAYMENT_ACCOUNT"));
+            	consultationPayment.setPaymentType(rs.getString("PAYMENT_TYPE"));
+            	consultationPayment.setAccountExpiry(rs.getDate("ACCOUNT_EXPIRY"));
+            	consultationPayment.setAccountOwnerName(rs.getString("ACCOUNT_OWNER_NAME"));
 
                 list.add(consultationPayment);
     		} catch (SQLException e) {
