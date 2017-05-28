@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import mainApp.SUber;
-import mainApp.SarinaMain;
 import model.Agreement;
 import model.AgreementDAO;
 import model.Member;

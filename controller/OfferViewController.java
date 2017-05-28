@@ -34,7 +34,6 @@ import util.AlertBuilder;
 import util.DBTablePrinter;
 import util.InvalidInputException;
 import mainApp.SUber;
-import mainApp.Stevenmain;
 
 public class OfferViewController extends ControllerBase {
 
