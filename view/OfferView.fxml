@@ -70,7 +70,7 @@
                       <Button mnemonicParsing="false" onAction="#handleBook" text="Book" />
                     </buttons>
                   </ButtonBar>
-                  <GridPane layoutX="26.0" layoutY="38.0" prefHeight="82.0" prefWidth="384.0">
+                  <GridPane layoutX="26.0" layoutY="38.0" prefHeight="69.0" prefWidth="384.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="119.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="166.0" />

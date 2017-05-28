@@ -1,10 +1,5 @@
-/**
- * @author Xuan Huy Ngo z5076470
- */
-
 package model;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,7 +14,6 @@ import util.UpdateSQLBuilder;
 
 
 public class OfferDAO implements TableDAO<Offer>{
-
 
 	//SELECT * FROM
 	public ObservableList<Offer> findAll() throws SQLException, ClassNotFoundException {
@@ -159,7 +153,6 @@ public class OfferDAO implements TableDAO<Offer>{
      */
     
     public void delete(String condition) throws SQLException, ClassNotFoundException {
-
 		try {
     		DBUtil.dbExecuteUpdate(SQLBuilder.deleteFromCondition("OFFER", condition));
     	} catch (SQLException | ClassNotFoundException e) {

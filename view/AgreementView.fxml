@@ -45,6 +45,8 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -52,23 +54,24 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Date" />
-                        <Label text="Location From" GridPane.rowIndex="1" />
-                        <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Day Created" GridPane.rowIndex="4" />
-                        <Label fx:id="locationFromLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Price" GridPane.rowIndex="3" />
-                        <Label fx:id="dateLabel" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="dayCreatedLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Location To" GridPane.rowIndex="2" />
-                        <Label fx:id="locationToLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Date" GridPane.rowIndex="2" />
+                        <Label text="Location From" GridPane.rowIndex="3" />
+                        <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Day Created" GridPane.rowIndex="6" />
+                        <Label fx:id="locationFromLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Price" GridPane.rowIndex="5" />
+                        <Label fx:id="dateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="dayCreatedLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Location To" GridPane.rowIndex="4" />
+                        <Label fx:id="locationToLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Seeker" />
+                        <Label text="Offerer" GridPane.rowIndex="1" />
+                        <Label fx:id="seekerLabel" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="offererLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <ButtonBar layoutX="97.0" layoutY="336.0" prefHeight="31.0" prefWidth="168.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="10.0">
-                    <buttons>
-                        <Button mnemonicParsing="false" onAction="#search" text="Search" />
-                    </buttons>
-                  </ButtonBar>
+                  <ButtonBar layoutX="97.0" layoutY="336.0" prefHeight="31.0" prefWidth="168.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="10.0" />
+                  <Button layoutX="29.0" layoutY="379.0" mnemonicParsing="false" onAction="#search" text="Search" />
                </children>
             </AnchorPane>
          </items>

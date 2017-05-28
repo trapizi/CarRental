@@ -64,7 +64,7 @@ public class Offer {//extends offerList{
     }
     
     public static void validateInput(String brandTextField, String modelTextField, String carTypeTextField, String seatsTextField, String transmissionTextField,
-    		String fuelTypeTextField, String postcodeTextField, String driveDayTextField)
+    		String fuelTypeTextField, String postcodeTextField, String priceTextField, String driveDayTextField)
     		throws InvalidInputException, SQLException, ClassNotFoundException {
     	try {
     		InputValidator.validateBrand(brandTextField);
@@ -74,6 +74,7 @@ public class Offer {//extends offerList{
     		InputValidator.validateTransmission(transmissionTextField);
     		InputValidator.validateFuelType(fuelTypeTextField);
     		InputValidator.validatePostcode(postcodeTextField);
+    		InputValidator.validatePrice(priceTextField);
     		InputValidator.validateDate(driveDayTextField);
     	} catch (Exception e) {
     		throw e;

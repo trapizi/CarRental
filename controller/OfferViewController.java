@@ -7,7 +7,6 @@ package controller;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import java.time.LocalDate;
 
 import javafx.collections.FXCollections;
@@ -76,6 +75,12 @@ public class OfferViewController extends ControllerBase {
 	// magic numbers
 	private final float costPerPostcode = 8; 
 	private final int maxPostcodeDifference = 10;
+
+	private void setObject (Object o) {
+		this.offer = (Offer) o;
+
+	}
+
 	//public static String locationTo; 
 
 	/**
@@ -117,7 +122,6 @@ public class OfferViewController extends ControllerBase {
 		} 
 	}
 
-
 	/**
 	 * Search nearby cars within postcode +- 2 range.
 	 */
@@ -129,7 +133,7 @@ public class OfferViewController extends ControllerBase {
 			offerList = this.offerDAO.findByPostcode(Long.parseLong((this.filterField.getCharacters()).toString()));
 
 			if (this.destinationField.getText().isEmpty()) {
-				throw new InvalidInputException("Destination Field is null!");
+				throw new NullPointerException("Destination Field is null!");
 			} else if (Math.abs(Integer.parseInt(this.destinationField.getText()) - Integer.parseInt(this.filterField.getText())) > this.maxPostcodeDifference)  {
 				throw new InvalidInputException("Destination is too far!");
 			} else {

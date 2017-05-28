@@ -25,6 +25,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Brand" />
@@ -33,6 +34,7 @@
             <Label text="Seats" GridPane.rowIndex="3" />
             <Label text="Transmission" GridPane.rowIndex="4" />
             <Label text="Fuel Type" GridPane.rowIndex="5" />
+            <Label text="Price" GridPane.rowIndex="7" />
             <Label text="Postcode" GridPane.rowIndex="6" />
             <TextField fx:id="brandTextField" GridPane.columnIndex="1" />
             <TextField fx:id="modelTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -41,8 +43,9 @@
             <TextField fx:id="transmissionTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="fuelTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="postcodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Drive Day" GridPane.rowIndex="7" />
-            <TextField fx:id="driveDayTextField" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Drive Day" GridPane.rowIndex="8" />
+            <TextField fx:id="driveDayTextField" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <ButtonBar layoutX="386.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0">
