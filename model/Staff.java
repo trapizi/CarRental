@@ -28,7 +28,6 @@ public class Staff extends User {
 			throws InvalidInputException, SQLException, ClassNotFoundException {
 		
 		try {
-			// TODO: if this isn't a superclass, follow how to validate input in User.java
 			User.validateInput(userName, password, firstName, lastName, email, phoneNoText, "STAFF", ID);
 		} catch (Exception e) {
 			throw e;

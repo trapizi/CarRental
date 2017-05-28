@@ -11,7 +11,6 @@ public class Corporate {
 	public IntegerProperty corporateID;
     private StringProperty companyName, companyAddr;
     private LongProperty companyPhoneNumber, companyPCode;
-    // TODO: private IntegerProperty customerType;
      
     public Corporate() {
     	this.corporateID = new SimpleIntegerProperty();
