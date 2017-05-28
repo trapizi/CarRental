@@ -173,11 +173,7 @@ public final class InputValidator {
 		try{
 			Integer.parseInt(seats);
 		} catch (NumberFormatException e) {
-<<<<<<< HEAD
-			throw new InvalidInputException("Invalid amount of seats. Ensure the entered seats field only contains digits.");
-=======
 			throw new InvalidInputException("Invalid amount of seats. Seats field can only caontains digits.");
->>>>>>> 94f5c88b832acdc809d3eef7930380abb2773746
 		}
 	}
 	
